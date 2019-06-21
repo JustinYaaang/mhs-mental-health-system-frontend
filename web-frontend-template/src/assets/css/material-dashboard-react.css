@@ -293,7 +293,7 @@ footer ul li a:hover {
 }
 
 .fixed-plugin .active .fa-circle-thin {
-  color: #00bbff;
+  color: #005eb8;
 }
 
 .fixed-plugin .dropdown-menu > .active > a,
@@ -328,7 +328,7 @@ footer ul li a:hover {
 
 .fixed-plugin .badge.active,
 .fixed-plugin .badge:hover {
-  border-color: #00bbff;
+  border-color: #005eb8;
 }
 
 .fixed-plugin .badge-purple {
@@ -336,7 +336,7 @@ footer ul li a:hover {
 }
 
 .fixed-plugin .badge-blue {
-  background-color: #00bcd4;
+  background-color: #005eb8;
 }
 
 .fixed-plugin .badge-green {
@@ -445,7 +445,7 @@ footer ul li a:hover {
 
 .fixed-plugin .dropdown-menu > .active > a.img-holder,
 .fixed-plugin .dropdown-menu > .active > a.img-holder {
-  border-color: #00bbff;
+  border-color: #005eb8;
   background-color: #ffffff;
 }
 .fixed-plugin .dropdown .dropdown-menu {

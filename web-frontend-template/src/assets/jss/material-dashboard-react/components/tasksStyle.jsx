@@ -2,16 +2,48 @@ import {
   defaultFont,
   primaryColor,
   dangerColor,
-  grayColor
+  grayColor,
+  warningColor,
+  successColor,
+  infoColor,
+  roseColor
 } from "assets/jss/material-dashboard-react.jsx";
 import tooltipStyle from "assets/jss/material-dashboard-react/tooltipStyle.jsx";
 import checkboxAdnRadioStyle from "assets/jss/material-dashboard-react/checkboxAdnRadioStyle.jsx";
 const tasksStyle = {
   ...tooltipStyle,
   ...checkboxAdnRadioStyle,
+  warningTableHeader: {
+    color: warningColor[0]
+  },
+  primaryTableHeader: {
+    color: primaryColor[0]
+  },
+  dangerTableHeader: {
+    color: dangerColor[0]
+  },
+  successTableHeader: {
+    color: successColor[0]
+  },
+  infoTableHeader: {
+    color: infoColor[0]
+  },
+  roseTableHeader: {
+    color: roseColor[0]
+  },
+  grayTableHeader: {
+    color: grayColor[0]
+  },
   table: {
     marginBottom: "0",
     overflow: "visible"
+  },
+  tableHeadCell: {
+    color: "inherit",
+    ...defaultFont,
+    "&, &$tableCell": {
+      fontSize: "1em"
+    }
   },
   tableRow: {
     position: "relative",

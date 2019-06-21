@@ -7,6 +7,7 @@ import {
   roseCardHeader,
   whiteColor
 } from "assets/jss/material-dashboard-react.jsx";
+import blues from '@material-ui/core/colors/blue';
 
 const cardHeaderStyle = {
   cardHeader: {
@@ -118,7 +119,10 @@ const cardHeaderStyle = {
     "&:not($cardHeaderIcon)": {
       ...roseCardHeader
     }
-  }
+  },
+  blue: {
+    color: blues[800]
+  },
 };
 
 export default cardHeaderStyle;

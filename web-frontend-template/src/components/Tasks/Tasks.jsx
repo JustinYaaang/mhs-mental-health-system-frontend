@@ -16,6 +16,10 @@ import Close from "@material-ui/icons/Close";
 import Check from "@material-ui/icons/Check";
 // core components
 import tasksStyle from "assets/jss/material-dashboard-react/components/tasksStyle.jsx";
+// import { TableHead } from "@material-ui/core";
+import TableHead from "@material-ui/core/TableHead";
+
+
 
 class Tasks extends React.Component {
   state = {
@@ -37,20 +41,42 @@ class Tasks extends React.Component {
     });
   };
   render() {
-    const { classes, tasksIndexes, tasks, rtlActive } = this.props;
+    const { classes, tableHeaderColor, tableHead, tasks, rtlActive} = this.props;
+    console.log(tableHeaderColor)
     const tableCellClasses = classnames(classes.tableCell, {
       [classes.tableCellRTL]: rtlActive
     });
     return (
       <Table className={classes.table}>
+        {tableHead !== undefined ? (
+          <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
+            <TableRow className={classes.tableHeadRow}>
+              {tableHead.map((prop, key) => {
+                return (
+                  <TableCell
+                    className={classes.tableCell + " " + classes.tableHeadCell}
+                    key={key}
+                  >
+                    {prop}
+                  </TableCell>
+                );
+              })}
+            </TableRow>
+          </TableHead>
+        ) : null}
         <TableBody>
-          {tasksIndexes.map(value => (
-            <TableRow key={value} className={classes.tableRow}>
+          {tasks.map((value, index) => {
+            var curTasks = []
+            for(var i = 0; i < value.length; i++) {
+              curTasks.push(value[i]);
+            }
+            return (
+            <TableRow key={index} className={classes.tableRow}>
               <TableCell className={tableCellClasses}>
                 <Checkbox
-                  checked={this.state.checked.indexOf(value) !== -1}
+                  checked={this.state.checked.indexOf(index) !== -1}
                   tabIndex={-1}
-                  onClick={this.handleToggle(value)}
+                  onClick={this.handleToggle(index)}
                   checkedIcon={<Check className={classes.checkedIcon} />}
                   icon={<Check className={classes.uncheckedIcon} />}
                   classes={{
@@ -59,7 +85,11 @@ class Tasks extends React.Component {
                   }}
                 />
               </TableCell>
-              <TableCell className={tableCellClasses}>{tasks[value]}</TableCell>
+
+              {curTasks.map((value, index) => {
+                return <TableCell key={index} className={tableCellClasses}>{value}</TableCell>;
+              })}
+
               <TableCell className={classes.tableActions}>
                 <Tooltip
                   id="tooltip-top"
@@ -96,8 +126,9 @@ class Tasks extends React.Component {
                   </IconButton>
                 </Tooltip>
               </TableCell>
+
             </TableRow>
-          ))}
+          )})}
         </TableBody>
       </Table>
     );
@@ -106,10 +137,21 @@ class Tasks extends React.Component {
 
 Tasks.propTypes = {
   classes: PropTypes.object.isRequired,
-  tasksIndexes: PropTypes.arrayOf(PropTypes.number),
-  tasks: PropTypes.arrayOf(PropTypes.node),
+  tableHeaderColor: PropTypes.oneOf([
+    "warning",
+    "primary",
+    "danger",
+    "success",
+    "info",
+    "rose",
+    "gray"
+  ]),
+  tableHead: PropTypes.arrayOf(PropTypes.string),
+  tasks: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
   rtlActive: PropTypes.bool,
   checkedIndexes: PropTypes.array
+  
 };
 
 export default withStyles(tasksStyle)(Tasks);
+
