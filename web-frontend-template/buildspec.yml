@@ -8,9 +8,8 @@ phases:
         commands:
             - echo Installing source NPM dependencies...
             - pwd
-            - npm --prefix ./web-frontend-template install
-            - cd web-frontend-template
-            - ls -la
+            - npm install --prefix ./web-frontend-template
+            - cd ./web-frontend-template && ls -la
     build:
         commands:
             - echo Build started on `date`
