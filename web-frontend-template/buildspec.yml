@@ -11,7 +11,7 @@ phases:
             - npm install --prefix ./web-frontend-template
             - cd ./web-frontend-template && ls -la
             - cd ./web-frontend-template/node_modules/react-scripts/bin && ls -la 
-            - ln -s ./web-frontend-template/node_modules/.bin ./web-frontend-template/node_modules/
+#             - ln -s ./web-frontend-template/node_modules/.bin ./web-frontend-template/node_modules/
             - cd ./web-frontend-template/node_modules/.bin && ls -la 
     build:
         commands:
