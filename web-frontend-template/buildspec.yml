@@ -4,9 +4,6 @@ environment_variables:
         BUILD_ENV: "dev"
         S3_BUCKET: "nhsd.mentalhealthsystem.com"
 phases:
-    install:
-        runtime-versions:
-            nodejs: 10
     pre_build:
         commands:
             - echo Installing source NPM dependencies...
