@@ -7,11 +7,11 @@ phases:
     pre_build:
         commands:
             - echo Installing source NPM dependencies...
-            - cd web-frontend-template && npm install
+            - npm install web-frontend-template
     build:
         commands:
             - echo Build started on `date`
-            - cd web-frontend-template && npm run build
+            - npm run build web-frontend-template
     post_build:
          commands:
             - aws s3 rm s3://${S3_BUCKET} --recursive
