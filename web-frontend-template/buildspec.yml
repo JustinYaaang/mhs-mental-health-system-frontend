@@ -7,11 +7,14 @@ phases:
     pre_build:
         commands:
             - echo Installing source NPM dependencies...
-            - npm install web-frontend-template
+            - pwd
+            - npm install --prefix ./web-frontend-template
+            - cd ./web-frontend-template && ls -la
+            - cd ./web-frontend-template/node_modules/react-scripts/bin && ls -la 
     build:
         commands:
             - echo Build started on `date`
-            - npm run build web-frontend-template
+            - npm run build --prefix ./web-frontend-template
     post_build:
          commands:
             - aws s3 rm s3://${S3_BUCKET} --recursive
