@@ -21,7 +21,6 @@
     "react-swipeable-views": "0.13.3"
   },
   "scripts": {
-    "preinstall": "cd $(pwd)",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
