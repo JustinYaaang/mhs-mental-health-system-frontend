@@ -90,12 +90,12 @@ render() {
      unanswered : 8,
      waiting_patients : 18,
      percentage : 50,
-     default_questionnaires : [['id1', 'Questions1', 'Description1', 'APPROVED'],
-                     ['id2', 'Questions2', 'Description2', 'PUBLISHED'],
-                     ['id3', 'Questions3', 'Description3', 'DRAFT']],
-    custom_questionnaires : [['id4', 'Questions1', 'Description1', 'DRAFT'],
-                     ['id5', 'Questions2', 'Description2', 'PUBLISHED'],
-                     ['id6', 'Questions3', 'Description3', 'DRAFT']],
+     default_questionnaires : [['Triage To Treat', 'This questionnaire is used to triage and treat patients', 'APPROVED'],
+                     ['Camberwell Center', 'This questionnaire is used to triage and treat patients', 'PUBLISHED'],
+                     ['Triage To Refer', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
+    custom_questionnaires : [['Test Questionnaire', 'This questionnaire is used to triage and treat patientsiption1', 'DRAFT'],
+                     ['Second Test', 'This questionnaire is used to triage and treat patients', 'PUBLISHED'],
+                     ['Third Test', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
    }
 
   return (
@@ -196,8 +196,8 @@ render() {
                 tabContent: (
                   <Tasks
                     tableHeaderColor="primary"
-                    tableHead={["", "ID", "Name", "Description", "Status", "Modify"]}
-                    checkedIndexes={[0]}
+                    tableHead={["", "Name", "Description", "Status", "Modify"]}
+                    checkedIndexes={[]}
                     /* {tasks={[['Questions1', 'Description1', 'Status1'],
                     ['Questions2', 'Description2', 'Status2'],
                     ['Questions3', 'Description3', 'Status3']]} }*/
@@ -212,7 +212,7 @@ render() {
                   <Tasks
                     tableHeaderColor="primary"
                     tableHead={["", "Name", "Description", "Status", "Modify"]}
-                    checkedIndexes={[0]}
+                    checkedIndexes={[]}
                     /*tasks={[['Questions1', 'Description1', 'Status1'],
                     ['Questions2', 'Description2', 'Status2']]}*/
                     tasks={dashboardData.custom_questionnaires}

@@ -40,6 +40,16 @@ class Tasks extends React.Component {
       checked: newChecked
     });
   };
+
+  handleEditTask = value => () => {
+    // alert("Edit Clicked");
+    { document.location.href = "/questionnaire/12345"; }
+  };
+
+  handleDeleteTask = value => () => {
+    alert("Delete Clicked");
+  };
+
   render() {
     const { classes, tableHeaderColor, tableHead, tasks, rtlActive} = this.props;
     console.log(tableHeaderColor)
@@ -100,6 +110,7 @@ class Tasks extends React.Component {
                   <IconButton
                     aria-label="Edit"
                     className={classes.tableActionButton}
+                    onClick={this.handleEditTask(index)}
                   >
                     <Edit
                       className={
@@ -117,6 +128,7 @@ class Tasks extends React.Component {
                   <IconButton
                     aria-label="Close"
                     className={classes.tableActionButton}
+                    onClick={this.handleDeleteTask(index)}
                   >
                     <Close
                       className={
