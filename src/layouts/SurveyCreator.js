@@ -77,9 +77,9 @@ class SurveyCreator extends Component {
   surveyCreator;
   componentDidMount() {
     let options = { 
-      // showEmbededSurveyTab: false ,
-      // showJSONEditorTab: false,
-      // showTestSurveyTab: false,
+      showEmbededSurveyTab: true ,
+      showJSONEditorTab: true,
+      showTestSurveyTab: true,
       // questionTypes: ["text", "checkbox", "radiogroup", "dropdown", "boolean", "comment", "text"],
 
     };
