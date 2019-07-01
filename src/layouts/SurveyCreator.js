@@ -20,6 +20,7 @@ import "jquery-bar-rating";
 import "icheck/skins/square/blue.css";
 
 import * as widgets from "surveyjs-widgets";
+import postNewSurvey from "../components/BackendService/BackendService";
 
 // SurveyJSCreator.StylesManager.applyTheme("default");
 
@@ -93,7 +94,42 @@ class SurveyCreator extends Component {
     return <div id="surveyCreatorContainer" />;
   }
   saveMySurvey = () => {
-    console.log(JSON.stringify(this.surveyCreator.text));
+    var jsonString = JSON.stringify(this.surveyCreator.text);
+    
+    jsonString = jsonString.replace('\n', '');
+    console.log(jsonString);
+    var jsonBody = JSON.parse(this.surveyCreator.text);
+                // console.log("surveyJson1");
+
+
+    // console.log("!!!!!!!!!"+this.surveyCreator.text);
+    // if (jsonBody.title && jsonBody.description){
+    if (true){
+            // console.log("surveyJson");
+
+      var surveyJson = {"title": "DUMMY",
+                        "description": "DUMMY",
+                        "status": "draft",
+                        "body": "jsonBody"
+                       }
+
+      // console.log(this.surveyCreator.text);
+      // var createSurveyUrl = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS"
+      //   postNewSurvey(createSurveyUrl, surveyJson)
+      //     .then(results => {
+      //       console.log(results)
+
+      //     })
+      //     .catch(error => {
+      //       console.error(error);
+      //     });
+
+    }
+    else{
+      alert("Please define the title and description for this questionnaire in Survey Settings.");
+    }
+    
+
   };
 }
 
