@@ -20,6 +20,9 @@ import "jquery-bar-rating";
 import "icheck/skins/square/blue.css";
 
 import * as widgets from "surveyjs-widgets";
+import { title } from "assets/jss/material-dashboard-react";
+
+import axios from 'axios';
 
 // SurveyJSCreator.StylesManager.applyTheme("default");
 
@@ -57,21 +60,15 @@ defaultThemeColorsSurvey["$text-color"] = textColor;
 defaultThemeColorsSurvey["$header-color"] = headerColor;
 defaultThemeColorsSurvey["$header-background-color"] = headerBackgroundColor;
 defaultThemeColorsSurvey["$body-container-background-color"] = bodyContainerBackgroundColor;
+Survey.StylesManager.applyTheme();
 
-var defaultThemeColorsEditor = SurveyJSCreator
-    .StylesManager
-    .ThemeColors["default"];
+var defaultThemeColorsEditor = SurveyJSCreator.StylesManager.ThemeColors["default"];
 defaultThemeColorsEditor["$primary-color"] = mainColor;
 defaultThemeColorsEditor["$secondary-color"] = mainColor;
 defaultThemeColorsEditor["$primary-hover-color"] = mainHoverColor;
 defaultThemeColorsEditor["$primary-text-color"] = textColor;
 defaultThemeColorsEditor["$selection-border-color"] = mainColor;
-
-Survey.StylesManager.applyTheme();
-
-SurveyJSCreator
-    .StylesManager
-    .applyTheme();
+SurveyJSCreator.StylesManager.applyTheme();
 
 class SurveyCreator extends Component {
   surveyCreator;
