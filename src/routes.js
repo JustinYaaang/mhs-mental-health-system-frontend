@@ -10,6 +10,7 @@ import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
 import TableList from "views/TableList/TableList.jsx";
 import Typography from "views/Typography/Typography.jsx";
+import SurveyCreator from "layouts/SurveyCreator.js";
 import NotificationsPage from "views/Notifications/Notifications.jsx";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.jsx";
 import Add from "@material-ui/icons/AddCommentOutlined";
@@ -55,15 +56,16 @@ const dashboardRoutes = [
     icon: Notifications,
     component: NotificationsPage,
     layout: "/admin"
-  },
-  {
-    path: "/upgrade-to-pro",
-    name: "Add Questionnaire",
-    rtlName: "التطور للاحترافية",
-    icon: Add,
-    component: UpgradeToPro,
-    layout: "/admin"
   }
+  // ,
+  // {
+  //   path: "/create/questionnaire",
+  //   name: "Create Questionnaire",
+  //   rtlName: "التطور للاحترافية",
+  //   icon: Add,
+  //   component: SurveyCreator,
+  //   layout: "/admin"
+  // }
 ];
 
 export default dashboardRoutes;
