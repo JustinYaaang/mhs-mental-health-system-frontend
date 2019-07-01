@@ -18,7 +18,12 @@
     "react-google-maps": "9.4.5",
     "react-router-dom": "5.0.1",
     "react-scripts": "3.0.1",
-    "react-swipeable-views": "0.13.3"
+    "react-swipeable-views": "0.13.3",
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.3.1",
+    "survey-react": "latest",
+    "survey-creator": "latest",
+    "surveyjs-widgets": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
