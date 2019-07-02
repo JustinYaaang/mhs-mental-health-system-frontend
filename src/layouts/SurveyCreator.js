@@ -97,8 +97,8 @@ class SurveyCreator extends Component {
       console.log("surveyJson");
 
       var surveyJson = {
-        "title": survey_jsonRepresentation.title, //justing TODO
-        "description": survey_jsonRepresentation.description,//justing TODO,
+        "title": survey_jsonRepresentation.title, 
+        "description": survey_jsonRepresentation.description,
         "status": "DRAFT", //justing TODO
         "body": survey_StringRepresentation
       }

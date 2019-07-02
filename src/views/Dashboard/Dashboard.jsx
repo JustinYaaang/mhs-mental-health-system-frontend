@@ -49,8 +49,10 @@ import { fetchQuestionnaires, deleteQuestionnaire } from "components/BackendServ
 class Dashboard extends React.Component {
   state = {
     value: 0,
-    idList: [],
-    questionnaireList: []
+    idPublishedList: [],
+    questionnairePublishedList: [],
+    idDraftList: [],
+    questionnaireDraftList: []
   };
   handleChange = (event, value) => {
     this.setState({ value: value });
@@ -60,30 +62,54 @@ class Dashboard extends React.Component {
     this.setState({ value: index });
   };
 
-  handleEditQuestionnaireClick = (index) => {
+  handleEditQuestionnaireClick = (index, status) => {
     console.log(index);
-    const questionnaireId = this.state.idList[index];
-    { document.location.href = "/questionnaire/" + questionnaireId; }
+    if(status === 'DRAFT'){
+      const questionnaireId = this.state.idDraftList[index];
+      { document.location.href = "/questionnaire/" + questionnaireId; }
+    }
+    else if(status == 'PUBLISHED'){
+      const questionnaireId = this.state.idPublishedList[index];
+      { document.location.href = "/questionnaire/" + questionnaireId; }
+    }
+    
   };
 
-  handleDeleteQuestionnaireClick = (index) => {
+  handleDeleteQuestionnaireClick = (index, status) => {
     console.log(index);
     const questionnaireId = this.state.idList[index];
-    deleteQuestionnaire(questionnaireId).then(
-      response => {
-        const idListBuffer = this.state.idList.slice();
-        idListBuffer.splice(index, 1);
-        const questionnaireListBuffer = this.state.questionnaireList.slice();
-        questionnaireListBuffer.splice(index, 1);
-        this.setState({idList: idListBuffer, questionnaireList: questionnaireListBuffer });
-      }
-    );
+
+    if(status === 'DRAFT'){
+      const questionnaireId = this.state.idDraftList[index];
+      deleteQuestionnaire(questionnaireId).then(
+        response => {
+          const idListBuffer = this.state.idDraftList.slice();
+          idListBuffer.splice(index, 1);
+          const questionnaireListBuffer = this.state.questionnaireDraftList.slice();
+          questionnaireListBuffer.splice(index, 1);
+          this.setState({idDraftList: idListBuffer, questionnaireDraftList: questionnaireListBuffer });
+        }
+      );
+    }
+    else if(status == 'PUBLISHED'){
+      const questionnaireId = this.state.idPublishedList[index];
+      deleteQuestionnaire(questionnaireId).then(
+        response => {
+          const idListBuffer = this.state.idPublishedList.slice();
+          idListBuffer.splice(index, 1);
+          const questionnaireListBuffer = this.state.questionnairePublishedList.slice();
+          questionnaireListBuffer.splice(index, 1);
+          this.setState({idPublishedList: idListBuffer, questionnairePublishedList: questionnaireListBuffer });
+        }
+      );
+    }
   };
 
   componentWillMount() {
     fetchQuestionnaires().then(
       response => {
-        this.setState({idList: response.idList, questionnaireList: response.questionnaireList });
+        this.setState({'idDraftList': response.idDraftList, 'idPublishedList': response.idPublishedList, 
+              'questionnaireDraftList': response.questionnaireDraftList, 'questionnairePublishedList': response.questionnairePublishedList});
       }
     );
   }
@@ -120,7 +146,7 @@ class Dashboard extends React.Component {
       ['Camberwell Center', 'This questionnaire is used to triage and treat patients', 'PUBLISHED'],
       ['Triage To Refer', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
       custom_questionnaires: [['Test Questionnaire', 'This questionnaire is used to triage and treat patientsiption1', 'DRAFT'],
-      ['Second Test', 'This questionnaire is used to triage and treat patients', 'PUBLISHED'],
+      ['Second Test', 'This questionnaire is used to triage and treat patients', 'DRAFT'],
       ['Third Test', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
     }
 
@@ -217,36 +243,37 @@ class Dashboard extends React.Component {
               headerColor="info"
               tabs={[
                 {
-                  tabName: "Default",
+                  tabName: "PUBLISHED",
                   tabIcon: Grade,
                   tabContent: (
                     <Tasks
                       tableHeaderColor="primary"
-                      tableHead={["", "Name", "Description", "Status", "Modify"]}
+                      tableHead={["Name", "Description", "Status", "Modify"]}
                       checkedIndexes={[]}
                       /* {tasks={[['Questions1', 'Description1', 'Status1'],
                       ['Questions2', 'Description2', 'Status2'],
                       ['Questions3', 'Description3', 'Status3']]} }*/
                       /* tasks={dashboardData.default_questionnaires} */
-                      tasks={this.state.questionnaireList}
-                      onEditClicked={(index) => this.handleEditQuestionnaireClick(index)}
-                      onDeleteClicked={(index) => this.handleDeleteQuestionnaireClick(index)}
+                      tasks={this.state.questionnairePublishedList}
+                      onEditClicked={(index) => this.handleEditQuestionnaireClick(index, 'PUBLISHED')}
+                      onDeleteClicked={(index) => this.handleDeleteQuestionnaireClick(index, 'PUBLISHED')}
                     />
                   )
                 },
                 {
-                  tabName: "Custom",
+                  tabName: "DRAFT",
                   tabIcon: Code,
                   tabContent: (
                     <Tasks
                       tableHeaderColor="primary"
-                      tableHead={["", "Name", "Description", "Status", "Modify"]}
+                      tableHead={["Name", "Description", "Status", "Modify"]}
                       checkedIndexes={[]}
                       /*tasks={[['Questions1', 'Description1', 'Status1'],
                       ['Questions2', 'Description2', 'Status2']]}*/
-                      tasks={dashboardData.custom_questionnaires}
-                      onEditClicked={(index) => this.handleEditQuestionnaireClick(index)}
-                      onDeleteClicked={(index) => this.handleDeleteQuestionnaireClick(index)}
+                      //tasks={dashboardData.custom_questionnaires}
+                      tasks={this.state.questionnaireDraftList}
+                      onEditClicked={(index) => this.handleEditQuestionnaireClick(index, 'DRAFT')}
+                      onDeleteClicked={(index) => this.handleDeleteQuestionnaireClick(index, 'DRAFT')}
                       //onEditClicked={this.handleEditQuestionnaireClick()}
                     />
                   )
