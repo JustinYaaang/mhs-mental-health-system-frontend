@@ -547,9 +547,9 @@ class SurveyCreator extends Component {
     if (true){ //justing TODO remove this 
             // console.log("surveyJson");
 
-      var surveyJson = {"title": "DUMMY", //justing TODO
-                        "description": "DUMMY",//justing TODO,
-                        "status": "draft", //justing TODO
+      var surveyJson = {"title": survey_jsonRepresentation.title, //justing TODO
+                        "description": survey_jsonRepresentation.description,//justing TODO,
+                        "status": "DRAFT", //justing TODO
                         "body":survey_StringRepresentation 
                        }
 
