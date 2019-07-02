@@ -43,6 +43,6 @@ const fetchQuestionnaires = async () => {
     });
 }
 
-// export {postNewSurvey, fetchQuestionnaires};
-export default postNewSurvey;
+export {postNewSurvey, fetchQuestionnaires};
+// export default postNewSurvey;
 

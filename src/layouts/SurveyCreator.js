@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import * as SurveyJSCreator from "survey-creator";
-import * as SurveyKo from "survey-knockout";
 import * as Survey from "survey-react";
 import "survey-creator/survey-creator.css";
 
@@ -12,40 +11,15 @@ import "bootstrap-slider/dist/css/bootstrap-slider.css";
 import "jquery-bar-rating/dist/themes/css-stars.css";
 import "jquery-bar-rating/dist/themes/fontawesome-stars.css";
 
-import $ from "jquery";
 import "jquery-ui/ui/widgets/datepicker.js";
 import "select2/dist/js/select2.js";
 import "jquery-bar-rating";
 
 import "icheck/skins/square/blue.css";
 
-import * as widgets from "surveyjs-widgets";
-import { title } from "assets/jss/material-dashboard-react";
 
-import axios from 'axios';
-import postNewSurvey from "../components/BackendService/BackendService";
+import {postNewSurvey} from "../components/BackendService/BackendService";
 
-// SurveyJSCreator.StylesManager.applyTheme("default");
-
-// widgets.icheck(SurveyKo, $);
-// widgets.select2(SurveyKo, $);
-// widgets.inputmask(SurveyKo);
-// widgets.jquerybarrating(SurveyKo, $);
-// widgets.jqueryuidatepicker(SurveyKo, $);
-// widgets.nouislider(SurveyKo);
-// widgets.select2tagbox(SurveyKo, $);
-// widgets.signaturepad(SurveyKo);
-// widgets.sortablejs(SurveyKo);
-// widgets.ckeditor(SurveyKo);
-// widgets.autocomplete(SurveyKo, $);
-// widgets.bootstrapslider(SurveyKo);
-
-var mainColor = "#005EB8";
-var mainHoverColor = "#003087";
-var textColor = "#4a4a4a";
-var headerColor = "#005EB8";
-var headerBackgroundColor = "#4a4a4a";
-var bodyContainerBackgroundColor = "#E8EDEE";
 
 var mainColor = "#005EB8";
 var mainHoverColor = "#003087";
@@ -545,7 +519,7 @@ class SurveyCreator extends Component {
     console.log(survey_jsonRepresentation);
     var survey_StringRepresentation=JSON.stringify(survey_jsonRepresentation);
     if (true){ //justing TODO remove this 
-            // console.log("surveyJson");
+      console.log("surveyJson");
 
       var surveyJson = {"title": survey_jsonRepresentation.title, //justing TODO
                         "description": survey_jsonRepresentation.description,//justing TODO,
@@ -554,15 +528,15 @@ class SurveyCreator extends Component {
                        }
 
       // console.log(this.surveyCreator.text);
-      var createSurveyUrl = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS"
-        postNewSurvey(createSurveyUrl, surveyJson)
-          .then(results => {
-            console.log(results)
+      // var createSurveyUrl = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS"
+      //   postNewSurvey(createSurveyUrl, surveyJson)
+      //     .then(results => {
+      //       console.log(results)
 
-          })
-          .catch(error => {
-            console.error(error);
-          });
+      //     })
+      //     .catch(error => {
+      //       console.error(error);
+      //     });
 
     }
     else{
