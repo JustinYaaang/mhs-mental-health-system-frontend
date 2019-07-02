@@ -92,27 +92,26 @@ class SurveyCreator extends Component {
     jsonString = jsonString.replace('\n', '');
     var survey_jsonRepresentation = JSON.parse(this.surveyCreator.text);
     console.log(survey_jsonRepresentation);
-    var survey_StringRepresentation = JSON.stringify(survey_jsonRepresentation);
-    if (true) { //justing TODO remove this 
+
+    var survey_StringRepresentation=JSON.stringify(survey_jsonRepresentation);
+    if (survey_jsonRepresentation.title && survey_jsonRepresentation.description){ //justing TODO remove this 
       console.log("surveyJson");
 
-      var surveyJson = {
-        "title": survey_jsonRepresentation.title, //justing TODO
-        "description": survey_jsonRepresentation.description,//justing TODO,
-        "status": "DRAFT", //justing TODO
-        "body": survey_StringRepresentation
-      }
+      var surveyJson = {"title": survey_jsonRepresentation.title,
+                        "description": survey_jsonRepresentation.description,
+                        "status": "DRAFT",
+                        "body":survey_StringRepresentation 
+                       }
+      console.log(this.surveyCreator.text);
+      var createSurveyUrl = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS"
+        postNewSurvey(createSurveyUrl, surveyJson)
+          .then(results => {
+            console.log(results)
 
-      // console.log(this.surveyCreator.text);
-      // var createSurveyUrl = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS"
-      //   postNewSurvey(createSurveyUrl, surveyJson)
-      //     .then(results => {
-      //       console.log(results)
-
-      //     })
-      //     .catch(error => {
-      //       console.error(error);
-      //     });
+          })
+          .catch(error => {
+            console.error(error);
+          });
 
     }
     else {
