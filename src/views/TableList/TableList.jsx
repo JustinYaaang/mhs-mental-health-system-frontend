@@ -55,9 +55,11 @@ class TableList extends Component {
         var rows = [];
         for (var i = 0; i < fetched_data.length; i++) { 
           console.log(i);
-          var row = [fetched_data[i].title, fetched_data[i].patient_name, fetched_data[i].timestamp, fetched_data[i].score]
+          var d = new Date(fetched_data[i].timestamp);
+          var dateString = d.toString();
+          dateString = dateString.substring(0, dateString.lastIndexOf(':'));
+          var row = [fetched_data[i].title, fetched_data[i].patient_name, dateString, fetched_data[i].score]
           rows.push(row);
-          console.log(row);
         }
         this.setState( {userAnswers: rows} );
       })
@@ -80,7 +82,7 @@ class TableList extends Component {
             <CardBody>
               <Table
                 tableHeaderColor="primary"
-                tableHead={["Questionnaire Name", "Patient Name", "Time", "Final ScoreuserAnswersuserAnswers"]}
+                tableHead={["Questionnaire Name", "Patient Name", "Time", "Final Score"]}
                 tableData={this.state.userAnswers}
               />
             </CardBody>
@@ -96,4 +98,3 @@ TableList.propTypes = {
 };
 
 export default withStyles(styles)(TableList);
-userAnswersuserAnswers
