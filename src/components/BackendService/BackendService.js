@@ -1,4 +1,5 @@
 import axios from "axios";
+import { array } from "prop-types";
 
 const postNewSurvey = async (createSurveyUrl, surveyData) => {
 
@@ -37,6 +38,15 @@ const fetchQuestionnaires = async () => {
     axios.get(url)
     .then(function(response){
       console.log(response);
+      const data = response.data;
+      const idList = new Array(data.length);
+      const questionnaireList = new Array(data.length);
+      data.forEach(element => {
+        questionnaireList.concat([element.title, element.description, element.status]);
+        idList.concat(element._id);
+        return {idList, questionnaireList};
+      });
+      
     })
     .catch(function (error){
       console.log(error);
