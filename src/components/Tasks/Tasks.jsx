@@ -82,7 +82,7 @@ class Tasks extends React.Component {
             }
             return (
             <TableRow key={index} className={classes.tableRow}>
-              <TableCell className={tableCellClasses}>
+              {/* <TableCell className={tableCellClasses}>
                 <Checkbox
                   checked={this.state.checked.indexOf(index) !== -1}
                   tabIndex={-1}
@@ -94,7 +94,7 @@ class Tasks extends React.Component {
                     root: classes.root
                   }}
                 />
-              </TableCell>
+              </TableCell> */}
 
               {curTasks.map((value, index) => {
                 return <TableCell key={index} className={tableCellClasses}>{value}</TableCell>;

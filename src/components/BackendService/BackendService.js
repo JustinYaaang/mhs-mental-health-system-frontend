@@ -16,13 +16,7 @@ const postNewSurvey = async (createSurveyUrl, surveyData) => {
   }
   console.log(createSurveyUrl)
   console.log(surveyData)
-  axios.post(createSurveyUrl, 
-    // surveyData,
-    // {headers: {"Content-Type": "application/json", 
-    // "Access-Control-Allow-Origin": "*"}}
-    // )
-    surveyData
-    )
+  axios.post(createSurveyUrl, surveyData)
     .then(function (response) {
       console.log("response");
       console.log(response);
@@ -39,14 +33,24 @@ const fetchQuestionnaires = async () => {
     .then(function(response){
 
       const data = response.data.data;
-      const idList = [];
-      const questionnaireList = [];
+      const idPublishedList = [];
+      const questionnairePublishedList = [];
+      const idDraftList = [];
+      const questionnaireDraftList = [];
 
       data.forEach(element => {
-        questionnaireList.push([element.title, element.description, element.status]);
-        idList.push(element._id);
+        if (element.status === 'PUBLISHED'){
+          questionnairePublishedList.push([element.title, element.description, element.status]);
+          idPublishedList.push(element._id);
+        }
+        else if(element.status === 'DRAFT'){
+          questionnaireDraftList.push([element.title, element.description, element.status]);
+          idDraftList.push(element._id);
+        }
+        
       });
-      return {'idList': idList, 'questionnaireList': questionnaireList};
+      return {'idDraftList': idDraftList, 'idPublishedList': idPublishedList, 
+              'questionnaireDraftList': questionnaireDraftList, 'questionnairePublishedList': questionnairePublishedList};
     })
     .catch(function (error){
       console.log(error);
@@ -69,24 +73,16 @@ const fetchQuestionnaire = async (questionnaireId) => {
 
 const deleteQuestionnaire = async (questionnaireId) => {
   const url = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS/" + questionnaireId;
-  // const url = 'http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS/5d1a0d48c9acd3003068fe6b'
-  console.log(url);
-  axios.delete(url).catch((error) => {
+  return await axios({
+    method: 'delete',
+    url: url
+  }).then(function(response){
+    console.log(response);
+  })
+  .catch(function (error){
     console.log(error);
   });
-  // return await axios({
-  //   method: 'delete',
-  //   url: url
-  // }).then(function(response){
-  //   console.log(response);
-  //   // const data = response.data.data;
-  //   // return {'id': data._id, 'body': data.body};
-  // })
-  // .catch(function (error){
-  //   console.log(error);
-  // });
 }
 
 export {postNewSurvey, fetchQuestionnaires, fetchQuestionnaire, deleteQuestionnaire};
-// export default postNewSurvey;
 
