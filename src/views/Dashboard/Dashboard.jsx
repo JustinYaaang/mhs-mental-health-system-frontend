@@ -250,10 +250,6 @@ class Dashboard extends React.Component {
                       tableHeaderColor="primary"
                       tableHead={["Name", "Description", "Status", "Modify"]}
                       checkedIndexes={[]}
-                      /* {tasks={[['Questions1', 'Description1', 'Status1'],
-                      ['Questions2', 'Description2', 'Status2'],
-                      ['Questions3', 'Description3', 'Status3']]} }*/
-                      /* tasks={dashboardData.default_questionnaires} */
                       tasks={this.state.questionnairePublishedList}
                       onEditClicked={(index) => this.handleEditQuestionnaireClick(index, 'PUBLISHED')}
                       onDeleteClicked={(index) => this.handleDeleteQuestionnaireClick(index, 'PUBLISHED')}
@@ -268,13 +264,9 @@ class Dashboard extends React.Component {
                       tableHeaderColor="primary"
                       tableHead={["Name", "Description", "Status", "Modify"]}
                       checkedIndexes={[]}
-                      /*tasks={[['Questions1', 'Description1', 'Status1'],
-                      ['Questions2', 'Description2', 'Status2']]}*/
-                      //tasks={dashboardData.custom_questionnaires}
                       tasks={this.state.questionnaireDraftList}
                       onEditClicked={(index) => this.handleEditQuestionnaireClick(index, 'DRAFT')}
                       onDeleteClicked={(index) => this.handleDeleteQuestionnaireClick(index, 'DRAFT')}
-                      //onEditClicked={this.handleEditQuestionnaireClick()}
                     />
                   )
                 }
