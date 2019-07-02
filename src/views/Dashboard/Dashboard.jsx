@@ -42,6 +42,7 @@ import {
 } from "variables/charts.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
+// import { fetchQuestionnaires } from "components/BackendService/BackendService";
 
 
 
@@ -56,12 +57,62 @@ class Dashboard extends React.Component {
   handleChangeIndex = index => {
     this.setState({ value: index });
   };
+
+  fetchData() {
+
+
+  };
+
+  componentDidMount() {
+    // fetchQuestionnaires()
+    //     .then(results => {
+    //       console.log(results)
+    //     })
+    //     .catch(error => {
+    //       console.error(error);
+    //     });
+  }
+
   render() {
+    var Chartist = require("chartist");
     const { classes } = this.props;
+
+    const dashboardData = {
+      dailySalesChart: {
+        data: {
+          labels: ["M", "T", "W", "T", "F", "S", "S"],
+          series: [[12, 17, 7, 17, 23, 18, 38]]
+        },
+        options: {
+          lineSmooth: Chartist.Interpolation.cardinal({
+            tension: 0
+          }),
+          low: 0,
+          high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+          chartPadding: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+          }
+        }
+      },
+      patients_count: 100,
+      unanswered: 8,
+      waiting_patients: 18,
+      percentage: 50,
+      default_questionnaires: [['Triage To Treat', 'This questionnaire is used to triage and treat patients', 'APPROVED'],
+      ['Camberwell Center', 'This questionnaire is used to triage and treat patients', 'PUBLISHED'],
+      ['Triage To Refer', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
+      custom_questionnaires: [['Test Questionnaire', 'This questionnaire is used to triage and treat patientsiption1', 'DRAFT'],
+      ['Second Test', 'This questionnaire is used to triage and treat patients', 'PUBLISHED'],
+      ['Third Test', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
+    }
+
     return (
       <div>
         <GridContainer>
-      
+
           <GridItem xs={12} sm={6} md={4}>
             <Card>
               <CardHeader color="info" stats icon>
@@ -69,12 +120,12 @@ class Dashboard extends React.Component {
                   <All />
                 </CardIcon>
                 <p className={classes.cardCategory}>Total Questionnaires</p>
-                <h3 className={classes.cardTitle}>100</h3>
+                <h3 className={classes.cardTitle}>{dashboardData.patients_count}</h3>
               </CardHeader>
               <CardFooter stats>
                 <div className={classes.stats}>
                   <DateRange />
-                  Update today
+                  Updated today
                 </div>
               </CardFooter>
             </Card>
@@ -87,17 +138,17 @@ class Dashboard extends React.Component {
                   <Icon>info_outline</Icon>
                 </CardIcon>
                 <p className={classes.cardCategory}>Unanswered</p>
-                <h3 className={classes.cardTitle}>8</h3>
+                <h3 className={classes.cardTitle}>{dashboardData.unanswered}</h3>
               </CardHeader>
               <CardFooter stats>
                 <div className={classes.stats}>
                   <LocalOffer />
-                  Update just now
+                  Updated just now
                 </div>
               </CardFooter>
             </Card>
           </GridItem>
-          
+
           <GridItem xs={12} sm={6} md={4}>
             <Card>
               <CardHeader color="success" stats icon>
@@ -105,7 +156,7 @@ class Dashboard extends React.Component {
                   <Accessibility />
                 </CardIcon>
                 <p className={classes.cardCategory}>Waiting Patient</p>
-                <h3 className={classes.cardTitle}>18</h3>
+                <h3 className={classes.cardTitle}>{dashboardData.waiting_patients}</h3>
               </CardHeader>
               <CardFooter stats>
                 <div className={classes.stats}>
@@ -122,19 +173,19 @@ class Dashboard extends React.Component {
               <CardHeader color="success">
                 <ChartistGraph
                   className="ct-chart"
-                  data={dailySalesChart.data}
+                  data={dashboardData.dailySalesChart.data}
                   type="Line"
-                  options={dailySalesChart.options}
-                  listener={dailySalesChart.animation}
+                  options={dashboardData.dailySalesChart.options}
+                  listener={dashboardData.dailySalesChart.animation}
                 />
               </CardHeader>
               <CardBody>
                 <h4 className={classes.cardTitle}>Daily Patients Account</h4>
                 <p className={classes.cardCategory}>
                   <span className={classes.successText}>
-                    <ArrowUpward className={classes.upArrowCardCategory} /> 55%
+                    <ArrowUpward className={classes.upArrowCardCategory} />{dashboardData.percentage}%
                   </span>{" "}
-                  increase in today.
+                  increase today.
                 </p>
               </CardBody>
               <CardFooter chart>
@@ -145,7 +196,7 @@ class Dashboard extends React.Component {
             </Card>
           </GridItem>
 
-            <GridItem xs={12} sm={12} md={8}>
+          <GridItem xs={12} sm={12} md={8}>
             <CustomTabs
               title="Questionnaire:"
               headerColor="info"
@@ -156,28 +207,26 @@ class Dashboard extends React.Component {
                   tabContent: (
                     <Tasks
                       tableHeaderColor="primary"
-                      tableHead={["", "Name", "Description", "Status" ,"Modify"]}
-                      checkedIndexes={[0]}
-                      tasks={[['Questions1','Description1', 'Status1'],
-                              ['Questions2','Description2', 'Status2'],
-                              ['Questions3','Description3', 'Status3']
-                      ]}
-                    
+                      tableHead={["", "Name", "Description", "Status", "Modify"]}
+                      checkedIndexes={[]}
+                      /* {tasks={[['Questions1', 'Description1', 'Status1'],
+                      ['Questions2', 'Description2', 'Status2'],
+                      ['Questions3', 'Description3', 'Status3']]} }*/
+                      tasks={dashboardData.default_questionnaires}
                     />
                   )
                 },
                 {
-                  tabName: "Customize",
+                  tabName: "Custom",
                   tabIcon: Code,
                   tabContent: (
                     <Tasks
                       tableHeaderColor="primary"
-                      tableHead={["", "Name", "Description", "Status" ,"Modify"]}
-                      checkedIndexes={[0]}
-                      tasks={[['Questions1','Description1', 'Status1'],
-                              ['Questions2','Description2', 'Status2']
-                              
-                            ]}
+                      tableHead={["", "Name", "Description", "Status", "Modify"]}
+                      checkedIndexes={[]}
+                      /*tasks={[['Questions1', 'Description1', 'Status1'],
+                      ['Questions2', 'Description2', 'Status2']]}*/
+                      tasks={dashboardData.custom_questionnaires}
                     />
                   )
                 }
@@ -186,7 +235,7 @@ class Dashboard extends React.Component {
           </GridItem>
 
         </GridContainer>
-       {/* <GridContainer>
+        {/* <GridContainer>
           <GridItem xs={12} sm={12} md={6}>
             <CustomTabs
               title="Tasks:"

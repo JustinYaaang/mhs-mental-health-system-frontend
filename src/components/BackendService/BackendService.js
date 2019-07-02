@@ -32,5 +32,17 @@ const postNewSurvey = async (createSurveyUrl, surveyData) => {
 
 };
 
+const fetchQuestionnaires = async () => {
+    const url = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS";
+    axios.get(url)
+    .then(function(response){
+      console.log(response);
+    })
+    .catch(function (error){
+      console.log(error);
+    });
+}
+
+// export {postNewSurvey, fetchQuestionnaires};
 export default postNewSurvey;
 
