@@ -42,35 +42,50 @@ import {
 } from "variables/charts.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-// import { fetchQuestionnaires } from "components/BackendService/BackendService";
+import { fetchQuestionnaires, deleteQuestionnaire } from "components/BackendService/BackendService";
 
 
 
 class Dashboard extends React.Component {
   state = {
-    value: 0
+    value: 0,
+    idList: [],
+    questionnaireList: []
   };
   handleChange = (event, value) => {
-    this.setState({ value });
+    this.setState({ value: value });
   };
 
   handleChangeIndex = index => {
     this.setState({ value: index });
   };
 
-  fetchData() {
-
-
+  handleEditQuestionnaireClick = (index) => {
+    console.log(index);
+    const questionnaireId = this.state.idList[index];
+    { document.location.href = "/questionnaire/" + questionnaireId; }
   };
 
-  componentDidMount() {
-    // fetchQuestionnaires()
-    //     .then(results => {
-    //       console.log(results)
-    //     })
-    //     .catch(error => {
-    //       console.error(error);
-    //     });
+  handleDeleteQuestionnaireClick = (index) => {
+    console.log(index);
+    const questionnaireId = this.state.idList[index];
+    deleteQuestionnaire(questionnaireId).then(
+      response => {
+        const idListBuffer = this.state.idList.slice();
+        idListBuffer.splice(index, 1);
+        const questionnaireListBuffer = this.state.questionnaireList.slice();
+        questionnaireListBuffer.splice(index, 1);
+        this.setState({idList: idListBuffer, questionnaireList: questionnaireListBuffer });
+      }
+    );
+  };
+
+  componentWillMount() {
+    fetchQuestionnaires().then(
+      response => {
+        this.setState({idList: response.idList, questionnaireList: response.questionnaireList });
+      }
+    );
   }
 
   render() {
@@ -212,7 +227,10 @@ class Dashboard extends React.Component {
                       /* {tasks={[['Questions1', 'Description1', 'Status1'],
                       ['Questions2', 'Description2', 'Status2'],
                       ['Questions3', 'Description3', 'Status3']]} }*/
-                      tasks={dashboardData.default_questionnaires}
+                      /* tasks={dashboardData.default_questionnaires} */
+                      tasks={this.state.questionnaireList}
+                      onEditClicked={(index) => this.handleEditQuestionnaireClick(index)}
+                      onDeleteClicked={(index) => this.handleDeleteQuestionnaireClick(index)}
                     />
                   )
                 },
@@ -227,6 +245,9 @@ class Dashboard extends React.Component {
                       /*tasks={[['Questions1', 'Description1', 'Status1'],
                       ['Questions2', 'Description2', 'Status2']]}*/
                       tasks={dashboardData.custom_questionnaires}
+                      onEditClicked={(index) => this.handleEditQuestionnaireClick(index)}
+                      onDeleteClicked={(index) => this.handleDeleteQuestionnaireClick(index)}
+                      //onEditClicked={this.handleEditQuestionnaireClick()}
                     />
                   )
                 }

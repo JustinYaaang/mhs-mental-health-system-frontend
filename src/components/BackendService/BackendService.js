@@ -35,24 +35,58 @@ const postNewSurvey = async (createSurveyUrl, surveyData) => {
 
 const fetchQuestionnaires = async () => {
     const url = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS";
-    axios.get(url)
+    return await axios.get(url)
     .then(function(response){
-      console.log(response);
-      const data = response.data;
-      const idList = new Array(data.length);
-      const questionnaireList = new Array(data.length);
+
+      const data = response.data.data;
+      const idList = [];
+      const questionnaireList = [];
+
       data.forEach(element => {
-        questionnaireList.concat([element.title, element.description, element.status]);
-        idList.concat(element._id);
-        return {idList, questionnaireList};
+        questionnaireList.push([element.title, element.description, element.status]);
+        idList.push(element._id);
       });
-      
+      return {'idList': idList, 'questionnaireList': questionnaireList};
     })
     .catch(function (error){
       console.log(error);
     });
 }
 
-export {postNewSurvey, fetchQuestionnaires};
+const fetchQuestionnaire = async (questionnaireId) => {
+  const url = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS/" + questionnaireId;
+  console.log(url);
+  return await axios.get(url)
+  .then(function(response){
+
+    const data = response.data.data;
+    return {'id': data._id, 'body': data.body};
+  })
+  .catch(function (error){
+    console.log(error);
+  });
+}
+
+const deleteQuestionnaire = async (questionnaireId) => {
+  const url = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS/" + questionnaireId;
+  // const url = 'http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS/5d1a0d48c9acd3003068fe6b'
+  console.log(url);
+  axios.delete(url).catch((error) => {
+    console.log(error);
+  });
+  // return await axios({
+  //   method: 'delete',
+  //   url: url
+  // }).then(function(response){
+  //   console.log(response);
+  //   // const data = response.data.data;
+  //   // return {'id': data._id, 'body': data.body};
+  // })
+  // .catch(function (error){
+  //   console.log(error);
+  // });
+}
+
+export {postNewSurvey, fetchQuestionnaires, fetchQuestionnaire, deleteQuestionnaire};
 // export default postNewSurvey;
 
