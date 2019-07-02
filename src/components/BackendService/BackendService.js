@@ -43,6 +43,19 @@ const fetchQuestionnaires = async () => {
     });
 }
 
-export {postNewSurvey, fetchQuestionnaires};
+const fetchUserAnswers = async () => {
+  console.log("fetchUserAnswers");
+  var userAnswerUrl = "http://mhsbackend.azurewebsites.net/api/v1/patientanswers";
+  try {
+    const response = await axios.get(userAnswerUrl);
+    // return response;
+    return response.data.data;
+  } catch (error) {
+    console.log("GET server error: ", error);
+  }
+
+}
+
+export {postNewSurvey, fetchQuestionnaires, fetchUserAnswers};
 // export default postNewSurvey;
 

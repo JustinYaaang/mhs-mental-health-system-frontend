@@ -10,6 +10,7 @@ import Table from "components/Table/Table.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
+import {fetchUserAnswers} from "../../components/BackendService/BackendService";
 
 const styles = {
   cardCategoryWhite: {
@@ -44,6 +45,28 @@ const styles = {
 // work on this function
 function TableList(props) {
   const { classes } = props;
+  console.log(props);
+  var a = [];
+  fetchUserAnswers()
+      .then(fetched_data => {
+        console.log("fetched_data");
+        // console.log(fetched_data);
+        var rows = [];
+        for (var i = 0; i < fetched_data.length; i++) { 
+          console.log(i);
+          var row = [fetched_data[i].title, fetched_data[i].patient_name, fetched_data[i].timestamp, fetched_data[i].score]
+          rows.push(row);
+          // console.log(row);
+        }
+        a = rows;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
+  console.log(a);
+
+
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
@@ -66,6 +89,7 @@ function TableList(props) {
                 ["Doris Greene", "Malawi", "Feldkirchen in Kärnten", "$63,542"],
                 ["Mason Porter", "Chile", "Gloucester", "$78,615"]
               ]}
+              // tableData={a}
             />
           </CardBody>
         </Card>
@@ -112,6 +136,35 @@ function TableList(props) {
   );
 }
 
+
+function b(){
+  fetchUserAnswers()
+      .then(fetched_data => {
+        console.log("fetched_data");
+        console.log(fetched_data);
+        var rows = [];
+        for (var i = 0; i < fetched_data.length; i++) { 
+          console.log(i);
+          var row = [fetched_data[i].title, fetched_data[i].patient_name, fetched_data[i].timestamp, fetched_data[i].score]
+          rows.push(row);
+          console.log(row);
+        }
+        console.log(rows);
+        return rows;
+
+
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  // return [["Dakota Rice", "Niger", "Oud-Turnhout", "$36,738"],
+  //   ["Minerva Hooper", "Curaçao", "Sinaai-Waas", "$23,789"],
+  //   ["Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
+  //   ["Philip Chaney", "Korea, South", "Overland Park", "$38,735"],
+  //   ["Doris Greene", "Malawi", "Feldkirchen in Kärnten", "$63,542"],
+  //   ["Mason Porter", "Chile", "Gloucester", "$78,615"]
+  // ]
+}
 TableList.propTypes = {
   classes: PropTypes.object
 };
