@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import * as Survey from "survey-react";
 import "survey-react/survey.css";
-import SurveyCreator from "./SurveyCreator";
-import logo from "./logo.svg";
-import "./NewSurvey.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "jquery-ui/themes/base/all.css";
 import "nouislider/distribute/nouislider.css";
@@ -15,11 +12,9 @@ import "jquery-ui/ui/widgets/datepicker.js";
 import "select2/dist/js/select2.js";
 import "jquery-bar-rating";
 import * as widgets from "surveyjs-widgets";
-import getQuestionnaire from './BackendService';
-import sendResults from './BackendService';
 import "icheck/skins/square/blue.css";
 import axios from "axios";
-import {getAnsweredQuestionnaire} from "../../components/BackendService/BackendService";
+import {getAnsweredQuestionnaire} from "../BackendService/BackendService";
 
 
 window["$"] = window["jQuery"] = $;
@@ -42,18 +37,19 @@ widgets.bootstrapslider(Survey);
 
 class SurveyResult extends Component {
 
-   constructor(props) {
-     super(props);
-     this.state = { json: 
-       {
-         "title": "",
-         "description": "",
-         "completedHtml": "",
-         "pages": [],
-         "showProgressBar": ""
-       }
-     } ;
-    }
+  constructor(props) {
+    super(props);
+    this.state = { json: 
+      {
+        "title": "",
+        "description": "",
+        "completedHtml": "",
+        "pages": [],
+        "showProgressBar": ""
+      }
+    };
+  }
+
 
   sendResult(){
     console.log("value changed!");
@@ -134,7 +130,9 @@ class SurveyResult extends Component {
   componentWillMount() {
     console.log("componentWillMount logs");
     //const id = "5d0ce7a7fc101609e9765de61";
-
+    const { id } = this.props.match.params;
+    console.log(id);
+    
     getAnsweredQuestionnaire("5d1b61c42dc719002ffdc5fe")
         .then(fetched_data => {
           this.setState( {json:fetched_data.body} );

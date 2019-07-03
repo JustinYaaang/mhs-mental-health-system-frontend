@@ -10,6 +10,8 @@ import TableCell from "@material-ui/core/TableCell";
 // core components
 import tableStyle from "assets/jss/material-dashboard-react/components/tableStyle.jsx";
 import {getAnsweredQuestionnaire} from "../../components/BackendService/BackendService";
+import { BrowserRouter, Route } from 'react-router-dom'
+
 
 // function CustomTable({ ...props }) {
 class CustomTable extends Component {
@@ -22,10 +24,13 @@ class CustomTable extends Component {
     console.log("test_func");
     console.log(key);
     console.log(prop[4]);
-
     
     // return <Redirect to='https://tylermcginnis.com/react-router-programmatically-navigate/' />
+  }
 
+  redirectToAnswers = (prop) => {
+    console.log(prop[4]);
+    // this.props.history.push('/target')
   }
 
   render() {
@@ -51,7 +56,7 @@ class CustomTable extends Component {
           <TableBody>
             {this.props.tableData.map((prop, key) => {
               return (
-                <TableRow key={key} className={this.props.classes.tableBodyRow} onClick={() => this.test_func(prop, key)}>
+                <TableRow key={key} className={this.props.classes.tableBodyRow} onClick={() => this.redirectToAnswers(prop, key)}>
                   {prop.map((prop, key) => {
                     return (
                       <TableCell className={this.props.classes.tableCell} key={key}>
