@@ -13,6 +13,8 @@ import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 
+import Button from "components/CustomButtons/Button.jsx";
+import Add from "@material-ui/icons/AddCircle";
 import customTabsStyle from "assets/jss/material-dashboard-react/components/customTabsStyle.jsx";
 
 class CustomTabs extends React.Component {
@@ -21,6 +23,10 @@ class CustomTabs extends React.Component {
   };
   handleChange = (event, value) => {
     this.setState({ value });
+  };
+
+  handleCreateQuestionnaire = () => {
+    document.location.href = "/creator/";
   };
   render() {
     const {
@@ -41,6 +47,7 @@ class CustomTabs extends React.Component {
           {title !== undefined ? (
             <div className={cardTitle}>{title}</div>
           ) : null}
+
           <Tabs
             value={this.state.value}
             onChange={this.handleChange}
@@ -52,6 +59,7 @@ class CustomTabs extends React.Component {
             variant="scrollable"
             scrollButtons="auto"
           >
+        
             {tabs.map((prop, key) => {
               var icon = {};
               if (prop.tabIcon) {
@@ -72,7 +80,13 @@ class CustomTabs extends React.Component {
                 />
               );
             })}
+            <Button color="info" round onClick={this.handleCreateQuestionnaire}><Add /> Create
+              
+            </Button>
           </Tabs>
+
+         
+         
         </CardHeader>
         <CardBody>
           {tabs.map((prop, key) => {
