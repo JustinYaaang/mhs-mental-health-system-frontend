@@ -26,6 +26,7 @@
     "survey-react": "latest",
     "surveyjs-widgets": "latest",
     "sweetalert": "^2.1.2"
+
   },
   "scripts": {
     "start": "react-scripts start",

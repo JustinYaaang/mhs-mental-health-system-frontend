@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
 // @material-ui/core components
@@ -10,6 +10,7 @@ import Table from "components/Table/Table.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
+import {fetchUserAnswers} from "../../components/BackendService/BackendService";
 
 const styles = {
   cardCategoryWhite: {
@@ -41,74 +42,61 @@ const styles = {
   }
 };
 
-function TableList(props) {
-  const { classes } = props;
-  return (
-    <GridContainer>
-      <GridItem xs={12} sm={12} md={12}>
-        <Card>
-          <CardHeader color="primary">
-            <h4 className={classes.cardTitleWhite}>Simple Table</h4>
-            <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
-            </p>
-          </CardHeader>
-          <CardBody>
-            <Table
-              tableHeaderColor="primary"
-              tableHead={["Name", "Country", "City", "Salary"]}
-              tableData={[
-                ["Dakota Rice", "Niger", "Oud-Turnhout", "$36,738"],
-                ["Minerva Hooper", "Curaçao", "Sinaai-Waas", "$23,789"],
-                ["Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["Philip Chaney", "Korea, South", "Overland Park", "$38,735"],
-                ["Doris Greene", "Malawi", "Feldkirchen in Kärnten", "$63,542"],
-                ["Mason Porter", "Chile", "Gloucester", "$78,615"]
-              ]}
-            />
-          </CardBody>
-        </Card>
-      </GridItem>
-      <GridItem xs={12} sm={12} md={12}>
-        <Card plain>
-          <CardHeader plain color="primary">
-            <h4 className={classes.cardTitleWhite}>
-              Table on Plain Background
-            </h4>
-            <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
-            </p>
-          </CardHeader>
-          <CardBody>
-            <Table 
-              tableHeaderColor="primary"
-              tableHead={["ID", "Name", "Country", "City", "Salary"]}
-              tableData={[
-                ["1", "Dakota Rice", "$36,738", "Niger", "Oud-Turnhout"],
-                ["2", "Minerva Hooper", "$23,789", "Curaçao", "Sinaai-Waas"],
-                ["3", "Sage Rodriguez", "$56,142", "Netherlands", "Baileux"],
-                [
-                  "4",
-                  "Philip Chaney",
-                  "$38,735",
-                  "Korea, South",
-                  "Overland Park"
-                ],
-                [
-                  "5",
-                  "Doris Greene",
-                  "$63,542",
-                  "Malawi",
-                  "Feldkirchen in Kärnten"
-                ],
-                ["6", "Mason Porter", "$78,615", "Chile", "Gloucester"]
-              ]}
-            />
-          </CardBody>
-        </Card>
-      </GridItem>
-    </GridContainer>
-  );
+class TableList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { userAnswers: []
+                   // idList: []
+    } ;
+  }
+
+  componentWillMount() {
+  fetchUserAnswers()
+      .then(fetched_data => {
+        console.log(fetched_data)
+        var rows = [];
+        var ids = [];
+        for (var i = 0; i < fetched_data.length; i++) { 
+          console.log(i);
+          var d = new Date(fetched_data[i].timestamp);
+          var dateString = d.toString();
+          dateString = dateString.substring(0, dateString.lastIndexOf(':'));
+          var row = [fetched_data[i].title, fetched_data[i].patient_name, dateString, fetched_data[i].score, fetched_data[i]._id, fetched_data[i].questionnaire_id]
+          rows.push(row);
+          // ids.push(fetched_data[i]._id);
+        }
+        this.setState( {userAnswers: rows} );
+        // this.setState( {idList: ids} );   
+        // console.log(this.state.idList);   
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
+  render() {
+
+    return (
+      <GridContainer>
+        <GridItem xs={12} sm={12} md={12}>
+          <Card>
+            <CardHeader color="primary">
+              <h4 className={styles.cardTitleWhite}>User Answer Table</h4>
+              <p className={styles.cardCategoryWhite}>
+              </p>
+            </CardHeader>
+            <CardBody>
+              <Table
+                tableHeaderColor="primary"
+                tableHead={["Questionnaire Name", "Patient Name", "Time", "Final Score", "Id", "Questionnaire Id"]}
+                tableData={this.state.userAnswers}
+              />
+            </CardBody>
+          </Card>
+        </GridItem>        
+      </GridContainer>
+    );
+  }
 }
 
 TableList.propTypes = {
