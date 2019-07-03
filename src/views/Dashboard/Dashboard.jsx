@@ -33,6 +33,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
+import Swal from 'sweetalert2'
 
 //import { bugs, website, server } from "variables/general.jsx";
 
@@ -53,7 +54,8 @@ class Dashboard extends React.Component {
     idPublishedList: [],
     questionnairePublishedList: [],
     idDraftList: [],
-    questionnaireDraftList: []
+    questionnaireDraftList: [],
+    totalQuestionnaire: 0
   };
   handleChange = (event, value) => {
     this.setState({ value: value });
@@ -77,33 +79,56 @@ class Dashboard extends React.Component {
   };
 
   handleDeleteQuestionnaireClick = (index, status) => {
-    console.log(index);
-    const questionnaireId = this.state.idList[index];
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'The questionnaire will not recover',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value) {
+        if(status === 'DRAFT'){
+          const questionnaireId = this.state.idDraftList[index];
+          deleteQuestionnaire(questionnaireId).then(
+            
+            response => {
+              const idListBuffer = this.state.idDraftList.slice();
+              idListBuffer.splice(index, 1);
+              const questionnaireListBuffer = this.state.questionnaireDraftList.slice();
+              questionnaireListBuffer.splice(index, 1);
+              this.setState({idDraftList: idListBuffer, questionnaireDraftList: questionnaireListBuffer });
+            }
+          );
+        }
+        else if(status == 'PUBLISHED'){
+          const questionnaireId = this.state.idPublishedList[index];
+          deleteQuestionnaire(questionnaireId).then(
+            response => {
+              const idListBuffer = this.state.idPublishedList.slice();
+              idListBuffer.splice(index, 1);
+              const questionnaireListBuffer = this.state.questionnairePublishedList.slice();
+              questionnaireListBuffer.splice(index, 1);
+              this.setState({idPublishedList: idListBuffer, questionnairePublishedList: questionnaireListBuffer });
+            }
+          );
+        }
 
-    if(status === 'DRAFT'){
-      const questionnaireId = this.state.idDraftList[index];
-      deleteQuestionnaire(questionnaireId).then(
-        response => {
-          const idListBuffer = this.state.idDraftList.slice();
-          idListBuffer.splice(index, 1);
-          const questionnaireListBuffer = this.state.questionnaireDraftList.slice();
-          questionnaireListBuffer.splice(index, 1);
-          this.setState({idDraftList: idListBuffer, questionnaireDraftList: questionnaireListBuffer });
-        }
-      );
-    }
-    else if(status == 'PUBLISHED'){
-      const questionnaireId = this.state.idPublishedList[index];
-      deleteQuestionnaire(questionnaireId).then(
-        response => {
-          const idListBuffer = this.state.idPublishedList.slice();
-          idListBuffer.splice(index, 1);
-          const questionnaireListBuffer = this.state.questionnairePublishedList.slice();
-          questionnaireListBuffer.splice(index, 1);
-          this.setState({idPublishedList: idListBuffer, questionnairePublishedList: questionnaireListBuffer });
-        }
-      );
-    }
+        Swal.fire(
+          'Deleted!',
+          'The questionnaire has been deleted.',
+          'success',
+        )
+      // For more information about handling dismissals please visit
+      // https://sweetalert2.github.io/#handling-dismissals
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'The questionnaire is safe :)',
+          'error'
+        )
+      }
+    })
   };
 
   handleCreateNewQuestionnaireClicked = () => {
@@ -113,6 +138,8 @@ class Dashboard extends React.Component {
   componentWillMount() {
     fetchQuestionnaires().then(
       response => {
+        //console.log(response.idPublishedList.length + response.questionnaireDraftList.length);
+        this.setState({'totalQuestionnaire': response.idPublishedList.length + response.questionnaireDraftList.length})
         this.setState({'idDraftList': response.idDraftList, 'idPublishedList': response.idPublishedList, 
               'questionnaireDraftList': response.questionnaireDraftList, 'questionnairePublishedList': response.questionnairePublishedList});
       }
@@ -166,7 +193,7 @@ class Dashboard extends React.Component {
                   <All />
                 </CardIcon>
                 <p className={classes.cardCategory}>Total Questionnaires</p>
-                <h3 className={classes.cardTitle}>{dashboardData.patients_count}</h3>
+                <h3 className={classes.cardTitle}>{this.state.totalQuestionnaire}</h3>
               </CardHeader>
               <CardFooter stats>
                 <div className={classes.stats}>

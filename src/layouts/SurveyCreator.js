@@ -15,11 +15,15 @@ import "jquery-ui/ui/widgets/datepicker.js";
 import "select2/dist/js/select2.js";
 import "jquery-bar-rating";
 
+import Swal from 'sweetalert2';
 import "icheck/skins/square/blue.css";
 
 
 import { postNewSurvey } from "../components/BackendService/BackendService";
 import { fetchQuestionnaire } from "../components/BackendService/BackendService";
+import Button from "components/CustomButtons/Button.jsx";
+import Hidden from "@material-ui/core/Hidden";
+import Dashboard from "@material-ui/icons/Dashboard";
 
 var mainColor = "#005EB8";
 var mainHoverColor = "#003087";
@@ -81,8 +85,18 @@ class SurveyCreator extends Component {
     this.surveyCreator.saveSurveyFunc = this.saveMySurvey;
   }
 
+  handleDashboard = () => {
+    document.location.href = "/admin/dashboard/";
+  };
+
   render() {
-    return <div id="surveyCreatorContainer" />;
+    
+    return(
+      <div>
+        <Button round color="info" onClick={this.handleDashboard}><Dashboard />Dashboard</Button>
+        <Button justIcon round color="info" onClick={this.handleDashboard}><Dashboard /></Button>
+        <div id="surveyCreatorContainer"></div>
+    </div>);
   }
 
   saveMySurvey = () => {
@@ -97,7 +111,6 @@ class SurveyCreator extends Component {
       console.log("surveyJson");
 
       const { id } = this.props.match.params;
-
       var surveyJson = {
                         "id": (id !== undefined) ? id : "",
                         "title": survey_jsonRepresentation.title,
@@ -110,18 +123,29 @@ class SurveyCreator extends Component {
         postNewSurvey(createSurveyUrl, surveyJson)
           .then(results => {
             console.log(results)
-
+            {document.location.href = '/admin/dashboard/'}
           })
           .catch(error => {
             console.error(error);
           });
 
+          Swal.fire({
+            type: 'success',
+            title: 'Saved',
+            showConfirmButton: false,
+            timer: 1500
+          })
+
+          
+
     }
     else {
-      alert("Please define the title and description for this questionnaire in Survey Settings.");
+      Swal.fire({
+        type: 'error',
+        text: 'Something went wrong!',
+        footer: 'Please define the title and description for this questionnaire in Survey Settings.</a>'
+      })
     }
-
-
   };
 }
 

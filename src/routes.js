@@ -57,15 +57,7 @@ const dashboardRoutes = [
     component: NotificationsPage,
     layout: "/admin"
   }
-  ,
-  {
-    path: "/",
-    name: "Create Questionnaire",
-    rtlName: "التطور للاحترافية",
-    icon: Add,
-    component: SurveyCreator,
-    layout: "/admin"
-  }
+
 ];
 
 export default dashboardRoutes;
