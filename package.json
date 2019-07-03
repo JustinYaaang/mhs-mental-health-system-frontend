@@ -24,7 +24,8 @@
     "react-swipeable-views": "0.13.3",
     "survey-creator": "latest",
     "survey-react": "latest",
-    "surveyjs-widgets": "latest"
+    "surveyjs-widgets": "latest",
+    "sweetalert": "^2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",

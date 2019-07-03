@@ -15,9 +15,9 @@ import "jquery-ui/ui/widgets/datepicker.js";
 import "select2/dist/js/select2.js";
 import "jquery-bar-rating";
 
-import Swal from 'sweetalert2';
-import "icheck/skins/square/blue.css";
+import swal from 'sweetalert';
 
+import "icheck/skins/square/blue.css";
 
 import { postNewSurvey } from "../components/BackendService/BackendService";
 import { fetchQuestionnaire } from "../components/BackendService/BackendService";
@@ -107,44 +107,77 @@ class SurveyCreator extends Component {
     console.log(survey_jsonRepresentation);
 
     var survey_StringRepresentation=JSON.stringify(survey_jsonRepresentation);
+
     if (survey_jsonRepresentation.title && survey_jsonRepresentation.description){ //justing TODO remove this 
       console.log("surveyJson");
 
       const { id } = this.props.match.params;
-      var surveyJson = {
-                        "id": (id !== undefined) ? id : "",
-                        "title": survey_jsonRepresentation.title,
-                        "description": survey_jsonRepresentation.description,
-                        "status": "DRAFT",
-                        "body":survey_StringRepresentation 
-                       }
-      console.log(this.surveyCreator.text);
-      var createSurveyUrl = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS"
-        postNewSurvey(createSurveyUrl, surveyJson)
-          .then(results => {
-            console.log(results)
-            {document.location.href = '/admin/dashboard/'}
+
+
+          swal("Select your choice", {
+            buttons: {
+              cancel: "Cancel",
+              Save: true,
+              catch: {
+                text: "Publish!",
+                value: "catch",
+              },
+            },
           })
-          .catch(error => {
-            console.error(error);
+          .then((value) => {
+            switch (value) {
+           
+              case "Save":
+                swal("Saved Successfully!");
+                var surveyJson = {
+                  "id": (id !== undefined) ? id : "",
+                  "title": survey_jsonRepresentation.title,
+                  "description": survey_jsonRepresentation.description,
+                  "status": "DRAFT",
+                  "body":survey_StringRepresentation 
+                 }
+                console.log(this.surveyCreator.text);
+                var createSurveyUrl = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS"
+                  postNewSurvey(createSurveyUrl, surveyJson)
+                    .then(results => {
+                      console.log(results)
+                      {document.location.href = '/admin/dashboard/'}
+                    })
+                    .catch(error => {
+                      console.error(error);
+                    });
+                break;
+           
+              case "catch":
+                swal("Greate!", "The questionnaire published", "success");
+                var surveyJson = {
+                  "id": (id !== undefined) ? id : "",
+                  "title": survey_jsonRepresentation.title,
+                  "description": survey_jsonRepresentation.description,
+                  "status": "PUBLISHED",
+                  "body":survey_StringRepresentation 
+                 }
+                console.log(this.surveyCreator.text);
+                var createSurveyUrl = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS"
+                  postNewSurvey(createSurveyUrl, surveyJson)
+                    .then(results => {
+                      console.log(results)
+                      {document.location.href = '/admin/dashboard/'}
+                    })
+                    .catch(error => {
+                      console.error(error);
+                    });
+                break;
+           
+              default:
+        
+            }
           });
-
-          Swal.fire({
-            type: 'success',
-            title: 'Saved',
-            showConfirmButton: false,
-            timer: 1500
-          })
-
           
 
     }
     else {
-      Swal.fire({
-        type: 'error',
-        text: 'Something went wrong!',
-        footer: 'Please define the title and description for this questionnaire in Survey Settings.</a>'
-      })
+      swal("Error!", "Enter Title and Description in settings!", "warning");
     }
   };
 }
