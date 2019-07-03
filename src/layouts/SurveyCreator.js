@@ -55,7 +55,6 @@ class SurveyCreator extends Component {
 
   componentWillMount() {
     const { id } = this.props.match.params;
-    // console.log("id: " + id);
     if (id !== undefined) {
       fetchQuestionnaire(id).then(
         response => {
@@ -97,18 +96,11 @@ class SurveyCreator extends Component {
     if (survey_jsonRepresentation.title && survey_jsonRepresentation.description){ //justing TODO remove this 
       console.log("surveyJson");
 
+      const { id } = this.props.match.params;
 
-      // console.log(this.surveyCreator.text);
-      // var createSurveyUrl = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS"
-      //   postNewSurvey(createSurveyUrl, surveyJson)
-      //     .then(results => {
-      //       console.log(results)
-
-      //     })
-      //     .catch(error => {
-      //       console.error(error);
-      //     });
-      var surveyJson = {"title": survey_jsonRepresentation.title,
+      var surveyJson = {
+                        "id": (id !== undefined) ? id : "",
+                        "title": survey_jsonRepresentation.title,
                         "description": survey_jsonRepresentation.description,
                         "status": "DRAFT",
                         "body":survey_StringRepresentation 
