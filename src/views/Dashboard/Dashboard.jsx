@@ -18,6 +18,7 @@ import Accessibility from "@material-ui/icons/Accessibility";
 //import BugReport from "@material-ui/icons/BugReport";
 import Grade from "@material-ui/icons/Grade";
 import Code from "@material-ui/icons/Code";
+import Add from "@material-ui/icons/Add";
 //import Cloud from "@material-ui/icons/Cloud";
 import All from "@material-ui/icons/AllInboxOutlined";
 // core components
@@ -133,7 +134,7 @@ class Dashboard extends React.Component {
   handleCreateNewQuestionnaireClicked = () => {
     { document.location.href = "/questionnaire/"; }
   };
-  
+
   componentWillMount() {
     fetchQuestionnaires().then(
       response => {
@@ -270,7 +271,7 @@ class Dashboard extends React.Component {
 
           <GridItem xs={12} sm={12} md={8}>
             <CustomTabs
-              title="Questionnaire:"
+              title="Questionnaires :"
               headerColor="info"
               onCreateNewClicked={() => this.handleCreateNewQuestionnaireClicked()}
               tabs={[

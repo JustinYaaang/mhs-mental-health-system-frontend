@@ -59,7 +59,6 @@ class SurveyCreator extends Component {
 
   componentWillMount() {
     const { id } = this.props.match.params;
-    // console.log("id: " + id);
     if (id !== undefined) {
       fetchQuestionnaire(id).then(
         response => {
@@ -112,7 +111,6 @@ class SurveyCreator extends Component {
       console.log("surveyJson");
 
       const { id } = this.props.match.params;
-      
       var surveyJson = {
                         "id": (id !== undefined) ? id : "",
                         "title": survey_jsonRepresentation.title,

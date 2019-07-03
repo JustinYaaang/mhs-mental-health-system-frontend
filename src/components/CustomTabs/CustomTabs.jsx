@@ -47,7 +47,6 @@ class CustomTabs extends React.Component {
           {title !== undefined ? (
             <div className={cardTitle}>{title}</div>
           ) : null}
-
           <Tabs
             value={this.state.value}
             onChange={this.handleChange}
@@ -84,10 +83,7 @@ class CustomTabs extends React.Component {
             
             <Button color="info" round onClick={() => this.props.onCreateNewClicked()}><Add /> Create
             </Button>
-          </Tabs>
-
-         
-         
+        </Tabs>
         </CardHeader>
         <CardBody>
           {tabs.map((prop, key) => {

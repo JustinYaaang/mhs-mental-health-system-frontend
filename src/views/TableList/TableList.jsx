@@ -80,7 +80,7 @@ function TableList(props) {
             </p>
           </CardHeader>
           <CardBody>
-            <Table
+            <Table 
               tableHeaderColor="primary"
               tableHead={["ID", "Name", "Country", "City", "Salary"]}
               tableData={[
