@@ -512,9 +512,6 @@ class SurveyCreator extends Component {
   }
 
   saveMySurvey = () => {
-    var jsonString = JSON.stringify(this.surveyCreator.text);
-    
-    jsonString = jsonString.replace('\n', '');
     var survey_jsonRepresentation=JSON.parse(this.surveyCreator.text);
     console.log(survey_jsonRepresentation);
     var survey_StringRepresentation=JSON.stringify(survey_jsonRepresentation);
