@@ -33,7 +33,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import Swal from 'sweetalert2'
+import swal from 'sweetalert'
 
 //import { bugs, website, server } from "variables/general.jsx";
 
@@ -79,15 +79,19 @@ class Dashboard extends React.Component {
   };
 
   handleDeleteQuestionnaireClick = (index, status) => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: 'The questionnaire will not recover',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, keep it'
-    }).then((result) => {
-      if (result.value) {
+    swal({
+      title: "Are you sure?",
+      text: "The questionnaire cannot recover!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        swal("The questionnaire has been deleted!", {
+          icon: "success",
+        });
+
         if(status === 'DRAFT'){
           const questionnaireId = this.state.idDraftList[index];
           deleteQuestionnaire(questionnaireId).then(
@@ -113,22 +117,11 @@ class Dashboard extends React.Component {
             }
           );
         }
-
-        Swal.fire(
-          'Deleted!',
-          'The questionnaire has been deleted.',
-          'success',
-        )
-      // For more information about handling dismissals please visit
-      // https://sweetalert2.github.io/#handling-dismissals
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          'Cancelled',
-          'The questionnaire is safe :)',
-          'error'
-        )
+      } else {
+        swal("The questionnaire is safe!");
       }
-    })
+    });
+    
   };
 
   handleCreateNewQuestionnaireClicked = () => {
