@@ -130,6 +130,10 @@ class Dashboard extends React.Component {
     })
   };
 
+  handleCreateNewQuestionnaireClicked = () => {
+    { document.location.href = "/questionnaire/"; }
+  };
+  
   componentWillMount() {
     fetchQuestionnaires().then(
       response => {
@@ -268,6 +272,7 @@ class Dashboard extends React.Component {
             <CustomTabs
               title="Questionnaire:"
               headerColor="info"
+              onCreateNewClicked={() => this.handleCreateNewQuestionnaireClicked()}
               tabs={[
                 {
                   tabName: "PUBLISHED",

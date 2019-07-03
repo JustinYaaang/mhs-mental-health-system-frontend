@@ -60,6 +60,7 @@ class CustomTabs extends React.Component {
             scrollButtons="auto"
           >
         
+           
             {tabs.map((prop, key) => {
               var icon = {};
               if (prop.tabIcon) {
@@ -80,8 +81,8 @@ class CustomTabs extends React.Component {
                 />
               );
             })}
-            <Button color="info" round onClick={this.handleCreateQuestionnaire}><Add /> Create
-              
+            
+            <Button color="info" round onClick={() => this.props.onCreateNewClicked()}><Add /> Create
             </Button>
           </Tabs>
 
@@ -116,7 +117,8 @@ CustomTabs.propTypes = {
     PropTypes.shape({
       tabName: PropTypes.string.isRequired,
       tabIcon: PropTypes.object,
-      tabContent: PropTypes.node.isRequired
+      // tabContent: PropTypes.node.isRequired
+      tabContent: PropTypes.node
     })
   ),
   rtlActive: PropTypes.bool,

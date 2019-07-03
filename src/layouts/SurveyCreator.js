@@ -111,18 +111,11 @@ class SurveyCreator extends Component {
     if (survey_jsonRepresentation.title && survey_jsonRepresentation.description){ //justing TODO remove this 
       console.log("surveyJson");
 
-
-      // console.log(this.surveyCreator.text);
-      // var createSurveyUrl = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS"
-      //   postNewSurvey(createSurveyUrl, surveyJson)
-      //     .then(results => {
-      //       console.log(results)
-
-      //     })
-      //     .catch(error => {
-      //       console.error(error);
-      //     });
-      var surveyJson = {"title": survey_jsonRepresentation.title,
+      const { id } = this.props.match.params;
+      
+      var surveyJson = {
+                        "id": (id !== undefined) ? id : "",
+                        "title": survey_jsonRepresentation.title,
                         "description": survey_jsonRepresentation.description,
                         "status": "DRAFT",
                         "body":survey_StringRepresentation 
