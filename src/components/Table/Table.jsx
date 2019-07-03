@@ -30,6 +30,8 @@ class CustomTable extends Component {
 
   redirectToAnswers = (prop) => {
     console.log(prop[4]);
+    const questionnaireResponseId = prop[4];
+    { document.location.href = '/patientanswers/'+ questionnaireResponseId };
     // this.props.history.push('/target')
   }
 
