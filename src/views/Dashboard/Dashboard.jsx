@@ -18,6 +18,7 @@ import Accessibility from "@material-ui/icons/Accessibility";
 //import BugReport from "@material-ui/icons/BugReport";
 import Grade from "@material-ui/icons/Grade";
 import Code from "@material-ui/icons/Code";
+import Add from "@material-ui/icons/Add";
 //import Cloud from "@material-ui/icons/Cloud";
 import All from "@material-ui/icons/AllInboxOutlined";
 // core components
@@ -32,6 +33,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
+import Swal from 'sweetalert2'
 
 //import { bugs, website, server } from "variables/general.jsx";
 
@@ -42,35 +44,106 @@ import {
 } from "variables/charts.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-// import { fetchQuestionnaires } from "components/BackendService/BackendService";
+import { fetchQuestionnaires, deleteQuestionnaire } from "components/BackendService/BackendService";
 
 
 
 class Dashboard extends React.Component {
   state = {
-    value: 0
+    value: 0,
+    idPublishedList: [],
+    questionnairePublishedList: [],
+    idDraftList: [],
+    questionnaireDraftList: [],
+    totalQuestionnaire: 0
   };
   handleChange = (event, value) => {
-    this.setState({ value });
+    this.setState({ value: value });
   };
 
   handleChangeIndex = index => {
     this.setState({ value: index });
   };
 
-  fetchData() {
-
-
+  handleEditQuestionnaireClick = (index, status) => {
+    console.log(index);
+    if(status === 'DRAFT'){
+      const questionnaireId = this.state.idDraftList[index];
+      { document.location.href = "/questionnaire/" + questionnaireId; }
+    }
+    else if(status == 'PUBLISHED'){
+      const questionnaireId = this.state.idPublishedList[index];
+      { document.location.href = "/questionnaire/" + questionnaireId; }
+    }
+    
   };
 
-  componentDidMount() {
-    // fetchQuestionnaires()
-    //     .then(results => {
-    //       console.log(results)
-    //     })
-    //     .catch(error => {
-    //       console.error(error);
-    //     });
+  handleDeleteQuestionnaireClick = (index, status) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'The questionnaire will not recover',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value) {
+        if(status === 'DRAFT'){
+          const questionnaireId = this.state.idDraftList[index];
+          deleteQuestionnaire(questionnaireId).then(
+            
+            response => {
+              const idListBuffer = this.state.idDraftList.slice();
+              idListBuffer.splice(index, 1);
+              const questionnaireListBuffer = this.state.questionnaireDraftList.slice();
+              questionnaireListBuffer.splice(index, 1);
+              this.setState({idDraftList: idListBuffer, questionnaireDraftList: questionnaireListBuffer });
+            }
+          );
+        }
+        else if(status == 'PUBLISHED'){
+          const questionnaireId = this.state.idPublishedList[index];
+          deleteQuestionnaire(questionnaireId).then(
+            response => {
+              const idListBuffer = this.state.idPublishedList.slice();
+              idListBuffer.splice(index, 1);
+              const questionnaireListBuffer = this.state.questionnairePublishedList.slice();
+              questionnaireListBuffer.splice(index, 1);
+              this.setState({idPublishedList: idListBuffer, questionnairePublishedList: questionnaireListBuffer });
+            }
+          );
+        }
+
+        Swal.fire(
+          'Deleted!',
+          'The questionnaire has been deleted.',
+          'success',
+        )
+      // For more information about handling dismissals please visit
+      // https://sweetalert2.github.io/#handling-dismissals
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'The questionnaire is safe :)',
+          'error'
+        )
+      }
+    })
+  };
+
+  handleCreateNewQuestionnaireClicked = () => {
+    { document.location.href = "/questionnaire/"; }
+  };
+
+  componentWillMount() {
+    fetchQuestionnaires().then(
+      response => {
+        //console.log(response.idPublishedList.length + response.questionnaireDraftList.length);
+        this.setState({'totalQuestionnaire': response.idPublishedList.length + response.questionnaireDraftList.length})
+        this.setState({'idDraftList': response.idDraftList, 'idPublishedList': response.idPublishedList, 
+              'questionnaireDraftList': response.questionnaireDraftList, 'questionnairePublishedList': response.questionnairePublishedList});
+      }
+    );
   }
 
   render() {
@@ -105,7 +178,7 @@ class Dashboard extends React.Component {
       ['Camberwell Center', 'This questionnaire is used to triage and treat patients', 'PUBLISHED'],
       ['Triage To Refer', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
       custom_questionnaires: [['Test Questionnaire', 'This questionnaire is used to triage and treat patientsiption1', 'DRAFT'],
-      ['Second Test', 'This questionnaire is used to triage and treat patients', 'PUBLISHED'],
+      ['Second Test', 'This questionnaire is used to triage and treat patients', 'DRAFT'],
       ['Third Test', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
     }
 
@@ -120,7 +193,7 @@ class Dashboard extends React.Component {
                   <All />
                 </CardIcon>
                 <p className={classes.cardCategory}>Total Questionnaires</p>
-                <h3 className={classes.cardTitle}>{dashboardData.patients_count}</h3>
+                <h3 className={classes.cardTitle}>{this.state.totalQuestionnaire}</h3>
               </CardHeader>
               <CardFooter stats>
                 <div className={classes.stats}>
@@ -198,38 +271,38 @@ class Dashboard extends React.Component {
 
           <GridItem xs={12} sm={12} md={8}>
             <CustomTabs
-              title="Questionnaire:"
+              title="Questionnaires :"
               headerColor="info"
+              onCreateNewClicked={() => this.handleCreateNewQuestionnaireClicked()}
               tabs={[
                 {
-                  tabName: "Default",
+                  tabName: "PUBLISHED",
                   tabIcon: Grade,
                   tabContent: (
                     <Tasks
                       tableHeaderColor="primary"
-                      tableHead={["", "Name", "Description", "Status", "Modify"]}
+                      tableHead={["Name", "Description", "Status", "Modify"]}
                       checkedIndexes={[]}
-                      /* {tasks={[['Questions1', 'Description1', 'Status1'],
-                      ['Questions2', 'Description2', 'Status2'],
-                      ['Questions3', 'Description3', 'Status3']]} }*/
-                      tasks={dashboardData.default_questionnaires}
+                      tasks={this.state.questionnairePublishedList}
+                      onEditClicked={(index) => this.handleEditQuestionnaireClick(index, 'PUBLISHED')}
+                      onDeleteClicked={(index) => this.handleDeleteQuestionnaireClick(index, 'PUBLISHED')}
                     />
                   )
                 },
                 {
-                  tabName: "Custom",
+                  tabName: "DRAFT",
                   tabIcon: Code,
                   tabContent: (
                     <Tasks
                       tableHeaderColor="primary"
-                      tableHead={["", "Name", "Description", "Status", "Modify"]}
+                      tableHead={["Name", "Description", "Status", "Modify"]}
                       checkedIndexes={[]}
-                      /*tasks={[['Questions1', 'Description1', 'Status1'],
-                      ['Questions2', 'Description2', 'Status2']]}*/
-                      tasks={dashboardData.custom_questionnaires}
+                      tasks={this.state.questionnaireDraftList}
+                      onEditClicked={(index) => this.handleEditQuestionnaireClick(index, 'DRAFT')}
+                      onDeleteClicked={(index) => this.handleDeleteQuestionnaireClick(index, 'DRAFT')}
                     />
                   )
-                }
+                },
               ]}
             />
           </GridItem>

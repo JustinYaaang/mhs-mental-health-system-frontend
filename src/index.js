@@ -18,6 +18,7 @@ ReactDOM.render(
     <Switch>
       <Route path="/admin" component={Admin} />
       <Route path="/rtl" component={RTL} />
+      <Route path="/creator" component={SurveyCreator} />
       <Route path="/questionnaire/:id?" component={SurveyCreator} />
       <Route path="/patientanswers/:id?" component={SurveyResult} />
       <Redirect from="/" to="/admin/dashboard" />

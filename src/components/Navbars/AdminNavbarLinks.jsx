@@ -32,6 +32,11 @@ class AdminNavbarLinks extends React.Component {
   handleToggleNotification = () => {
     this.setState(state => ({ openNotifcation: !state.openNotifcation }));
   };
+
+  handleDashboard = () => {
+    document.location.href = "/admin/dashboard/";
+  };
+
   handleCloseNotification = event => {
     if (this.anchorNotification.contains(event.target)) {
       return;
@@ -74,6 +79,7 @@ class AdminNavbarLinks extends React.Component {
           simple={!(window.innerWidth > 959)}
           aria-label="Dashboard"
           className={classes.buttonLink}
+          onClick={this.handleDashboard}
         >
           <Dashboard className={classes.icons} />
           <Hidden mdUp implementation="css">

@@ -41,9 +41,9 @@ class Tasks extends React.Component {
     });
   };
 
-  handleEditTask = value => () => {
-    // alert("Edit Clicked");
-    { document.location.href = "/questionnaire/12345"; }
+  handleEditTask = (index) => () => {
+    alert("Edit Clicked");
+    // { document.location.href = "/questionnaire/12345"; }
   };
 
   handleDeleteTask = value => () => {
@@ -82,7 +82,7 @@ class Tasks extends React.Component {
             }
             return (
             <TableRow key={index} className={classes.tableRow}>
-              <TableCell className={tableCellClasses}>
+              {/* <TableCell className={tableCellClasses}>
                 <Checkbox
                   checked={this.state.checked.indexOf(index) !== -1}
                   tabIndex={-1}
@@ -94,7 +94,7 @@ class Tasks extends React.Component {
                     root: classes.root
                   }}
                 />
-              </TableCell>
+              </TableCell> */}
 
               {curTasks.map((value, index) => {
                 return <TableCell key={index} className={tableCellClasses}>{value}</TableCell>;
@@ -103,14 +103,14 @@ class Tasks extends React.Component {
               <TableCell className={classes.tableActions}>
                 <Tooltip
                   id="tooltip-top"
-                  title="Edit Task"
+                  title="Edit Questionnaire"
                   placement="top"
                   classes={{ tooltip: classes.tooltip }}
                 >
                   <IconButton
-                    aria-label="Edit"
+                    aria-label="Edit Questionnaire"
                     className={classes.tableActionButton}
-                    onClick={this.handleEditTask(index)}
+                    onClick={() => this.props.onEditClicked(index)}
                   >
                     <Edit
                       className={
@@ -121,14 +121,14 @@ class Tasks extends React.Component {
                 </Tooltip>
                 <Tooltip
                   id="tooltip-top-start"
-                  title="Remove"
+                  title="Delete Questionnaire"
                   placement="top"
                   classes={{ tooltip: classes.tooltip }}
                 >
                   <IconButton
-                    aria-label="Close"
+                    aria-label="Delete Questionnaire"
                     className={classes.tableActionButton}
-                    onClick={this.handleDeleteTask(index)}
+                    onClick={() => this.props.onDeleteClicked(index)}
                   >
                     <Close
                       className={
