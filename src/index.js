@@ -7,7 +7,7 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 import Admin from "layouts/Admin.jsx";
 import RTL from "layouts/RTL.jsx";
 import SurveyCreator from "layouts/SurveyCreator.js";
-import SurveyResult from "components/SurveyResult/SurveyResult.jsx";
+import SurveyResult from "SurveyResult/SurveyResult.jsx";
 
 import "assets/css/material-dashboard-react.css?v=1.7.0";
 

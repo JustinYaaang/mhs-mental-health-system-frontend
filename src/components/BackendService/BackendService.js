@@ -75,9 +75,18 @@ const getAnsweredQuestionnaire= async(theId) => {
     method: "get",
     url: backendURL+theId,
   }).then(function(response){
-    console.log(response);
-    return response;
+    console.log("response");
+    console.log(response.data.data);
+    return response.data.data;
     
+  });
+
+  return await axios.get(backendURL+theId)
+  .then(function(response){
+    return response.data.data.body;
+  })
+  .catch(function (error){
+    console.log(error);
   });
 }
 
@@ -108,5 +117,18 @@ const deleteQuestionnaire = async (questionnaireId) => {
   });
 }
 
-export {postNewSurvey, fetchQuestionnaires, fetchUserAnswers, getAnsweredQuestionnaire, fetchQuestionnaire, deleteQuestionnaire};
+const getQuestionnaire = async (testUrl) => {
+
+  try {
+    const response = await axios.get(testUrl);
+     console.log("dadada");
+    console.log(response.data.data);
+
+    return response.data.data;
+  } catch (error) {
+    console.log("GET server error: ", error);
+  }
+};
+
+export {postNewSurvey, fetchQuestionnaires, fetchUserAnswers, getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire, deleteQuestionnaire};
 
