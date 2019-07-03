@@ -41,6 +41,13 @@ class CustomTabs extends React.Component {
           {title !== undefined ? (
             <div className={cardTitle}>{title}</div>
           ) : null}
+          <div className={cardTitle}><button 
+              type="button" role="tab" aria-selected="false" style={{color: '#ffffff'}} onClick={() => this.props.onCreateNewClicked()}><span className="MuiTab-wrapper CustomTabs-tabWrapper-396">
+              <svg className="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true" 
+              role="presentation"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
+              <path fill="none" d="M0 0h24v24H0z"></path></svg>CREATE NEW</span>
+          </button>
+          </div>
           <Tabs
             value={this.state.value}
             onChange={this.handleChange}
@@ -72,7 +79,9 @@ class CustomTabs extends React.Component {
                 />
               );
             })}
+            
           </Tabs>
+          
         </CardHeader>
         <CardBody>
           {tabs.map((prop, key) => {
@@ -102,7 +111,8 @@ CustomTabs.propTypes = {
     PropTypes.shape({
       tabName: PropTypes.string.isRequired,
       tabIcon: PropTypes.object,
-      tabContent: PropTypes.node.isRequired
+      // tabContent: PropTypes.node.isRequired
+      tabContent: PropTypes.node
     })
   ),
   rtlActive: PropTypes.bool,
