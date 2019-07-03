@@ -34,7 +34,7 @@ function CustomTable({ ...props }) {
         <TableBody>
           {tableData.map((prop, key) => {
             return (
-              <TableRow key={key} className={classes.tableBodyRow}>
+              <TableRow key={key} className={classes.tableBodyRow} onClick={() => {this.props.onTableRowClicked(key)}}>
                 {prop.map((prop, key) => {
                   return (
                     <TableCell className={classes.tableCell} key={key}>
