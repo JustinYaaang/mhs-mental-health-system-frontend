@@ -33,7 +33,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import swal from 'sweetalert'
+import swal from 'sweetalert2'
 
 //import { bugs, website, server } from "variables/general.jsx";
 
@@ -203,7 +203,7 @@ class Dashboard extends React.Component {
                 <CardIcon color="danger">
                   <Icon>info_outline</Icon>
                 </CardIcon>
-                <p className={classes.cardCategory}>Unanswered</p>
+                <p className={classes.cardCategory}>Pending Cases</p>
                 <h3 className={classes.cardTitle}>{dashboardData.unanswered}</h3>
               </CardHeader>
               <CardFooter stats>
@@ -221,7 +221,7 @@ class Dashboard extends React.Component {
                 <CardIcon color="success">
                   <Accessibility />
                 </CardIcon>
-                <p className={classes.cardCategory}>Waiting Patient</p>
+                <p className={classes.cardCategory}>Total Cases</p>
                 <h3 className={classes.cardTitle}>{dashboardData.waiting_patients}</h3>
               </CardHeader>
               <CardFooter stats>
@@ -246,7 +246,7 @@ class Dashboard extends React.Component {
                 />
               </CardHeader>
               <CardBody>
-                <h4 className={classes.cardTitle}>Daily Patients Account</h4>
+                <h4 className={classes.cardTitle}>Daily Engagement</h4>
                 <p className={classes.cardCategory}>
                   <span className={classes.successText}>
                     <ArrowUpward className={classes.upArrowCardCategory} />{dashboardData.percentage}%
