@@ -55,7 +55,8 @@ class Dashboard extends React.Component {
     questionnairePublishedList: [],
     idDraftList: [],
     questionnaireDraftList: [],
-    totalQuestionnaire: 0
+    totalQuestionnaire: 0,
+    dailySubmission: [],
   };
   handleChange = (event, value) => {
     this.setState({ value: value });
@@ -128,7 +129,38 @@ class Dashboard extends React.Component {
     { document.location.href = "/questionnaire/"; }
   };
 
+  timeTrans(date){
+    var date = new Date(date);//如果date为13位不需要乘1000
+    var Y = date.getFullYear() + '-';
+    var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+    var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+    return Y+M+D;
+};
   componentWillMount() {
+//     var now = new Date();
+//     var TwoDaysAgo = new Date();
+//     var nowMilliSeconds = now.getTime();
+// //用获取毫秒数 减去两天的毫秒数 赋值给TwoDaysAgo对象（一天有86400000毫秒）
+//     TwoDaysAgo.setTime(nowMilliSeconds-(2*86400000));
+
+//     //通过赋值后的TwoDaysAgo对象来得到 两天前的 年月日。这里我们将日期格式化为20180301的样子。
+//     //格式化日，如果小于9，前面补0  
+//     var day = ("0" + TwoDaysAgo.getDate()).slice(-2);  
+//     //格式化月，如果小于9，前面补0  
+//     var month = ("0" + (TwoDaysAgo.getMonth() + 1)).slice(-2);  
+//     //拼装完整日期格式  
+//     var getToday = TwoDaysAgo.getFullYear()+(month)+(day);
+//     console.log(getToday);
+
+    var todayTime = new Date( Date.parse( new Date()));
+    var todayDate = this.timeTrans(todayTime);
+    var lastTime = new Date( Date.parse( new Date())-(7*86400000));
+    var lastDate = this.timeTrans(lastTime);
+
+
+    console.log(todayDate);
+    console.log(lastDate);
+
     fetchQuestionnaires().then(
       response => {
         //console.log(response.idPublishedList.length + response.questionnaireDraftList.length);
@@ -163,16 +195,16 @@ class Dashboard extends React.Component {
           }
         }
       },
-      patients_count: 100,
+
       unanswered: 8,
       waiting_patients: 18,
       percentage: 50,
-      default_questionnaires: [['Triage To Treat', 'This questionnaire is used to triage and treat patients', 'APPROVED'],
-      ['Camberwell Center', 'This questionnaire is used to triage and treat patients', 'PUBLISHED'],
-      ['Triage To Refer', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
-      custom_questionnaires: [['Test Questionnaire', 'This questionnaire is used to triage and treat patientsiption1', 'DRAFT'],
-      ['Second Test', 'This questionnaire is used to triage and treat patients', 'DRAFT'],
-      ['Third Test', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
+      // default_questionnaires: [['Triage To Treat', 'This questionnaire is used to triage and treat patients', 'APPROVED'],
+      // ['Camberwell Center', 'This questionnaire is used to triage and treat patients', 'PUBLISHED'],
+      // ['Triage To Refer', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
+      // custom_questionnaires: [['Test Questionnaire', 'This questionnaire is used to triage and treat patientsiption1', 'DRAFT'],
+      // ['Second Test', 'This questionnaire is used to triage and treat patients', 'DRAFT'],
+      // ['Third Test', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
     }
 
     return (
