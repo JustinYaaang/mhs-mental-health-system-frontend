@@ -136,17 +136,27 @@ class SurveyResult extends Component {
 
      getQuestionnaire(testUrl)
         .then(fetched_data => {
-          this.setState( {json:fetched_data.body} );
+          var jsonData = fetched_data.body;
+          var jsonFormatData = JSON.parse(jsonData);
+
+          for (var i=1; i<jsonFormatData.pages.length; i++){
+            if (jsonFormatData.pages[i].elements){
+              jsonFormatData.pages[0].elements = jsonFormatData.pages[0].elements.concat(jsonFormatData.pages[i].elements)
+            }
+          }
+          jsonFormatData.pages = [jsonFormatData.pages[0]]
+          jsonFormatData.pages[0].title = ""
+          jsonData = JSON.stringify(jsonFormatData);
+          console.log("JSON.parse(jsonData)");
+
+          console.log(JSON.parse(jsonData));
+          this.setState( {json: jsonData} );
         })
         .catch(error => {
           console.error(error);
         });
 
 
-
-    // const { id } = this.props.match.params;
-    // console.log("componentWillMount logs " + id);
-    
     getAnsweredQuestionnaire(aId)
         .then(fetched_answers => {
           console.log("fetched_answers")
@@ -167,8 +177,9 @@ class SurveyResult extends Component {
   render() {
     Survey.Survey.cssType = "bootstrap";
     this.model = new Survey.Model(this.state.json);
-
     this.model.data = this.state.answers;
+    console.log("this.state.answers")
+    console.log(this.state.answers)
     // this.model.data= JSON.parse(this.state.answers);
     this.model.mode="display";
     console.log(this.model.data);

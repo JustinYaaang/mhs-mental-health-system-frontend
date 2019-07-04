@@ -75,8 +75,6 @@ const getAnsweredQuestionnaire= async(theId) => {
     method: "get",
     url: backendURL+theId,
   }).then(function(response){
-    console.log("response");
-    console.log(response.data.data);
     return response.data.data;
     
   });
@@ -121,9 +119,6 @@ const getQuestionnaire = async (testUrl) => {
 
   try {
     const response = await axios.get(testUrl);
-     console.log("dadada");
-    console.log(response.data.data);
-
     return response.data.data;
   } catch (error) {
     console.log("GET server error: ", error);
