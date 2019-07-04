@@ -14,7 +14,7 @@ import "jquery-bar-rating";
 import * as widgets from "surveyjs-widgets";
 import "icheck/skins/square/blue.css";
 import axios from "axios";
-import {getAnsweredQuestionnaire} from "../components/BackendService/BackendService";
+import {getAnsweredQuestionnaire, getQuestionnaire} from "../components/BackendService/BackendService";
 
 
 window["$"] = window["jQuery"] = $;
@@ -46,7 +46,8 @@ class SurveyResult extends Component {
         "completedHtml": "",
         "pages": [],
         "showProgressBar": ""
-      }
+      },
+      answers : {}
     };
   }
 
@@ -128,15 +129,31 @@ class SurveyResult extends Component {
   }
 
   componentWillMount() {
-    console.log("componentWillMount logs");
-    //const id = "5d0ce7a7fc101609e9765de61";
-    const { id } = this.props.match.params;
-    console.log(id);
-    
-    getAnsweredQuestionnaire(id)
+
+    const qId = "5d1a1d16d910160030d04979";
+    const aId = "5d1c7bb973589a0030d798ae";
+    const testUrl = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS/" + qId;
+
+     getQuestionnaire(testUrl)
         .then(fetched_data => {
           this.setState( {json:fetched_data.body} );
-          console.log(fetched_data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+
+
+
+    // const { id } = this.props.match.params;
+    // console.log("componentWillMount logs " + id);
+    
+    getAnsweredQuestionnaire(aId)
+        .then(fetched_answers => {
+          console.log("fetched_answers")
+          this.setState( {answers: JSON.parse(fetched_answers) } );
+          // console.log(this.state.answers);
+          // console.log(fetched_answers);
+
         })
         .catch(error => {
           console.error(error);
@@ -150,7 +167,11 @@ class SurveyResult extends Component {
   render() {
     Survey.Survey.cssType = "bootstrap";
     this.model = new Survey.Model(this.state.json);
-    //this.model.data=response.data.data;
+
+    this.model.data = this.state.answers;
+    // this.model.data= JSON.parse(this.state.answers);
+    this.model.mode="display";
+    console.log(this.model.data);
     //set as read only
     return (
       <div className="SurveyResult">

@@ -61,7 +61,7 @@ class TableList extends Component {
           var d = new Date(fetched_data[i].timestamp);
           var dateString = d.toString();
           dateString = dateString.substring(0, dateString.lastIndexOf(':'));
-          var row = [fetched_data[i].title, fetched_data[i].patient_name, dateString, fetched_data[i].score, fetched_data[i]._id]
+          var row = [fetched_data[i].title, fetched_data[i].patient_name, dateString, fetched_data[i].score, fetched_data[i]._id, fetched_data[i].questionnaire_id]
           rows.push(row);
           // ids.push(fetched_data[i]._id);
         }
@@ -88,7 +88,7 @@ class TableList extends Component {
             <CardBody>
               <Table
                 tableHeaderColor="primary"
-                tableHead={["Questionnaire Name", "Patient Name", "Time", "Final Score", "Id"]}
+                tableHead={["Questionnaire Name", "Patient Name", "Time", "Final Score", "Id", "Questionnaire Id"]}
                 tableData={this.state.userAnswers}
               />
             </CardBody>

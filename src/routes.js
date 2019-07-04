@@ -26,27 +26,19 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/user",
-    name: "User Profile",
-    rtlName: "ملف تعريفي للمستخدم",
-    icon: Person,
-    component: UserProfile,
-    layout: "/admin"
-  },
-  {
     path: "/table",
-    name: " Questionnaire List",
+    name: "Patient Triage List",
     rtlName: "قائمة الجدول",
     icon: "content_paste",
     component: TableList,
     layout: "/admin"
   },
   {
-    path: "/typography",
-    name: "Setting",
-    rtlName: "طباعة",
-    icon: Setting,
-    component: Typography,
+    path: "/user",
+    name: "User Profile",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: Person,
+    component: UserProfile,
     layout: "/admin"
   },
   {
@@ -56,7 +48,16 @@ const dashboardRoutes = [
     icon: Notifications,
     component: NotificationsPage,
     layout: "/admin"
+  },
+  {
+    path: "/typography",
+    name: "Setting",
+    rtlName: "طباعة",
+    icon: Setting,
+    component: Typography,
+    layout: "/admin"
   }
+ 
 
 ];
 
