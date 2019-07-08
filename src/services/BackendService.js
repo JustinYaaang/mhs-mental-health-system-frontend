@@ -125,5 +125,15 @@ const getQuestionnaire = async (testUrl) => {
   }
 };
 
+const getAuthenticationToken = async () => {
+  try {
+    const response = await axios.get("http://mhsbackend.azurewebsites.net/api/v1/patients/authenticate");
+    // return response.data.data;
+    console.log(response);
+  } catch (error) {
+    console.log("GET server error: ", error);
+  }
+}
+
 export {postNewSurvey, fetchQuestionnaires, fetchUserAnswers, getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire, deleteQuestionnaire};
 
