@@ -2,20 +2,19 @@ import axios from "axios";
 import { array } from "prop-types";
 
 const postNewSurvey = async (createSurveyUrl, surveyData) => {
-
   try {
     const response = await axios({
                       method: 'post',
                       url: createSurveyUrl,
                       data: surveyData
                     });
-
     return response;
   } catch (error) {
     console.log("POST server error: ", error);
   }
   console.log(createSurveyUrl)
   console.log(surveyData)
+
   axios.post(createSurveyUrl, surveyData)
     .then(function (response) {
       console.log("response");
@@ -62,6 +61,26 @@ const fetchUserAnswers = async () => {
   try {
     const response = await axios.get(userAnswerUrl);
     // return response;
+    return response.data.data;
+  } catch (error) {
+    console.log("GET server error: ", error);
+  }
+}
+
+const fetchWeeklyResult = async (startDate, lastDate) => {
+  console.log("fetchWeeklyCount");
+  var weeklyResultUrl = "http://mhsbackend.azurewebsites.net/api/v1/patientanswers/";
+  console.log(startDate)
+  console.log(lastDate)
+  try {
+    const response = await axios.get(weeklyResultUrl, {
+      params: {
+          startDate: lastDate,
+          endDate: startDate,
+          groupby: 'date'
+        }
+      });
+    
     return response.data.data;
   } catch (error) {
     console.log("GET server error: ", error);
@@ -116,7 +135,6 @@ const deleteQuestionnaire = async (questionnaireId) => {
 }
 
 const getQuestionnaire = async (testUrl) => {
-
   try {
     const response = await axios.get(testUrl);
     return response.data.data;
@@ -125,5 +143,5 @@ const getQuestionnaire = async (testUrl) => {
   }
 };
 
-export {postNewSurvey, fetchQuestionnaires, fetchUserAnswers, getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire, deleteQuestionnaire};
+export {postNewSurvey, fetchQuestionnaires,fetchWeeklyResult, fetchUserAnswers, getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire, deleteQuestionnaire};
 
