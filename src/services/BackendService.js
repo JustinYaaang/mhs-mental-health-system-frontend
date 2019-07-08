@@ -1,5 +1,5 @@
 import axios from "axios";
-import { array } from "prop-types";
+import { baseUrl, fetchQuestionnairesUrl, patientanswersUrl } from "../variables/general";
 
 const postNewSurvey = async (createSurveyUrl, surveyData) => {
 
@@ -27,8 +27,7 @@ const postNewSurvey = async (createSurveyUrl, surveyData) => {
 };
 
 const fetchQuestionnaires = async () => {
-    const url = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS";
-    return await axios.get(url)
+    return await axios.get(baseUrl + fetchQuestionnairesUrl)
     .then(function(response){
 
       const data = response.data.data;
@@ -48,8 +47,11 @@ const fetchQuestionnaires = async () => {
         }
         
       });
-      return {'idDraftList': idDraftList, 'idPublishedList': idPublishedList, 
-              'questionnaireDraftList': questionnaireDraftList, 'questionnairePublishedList': questionnairePublishedList};
+      return {'idDraftList': idDraftList, 
+              'idPublishedList': idPublishedList, 
+              'questionnaireDraftList': questionnaireDraftList, 
+              'questionnairePublishedList': questionnairePublishedList
+             };
     })
     .catch(function (error){
       console.log(error);
@@ -58,10 +60,12 @@ const fetchQuestionnaires = async () => {
 
 const fetchUserAnswers = async () => {
   console.log("fetchUserAnswers");
-  var userAnswerUrl = "http://mhsbackend.azurewebsites.net/api/v1/patientanswers";
+  var userAnswerUrl = baseUrl + patientanswersUrl;
   try {
     const response = await axios.get(userAnswerUrl);
     // return response;
+    console.log("response");
+    console.log(response);
     return response.data.data;
   } catch (error) {
     console.log("GET server error: ", error);
@@ -70,16 +74,15 @@ const fetchUserAnswers = async () => {
 
 const getAnsweredQuestionnaire= async(theId) => {
   console.log(theId);
-  const backendURL = "http://mhsbackend.azurewebsites.net/api/v1/patientanswers/";
   axios({
     method: "get",
-    url: backendURL+theId,
+    url: baseUrl + patientanswersUrl + '/' + theId,
   }).then(function(response){
     return response.data.data;
     
   });
 
-  return await axios.get(backendURL+theId)
+  return await axios.get(baseUrl + patientanswersUrl + '/' +theId)
   .then(function(response){
     return response.data.data.body;
   })
@@ -89,9 +92,7 @@ const getAnsweredQuestionnaire= async(theId) => {
 }
 
 const fetchQuestionnaire = async (questionnaireId) => {
-  const url = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS/" + questionnaireId;
-  console.log(url);
-  return await axios.get(url)
+  return await axios.get(baseUrl + fetchQuestionnairesUrl + "/" + questionnaireId)
   .then(function(response){
 
     const data = response.data.data;
@@ -103,10 +104,9 @@ const fetchQuestionnaire = async (questionnaireId) => {
 }
 
 const deleteQuestionnaire = async (questionnaireId) => {
-  const url = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS/" + questionnaireId;
   return await axios({
     method: 'delete',
-    url: url
+    url: baseUrl + fetchQuestionnairesUrl + '/' + questionnaireId
   }).then(function(response){
     console.log(response);
   })
@@ -115,10 +115,9 @@ const deleteQuestionnaire = async (questionnaireId) => {
   });
 }
 
-const getQuestionnaire = async (testUrl) => {
-
+const getQuestionnaire = async (qustionId) => {
   try {
-    const response = await axios.get(testUrl);
+    const response = await axios.get(baseUrl + fetchQuestionnairesUrl + '/' + qustionId);
     return response.data.data;
   } catch (error) {
     console.log("GET server error: ", error);
