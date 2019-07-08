@@ -27,7 +27,7 @@ const dashboardRoutes = [
   },
   {
     path: "/table",
-    name: "Patient Triage List",
+    name: "Triage List",
     rtlName: "قائمة الجدول",
     icon: "content_paste",
     component: TableList,
@@ -51,7 +51,7 @@ const dashboardRoutes = [
   },
   {
     path: "/typography",
-    name: "Setting",
+    name: "Settings",
     rtlName: "طباعة",
     icon: Setting,
     component: Typography,

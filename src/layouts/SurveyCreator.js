@@ -15,7 +15,7 @@ import "jquery-ui/ui/widgets/datepicker.js";
 import "select2/dist/js/select2.js";
 import "jquery-bar-rating";
 
-import swal from 'sweetalert';
+import swal from "sweetalert2";
 
 import "icheck/skins/square/blue.css";
 

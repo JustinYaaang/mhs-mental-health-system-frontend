@@ -61,7 +61,8 @@ class TableList extends Component {
           var d = new Date(fetched_data[i].timestamp);
           var dateString = d.toString();
           dateString = dateString.substring(0, dateString.lastIndexOf(':'));
-          var row = [fetched_data[i].title, fetched_data[i].patient_name, dateString, fetched_data[i].score, fetched_data[i]._id, fetched_data[i].questionnaire_id]
+          // var row = [fetched_data[i].title, fetched_data[i].patient_name, dateString, fetched_data[i].score, fetched_data[i]._id, fetched_data[i].questionnaire_id]
+          var row = [fetched_data[i].title, fetched_data[i].patient_name, fetched_data[i].score, fetched_data[i]._id, "PENDING", dateString, fetched_data[i]._id ]
           rows.push(row);
          
         }
@@ -80,14 +81,15 @@ class TableList extends Component {
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="primary">
-              <h4 className={styles.cardTitleWhite}>User Answer Table</h4>
+              <h4 className={styles.cardTitleWhite}>Submitted Questionnaires</h4>
               <p className={styles.cardCategoryWhite}>
               </p>
             </CardHeader>
             <CardBody>
               <Table
                 tableHeaderColor="primary"
-                tableHead={["Questionnaire Name", "Patient Name", "Time", "Final Score", "Id", "Questionnaire Id"]}
+                //tableHead={["Questionnaire Name", "Patient Name", "Time", "Final Score", "Id", "Questionnaire Id"]}
+                tableHead={["Questionnaire Name", "Patient Name", "Predicted Score", "NHS Number", "Status", "Time Submitted" ]}
                 tableData={this.state.userAnswers}
               />
             </CardBody>
