@@ -30,7 +30,7 @@ import swal from 'sweetalert'
 
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import { fetchQuestionnaires, deleteQuestionnaire, fetchWeeklyResult } from "components/BackendService/BackendService";
+import { fetchQuestionnaires, deleteQuestionnaire, fetchWeeklyResult } from "../../services/BackendService";
 
 class Dashboard extends React.Component {
   state = {
@@ -115,11 +115,7 @@ class Dashboard extends React.Component {
   };
 
   timeTrans(date){
-<<<<<<< HEAD
     date = new Date(date);//如果date为13位不需要乘1000
-=======
-    var date = new Date(date);
->>>>>>> a6a5381bfb39810dc86dba0a737597a66f64e7e9
     var Y = date.getFullYear() + '-';
     var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
     var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
@@ -149,7 +145,7 @@ class Dashboard extends React.Component {
 
         var staticDay = myday;
         for (myday; myday < 7; myday++) { 
-             if(response[myday] == undefined){
+             if(response[myday] === undefined){
                 dailysubmit.labels[myday] = dataTransfer.get(myday);
                 dailysubmit.series[0][myday] = 0;
              }
@@ -160,7 +156,7 @@ class Dashboard extends React.Component {
         }
 
         for(var i =0; i< myday; i++){
-            if(response[i] == undefined){
+            if(response[i] === undefined){
               dailysubmit.labels[i] = dataTransfer.get(i);
               dailysubmit.series[0][i] = 0;
             }

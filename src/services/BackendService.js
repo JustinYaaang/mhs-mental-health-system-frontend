@@ -92,7 +92,6 @@ const fetchWeeklyResult = async (startDate, lastDate) => {
 }
 
 const getAnsweredQuestionnaire= async(theId) => {
-  console.log(theId);
   axios({
     method: "get",
     url: baseUrl + patientanswersUrl + '/' + theId,

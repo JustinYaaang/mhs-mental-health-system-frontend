@@ -117,7 +117,7 @@ class SurveyResult extends Component {
 
   componentWillMount() {
     const qustionId = "5d1a1d16d910160030d04979";
-    const answerId = "5d1c7bb973589a0030d798ae";
+    const answerId = "5d235426fc81ba2827c5a399";
 
     getAnsweredQuestionnaire(answerId)
         .then(fetched_answers => {
