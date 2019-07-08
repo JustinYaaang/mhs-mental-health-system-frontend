@@ -20,14 +20,6 @@ class CustomTable extends Component {
     super(props);
   }
   
-  test_func(prop, key){
-    console.log("test_func");
-    console.log(key);
-    console.log(prop[4]);
-    
-    // return <Redirect to='https://tylermcginnis.com/react-router-programmatically-navigate/' />
-  }
-
   redirectToAnswers = (prop) => {
     console.log(prop[4]);
     const questionnaireResponseId = prop[4];
