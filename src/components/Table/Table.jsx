@@ -13,6 +13,7 @@ import {getAnsweredQuestionnaire} from "../../components/BackendService/BackendS
 import { BrowserRouter, Route } from 'react-router-dom'
 
 
+
 // function CustomTable({ ...props }) {
 class CustomTable extends Component {
 
