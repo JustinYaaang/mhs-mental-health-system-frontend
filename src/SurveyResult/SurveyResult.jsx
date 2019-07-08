@@ -51,23 +51,10 @@ class SurveyResult extends Component {
     };
   }
 
-
-  sendResult(){
-    console.log("value changed!");
-  }
-
   onValueChanged = (result) => {
     console.log("value changed!");
   }
 
-  sendResultOnPageNext() {
-    console.log("sendResultOnPageNext");
-  }
-
-  goNextPageAutomatic() {
-    console.log("goNextPageAutomatic");
-  }
-  
   onComplete = (result) => {
     var finalScore = 0;
     var tableData;
@@ -134,64 +121,72 @@ class SurveyResult extends Component {
     const aId = "5d1c7bb973589a0030d798ae";
     const testUrl = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS/" + qId;
 
-     getQuestionnaire(testUrl)
-        .then(fetched_data => {
-          var jsonData = fetched_data.body;
-          var jsonFormatData = JSON.parse(jsonData);
-
-          for (var i=1; i<jsonFormatData.pages.length; i++){
-            if (jsonFormatData.pages[i].elements){
-              jsonFormatData.pages[0].elements = jsonFormatData.pages[0].elements.concat(jsonFormatData.pages[i].elements)
-            }
-          }
-          jsonFormatData.pages = [jsonFormatData.pages[0]]
-          jsonFormatData.pages[0].title = ""
-          jsonData = JSON.stringify(jsonFormatData);
-          console.log("JSON.parse(jsonData)");
-
-          console.log(JSON.parse(jsonData));
-          this.setState( {json: jsonData} );
-        })
-        .catch(error => {
-          console.error(error);
-        });
-
-
     getAnsweredQuestionnaire(aId)
         .then(fetched_answers => {
           console.log("fetched_answers")
           this.setState( {answers: JSON.parse(fetched_answers) } );
-          // console.log(this.state.answers);
-          // console.log(fetched_answers);
+
+         getQuestionnaire(testUrl)
+            .then(fetched_data => {
+              var jsonData = fetched_data.body;
+              var jsonFormatData = JSON.parse(jsonData);
+
+              for (var i=1; i<jsonFormatData.pages.length; i++){
+                if (jsonFormatData.pages[i].elements){
+                  jsonFormatData.pages[0].elements = jsonFormatData.pages[0].elements.concat(jsonFormatData.pages[i].elements)
+                }
+              }
+              jsonFormatData.pages = [jsonFormatData.pages[0]]
+              jsonFormatData.pages[0].title = ""
+              jsonData = JSON.stringify(jsonFormatData);
+              console.log("JSON.parse(jsonData)");
+
+              console.log(JSON.parse(jsonData));
+              this.setState( {json: jsonData} );
+            })
+            .catch(error => {
+              console.error(error);
+            });
+
+
+
+
+
+
 
         })
         .catch(error => {
           console.error(error);
         });
+
+
+
+
   }
 
   componentDidMount() {
     console.log("componentDidMount logs");
+    // this.forceUpdate();
   }
 
   render() {
     Survey.Survey.cssType = "bootstrap";
     this.model = new Survey.Model(this.state.json);
+
     this.model.data = this.state.answers;
-    console.log("this.state.answers")
-    console.log(this.state.answers)
-    // this.model.data= JSON.parse(this.state.answers);
-    this.model.mode="display";
+    console.log("this.model.data");
     console.log(this.model.data);
     //set as read only
+    this.model.mode="display";
+
     return (
       <div className="SurveyResult">
         <div className="surveyjs" >
           {/*If you want to show survey, uncomment the line below*/}
           <Survey.Survey
             model={this.model}
-            onComplete={this.onComplete}
-            onValueChanged={this.onValueChanged}
+            // onComplete={this.onComplete}
+            // onValueChanged={this.onValueChanged}
           />
           {/*If you do not want to show Survey Creator, comment the line below*/}
           {/*<h1>SurveyJS Creator in action:</h1>
