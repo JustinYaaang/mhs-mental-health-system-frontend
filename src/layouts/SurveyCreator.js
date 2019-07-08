@@ -89,6 +89,29 @@ class SurveyCreator extends Component {
     document.location.href = "/admin/dashboard/";
   };
 
+  checkStatus = (survey_StringRepresentation,survey_jsonRepresentation,status) => {
+
+      const { id } = this.props.match.params;
+      swal("Saved Successfully!");
+      var surveyJson = {
+          "id": (id !== undefined) ? id : "",
+          "title": survey_jsonRepresentation.title,
+          "description": survey_jsonRepresentation.description,
+          "status": status,
+          "body":survey_StringRepresentation 
+      }
+                
+      var createSurveyUrl = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS"
+      postNewSurvey(createSurveyUrl, surveyJson)
+          .then(results => {
+              console.log(results)
+              {document.location.href = '/admin/dashboard/'}
+          })
+          .catch(error => {
+              console.error(error);
+          });
+}
+
   render() {
     
     return(
@@ -108,12 +131,7 @@ class SurveyCreator extends Component {
 
     var survey_StringRepresentation=JSON.stringify(survey_jsonRepresentation);
 
-    if (survey_jsonRepresentation.title && survey_jsonRepresentation.description){ //justing TODO remove this 
-      console.log("surveyJson");
-
-      const { id } = this.props.match.params;
-
-
+    if (survey_jsonRepresentation.title && survey_jsonRepresentation.description){ //ju
           swal("Select your choice", {
             buttons: {
               cancel: "Cancel",
@@ -128,56 +146,20 @@ class SurveyCreator extends Component {
             switch (value) {
            
               case "Save":
-                swal("Saved Successfully!");
-                var surveyJson = {
-                  "id": (id !== undefined) ? id : "",
-                  "title": survey_jsonRepresentation.title,
-                  "description": survey_jsonRepresentation.description,
-                  "status": "DRAFT",
-                  "body":survey_StringRepresentation 
-                 }
-                console.log(this.surveyCreator.text);
-                var createSurveyUrl = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS"
-                  postNewSurvey(createSurveyUrl, surveyJson)
-                    .then(results => {
-                      console.log(results)
-                      {document.location.href = '/admin/dashboard/'}
-                    })
-                    .catch(error => {
-                      console.error(error);
-                    });
+                this.checkStatus(survey_StringRepresentation,survey_jsonRepresentation,"DRAFT");
                 break;
            
               case "catch":
-                swal("Greate!", "The questionnaire published", "success");
-                var surveyJson = {
-                  "id": (id !== undefined) ? id : "",
-                  "title": survey_jsonRepresentation.title,
-                  "description": survey_jsonRepresentation.description,
-                  "status": "PUBLISHED",
-                  "body":survey_StringRepresentation 
-                 }
-                console.log(this.surveyCreator.text);
-                var createSurveyUrl = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS"
-                  postNewSurvey(createSurveyUrl, surveyJson)
-                    .then(results => {
-                      console.log(results)
-                      {document.location.href = '/admin/dashboard/'}
-                    })
-                    .catch(error => {
-                      console.error(error);
-                    });
+                this.checkStatus(survey_StringRepresentation,survey_jsonRepresentation,"PUBLISHED")
                 break;
            
               default:
-        
+    
             }
           });
-          
-
     }
     else {
-      swal("Error!", "Enter Title and Description in settings!", "warning");
+        swal("Error!", "Enter Title and Description in settings!", "warning");
     }
   };
 }
