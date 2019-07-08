@@ -21,8 +21,8 @@ class CustomTable extends Component {
   }
   
   redirectToAnswers = (prop) => {
-    console.log(prop[4]);
-    const questionnaireResponseId = prop[4];
+    console.log(prop[prop.length - 1]);
+    const questionnaireResponseId = prop[prop.length - 1];
     { document.location.href = '/patientanswers/'+ questionnaireResponseId };
     // this.props.history.push('/target')
   }
@@ -40,7 +40,7 @@ class CustomTable extends Component {
                       className={this.props.classes.tableCell + " " + this.props.classes.tableHeadCell}
                       key={key}
                     >
-                      {prop}
+                      <h4>{prop}</h4>
                     </TableCell>
                   );
                 })}
@@ -51,10 +51,11 @@ class CustomTable extends Component {
             {this.props.tableData.map((prop, key) => {
               return (
                 <TableRow key={key} className={this.props.classes.tableBodyRow} onClick={() => this.redirectToAnswers(prop, key)}>
-                  {prop.map((prop, key) => {
-                    return (
+                  {
+                    prop.map((prop, key, arr) => {
+                    if (key !== arr.length - 1) return (
                       <TableCell className={this.props.classes.tableCell} key={key}>
-                        {prop}
+                        <h4>{prop}</h4>
                       </TableCell>
                     );
                   })}
