@@ -46,8 +46,6 @@ import {
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { fetchQuestionnaires, deleteQuestionnaire } from "components/BackendService/BackendService";
 
-
-
 class Dashboard extends React.Component {
   state = {
     value: 0,
@@ -55,7 +53,8 @@ class Dashboard extends React.Component {
     questionnairePublishedList: [],
     idDraftList: [],
     questionnaireDraftList: [],
-    totalQuestionnaire: 0
+    totalQuestionnaire: 0,
+    dailySubmission: [],
   };
   handleChange = (event, value) => {
     this.setState({ value: value });
@@ -75,7 +74,6 @@ class Dashboard extends React.Component {
       const questionnaireId = this.state.idPublishedList[index];
       { document.location.href = "/questionnaire/" + questionnaireId; }
     }
-    
   };
 
   handleDeleteQuestionnaireClick = (index, status) => {
@@ -121,14 +119,30 @@ class Dashboard extends React.Component {
         swal("The questionnaire is safe!");
       }
     });
-    
   };
 
   handleCreateNewQuestionnaireClicked = () => {
     { document.location.href = "/questionnaire/"; }
   };
 
+  timeTrans(date){
+    var date = new Date(date);//如果date为13位不需要乘1000
+    var Y = date.getFullYear() + '-';
+    var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+    var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+    return Y+M+D;
+};
   componentWillMount() {
+
+    var todayTime = new Date( Date.parse( new Date()));
+    var todayDate = this.timeTrans(todayTime);
+    var lastTime = new Date( Date.parse( new Date())-(7*86400000));
+    var lastDate = this.timeTrans(lastTime);
+
+
+    console.log(todayDate);
+    console.log(lastDate);
+
     fetchQuestionnaires().then(
       response => {
         //console.log(response.idPublishedList.length + response.questionnaireDraftList.length);
@@ -163,16 +177,16 @@ class Dashboard extends React.Component {
           }
         }
       },
-      patients_count: 100,
+
       unanswered: 8,
       waiting_patients: 18,
       percentage: 50,
-      default_questionnaires: [['Triage To Treat', 'This questionnaire is used to triage and treat patients', 'APPROVED'],
-      ['Camberwell Center', 'This questionnaire is used to triage and treat patients', 'PUBLISHED'],
-      ['Triage To Refer', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
-      custom_questionnaires: [['Test Questionnaire', 'This questionnaire is used to triage and treat patientsiption1', 'DRAFT'],
-      ['Second Test', 'This questionnaire is used to triage and treat patients', 'DRAFT'],
-      ['Third Test', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
+      // default_questionnaires: [['Triage To Treat', 'This questionnaire is used to triage and treat patients', 'APPROVED'],
+      // ['Camberwell Center', 'This questionnaire is used to triage and treat patients', 'PUBLISHED'],
+      // ['Triage To Refer', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
+      // custom_questionnaires: [['Test Questionnaire', 'This questionnaire is used to triage and treat patientsiption1', 'DRAFT'],
+      // ['Second Test', 'This questionnaire is used to triage and treat patients', 'DRAFT'],
+      // ['Third Test', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
     }
 
     return (
@@ -301,71 +315,6 @@ class Dashboard extends React.Component {
           </GridItem>
 
         </GridContainer>
-        {/* <GridContainer>
-          <GridItem xs={12} sm={12} md={6}>
-            <CustomTabs
-              title="Tasks:"
-              headerColor="primary"
-              tabs={[
-                {
-                  tabName: "Bugs",
-                  tabIcon: BugReport,
-                  tabContent: (
-                    <Tasks
-                      checkedIndexes={[0, 3]}
-                      tasksIndexes={[0, 1, 2, 3]}
-                      tasks={bugs}
-                    />
-                  )
-                },
-                {
-                  tabName: "Website",
-                  tabIcon: Code,
-                  tabContent: (
-                    <Tasks
-                      checkedIndexes={[0]}
-                      tasksIndexes={[0, 1]}
-                      tasks={website}
-                    />
-                  )
-                },
-                {
-                  tabName: "Server",
-                  tabIcon: Cloud,
-                  tabContent: (
-                    <Tasks
-                      checkedIndexes={[1]}
-                      tasksIndexes={[0, 1, 2]}
-                      tasks={server}
-                    />
-                  )
-                }
-              ]}
-            />
-          </GridItem>
-          <GridItem xs={12} sm={12} md={6}>
-            <Card>
-              <CardHeader color="warning">
-                <h4 className={classes.cardTitleWhite}>Employees Stats</h4>
-                <p className={classes.cardCategoryWhite}>
-                  New employees on 15th September, 2016
-                </p>
-              </CardHeader>
-              <CardBody>
-                <Table
-                  tableHeaderColor="warning"
-                  tableHead={["ID", "Name", "Salary", "Country"]}
-                  tableData={[
-                    ["1", "Dakota Rice", "$36,738", "Niger"],
-                    ["2", "Minerva Hooper", "$23,789", "Curaçao"],
-                    ["3", "Sage Rodriguez", "$56,142", "Netherlands"],
-                    ["4", "Philip Chaney", "$38,735", "Korea, South"]
-                  ]}
-                />
-              </CardBody>
-            </Card>
-          </GridItem>
-                </GridContainer>*/}
       </div>
     );
   }
