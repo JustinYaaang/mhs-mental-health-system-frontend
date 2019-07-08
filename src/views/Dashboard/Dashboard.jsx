@@ -30,7 +30,7 @@ import swal from 'sweetalert'
 
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import { fetchQuestionnaires, deleteQuestionnaire } from "../../services/BackendService";
+import { fetchQuestionnaires, deleteQuestionnaire, fetchWeeklyResult } from "components/BackendService/BackendService";
 
 class Dashboard extends React.Component {
   state = {
@@ -40,7 +40,10 @@ class Dashboard extends React.Component {
     idDraftList: [],
     questionnaireDraftList: [],
     totalQuestionnaire: 0,
-    dailySubmission: [],
+    dailySubmission: {
+      labels:[],
+      series:[[]]
+    },
   };
   handleChange = (event, value) => {
     this.setState({ value: value });
@@ -112,26 +115,67 @@ class Dashboard extends React.Component {
   };
 
   timeTrans(date){
+<<<<<<< HEAD
     date = new Date(date);//如果date为13位不需要乘1000
+=======
+    var date = new Date(date);
+>>>>>>> a6a5381bfb39810dc86dba0a737597a66f64e7e9
     var Y = date.getFullYear() + '-';
     var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
     var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
     return Y+M+D;
-};
+  };
+
   componentWillMount() {
 
     var todayTime = new Date( Date.parse( new Date()));
     var todayDate = this.timeTrans(todayTime);
     var lastTime = new Date( Date.parse( new Date())-(7*86400000));
     var lastDate = this.timeTrans(lastTime);
+    var period = {
+      "todayDate": todayDate,
+      "lastDate": lastDate
+    }
 
+    fetchWeeklyResult(todayDate,lastDate).then(
+      response => {
+        var dailysubmit = {
+          labels: [],
+          series: [[]]
+        }
 
-    console.log(todayDate);
-    console.log(lastDate);
+        var dataTransfer = new Map([[0, 'M'], [1, 'T'], [2,'W'],[3, 'T'], [4, 'F'], [5, 'S'], [6,'S']]);
+        var myday=todayTime.getDay();
 
+        var staticDay = myday;
+        for (myday; myday < 7; myday++) { 
+             if(response[myday] == undefined){
+                dailysubmit.labels[myday] = dataTransfer.get(myday);
+                dailysubmit.series[0][myday] = 0;
+             }
+             else{
+                dailysubmit.labels[myday] = dataTransfer.get(myday);
+                dailysubmit.series[0][myday] = response[myday].count;
+             }   
+        }
+
+        for(var i =0; i< myday; i++){
+            if(response[i] == undefined){
+              dailysubmit.labels[i] = dataTransfer.get(i);
+              dailysubmit.series[0][i] = 0;
+            }
+            else{
+              dailysubmit.labels[i] = dataTransfer.get(i);
+              dailysubmit.series[0][i] = response[i].count;
+            }   
+        }
+
+        this.setState({'dailySubmission':dailysubmit})
+      },
+    );
+    
     fetchQuestionnaires().then(
       response => {
-        //console.log(response.idPublishedList.length + response.questionnaireDraftList.length);
         this.setState({'totalQuestionnaire': response.idPublishedList.length + response.questionnaireDraftList.length})
         this.setState({'idDraftList': response.idDraftList, 'idPublishedList': response.idPublishedList, 
               'questionnaireDraftList': response.questionnaireDraftList, 'questionnairePublishedList': response.questionnairePublishedList});
@@ -167,12 +211,6 @@ class Dashboard extends React.Component {
       unanswered: 8,
       waiting_patients: 18,
       percentage: 50,
-      // default_questionnaires: [['Triage To Treat', 'This questionnaire is used to triage and treat patients', 'APPROVED'],
-      // ['Camberwell Center', 'This questionnaire is used to triage and treat patients', 'PUBLISHED'],
-      // ['Triage To Refer', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
-      // custom_questionnaires: [['Test Questionnaire', 'This questionnaire is used to triage and treat patientsiption1', 'DRAFT'],
-      // ['Second Test', 'This questionnaire is used to triage and treat patients', 'DRAFT'],
-      // ['Third Test', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
     }
 
     return (
@@ -239,7 +277,7 @@ class Dashboard extends React.Component {
               <CardHeader color="success">
                 <ChartistGraph
                   className="ct-chart"
-                  data={dashboardData.dailySalesChart.data}
+                  data={this.state.dailySubmission}
                   type="Line"
                   options={dashboardData.dailySalesChart.options}
                   listener={dashboardData.dailySalesChart.animation}
