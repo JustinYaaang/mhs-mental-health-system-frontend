@@ -23,6 +23,7 @@ import {postNewSurvey, updateSurvey, fetchQuestionnaire} from "services/BackendS
 import Button from "components/CustomButtons/Button.jsx";
 import Hidden from "@material-ui/core/Hidden";
 import Dashboard from "@material-ui/icons/Dashboard";
+import { baseUrl, fetchQuestionnairesUrl } from "../variables/general";
 
 var mainColor = "#005EB8";
 var mainHoverColor = "#003087";
@@ -100,7 +101,7 @@ class SurveyCreator extends Component {
       }
                 
       
-      var createSurveyUrl = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS"
+      var createSurveyUrl = baseUrl + fetchQuestionnairesUrl
 
       if(id == undefined){
           postNewSurvey(createSurveyUrl, surveyJson)
@@ -122,6 +123,7 @@ class SurveyCreator extends Component {
               console.error(error);
           });
       }
+      
 }
 
   render() {
@@ -139,6 +141,7 @@ class SurveyCreator extends Component {
 
     jsonString = jsonString.replace('\n', '');
     var survey_jsonRepresentation = JSON.parse(this.surveyCreator.text);
+    
 
     var survey_StringRepresentation=JSON.stringify(survey_jsonRepresentation);
 

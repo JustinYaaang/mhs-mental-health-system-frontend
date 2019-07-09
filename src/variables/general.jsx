@@ -18,12 +18,20 @@ var server = [
   'Sign contract for "What are conference organizers afraid of?"'
 ]
 
-var baseUrl = 'http://mhsbackend.azurewebsites.net'
+var baseUrl = "http://mhsbackend.azurewebsites.net/api/v1/";
+var fetchQuestionnairesUrl = "questionnaire_sJS";
+var patientanswersUrl = "patientanswers";
+var backendUrl = "http://178.128.34.125/api/v1/";
+var createUserAnswers = "useranswers";
 
 module.exports = {
   // these 3 are used to create the tasks lists in TasksCard - Dashboard view
   bugs,
   website,
   server,
-  baseUrl
-}
+  baseUrl,
+  backendUrl,
+  fetchQuestionnairesUrl,
+  patientanswersUrl,
+  createUserAnswers
+};
