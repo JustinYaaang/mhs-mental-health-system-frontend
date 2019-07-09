@@ -60,61 +60,34 @@ class SurveyResult extends Component {
   }
 
   onComplete = (result) => {
-    var finalScore = 0;
-    var tableData;
-    var i = 1;
+    // var finalScore = 0;
+    // var tableData;
+    // var i = 1;
 
-    console.log(result);
-    console.log(result.valuesHash);
-    console.log(result.valuesHash.Question1);
-    var answer = [];
-    tableData = "<tr><th scope='col'> Question </th><th scope='col'> Answer </th></tr>"
+    // console.log(result);
+    // console.log(result.valuesHash);
+    // console.log(result.valuesHash.Question1);
+    // tableData = "<tr><th scope='col'> Question </th><th scope='col'> Answer </th></tr>"
 
 
-    Object.keys(result.valuesHash).map(function (key) {
+    // Object.keys(result.valuesHash).map(function (key) {
 
-      tableData += "<tr>"
-      tableData += "<td > Question " + i + "</td>"
-      finalScore = finalScore + parseInt(result.valuesHash[key], 10);
+    //   tableData += "<tr>"
+    //   tableData += "<td > Question " + i + "</td>"
+    //   finalScore = finalScore + parseInt(result.valuesHash[key], 10);
 
-      tableData += "<td >" + result.valuesHash[key] + "</td>";
-      console.log(finalScore);
-      tableData += "</tr>"
+    //   tableData += "<td >" + result.valuesHash[key] + "</td>";
+    //   console.log(finalScore);
+    //   tableData += "</tr>"
 
-      answer.push({
-        questionnode_id: "5d0cbbe6fc101609e9765de3", //must get this as well
-        title: "Question" + i, //must get this
-        value: result.valuesHash[key]
-      });
-      i++;
+    // })
+    // $("#tbody1").html(tableData);
+    // document.querySelector('#finalScore').textContent = "Final score is " + finalScore;
 
-    })
-    this.postAnswers(answer, "5d0ce7a7fc101609e9765de3", this.state.json.title);
-    $("#tbody1").html(tableData);
-    document.querySelector('#finalScore').textContent = "Final score is " + finalScore;
-
-    document.querySelector('#jsonSection').textContent = "Result JSON:\n" + JSON.stringify(result.data, null, 3);
+    // document.querySelector('#jsonSection').textContent = "Result JSON:\n" + JSON.stringify(result.data, null, 3);
 
   };
 
-
-  /**
-   * Function that posts answers to server. Needs to be intergrated in Backend Service
-   * @param {*} ans list of answers
-   * @param {*} questionnaire_id the questionnaire ID
-   * @param {*} title of the questionnaire
-   */
-  postAnswers(ans, questionnaire_id, title) {
-    axios({
-      method: 'post',
-      url: backendUrl + createUserAnswers,
-      data: {
-        "questionnaire_id": questionnaire_id,
-        "title": title,
-        "answer": ans
-      }
-    });
-  }
 
   componentWillMount() {
     const {id} = this.props.match.params;
