@@ -14,7 +14,10 @@ import "jquery-bar-rating";
 import * as widgets from "surveyjs-widgets";
 import "icheck/skins/square/blue.css";
 import axios from "axios";
-import {getAnsweredQuestionnaire, getQuestionnaire} from "../components/BackendService/BackendService";
+import {getAnsweredQuestionnaire, getQuestionnaire} from "../services/BackendService";
+
+import { backendUrl, createUserAnswers } from "../variables/general";
+
 
 
 window["$"] = window["jQuery"] = $;
@@ -64,13 +67,13 @@ class SurveyResult extends Component {
     console.log(result.valuesHash);
     console.log(result.valuesHash.Question1);
     var answer=[];
-    tableData = "<tr><th scope='col'>" + "Question" + "</th><th scope='col'>" + " Answer" + "</th></tr>" 
+    tableData = "<tr><th scope='col'> Question </th><th scope='col'> Answer </th></tr>" 
 
 
     Object.keys(result.valuesHash).map(function (key) {
  
       tableData+="<tr>"
-      tableData += "<td >" +  "Question " + i + "</td>"
+      tableData += "<td > Question " + i + "</td>"
       finalScore = finalScore + parseInt(result.valuesHash[key], 10);
 
       tableData+="<td >"+ result.valuesHash[key]+"</td>";
@@ -101,12 +104,9 @@ class SurveyResult extends Component {
    * @param {*} title of the questionnaire
    */
   postAnswers(ans,questionnaire_id,title){
-    console.log(ans);
-    console.log(questionnaire_id)
-    const backendURL = "http://178.128.34.125/api/v1/useranswers"; //will change
     axios({
       method: 'post',
-      url: backendURL,
+      url: backendUrl + createUserAnswers,
       data: { 
         "questionnaire_id": questionnaire_id,
         "title": title,
@@ -116,17 +116,14 @@ class SurveyResult extends Component {
   }
 
   componentWillMount() {
+    const qustionId = "5d1a1d16d910160030d04979";
+    const answerId = "5d235426fc81ba2827c5a399";
 
-    const qId = "5d1a1d16d910160030d04979";
-    const aId = "5d1c7bb973589a0030d798ae";
-    const testUrl = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS/" + qId;
-
-    getAnsweredQuestionnaire(aId)
+    getAnsweredQuestionnaire(answerId)
         .then(fetched_answers => {
-          console.log("fetched_answers")
           this.setState( {answers: JSON.parse(fetched_answers) } );
 
-         getQuestionnaire(testUrl)
+         getQuestionnaire(qustionId)
             .then(fetched_data => {
               var jsonData = fetched_data.body;
               var jsonFormatData = JSON.parse(jsonData);
@@ -139,34 +136,15 @@ class SurveyResult extends Component {
               jsonFormatData.pages = [jsonFormatData.pages[0]]
               jsonFormatData.pages[0].title = ""
               jsonData = JSON.stringify(jsonFormatData);
-              console.log("JSON.parse(jsonData)");
-
-              console.log(JSON.parse(jsonData));
               this.setState( {json: jsonData} );
             })
             .catch(error => {
               console.error(error);
             });
-
-
-
-
-
-
-
         })
         .catch(error => {
           console.error(error);
         });
-
-
-
-
-  }
-
-  componentDidMount() {
-    console.log("componentDidMount logs");
-    // this.forceUpdate();
   }
 
   render() {
@@ -182,15 +160,10 @@ class SurveyResult extends Component {
     return (
       <div className="SurveyResult">
         <div className="surveyjs" >
-          {/*If you want to show survey, uncomment the line below*/}
           <Survey.Survey
             model={this.model}
-            // onComplete={this.onComplete}
-            // onValueChanged={this.onValueChanged}
           />
-          {/*If you do not want to show Survey Creator, comment the line below*/}
-          {/*<h1>SurveyJS Creator in action:</h1>
-          <SurveyCreator /> */}
+          
           <center>
             <table border = "1" width = "180" >
               <tbody id="tbody1">
