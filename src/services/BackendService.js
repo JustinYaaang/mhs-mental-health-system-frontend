@@ -113,26 +113,11 @@ const fetchWeeklyResult = async (startDate, lastDate) => {
 }
 
 const getAnsweredQuestionnaire= async(theId) => {
-  axios({
-    method: "get",
-    url: baseUrl + patientanswersUrl + '/' + theId,
-  }).then(function(response){
-    return response.data.data;
-    
-  });
-
   return await axios.get(baseUrl + patientanswersUrl + '/' +theId)
   .then(function(response){
-    return response.data.data.body;
+    return response.data.data;
   })
 
-  return await axios.get(backendURL + theId)
-    .then(function (response) {
-      return response.data.data.body
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
 }
 
 const fetchQuestionnaire = async (questionnaireId) => {
