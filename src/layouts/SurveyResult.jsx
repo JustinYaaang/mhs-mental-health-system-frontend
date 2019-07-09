@@ -51,7 +51,6 @@ class SurveyResult extends Component {
     };
   }
 
-
   sendResult(){
     console.log("value changed!");
   }

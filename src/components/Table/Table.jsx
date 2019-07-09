@@ -9,7 +9,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 // core components
 import tableStyle from "assets/jss/material-dashboard-react/components/tableStyle.jsx";
-import {getAnsweredQuestionnaire} from "../../components/BackendService/BackendService";
+import {getAnsweredQuestionnaire} from "services/BackendService";
 import { BrowserRouter, Route } from 'react-router-dom'
 
 

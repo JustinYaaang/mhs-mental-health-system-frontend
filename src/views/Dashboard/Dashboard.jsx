@@ -33,18 +33,15 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import swal from 'sweetalert2'
+import swal from 'sweetalert'
 
-//import { bugs, website, server } from "variables/general.jsx";
 
 import {
   dailySalesChart
-  //emailsSubscriptionChart,
-  //completedTasksChart
 } from "variables/charts.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import { fetchQuestionnaires, deleteQuestionnaire, fetchWeeklyResult } from "components/BackendService/BackendService";
+import { fetchQuestionnaires, deleteQuestionnaire, fetchWeeklyResult } from "services/BackendService";
 
 class Dashboard extends React.Component {
   state = {
