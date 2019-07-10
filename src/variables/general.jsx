@@ -18,6 +18,7 @@ var server = [
   'Sign contract for "What are conference organizers afraid of?"'
 ]
 
+
 var baseUrl = "http://mhsbackend.azurewebsites.net/api/v1/";
 var fetchQuestionnairesUrl = "questionnaire_sJS";
 var patientanswersUrl = "patientanswers";
@@ -25,6 +26,7 @@ var backendUrl = "http://178.128.34.125/api/v1/";
 var createUserAnswers = "useranswers";
 var authenticationUrl = "patients/authenticate";
 var questionnaireWithoutToken = "questionnaires";
+
 
 module.exports = {
   // these 3 are used to create the tasks lists in TasksCard - Dashboard view
@@ -39,3 +41,4 @@ module.exports = {
   authenticationUrl,
   questionnaireWithoutToken
 };
+
