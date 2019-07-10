@@ -10,10 +10,7 @@ import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
 import TableList from "views/TableList/TableList.jsx";
 import Typography from "views/Typography/Typography.jsx";
-import SurveyCreator from "layouts/SurveyCreator.js";
 import NotificationsPage from "views/Notifications/Notifications.jsx";
-import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.jsx";
-import Add from "@material-ui/icons/AddCommentOutlined";
 // core components/views for RTL layout
 
 const dashboardRoutes = [

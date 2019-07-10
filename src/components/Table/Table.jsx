@@ -9,21 +9,15 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 // core components
 import tableStyle from "assets/jss/material-dashboard-react/components/tableStyle.jsx";
-import {getAnsweredQuestionnaire} from "../../components/BackendService/BackendService";
-import { BrowserRouter, Route } from 'react-router-dom'
 
 
 // function CustomTable({ ...props }) {
 class CustomTable extends Component {
-
-  constructor(props) {
-    super(props);
-  }
   
   redirectToAnswers = (prop) => {
     console.log(prop[prop.length - 1]);
     const questionnaireResponseId = prop[prop.length - 1];
-    { document.location.href = '/patientanswers/'+ questionnaireResponseId };
+    document.location.href = '/patientanswers/'+ questionnaireResponseId;
     // this.props.history.push('/target')
   }
 

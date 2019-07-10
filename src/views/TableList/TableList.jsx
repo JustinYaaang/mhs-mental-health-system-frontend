@@ -10,7 +10,10 @@ import Table from "components/Table/Table.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-import {fetchUserAnswers} from "../../components/BackendService/BackendService";
+import {fetchUserAnswers} from "../../services/BackendService";
+import { getAnsweredQuestionnaire, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from "../../services/BackendService";
+
+// getQuestionnaireWithToken({"NHS_number": 1234567890});
 
 const styles = {
   cardCategoryWhite: {
@@ -55,20 +58,15 @@ class TableList extends Component {
       .then(fetched_data => {
         console.log(fetched_data)
         var rows = [];
-        var ids = [];
         for (var i = 0; i < fetched_data.length; i++) { 
           console.log(i);
           var d = new Date(fetched_data[i].timestamp);
           var dateString = d.toString();
           dateString = dateString.substring(0, dateString.lastIndexOf(':'));
-          // var row = [fetched_data[i].title, fetched_data[i].patient_name, dateString, fetched_data[i].score, fetched_data[i]._id, fetched_data[i].questionnaire_id]
           var row = [fetched_data[i].title, fetched_data[i].patient_name, fetched_data[i].score, fetched_data[i]._id, "PENDING", dateString, fetched_data[i]._id ]
           rows.push(row);
-          // ids.push(fetched_data[i]._id);
         }
         this.setState( {userAnswers: rows} );
-        // this.setState( {idList: ids} );   
-        // console.log(this.state.idList);   
       })
       .catch(error => {
         console.error(error);

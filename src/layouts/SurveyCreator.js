@@ -15,15 +15,14 @@ import "jquery-ui/ui/widgets/datepicker.js";
 import "select2/dist/js/select2.js";
 import "jquery-bar-rating";
 
-import swal from "sweetalert2";
+import swal from "sweetalert";
 
 import "icheck/skins/square/blue.css";
 
-import { postNewSurvey } from "../components/BackendService/BackendService";
-import { fetchQuestionnaire } from "../components/BackendService/BackendService";
+import { postNewSurvey, fetchQuestionnaire } from "../services/BackendService";
 import Button from "components/CustomButtons/Button.jsx";
-import Hidden from "@material-ui/core/Hidden";
 import Dashboard from "@material-ui/icons/Dashboard";
+import { baseUrl, fetchQuestionnairesUrl } from "../variables/general";
 
 var mainColor = "#005EB8";
 var mainHoverColor = "#003087";
@@ -101,11 +100,9 @@ class SurveyCreator extends Component {
           "body":survey_StringRepresentation 
       }
                 
-      var createSurveyUrl = "http://mhsbackend.azurewebsites.net/api/v1/questionnaire_sJS"
-      postNewSurvey(createSurveyUrl, surveyJson)
+      postNewSurvey(baseUrl + fetchQuestionnairesUrl, surveyJson)
           .then(results => {
-              console.log(results)
-              {document.location.href = '/admin/dashboard/'}
+              document.location.href = '/admin/dashboard/'
           })
           .catch(error => {
               console.error(error);
@@ -123,9 +120,6 @@ class SurveyCreator extends Component {
   }
 
   saveMySurvey = () => {
-    var jsonString = JSON.stringify(this.surveyCreator.text);
-
-    jsonString = jsonString.replace('\n', '');
     var survey_jsonRepresentation = JSON.parse(this.surveyCreator.text);
     console.log(survey_jsonRepresentation);
 

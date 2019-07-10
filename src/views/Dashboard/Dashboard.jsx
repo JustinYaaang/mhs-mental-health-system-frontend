@@ -7,44 +7,30 @@ import ChartistGraph from "react-chartist";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
-//import Store from "@material-ui/icons/Store";
-//import Warning from "@material-ui/icons/Warning";
 import DateRange from "@material-ui/icons/DateRange";
 import LocalOffer from "@material-ui/icons/LocalOffer";
 import Update from "@material-ui/icons/Update";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import AccessTime from "@material-ui/icons/AccessTime";
 import Accessibility from "@material-ui/icons/Accessibility";
-//import BugReport from "@material-ui/icons/BugReport";
 import Grade from "@material-ui/icons/Grade";
 import Code from "@material-ui/icons/Code";
-import Add from "@material-ui/icons/Add";
-//import Cloud from "@material-ui/icons/Cloud";
 import All from "@material-ui/icons/AllInboxOutlined";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-//import Table from "components/Table/Table.jsx";
 import Tasks from "components/Tasks/Tasks.jsx";
 import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
-//import Danger from "components/Typography/Danger.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import swal from 'sweetalert2'
+import swal from 'sweetalert'
 
-//import { bugs, website, server } from "variables/general.jsx";
-
-import {
-  dailySalesChart
-  //emailsSubscriptionChart,
-  //completedTasksChart
-} from "variables/charts.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import { fetchQuestionnaires, deleteQuestionnaire } from "components/BackendService/BackendService";
+import { fetchQuestionnaires, deleteQuestionnaire, fetchWeeklyResult } from "../../services/BackendService";
 
 class Dashboard extends React.Component {
   state = {
@@ -54,7 +40,10 @@ class Dashboard extends React.Component {
     idDraftList: [],
     questionnaireDraftList: [],
     totalQuestionnaire: 0,
-    dailySubmission: [],
+    dailySubmission: {
+      labels:[],
+      series:[[]]
+    },
   };
   handleChange = (event, value) => {
     this.setState({ value: value });
@@ -68,11 +57,11 @@ class Dashboard extends React.Component {
     console.log(index);
     if(status === 'DRAFT'){
       const questionnaireId = this.state.idDraftList[index];
-      { document.location.href = "/questionnaire/" + questionnaireId; }
+      document.location.href = "/questionnaire/" + questionnaireId;
     }
-    else if(status == 'PUBLISHED'){
+    else if(status === 'PUBLISHED'){
       const questionnaireId = this.state.idPublishedList[index];
-      { document.location.href = "/questionnaire/" + questionnaireId; }
+      document.location.href = "/questionnaire/" + questionnaireId;
     }
   };
 
@@ -103,7 +92,7 @@ class Dashboard extends React.Component {
             }
           );
         }
-        else if(status == 'PUBLISHED'){
+        else if(status === 'PUBLISHED'){
           const questionnaireId = this.state.idPublishedList[index];
           deleteQuestionnaire(questionnaireId).then(
             response => {
@@ -122,30 +111,67 @@ class Dashboard extends React.Component {
   };
 
   handleCreateNewQuestionnaireClicked = () => {
-    { document.location.href = "/questionnaire/"; }
+    document.location.href = "/questionnaire/";
   };
 
   timeTrans(date){
-    var date = new Date(date);//如果date为13位不需要乘1000
+    date = new Date(date);//如果date为13位不需要乘1000
     var Y = date.getFullYear() + '-';
     var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
     var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
     return Y+M+D;
-};
+  };
+
   componentWillMount() {
 
     var todayTime = new Date( Date.parse( new Date()));
     var todayDate = this.timeTrans(todayTime);
     var lastTime = new Date( Date.parse( new Date())-(7*86400000));
     var lastDate = this.timeTrans(lastTime);
+    var period = {
+      "todayDate": todayDate,
+      "lastDate": lastDate
+    }
 
+    fetchWeeklyResult(todayDate,lastDate).then(
+      response => {
+        var dailysubmit = {
+          labels: [],
+          series: [[]]
+        }
 
-    console.log(todayDate);
-    console.log(lastDate);
+        var dataTransfer = new Map([[0, 'M'], [1, 'T'], [2,'W'],[3, 'T'], [4, 'F'], [5, 'S'], [6,'S']]);
+        var myday=todayTime.getDay();
 
+        var staticDay = myday;
+        for (myday; myday < 7; myday++) { 
+             if(response[myday] === undefined){
+                dailysubmit.labels[myday] = dataTransfer.get(myday);
+                dailysubmit.series[0][myday] = 0;
+             }
+             else{
+                dailysubmit.labels[myday] = dataTransfer.get(myday);
+                dailysubmit.series[0][myday] = response[myday].count;
+             }   
+        }
+
+        for(var i =0; i< myday; i++){
+            if(response[i] === undefined){
+              dailysubmit.labels[i] = dataTransfer.get(i);
+              dailysubmit.series[0][i] = 0;
+            }
+            else{
+              dailysubmit.labels[i] = dataTransfer.get(i);
+              dailysubmit.series[0][i] = response[i].count;
+            }   
+        }
+
+        this.setState({'dailySubmission':dailysubmit})
+      },
+    );
+    
     fetchQuestionnaires().then(
       response => {
-        //console.log(response.idPublishedList.length + response.questionnaireDraftList.length);
         this.setState({'totalQuestionnaire': response.idPublishedList.length + response.questionnaireDraftList.length})
         this.setState({'idDraftList': response.idDraftList, 'idPublishedList': response.idPublishedList, 
               'questionnaireDraftList': response.questionnaireDraftList, 'questionnairePublishedList': response.questionnairePublishedList});
@@ -181,12 +207,6 @@ class Dashboard extends React.Component {
       unanswered: 8,
       waiting_patients: 18,
       percentage: 50,
-      // default_questionnaires: [['Triage To Treat', 'This questionnaire is used to triage and treat patients', 'APPROVED'],
-      // ['Camberwell Center', 'This questionnaire is used to triage and treat patients', 'PUBLISHED'],
-      // ['Triage To Refer', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
-      // custom_questionnaires: [['Test Questionnaire', 'This questionnaire is used to triage and treat patientsiption1', 'DRAFT'],
-      // ['Second Test', 'This questionnaire is used to triage and treat patients', 'DRAFT'],
-      // ['Third Test', 'This questionnaire is used to triage and treat patients', 'DRAFT']],
     }
 
     return (
@@ -253,7 +273,7 @@ class Dashboard extends React.Component {
               <CardHeader color="success">
                 <ChartistGraph
                   className="ct-chart"
-                  data={dashboardData.dailySalesChart.data}
+                  data={this.state.dailySubmission}
                   type="Line"
                   options={dashboardData.dailySalesChart.options}
                   listener={dashboardData.dailySalesChart.animation}
