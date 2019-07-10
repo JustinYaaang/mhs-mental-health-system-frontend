@@ -140,32 +140,23 @@ class Dashboard extends React.Component {
           series: [[]]
         }
 
-        var dataTransfer = new Map([[0, 'M'], [1, 'T'], [2,'W'],[3, 'T'], [4, 'F'], [5, 'S'], [6,'S']]);
+        var dataTransfer = new Map([[0, 'S'], [1, 'M'], [2,'T'],[3, 'W'], [4, 'T'], [5, 'F'], [6,'S']]);
         var myday=todayTime.getDay();
-
-        var staticDay = myday;
-        for (myday; myday < 7; myday++) { 
-             if(response[myday] === undefined){
-                dailysubmit.labels[myday] = dataTransfer.get(myday);
-                dailysubmit.series[0][myday] = 0;
-             }
-             else{
-                dailysubmit.labels[myday] = dataTransfer.get(myday);
-                dailysubmit.series[0][myday] = response[myday].count;
-             }   
-        }
-
-        for(var i =0; i< myday; i++){
-            if(response[i] === undefined){
-              dailysubmit.labels[i] = dataTransfer.get(i);
-              dailysubmit.series[0][i] = 0;
-            }
-            else{
-              dailysubmit.labels[i] = dataTransfer.get(i);
-              dailysubmit.series[0][i] = response[i].count;
-            }   
-        }
-
+        
+        for(var i =6; i>= 0; i--){
+          if(myday == -1){
+            myday = 6;
+          }
+          if(response[myday] === undefined){
+            dailysubmit.labels[i] = dataTransfer.get(myday);
+            dailysubmit.series[0][i] = 0;
+          }
+          else{
+            dailysubmit.labels[i] = dataTransfer.get(myday);
+            dailysubmit.series[0][i] = response[myday].count;
+          }   
+          myday--;
+      }
         this.setState({'dailySubmission':dailysubmit})
       },
     );
@@ -185,10 +176,10 @@ class Dashboard extends React.Component {
 
     const dashboardData = {
       dailySalesChart: {
-        data: {
-          labels: ["M", "T", "W", "T", "F", "S", "S"],
-          series: [[12, 17, 7, 17, 23, 18, 38]]
-        },
+        // data: {
+        //   labels: ["M", "T", "W", "T", "F", "S", "S"],
+        //   series: [[12, 17, 7, 17, 23, 18, 38]]
+        // },
         options: {
           lineSmooth: Chartist.Interpolation.cardinal({
             tension: 0
