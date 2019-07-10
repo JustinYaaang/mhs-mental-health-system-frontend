@@ -19,8 +19,9 @@ import swal from "sweetalert";
 
 import "icheck/skins/square/blue.css";
 
-import { postNewSurvey, fetchQuestionnaire } from "../services/BackendService";
+import {postNewSurvey, updateSurvey, fetchQuestionnaire} from "services/BackendService";
 import Button from "components/CustomButtons/Button.jsx";
+import Hidden from "@material-ui/core/Hidden";
 import Dashboard from "@material-ui/icons/Dashboard";
 import { baseUrl, fetchQuestionnairesUrl } from "../variables/general";
 
@@ -74,8 +75,6 @@ class SurveyCreator extends Component {
       showEmbededSurveyTab: true,
       showJSONEditorTab: true,
       showTestSurveyTab: true,
-      // questionTypes: ["text", "checkbox", "radiogroup", "dropdown", "boolean", "comment", "text"],
-
     };
     this.surveyCreator = new SurveyJSCreator.SurveyCreator(
       "surveyCreatorContainer",
@@ -91,22 +90,40 @@ class SurveyCreator extends Component {
   checkStatus = (survey_StringRepresentation,survey_jsonRepresentation,status) => {
 
       const { id } = this.props.match.params;
+   
       swal("Saved Successfully!");
       var surveyJson = {
-          "id": (id !== undefined) ? id : "",
+          "id": id,
           "title": survey_jsonRepresentation.title,
           "description": survey_jsonRepresentation.description,
           "status": status,
           "body":survey_StringRepresentation 
       }
                 
-      postNewSurvey(baseUrl + fetchQuestionnairesUrl, surveyJson)
+      
+      var createSurveyUrl = baseUrl + fetchQuestionnairesUrl
+
+      if(id == undefined){
+          postNewSurvey(createSurveyUrl, surveyJson)
           .then(results => {
-              document.location.href = '/admin/dashboard/'
+              console.log(results)
+              {document.location.href = '/admin/dashboard/'}
           })
           .catch(error => {
               console.error(error);
           });
+      }else{
+          createSurveyUrl = createSurveyUrl + '/' + id
+          updateSurvey(createSurveyUrl,surveyJson)
+          .then(results => {
+            console.log(results)
+            {document.location.href = '/admin/dashboard/'}
+          })
+          .catch(error => {
+              console.error(error);
+          });
+      }
+      
 }
 
   render() {
@@ -120,8 +137,11 @@ class SurveyCreator extends Component {
   }
 
   saveMySurvey = () => {
+    var jsonString = JSON.stringify(this.surveyCreator.text);
+
+    jsonString = jsonString.replace('\n', '');
     var survey_jsonRepresentation = JSON.parse(this.surveyCreator.text);
-    console.log(survey_jsonRepresentation);
+    
 
     var survey_StringRepresentation=JSON.stringify(survey_jsonRepresentation);
 
