@@ -4,13 +4,16 @@ import PropTypes from 'prop-types'
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles'
 // core components
-import GridItem from 'components/Grid/GridItem.jsx'
-import GridContainer from 'components/Grid/GridContainer.jsx'
-import Table from 'components/Table/Table.jsx'
-import Card from 'components/Card/Card.jsx'
-import CardHeader from 'components/Card/CardHeader.jsx'
-import CardBody from 'components/Card/CardBody.jsx'
-import { fetchUserAnswers } from '../../services/BackendService'
+import GridItem from "components/Grid/GridItem.jsx";
+import GridContainer from "components/Grid/GridContainer.jsx";
+import Table from "components/Table/Table.jsx";
+import Card from "components/Card/Card.jsx";
+import CardHeader from "components/Card/CardHeader.jsx";
+import CardBody from "components/Card/CardBody.jsx";
+import {fetchUserAnswers} from "../../services/BackendService";
+import { getAnsweredQuestionnaire, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from "../../services/BackendService";
+
+// getQuestionnaireWithToken({"NHS_number": 1234567890});
 
 const styles = {
   cardCategoryWhite: {

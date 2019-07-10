@@ -14,10 +14,8 @@ import "jquery-bar-rating";
 import * as widgets from "surveyjs-widgets";
 import "icheck/skins/square/blue.css";
 import axios from "axios";
-import { getAnsweredQuestionnaire, getQuestionnaire } from "../services/BackendService";
-
+import { getAnsweredQuestionnaire, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from "../services/BackendService";
 import { backendUrl, createUserAnswers } from "../variables/general";
-
 
 
 window["$"] = window["jQuery"] = $;
