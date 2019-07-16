@@ -85,6 +85,7 @@ class AnswerTabs extends React.Component {
             {/* <Button color="info" round onClick={() => this.props.onCreateNewClicked()}><Add /> Create
             </Button> */}
         </Tabs>
+        
         </CardHeader>
         <CardBody>
           {tabs.map((prop, key) => {

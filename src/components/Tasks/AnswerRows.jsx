@@ -13,11 +13,17 @@ import TableCell from "@material-ui/core/TableCell";
 import Edit from "@material-ui/icons/Edit";
 import Close from "@material-ui/icons/Close";
 import View from "@material-ui/icons/RemoveRedEye";
+import Descending from "@material-ui/icons/ArrowDownward";
+import Ascending from "@material-ui/icons/ArrowUpward";
+import Filter from "@material-ui/icons/FilterList";
 // core components
 import tasksStyle from "assets/jss/material-dashboard-react/components/tasksStyle.jsx";
 // import { TableHead } from "@material-ui/core";
 import TableHead from "@material-ui/core/TableHead";
-
+import GridItem from 'components/Grid/GridItem.jsx'
+import GridContainer from 'components/Grid/GridContainer.jsx'
+import CustomInput from 'components/CustomInput/CustomInput.jsx'
+import { Button } from "@material-ui/core";
 
 
 class AnswerRows extends React.Component {
@@ -50,14 +56,8 @@ class AnswerRows extends React.Component {
   };
 
   redirectToAnswers = (tasks, index) => {
-    // console.log(prop[prop.length - 1]);
-    // const questionnaireResponseId = prop[prop.length - 1];
-    // document.location.href = '/patientanswers/'+ questionnaireResponseId;
     var selectedRow = tasks[index];
     var questionnaireResponseId = selectedRow[selectedRow.length - 1];
-    console.log(tasks);
-    console.log(index);
-    // const questionnaireResponseId = prop[prop.length - 1];
     document.location.href = '/patientanswers/'+ questionnaireResponseId;
   }
 
@@ -68,6 +68,7 @@ class AnswerRows extends React.Component {
       [classes.tableCellRTL]: rtlActive
     });
     return (
+      <div>
       <Table className={classes.table}>
         {tableHead !== undefined ? (
           <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
@@ -76,9 +77,17 @@ class AnswerRows extends React.Component {
                 return (
                   <TableCell
                     className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={key}
+                    key={key}>
+                    <h4>{prop} 
+                    <IconButton
+                    className={classes.tableCell + " " + classes.tableHeadCell}
+                    aria-label="Descending"
+                    //onClick={() => this.props.onDeleteClicked(index)}
                   >
-                    {prop}
+                    <Descending
+                    />
+                  </IconButton>
+                  </h4>
                   </TableCell>
                 );
               })}
@@ -155,7 +164,8 @@ class AnswerRows extends React.Component {
           )})}
         </TableBody>
       </Table>
-    );
+      </div>
+   );
   }
 }
 
