@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/NHSDigitalIXN/Mental%20Health%20System/_apis/build/status/buseolafusca.mhs-mental-health-system-frontend?branchName=master)](https://dev.azure.com/NHSDigitalIXN/Mental%20Health%20System/_build/latest?definitionId=3&branchName=master)
+[![Build Status](https://dev.azure.com/NHSDigitalIXN/Mental%20Health%20System/_apis/build/status/Frontend%20-%20CI?branchName=master)](https://dev.azure.com/NHSDigitalIXN/Mental%20Health%20System/_build/latest?definitionId=4&branchName=master)
 
 
 ## Licensing
