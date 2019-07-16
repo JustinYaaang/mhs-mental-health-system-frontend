@@ -17,6 +17,7 @@ import axios from "axios";
 import { getAnsweredQuestionnaire, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from "../services/BackendService";
 import { backendUrl, createUserAnswers } from "../variables/general";
 
+import FixedActions from "components/FixedPlugin/FixedActions.jsx";
 
 window["$"] = window["jQuery"] = $;
 require("icheck");
@@ -117,24 +118,35 @@ class SurveyResult extends Component {
     this.model.mode = "display";
 
     return (
-      <div className="SurveyResult">
-        <div className="surveyjs" >
-          <Survey.Survey
-            model={this.model}
-          />
+      <div>
+        <div className="SurveyResult">
+          <div className="surveyjs" >
+            <Survey.Survey
+              model={this.model}
+            />
 
-          <center>
-            <table border="1" width="180" >
-              <tbody id="tbody1">
+            <center>
+              <table border="1" width="180" >
+                <tbody id="tbody1">
 
-              </tbody>
-            </table>
-          </center>
-          <div id="finalScore"></div>
-          <div id="jsonSection"></div>
+                </tbody>
+              </table>
+            </center>
+            <div id="finalScore"></div>
+            <div id="jsonSection"></div>
+          </div>
+
         </div>
-
+        <FixedActions
+              //handleImageClick={this.handleImageClick}
+              //handleColorClick={this.handleColorClick}
+              bgColor={this.state["color"]}
+              bgImage={this.state["image"]}
+              handleFixedClick={this.handleFixedClick}
+              fixedClasses={this.state.fixedClasses}
+          />
       </div>
+      
     );
   }
 }

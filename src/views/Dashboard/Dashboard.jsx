@@ -26,7 +26,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
@@ -44,6 +44,7 @@ class Dashboard extends React.Component {
       labels:[],
       series:[[]]
     },
+    seriesMax: 0,
   };
   handleChange = (event, value) => {
     this.setState({ value: value });
@@ -157,7 +158,10 @@ class Dashboard extends React.Component {
           }   
           myday--;
       }
-        this.setState({'dailySubmission':dailysubmit})
+        console.log(dailysubmit.series[0]);
+        console.log(Math.max(...dailysubmit.series[0]));
+        var seriesMax = 1.10 * Math.max(...dailysubmit.series[0]);
+        this.setState({'dailySubmission':dailysubmit, 'seriesMax': seriesMax})
       },
     );
     
@@ -185,7 +189,7 @@ class Dashboard extends React.Component {
             tension: 0
           }),
           low: 0,
-          high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+          high: this.state.seriesMax, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
           chartPadding: {
             top: 0,
             right: 0,
@@ -307,7 +311,7 @@ class Dashboard extends React.Component {
                     />
                   )
                 },
-                {
+                {/* {
                   tabName: "DRAFT",
                   tabIcon: Code,
                   tabContent: (
@@ -320,7 +324,7 @@ class Dashboard extends React.Component {
                       onDeleteClicked={(index) => this.handleDeleteQuestionnaireClick(index, 'DRAFT')}
                     />
                   )
-                },
+                }, */}
               ]}
             />
           </GridItem>

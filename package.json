@@ -10,6 +10,7 @@
     "axios": "^0.19.0",
     "bootstrap": "^3.3.7",
     "chartist": "0.10.1",
+    "chartist-plugin-tooltips": "0.0.17",
     "classnames": "2.2.6",
     "history": "4.9.0",
     "jquery": "^3.3.1",
@@ -26,7 +27,9 @@
     "survey-creator": "latest",
     "survey-react": "latest",
     "surveyjs-widgets": "latest",
-    "sweetalert": "^2.1.2"
+    "sweet2": "^2.0.0",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^8.13.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -57,8 +60,13 @@
     "typescript": "3.5.1"
   },
   "devDependencies": {
+    "babel-jest": "^24.8.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.3.5",
     "eslint-config-prettier": "4.3.0",
     "eslint-plugin-prettier": "3.1.0",
+    "jest": "^24.8.0",
     "prettier": "1.18.2"
   },
   "browserslist": {
@@ -68,5 +76,8 @@
       "not op_mini all"
     ],
     "development": []
+  },
+  "jest": {
+    "snapshotSerializers": ["enzyme-to-json/serializer"]
   }
 }

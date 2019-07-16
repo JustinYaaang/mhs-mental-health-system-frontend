@@ -17,7 +17,7 @@ import Button from "components/CustomButtons/Button.jsx";
 import Add from "@material-ui/icons/AddCircle";
 import customTabsStyle from "assets/jss/material-dashboard-react/components/customTabsStyle.jsx";
 
-class CustomTabs extends React.Component {
+class AnswerTabs extends React.Component {
   state = {
     value: 0
   };
@@ -44,7 +44,7 @@ class CustomTabs extends React.Component {
     });
     return (
       <Card plain={plainTabs}>
-        <CardHeader color={headerColor} plain={plainTabs}>
+        <CardHeader color='primary' plain={plainTabs}>
           {title !== undefined ? (
             <div className={cardTitle}>{title}</div>
           ) : null}
@@ -85,6 +85,7 @@ class CustomTabs extends React.Component {
             {/* <Button color="info" round onClick={() => this.props.onCreateNewClicked()}><Add /> Create
             </Button> */}
         </Tabs>
+        
         </CardHeader>
         <CardBody>
           {tabs.map((prop, key) => {
@@ -99,7 +100,7 @@ class CustomTabs extends React.Component {
   }
 }
 
-CustomTabs.propTypes = {
+AnswerTabs.propTypes = {
   classes: PropTypes.object.isRequired,
   headerColor: PropTypes.oneOf([
     "warning",
@@ -122,4 +123,4 @@ CustomTabs.propTypes = {
   plainTabs: PropTypes.bool
 };
 
-export default withStyles(customTabsStyle)(CustomTabs);
+export default withStyles(customTabsStyle)(AnswerTabs);
