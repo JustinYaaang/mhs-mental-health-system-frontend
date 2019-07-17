@@ -1,6 +1,5 @@
-import axios from "axios";
-import { baseUrl, backendURL,fetchQuestionnairesUrl, patientanswersUrl, authenticationUrl, questionnaireWithoutToken } from "../variables/general";
-
+import axios from 'axios'
+import { baseUrl, backendURL, fetchQuestionnairesUrl, patientanswersUrl, authenticationUrl, questionnaireWithoutToken } from '../variables/general'
 
 const postNewSurvey = async (createSurveyUrl, surveyData) => {
   try {
@@ -69,7 +68,8 @@ const fetchQuestionnaires = async () => {
           idDraftList.push(element._id)
         }
       })
-      return { 'idDraftList': idDraftList,
+      return {
+        'idDraftList': idDraftList,
         'idPublishedList': idPublishedList,
         'questionnaireDraftList': questionnaireDraftList,
         'questionnairePublishedList': questionnairePublishedList
@@ -132,12 +132,12 @@ const fetchWeeklyResult = async (startDate, lastDate) => {
 //       console.log(error)
 //     })
 
-const getAnsweredQuestionnaire= async(theId) => {
-  return await axios.get(baseUrl + patientanswersUrl + '/' +theId)
-  .then(function(response){
-    console.log("ttttt");
-    return response.data.data;
-  })
+const getAnsweredQuestionnaire = async (theId) => {
+  return await axios.get(baseUrl + patientanswersUrl + '/' + theId)
+    .then(function (response) {
+      console.log('ttttt')
+      return response.data.data
+    })
 }
 
 const fetchQuestionnaire = async (questionnaireId) => {
@@ -170,66 +170,64 @@ const getQuestionnaire = async (qustionId) => {
   } catch (error) {
     console.log('GET server error: ', error)
   }
-};
+}
 
 const getAuthenticationToken = async (body) => {
-  var headers = {'Content-Type': 'application/json'}
+  var headers = { 'Content-Type': 'application/json' }
   try {
     const response = await axios({
-                      method: 'post',
-                      url: baseUrl + authenticationUrl,
-                      headers : headers,
-                      data: body
-                    });
-    console.log("getAuthenticationToken");
-    console.log(response.data.data);
-    return response.data.data;
+      method: 'post',
+      url: baseUrl + authenticationUrl,
+      headers: headers,
+      data: body
+    })
+    console.log('getAuthenticationToken')
+    console.log(response.data.data)
+    return response.data.data
   } catch (error) {
-    console.log("POST server error: ", error);
+    console.log('POST server error: ', error)
   }
 }
 
-
 const getQuestionnaireWithoutToken = async () => {
   try {
-    console.log(baseUrl + questionnaireWithoutToken);
-    const response = await axios.get(baseUrl + questionnaireWithoutToken);
-    console.log("getQuestionnaireWithoutToken");
-    console.log(response);
-    return response;
+    console.log(baseUrl + questionnaireWithoutToken)
+    const response = await axios.get(baseUrl + questionnaireWithoutToken)
+    console.log('getQuestionnaireWithoutToken')
+    console.log(response)
+    return response
   } catch (error) {
-    console.log("GET server error: ", error);
+    console.log('GET server error: ', error)
   }
-};
+}
 
 const getQuestionnaireWithToken = async (body) => {
-  var headers = {'Content-Type': 'application/json'}
+  var headers = { 'Content-Type': 'application/json' }
   try {
     const response = await axios({
-                      method: 'post',
-                      url: baseUrl + authenticationUrl,
-                      headers : headers,
-                      data: body
-                    });
-    console.log("getAuthenticationToken");
-    console.log(response.data.data);
-    var token = response.data.data;
+      method: 'post',
+      url: baseUrl + authenticationUrl,
+      headers: headers,
+      data: body
+    })
+    console.log('getAuthenticationToken')
+    console.log(response.data.data)
+    var token = response.data.data
     try {
       const res = await axios.get(baseUrl + questionnaireWithoutToken, {
-        headers:{ 'Authorization': 'Bearer ' + token}
-      });
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
 
-      console.log("res.data.data")
+      console.log('res.data.data')
       console.log(res.data.data)
-      return res.data.data;
+      return res.data.data
     } catch (error) {
-      console.log("GET server error: ", error);
+      console.log('GET server error: ', error)
     }
-    return response.data.data;
+    return response.data.data
   } catch (error) {
-    console.log("POST server error: ", error);
+    console.log('POST server error: ', error)
   }
-
 
   // try {
   //   const token = getAuthenticationToken({"NHS_number": 1234567890})
@@ -245,12 +243,10 @@ const getQuestionnaireWithToken = async (body) => {
   //   } catch (error) {
   //     console.log("GET server error: ", error);
   //   }
-    
+
   // } catch (error) {
   //   console.log("GET server error: ", error);
   // }
 }
 
-
-export {postNewSurvey, updateSurvey,fetchQuestionnaires,fetchWeeklyResult, fetchUserAnswers, getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire, deleteQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken };
-
+export { postNewSurvey, updateSurvey, fetchQuestionnaires, fetchWeeklyResult, fetchUserAnswers, getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire, deleteQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken }
