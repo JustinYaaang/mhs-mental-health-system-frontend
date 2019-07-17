@@ -9,8 +9,12 @@ import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
 
+
+
+
+
 describe('SurveyCreator', () => {
-  it('should render correctly', () => {
+  it('should render correctly', async() => {
     const component = shallow(<SurveyCreator  match={{params: {id: "5d249893a2a1c700307a85af"}, isExact: true, path: "", url: ""}}/>);
   
     expect(component).toMatchSnapshot();

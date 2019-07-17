@@ -10,7 +10,7 @@ configure({ adapter: new Adapter() });
 
 
 describe('SurveyCreator', () => {
-  it('should render correctly', () => {
+  it('should render correctly',async () => {
     const component = shallow(<SurveyCreator  match={{params: {id: "5d1b3143cd1699002fd7b6cd"}, isExact: true, path: "", url: ""}}/>);
   
     expect(component).toMatchSnapshot();

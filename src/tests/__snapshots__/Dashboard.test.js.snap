@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SurveyCreator should render correctly 1`] = `
+<Dashboard
+  classes={
+    Object {
+      "cardCategory": "Dashboard-cardCategory-4",
+      "cardCategoryWhite": "Dashboard-cardCategoryWhite-5",
+      "cardTitle": "Dashboard-cardTitle-6",
+      "cardTitleWhite": "Dashboard-cardTitleWhite-7",
+      "stats": "Dashboard-stats-3",
+      "successText": "Dashboard-successText-1",
+      "upArrowCardCategory": "Dashboard-upArrowCardCategory-2",
+    }
+  }
+/>
+`;

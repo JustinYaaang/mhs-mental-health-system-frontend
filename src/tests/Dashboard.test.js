@@ -1,8 +1,10 @@
 import React from 'react'
 import { shallow } from 'enzyme'
+import Dashboard from '../views/Dashboard/Dashboard'
 import { baseUrl, backendURL, fetchQuestionnairesUrl, patientanswersUrl, authenticationUrl, questionnaireWithoutToken } from '../variables/general'
 
-it('should return the list of questionnaires', () => {
+
+describe('SurveyCreator', () => {
   const nock = require('nock')
 
   const scope = nock(baseUrl + fetchQuestionnairesUrl)
@@ -10,12 +12,12 @@ it('should return the list of questionnaires', () => {
     .reply(200, {
       'message': 'SurveyJS questionnaires retrieved successfully',
       'data': [
-        {
-          '_id': '5d1a1d16d910160030d04979',
-          'title': 'Triage To Refer',
-          'description': 'This questionnaire triages and treats patients',
-          'status': 'PUBLISHED'
-        },
+        // {
+        //   '_id': '5d1a1d16d910160030d04979',
+        //   'title': 'Triage To Refer',
+        //   'description': 'This questionnaire triages and treats patients',
+        //   'status': 'PUBLISHED'
+        // },
         {
           '_id': '5d1b3143cd1699002fd7b6cd',
           'title': 'Triage To Treat',
@@ -37,5 +39,9 @@ it('should return the list of questionnaires', () => {
       ]
     })
 
-  // console.log(scope)
-})
+  it('should render correctly', async () => {
+    const component = shallow(<Dashboard />)
+    
+      expect(component).toMatchSnapshot()
+    })
+  })
