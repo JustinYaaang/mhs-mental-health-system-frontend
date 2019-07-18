@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SurveyCreator should render correctly 1`] = `
+<div>
+  <WithStyles(RegularButton)
+    color="info"
+    onClick={[Function]}
+    round={true}
+  >
+    <DashboardIcon />
+    Dashboard
+  </WithStyles(RegularButton)>
+  <WithStyles(RegularButton)
+    color="info"
+    justIcon={true}
+    onClick={[Function]}
+    round={true}
+  >
+    <DashboardIcon />
+  </WithStyles(RegularButton)>
+  <div
+    id="surveyCreatorContainer"
+  />
+</div>
+`;
