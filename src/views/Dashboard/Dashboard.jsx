@@ -27,7 +27,7 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import swal from 'sweetalert';
-
+import InformationCard from 'components/DashboardComponent/InformationCard.jsx';
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { fetchQuestionnaires, deleteQuestionnaire, fetchWeeklyResult } from "../../services/BackendService";
@@ -165,10 +165,10 @@ class Dashboard extends React.Component {
       },
     );
     
-    fetchQuestionnaires().then(
-      response => {
-        this.setState({'totalQuestionnaire': response.idPublishedList.length + response.questionnaireDraftList.length})
-        this.setState({'idDraftList': response.idDraftList, 'idPublishedList': response.idPublishedList, 
+     fetchQuestionnaires().then(
+       response => {
+        this.setState({'totalQuestionnaire': response.idPublishedList.length + response.questionnaireDraftList.length,
+        'idDraftList': response.idDraftList, 'idPublishedList': response.idPublishedList, 
               'questionnaireDraftList': response.questionnaireDraftList, 'questionnairePublishedList': response.questionnairePublishedList});
       }
     );
@@ -203,64 +203,24 @@ class Dashboard extends React.Component {
       waiting_patients: 18,
       percentage: 50,
     }
-
+    console.log("test "+this.state.totalQuestionnaire)
     return (
       <div>
         <GridContainer>
+          <InformationCard 
+          color={"info"} title={"Total Questionnaires"+this.state.totalQuestionnaire} value={this.state.totalQuestionnaire}
+          daterange={"Updated today"} classes={classes}
+          />
+          <InformationCard 
+          color={"danger"} title={"Pending Cases"} value={dashboardData.unanswered}
+          daterange={"Updated just now"} classes={classes}
+          />
 
-          <GridItem xs={12} sm={6} md={4}>
-            <Card>
-              <CardHeader color="info" stats icon>
-                <CardIcon color="info">
-                  <All />
-                </CardIcon>
-                <p className={classes.cardCategory}>Total Questionnaires</p>
-                <h3 className={classes.cardTitle}>{this.state.totalQuestionnaire}</h3>
-              </CardHeader>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <DateRange />
-                  Updated today
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
+            <InformationCard 
+          color={"success"} title={"Total Cases"} value={dashboardData.waiting_patients}
+          daterange={"Just updated"} classes={classes}
+          />
 
-          <GridItem xs={12} sm={6} md={4}>
-            <Card>
-              <CardHeader color="danger" stats icon>
-                <CardIcon color="danger">
-                  <Icon>info_outline</Icon>
-                </CardIcon>
-                <p className={classes.cardCategory}>Pending Cases</p>
-                <h3 className={classes.cardTitle}>{dashboardData.unanswered}</h3>
-              </CardHeader>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <LocalOffer />
-                  Updated just now
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-
-          <GridItem xs={12} sm={6} md={4}>
-            <Card>
-              <CardHeader color="success" stats icon>
-                <CardIcon color="success">
-                  <Accessibility />
-                </CardIcon>
-                <p className={classes.cardCategory}>Total Cases</p>
-                <h3 className={classes.cardTitle}>{dashboardData.waiting_patients}</h3>
-              </CardHeader>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <Update />
-                  Just Updated
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
         </GridContainer>
         <GridContainer>
           <GridItem xs={12} sm={12} md={4}>
@@ -311,7 +271,7 @@ class Dashboard extends React.Component {
                     />
                   )
                 },
-                {/* {
+                { 
                   tabName: "DRAFT",
                   tabIcon: Code,
                   tabContent: (
@@ -324,7 +284,7 @@ class Dashboard extends React.Component {
                       onDeleteClicked={(index) => this.handleDeleteQuestionnaireClick(index, 'DRAFT')}
                     />
                   )
-                }, */}
+                }, 
               ]}
             />
           </GridItem>
