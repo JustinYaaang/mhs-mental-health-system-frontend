@@ -4,19 +4,19 @@ import PropTypes from 'prop-types'
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles'
 // core components
-import GridItem from "components/Grid/GridItem.jsx";
-import GridContainer from "components/Grid/GridContainer.jsx";
-import Table from "components/Table/Table.jsx";
-import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import CardBody from "components/Card/CardBody.jsx";
-import Tasks from "components/Tasks/Tasks.jsx";
-import AnswerRows from "components/Tasks/AnswerRows.jsx";
-import AnswerTabs from "components/CustomTabs/AnswerTabs.jsx";
-import Grade from "@material-ui/icons/Grade";
-import Code from "@material-ui/icons/Code";
-import {fetchUserAnswers} from "../../services/BackendService";
-import { getAnsweredQuestionnaire, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from "../../services/BackendService";
+import GridItem from 'components/Grid/GridItem.jsx';
+import GridContainer from 'components/Grid/GridContainer.jsx';
+import Table from 'components/Table/Table.jsx';
+import Card from 'components/Card/Card.jsx';
+import CardHeader from 'components/Card/CardHeader.jsx';
+import CardBody from 'components/Card/CardBody.jsx';
+import Tasks from 'components/Tasks/Tasks.jsx';
+import AnswerRows from 'components/Tasks/AnswerRows.jsx';
+import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx';
+import Grade from '@material-ui/icons/Grade';
+import Code from '@material-ui/icons/Code';
+import { fetchUserAnswers } from '../../services/BackendService';
+import { getAnsweredQuestionnaire, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService';
 
 // getQuestionnaireWithToken({"NHS_number": 1234567890});
 
@@ -65,9 +65,9 @@ class TableList extends Component {
         var rows = []
         for (var i = 0; i < response.length; i++) {
           console.log(i)
-          var d = new Date(response[i].timestamp)
+          var d = new Date(response[i].createdAt)
           var dateString = d.toString()
-          dateString = dateString.substring(0, dateString.lastIndexOf(':')) //TODO Date String is missing
+          dateString = dateString.substring(0, dateString.lastIndexOf(':'))
           var row = [response[i].title, response[i].patient_name, response[i].score, response[i]._id, 'PENDING', dateString, response[i]._id]
           rows.push(row)
         }
@@ -83,43 +83,43 @@ class TableList extends Component {
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           {/* <Card> */}
-            {/* <CardHeader color='primary'>
+          {/* <CardHeader color='primary'>
               <h4 className={styles.cardTitleWhite}>Submitted Questionnaires</h4>
               <p className={styles.cardCategoryWhite} />
             </CardHeader> */}
-            {/* <CardBody> */}
-            <AnswerTabs
-             // title="Submitted Questionnaires: "
-              headerColor="info"
-              onCreateNewClicked={() => this.handleCreateNewQuestionnaireClicked()}
-              tabs={[
-                {
-                  tabName: "PENDING",
-                  tabIcon: Grade,
-                  tabContent: (
-                    <AnswerRows
-                      tableHeaderColor="primary"
-                      tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
-                      checkedIndexes={[]}
-                      tasks={this.state.userAnswers}
-                    />
-                  )
-                },
-                {
-                  tabName: "RESOLVED",
-                  tabIcon: Code,
-                  tabContent: (
-                    <AnswerRows
-                      tableHeaderColor="primary"
-                      tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
-                      checkedIndexes={[]}
-                      tasks={this.state.userAnswers}
-                    />
-                  )
-                },
-              ]}
-            />
-              {/* <Table
+          {/* <CardBody> */}
+          <AnswerTabs
+            // title="Submitted Questionnaires: "
+            headerColor='info'
+            onCreateNewClicked={() => this.handleCreateNewQuestionnaireClicked()}
+            tabs={[
+              {
+                tabName: 'PENDING',
+                tabIcon: Grade,
+                tabContent: (
+                  <AnswerRows
+                    tableHeaderColor='primary'
+                    tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
+                    checkedIndexes={[]}
+                    tasks={this.state.userAnswers}
+                  />
+                )
+              },
+              {
+                tabName: 'RESOLVED',
+                tabIcon: Code,
+                tabContent: (
+                  <AnswerRows
+                    tableHeaderColor='primary'
+                    tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
+                    checkedIndexes={[]}
+                    tasks={this.state.userAnswers}
+                  />
+                )
+              }
+            ]}
+          />
+          {/* <Table
                 tableHeaderColor='primary'
                 // tableHead={["Questionnaire Name", "Patient Name", "Time", "Final Score", "Id", "Questionnaire Id"]}
                 tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}

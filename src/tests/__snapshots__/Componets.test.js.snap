@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Information Card should render correctly 1`] = `
+<WithStyles(GridItem)
+  md={4}
+  sm={6}
+  xs={12}
+>
+  <WithStyles(Card)>
+    <WithStyles(CardHeader)
+      color="info"
+      icon={true}
+      stats={true}
+    >
+      <WithStyles(CardIcon)
+        color="info"
+      >
+        <AllInboxOutlinedIcon />
+      </WithStyles(CardIcon)>
+      <p
+        className="Dashboard-cardCategory-251"
+      >
+        Total Questionnaires
+      </p>
+      <h3
+        className="Dashboard-cardTitle-253"
+      >
+        15
+      </h3>
+    </WithStyles(CardHeader)>
+    <WithStyles(CardFooter)
+      stats={true}
+    >
+      <div
+        className="Dashboard-stats-250"
+      >
+        <DateRangeIcon />
+        Updated today
+      </div>
+    </WithStyles(CardFooter)>
+  </WithStyles(Card)>
+</WithStyles(GridItem)>
+`;
