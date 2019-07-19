@@ -34,7 +34,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "cross-env CI=true react-scripts test --reporters=jest-junit --env=jsdom --passWithNoTests --coverage -u",
+    "test": "cross-env CI=true react-scripts test --reporters=jest-junit --env=jsdom --passWithNoTests --coverage --coverageDirectory=output/coverage/jest -u",
     "eject": "react-scripts eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
     "lint:check": "eslint . --ext=js,jsx;  exit 0",
@@ -83,5 +83,9 @@
       "not op_mini all"
     ],
     "development": []
+  },
+  "jest-junit": {
+    "output": "output/coverage/junit/junit.xml",
+    "usePathForSuiteName": "true"
   }
 }
