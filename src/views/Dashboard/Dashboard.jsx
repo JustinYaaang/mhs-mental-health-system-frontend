@@ -165,7 +165,7 @@ class Dashboard extends React.Component {
       },
     );
     
-     fetchQuestionnaires().then(
+     fetchQuestionnaires().then( //!!! AWAIT HERE
        response => {
         this.setState({'totalQuestionnaire': response.idPublishedList.length + response.questionnaireDraftList.length,
         'idDraftList': response.idDraftList, 'idPublishedList': response.idPublishedList, 
@@ -173,6 +173,9 @@ class Dashboard extends React.Component {
       }
     );
   }
+
+
+  
 
   render() {
     var Chartist = require("chartist");
@@ -208,7 +211,7 @@ class Dashboard extends React.Component {
       <div>
         <GridContainer>
           <InformationCard 
-          color={"info"} title={"Total Questionnaires"+this.state.totalQuestionnaire} value={this.state.totalQuestionnaire}
+          color={"info"} title={"Total Questionnaires"} value={this.state.totalQuestionnaire}
           daterange={"Updated today"} classes={classes}
           />
           <InformationCard 

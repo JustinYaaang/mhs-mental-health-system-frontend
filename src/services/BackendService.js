@@ -140,8 +140,8 @@ const getAnsweredQuestionnaire = async (theId) => {
     })
 }
 
-const fetchQuestionnaire = async (questionnaireId) => {
-  return await axios.get(baseUrl + fetchQuestionnairesUrl + '/' + questionnaireId)
+const fetchQuestionnaire =  (questionnaireId) => {
+  return  axios.get(baseUrl + fetchQuestionnairesUrl + '/' + questionnaireId)
     .then(function (response) {
       const data = response.data.data
       return { 'id': data._id, 'body': data.body }

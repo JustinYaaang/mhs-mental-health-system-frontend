@@ -40,9 +40,10 @@ class InformationCard extends React.Component {
       daterange: this.props.daterange,
       classes: this.props.classes
     })
+  console.log(this.props.classes)
   }
+
   render () {
-    console.log(this.state.value)
     return (
       <GridItem xs={12} sm={6} md={4}>
         <Card>
@@ -51,7 +52,7 @@ class InformationCard extends React.Component {
               <All />
             </CardIcon>
             <p className={this.state.classes.cardCategory}>{this.state.title}</p>
-            <h3 className={this.state.classes.cardTitle}>{this.state.value}</h3>
+            <h3 className={this.state.classes.cardTitle}>{this.props.value}</h3>
           </CardHeader>
           <CardFooter stats>
             <div className={this.state.classes.stats}>
