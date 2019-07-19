@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SurveyCreator should render correctly 1`] = `
+exports[`Information Card should render correctly 1`] = `
 <WithStyles(GridItem)
   md={4}
   sm={6}

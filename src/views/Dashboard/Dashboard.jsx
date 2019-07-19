@@ -28,6 +28,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import swal from 'sweetalert';
 import InformationCard from 'components/DashboardComponent/InformationCard.jsx';
+import LineGraph from 'components/DashboardComponent/LineGraph.jsx';
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { fetchQuestionnaires, deleteQuestionnaire, fetchWeeklyResult } from "../../services/BackendService";
@@ -206,7 +207,9 @@ class Dashboard extends React.Component {
       waiting_patients: 18,
       percentage: 50,
     }
-    console.log("test "+this.state.totalQuestionnaire)
+
+    console.log(dashboardData)
+    console.log(this.state.dailySubmission)
     return (
       <div>
         <GridContainer>
@@ -226,34 +229,12 @@ class Dashboard extends React.Component {
 
         </GridContainer>
         <GridContainer>
-          <GridItem xs={12} sm={12} md={4}>
-            <Card chart>
-              <CardHeader color="success">
-                <ChartistGraph
-                  className="ct-chart"
-                  data={this.state.dailySubmission}
-                  type="Line"
-                  options={dashboardData.dailySalesChart.options}
-                  listener={dashboardData.dailySalesChart.animation}
-                />
-              </CardHeader>
-              <CardBody>
-                <h4 className={classes.cardTitle}>Daily Engagement</h4>
-                <p className={classes.cardCategory}>
-                  <span className={classes.successText}>
-                    <ArrowUpward className={classes.upArrowCardCategory} />{dashboardData.percentage}%
-                  </span>{" "}
-                  increase today.
-                </p>
-              </CardBody>
-              <CardFooter chart>
-                <div className={classes.stats}>
-                  <AccessTime /> updated 4 minutes ago
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-
+          <LineGraph
+          color={"success"} dailySubmission={this.state.dailySubmission} type={"Line"}
+          dashboardData={dashboardData}
+          classes={classes}
+          
+          />
           <GridItem xs={12} sm={12} md={8}>
             <CustomTabs
               title="Questionnaires :"
