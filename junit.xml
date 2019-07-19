@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="3" failures="0" time="17.967">
+  <testsuite name="Information Card" errors="0" failures="0" skipped="0" timestamp="2019-07-19T15:03:48" time="5.909" tests="2">
+    <testcase classname="Information Card should render correctly" name="Information Card should render correctly" time="0.042">
+    </testcase>
+    <testcase classname="Line Graph should render correctly" name="Line Graph should render correctly" time="0.011">
+    </testcase>
+  </testsuite>
+  <testsuite name="SurveyCreator" errors="0" failures="0" skipped="0" timestamp="2019-07-19T15:03:48" time="6.519" tests="1">
+    <testcase classname="SurveyCreator should render correctly" name="SurveyCreator should render correctly" time="0.11">
+    </testcase>
+  </testsuite>
+</testsuites>
