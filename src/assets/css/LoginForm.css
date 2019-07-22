@@ -14,21 +14,21 @@
 
 .btn-primary {
     width: 100%;
-    color: #fff;
+    /* color: #fff;
     background-color: #9c27b0;
     border-color: #9c27b0;
-    box-shadow: 0 2px 2px 0 rgba(156, 39, 176, .14), 0 3px 1px -2px rgba(156, 39, 176, .2), 0 1px 5px 0 rgba(156, 39, 176, .12);
+    box-shadow: 0 2px 2px 0 rgba(156, 39, 176, .14), 0 3px 1px -2px rgba(156, 39, 176, .2), 0 1px 5px 0 rgba(156, 39, 176, .12); */
 }
 
 .btn:hover {
-    cursor: pointer;
+    /* cursor: pointer;
     background-color: #9c27b0;
     border-color: #9c27b0;
-    transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1);
+    transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1); */
 }
 
 .btn {
-    position: relative;
+    /* position: relative;
     padding: 12px 30px;
     margin: .3125rem 1px;
     font-size: 1.15rem;
@@ -39,5 +39,10 @@
     border: 0;
     border-radius: .2rem;
     transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1);
-    will-change: box-shadow, transform;
+    will-change: box-shadow, transform; */
+}
+
+.div-login {
+    margin: 0 auto;
+    text-align: center;
 }

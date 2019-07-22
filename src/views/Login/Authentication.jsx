@@ -22,6 +22,7 @@ import GridContainer from 'components/Grid/GridContainer.jsx'
 import Tasks from 'components/Tasks/Tasks.jsx'
 import CustomTabs from 'components/CustomTabs/CustomTabs.jsx'
 import Card from 'components/Card/Card.jsx'
+import Button from 'components/CustomButtons/Button.jsx'
 import CardHeader from 'components/Card/CardHeader.jsx'
 import CardIcon from 'components/Card/CardIcon.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
@@ -55,8 +56,10 @@ class Authentication extends React.Component {
             </span>
           </label>
         </div>
-
-        <button type='submit' class='btn btn-primary'>Submit</button>
+        <div class='div-login'>
+          <Button type='button' color='primary'>Primary</Button>
+        </div>
+        {/* <button type='submit' class='btn btn-primary'>Submit</button> */}
       </form>
     )
   }
