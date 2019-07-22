@@ -183,7 +183,7 @@ const getAuthenticationToken = async (body) => {
     })
     console.log('getAuthenticationToken')
     console.log(response.data.data)
-    return response.data.data
+    return response
   } catch (error) {
     console.log('POST server error: ', error)
   }

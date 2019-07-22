@@ -69,7 +69,11 @@
     "eslint-config-prettier": "4.3.0",
     "eslint-plugin-prettier": "3.1.0",
     "jest-junit": "^6.4.0",
-    "prettier": "1.18.2"
+    "prettier": "1.18.2",
+    "react-redux": "^7.1.0",
+    "react-router": "^5.0.1",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0"
   },
   "jest": {
     "snapshotSerializers": [
