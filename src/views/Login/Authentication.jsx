@@ -39,15 +39,18 @@ class Authentication extends React.Component {
     return (
       <form class='loginform'>
         <div class='form-group'>
+          <label class='label-title' for='label'>Welcome to MHS</label>
+          <label class='label-subtitle' for='label'>Please enter your login credentials.</label>
+          <br />
           <label class='label-header' for='exampleInputEmail1'>Email address</label>
           <input type='email' class='form-control' id='exampleInputEmail1' aria-describedby='emailHelp' placeholder='Enter email' />
           {/* <small id='emailHelp' class='form-text text-muted'>We'll never share your email with anyone else.</small> */}
         </div>
         <div class='form-group'>
           <label class='label-header' for='exampleInputPassword1'>Password</label>
-          <input type='password' class='form-control' id='exampleInputPassword1' placeholder='Password' />
+          <input type='password' class='form-control' id='exampleInputPassword1' placeholder='Enter Password' />
         </div>
-        <div class='form-check'>
+        {/* <div class='form-check'>
           <label class='form-check-label'>
             <input class='form-check-input' type='checkbox' value='' />
                 Option one is this
@@ -55,10 +58,11 @@ class Authentication extends React.Component {
               <span class='check' />
             </span>
           </label>
-        </div>
-        <div class='div-login'>
-          <Button type='button' color='primary'>Primary</Button>
-        </div>
+        </div> */}
+         <Button id='loginbutton' type='button' color='primary'>Login</Button>
+        {/* <div class='div-login'>
+         
+        </div> */}
         {/* <button type='submit' class='btn btn-primary'>Submit</button> */}
       </form>
     )

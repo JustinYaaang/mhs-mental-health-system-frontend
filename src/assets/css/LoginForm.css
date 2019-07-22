@@ -12,8 +12,27 @@
     margin-top: 5%;
 }
 
-.btn-primary {
-    width: 100%;
+.label-title {
+    color: rebeccapurple;
+    padding: 1.5rem;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    border-width: .2rem;
+    font-size: 3em;
+    font-weight: bolder;
+    text-shadow: 0 2px 2px 0 rgba(156, 39, 176, .14);
+}
+
+.label-subtitle {
+    font-size: 1em;
+}
+
+#loginbutton {
+    width: 70%;
+    margin: 0 auto;
+    left: 15%;
+    margin-top: 10%;
     /* color: #fff;
     background-color: #9c27b0;
     border-color: #9c27b0;
