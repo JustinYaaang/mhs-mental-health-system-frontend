@@ -19,8 +19,8 @@ describe('SurveyCreator', () => {
         {
           'message': 'PatientAnswer details loading..',
           'data': {
-            '_id': '5d249893a2a1c700307a85af',
-            'questionnaire_id': '5d1c97c473589a0030d798b3',
+            '_id': '5d2f3f2a820884002fbabb41',
+            'questionnaire_id': '5d2f3dfd820884002fbabb40',
             'title': 'Test 3',
             'patient_name': 'Justin',
             'patiend_id': '5d135b30865a25190df56838',
@@ -37,7 +37,7 @@ describe('SurveyCreator', () => {
     })
 
   it('should render correctly', async () => {
-    const component = shallow(<SurveyCreator match={{ params: { id: '5d249893a2a1c700307a85af' }, isExact: true, path: '', url: '' }} />)
+    const component = shallow(<SurveyCreator match={{ params: { id: '5d2f3f2a820884002fbabb41' }, isExact: true, path: '', url: '' }} />)
 
     expect(component).toMatchSnapshot()
   })

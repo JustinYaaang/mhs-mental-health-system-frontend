@@ -12,7 +12,7 @@ describe('SurveyCreator', () => {
   const nock = require('nock')
 
   const scope = nock(baseUrl + fetchQuestionnairesUrl)
-    .get('5d1b3143cd1699002fd7b6cd')
+    .get('5d2f3dfd820884002fbabb40')
     .reply(200, {
       'message': 'SurveyJS questionnaires retrieved successfully',
       'data': [{
@@ -30,7 +30,7 @@ describe('SurveyCreator', () => {
     })
 
   it('should render correctly', async () => {
-    const component = shallow(<SurveyCreator match={{ params: { id: '5d1b3143cd1699002fd7b6cd' }, isExact: true, path: '', url: '' }} />)
+    const component = shallow(<SurveyCreator match={{ params: { id: '5d2f3dfd820884002fbabb40' }, isExact: true, path: '', url: '' }} />)
 
     expect(component).toMatchSnapshot()
   })
