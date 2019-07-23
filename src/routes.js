@@ -23,12 +23,12 @@ const dashboardRoutes = [{
         layout: '/admin'
     },
     {
-        path: '/manager',
+        path: '/dashboardM',
         name: 'Manager Dashboard',
         rtlName: 'لوحة القيادة',
         icon: Dashboard,
         component: ManagerPage,
-        layout: '/admin'
+        layout: '/manager'
     },
     {
         path: '/table',
