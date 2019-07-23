@@ -13,46 +13,47 @@ import NotificationsPage from 'views/Notifications/Notifications.jsx'
 
 // core components/views for RTL layout
 
-const dashboardRoutes = [{
-        path: '/dashboard',
-        name: 'Dashboard',
-        rtlName: 'لوحة القيادة',
-        icon: Dashboard,
-        component: DashboardPage,
-        layout: '/admin'
-    },
-    {
-        path: '/table',
-        name: 'Triage List',
-        rtlName: 'قائمة الجدول',
-        icon: 'content_paste',
-        component: TableList,
-        layout: '/admin'
-    },
-    {
-        path: '/user',
-        name: 'User Profile',
-        rtlName: 'ملف تعريفي للمستخدم',
-        icon: Person,
-        component: UserProfile,
-        layout: '/admin'
-    },
-    {
-        path: '/notifications',
-        name: 'Notifications',
-        rtlName: 'إخطارات',
-        icon: Notifications,
-        component: NotificationsPage,
-        layout: '/admin'
-    },
-    {
-        path: '/typography',
-        name: 'Settings',
-        rtlName: 'طباعة',
-        icon: Setting,
-        component: Typography,
-        layout: '/admin'
-    }
+const dashboardRoutes = [
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    rtlName: 'لوحة القيادة',
+    icon: Dashboard,
+    component: DashboardPage,
+    layout: '/admin'
+  },
+  {
+    path: '/table',
+    name: 'Triage List',
+    rtlName: 'قائمة الجدول',
+    icon: 'content_paste',
+    component: TableList,
+    layout: '/admin'
+  },
+  {
+    path: '/user',
+    name: 'User Profile',
+    rtlName: 'ملف تعريفي للمستخدم',
+    icon: Person,
+    component: UserProfile,
+    layout: '/admin'
+  },
+  {
+    path: '/notifications',
+    name: 'Notifications',
+    rtlName: 'إخطارات',
+    icon: Notifications,
+    component: NotificationsPage,
+    layout: '/admin'
+  },
+  {
+    path: '/typography',
+    name: 'Settings',
+    rtlName: 'طباعة',
+    icon: Setting,
+    component: Typography,
+    layout: '/admin'
+  }
 
 ]
 
