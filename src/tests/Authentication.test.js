@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import Authentication from '../views/Login/Authentication'
+import Authentication from '../layouts/Login/Authentication'
 import { configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 configure({ adapter: new Adapter() })
