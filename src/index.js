@@ -15,6 +15,8 @@ import Login from "layouts/LoginPage.js";
 import RTL from "layouts/RTL.jsx";
 import SurveyCreator from "layouts/SurveyCreator.js";
 import SurveyResult from "layouts/SurveyResult.jsx";
+import Error401 from "layouts/401.js";
+import NotFound from "layouts/404.js";
 import Authentication from 'layouts/Login/Authentication.jsx'
 
 import "assets/css/material-dashboard-react.css?v=1.7.0";
@@ -28,14 +30,15 @@ ReactDOM.render(
   <Router history={history}>
     <Switch>
       <Route path="/login" component={ Authentication } />
-      <Route path="/admin" render={() => (isLoggedIn() 
-                                         ? ( isAdmin() ? ( <Admin /> ) : ( <Redirect to="/questionnaire"/> ))
+      <Route path="/forbidden" component={ Error401 } />
+      <Route path="/admin" render={(props) => (isLoggedIn() 
+                                         ? ( isAdmin() ? ( <Admin {...props}/> ) : ( <Redirect to="/forbidden"/> ))
                                          : ( <Redirect to="/login"/> ) ) } />  
-      <Route path="/rtl" render={() => (isLoggedIn() ? ( <RTL /> ) : ( <Redirect to="/login"/> )) } />
-      <Route path="/questionnaire/:id?" render={() => (isLoggedIn() ? ( <SurveyCreator /> ) : ( <Redirect to="/login"/> )) } />
-      <Route path="/patientanswers/:id?" render={() => (isLoggedIn()  ? ( <SurveyResult /> ) : ( <Redirect to="/login"/> )) } />
-      <Redirect from="/" to="/admin/dashboard" />
-
+      <Route path="/rtl" render={(props) => (isLoggedIn() ? ( <RTL /> ) : ( <Redirect to="/login"/> )) } />
+      <Route path="/questionnaire/:id?" render={(props) => (isLoggedIn() ? (<SurveyCreator {...props}/> ) : ( <Redirect to="/login"/> )) } />
+      <Route path="/patientanswers/:id?" render={(props) => (isLoggedIn()  ? ( <SurveyResult {...props}/> ) : ( <Redirect to="/login"/> )) } />
+      <Redirect from="/" exact to="/admin" />
+      <Route component={ NotFound } />
     </Switch>
   </Router>
   </Provider>,
@@ -53,7 +56,7 @@ function getRole(){
 }
 
 function isAdmin(){
-  return getRole() === 'PATIENTS';
+  return getRole() === 'PATIENT';
 }
 
 function isManager(){
