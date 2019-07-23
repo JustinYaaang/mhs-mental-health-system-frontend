@@ -15,6 +15,7 @@ import Login from "layouts/LoginPage.js";
 import RTL from "layouts/RTL.jsx";
 import SurveyCreator from "layouts/SurveyCreator.js";
 import SurveyResult from "layouts/SurveyResult.jsx";
+import Error401 from "layouts/401.js";
 import Authentication from 'layouts/Login/Authentication.jsx'
 
 import "assets/css/material-dashboard-react.css?v=1.7.0";
@@ -28,8 +29,9 @@ ReactDOM.render(
   <Router history={history}>
     <Switch>
       <Route path="/login" component={ Authentication } />
+      <Route path="/forbidden" component={ Error401 } />
       <Route path="/admin" render={() => (isLoggedIn() 
-                                         ? ( isAdmin() ? ( <Admin /> ) : ( <Redirect to="/questionnaire"/> ))
+                                         ? ( isAdmin() ? ( <Admin /> ) : ( <Redirect to="/forbidden"/> ))
                                          : ( <Redirect to="/login"/> ) ) } />  
       <Route path="/rtl" render={() => (isLoggedIn() ? ( <RTL /> ) : ( <Redirect to="/login"/> )) } />
       <Route path="/questionnaire/:id?" render={() => (isLoggedIn() ? ( <SurveyCreator /> ) : ( <Redirect to="/login"/> )) } />
