@@ -22,6 +22,14 @@ import logo from "assets/img/reactlogo.png";
 
 let ps;
 
+const rout=(
+  routes.map((prop, key) => {
+    if(prop.layout==='/manager'){
+      return prop
+    }
+  })
+)
+
 const switchRoutes = (
   <Switch>
     {routes.map((prop, key) => {
@@ -98,7 +106,7 @@ class Dashboard extends React.Component {
     return (
       <div className={classes.wrapper}>
         <Sidebar
-          routes={routes}
+          routes={rout}
           logoText={"MHS - Camden"}
           logo={logo}
           image={this.state.image}
@@ -109,7 +117,7 @@ class Dashboard extends React.Component {
         />
         <div className={classes.mainPanel} ref={this.mainPanel}>
           <Navbar
-            routes={routes}
+            routes={rout}
             handleDrawerToggle={this.handleDrawerToggle}
             {...rest}
           />
@@ -140,4 +148,4 @@ Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(dashboardStyle)(DashboardM);
+export default withStyles(dashboardStyle)(Dashboard);

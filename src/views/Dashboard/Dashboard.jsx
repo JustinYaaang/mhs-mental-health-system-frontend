@@ -33,6 +33,11 @@ import LineGraph from 'components/DashboardComponent/LineGraph.jsx';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { fetchQuestionnaires, deleteQuestionnaire, fetchWeeklyResult } from "../../services/BackendService";
 
+function getRole(){
+  console.log(sessionStorage.role);
+  return sessionStorage.role;
+}
+
 class Dashboard extends React.Component {
   state = {
     value: 0,
@@ -125,6 +130,8 @@ class Dashboard extends React.Component {
   };
 
   componentWillMount() {
+
+    getRole();
 
     var todayTime = new Date( Date.parse( new Date()));
     var todayDate = this.timeTrans(todayTime);

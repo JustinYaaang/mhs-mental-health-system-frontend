@@ -11,6 +11,7 @@ import UserProfile from 'views/UserProfile/UserProfile.jsx'
 import TableList from 'views/TableList/TableList.jsx'
 import Typography from 'views/Typography/Typography.jsx'
 import NotificationsPage from 'views/Notifications/Notifications.jsx'
+import ManagerDashboard from 'views/Dashboard/ManagerDashboard';
 
 // core components/views for RTL layout
 
@@ -23,11 +24,11 @@ const dashboardRoutes = [{
         layout: '/admin'
     },
     {
-        path: '/dashboardM',
-        name: 'Manager Dashboard',
+        path: '/dashboard',
+        name: 'Dashboard',
         rtlName: 'لوحة القيادة',
         icon: Dashboard,
-        component: ManagerPage,
+        component: ManagerDashboard,
         layout: '/manager'
     },
     {
