@@ -65,8 +65,8 @@ class Dashboard extends React.Component {
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
-  getroutese() {
-    return window.location.pathname !== "/manager/maps";
+  getRoute() {
+    return window.location.pathname !== "/admin/maps";
   }
   resizeFunction = () => {
     if (window.innerWidth >= 960) {

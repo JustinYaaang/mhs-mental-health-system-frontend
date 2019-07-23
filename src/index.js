@@ -12,9 +12,10 @@ import rootReducer from './reducers/RootReducer'
 // core components
 import Admin from 'layouts/Admin.jsx'
 import Login from 'layouts/LoginPage.js'
-import Manager from 'layouts/Manager.jsx'
 import SurveyCreator from 'layouts/SurveyCreator.js'
+import Manager from 'layouts/Manager.jsx'
 import SurveyResult from 'layouts/SurveyResult.jsx'
+import Error401 from 'layouts/401.js'
 import Authentication from 'layouts/Login/Authentication.jsx'
 
 import 'assets/css/material-dashboard-react.css?v=1.7.0'
@@ -27,11 +28,12 @@ ReactDOM.render(
     <Router history={history}>
       <Switch>
         <Route path='/login' component={Authentication} />
+        <Route path='/forbidden' component={Error401} />
+        <Route path='/admin' render={() => (isLoggedIn()
+          ? (isAdmin() ? (<Admin />) : (<Redirect to='/forbidden' />))
+          : (<Redirect to='/login' />))} />
         <Route path='/manager' render={() => (isLoggedIn()
           ? (isManager() ? (<Manager />) : (<Redirect to='/questionnaire' />))
-          : (<Redirect to='/login' />))} />
-        <Route path='/admin' render={() => (isLoggedIn()
-          ? (isAdmin() ? (<Admin />) : (<Redirect to='/questionnaire' />))
           : (<Redirect to='/login' />))} />
         <Route path='/questionnaire/:id?' render={() => (isLoggedIn() ? (<SurveyCreator />) : (<Redirect to='/login' />))} />
         <Route path='/patientanswers/:id?' render={() => (isLoggedIn() ? (<SurveyResult />) : (<Redirect to='/login' />))} />
@@ -54,11 +56,11 @@ function getRole () {
 }
 
 function isAdmin () {
-  return getRole() === 'PATIENTS'
+  return getRole() === 'PATIENT'
 }
 
 function isManager () {
-  return getRole() === 'PATIENTS'
+  return getRole() === 'PATIENT'
 }
 
 function isClinician () {
