@@ -37,8 +37,8 @@ ReactDOM.render(
       <Route path="/rtl" render={(props) => (isLoggedIn() ? ( <RTL /> ) : ( <Redirect to="/login"/> )) } />
       <Route path="/questionnaire/:id?" render={(props) => (isLoggedIn() ? (<SurveyCreator {...props}/> ) : ( <Redirect to="/login"/> )) } />
       <Route path="/patientanswers/:id?" render={(props) => (isLoggedIn()  ? ( <SurveyResult {...props}/> ) : ( <Redirect to="/login"/> )) } />
-      {/* <Route component={ NotFound } /> */}
-      <Redirect from="/" to="/admin/dashboard" />
+      <Redirect from="/" exact to="/admin" />
+      <Route component={ NotFound } />
     </Switch>
   </Router>
   </Provider>,
