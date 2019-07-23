@@ -36,8 +36,11 @@ class Authentication extends React.Component {
   // this.loginNow=this.loginNo w.bind(this)
 
   loginNow () {
-    if (document.getElementById('mailInput').value === '' || document.getElementById('passwordInput').value === '') {
-      console.log('empty')
+    if (document.getElementById('mailInput').value === '') {
+      console.log('mail empty')
+    }
+    if (document.getElementById('passwordInput').value === '') {
+      console.log('password empty')
     }
   }
 
