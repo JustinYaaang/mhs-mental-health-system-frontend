@@ -79,7 +79,7 @@ class RTL extends React.Component {
     window.addEventListener("resize", this.resizeFunction);
   }
   componentDidUpdate(e) {
-    if (e.history.location.pathname !== e.location.pathname) {
+    if (e.history !== undefined &&  e.history.location.pathname !== e.location.pathname) {
       this.mainPanel.current.mainPanel.scrollTop = 0;
       if (this.state.mobileOpen) {
         this.setState({ mobileOpen: false });
