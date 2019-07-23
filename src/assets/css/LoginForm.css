@@ -13,19 +13,20 @@
 }
 
 .label-title {
-    color: rebeccapurple;
+    color: dimgray;
     padding: 1.5rem;
     margin-right: 0;
     margin-bottom: 0;
-    margin-left: 0;
+    margin-left: 5%;
     border-width: .2rem;
-    font-size: 3em;
+    font-size: 3vw;
     font-weight: bolder;
-    text-shadow: 0 2px 2px 0 rgba(156, 39, 176, .14);
+    text-shadow: 1px 2px gainsboro;
 }
 
 .label-subtitle {
-    font-size: 1em;
+    font-size: 1vw;
+    position: relative;
 }
 
 #loginbutton {
@@ -65,3 +66,5 @@
     margin: 0 auto;
     text-align: center;
 }
+
+;
