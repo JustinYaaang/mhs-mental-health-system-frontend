@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createBrowserHistory } from "history";
+
+import { createBrowserHistory } from 'history'
+
 import { Router, Route, Switch, Redirect } from "react-router-dom";
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
@@ -13,23 +15,26 @@ import Login from "layouts/LoginPage.js";
 import RTL from "layouts/RTL.jsx";
 import SurveyCreator from "layouts/SurveyCreator.js";
 import SurveyResult from "layouts/SurveyResult.jsx";
+import Authentication from 'layouts/Login/Authentication.jsx'
 
 import "assets/css/material-dashboard-react.css?v=1.7.0";
 
-const hist = createBrowserHistory();
+// const hist = createBrowserHistory();
+
+import history from 'history.js';
+
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 
 ReactDOM.render(
   <Provider store={store}>
-  <Router history={hist}>
+  <Router history={history}>
     <Switch>
-      <Route path="/admin" component={Admin} />
-      <Route path="/login" component={Login} />
-      <Route path="/rtl" component={RTL} />
-      <Route path="/creator" component={SurveyCreator} />
-      <Route path="/questionnaire/:id?" component={SurveyCreator} />
-      <Route path="/patientanswers/:id?" component={SurveyResult} />
+      <Route path="/login" component={ Authentication } />
+      <Route path="/admin" render={() => (isLoggedIn() ? ( <Admin /> ) : ( <Redirect to="/login"/> )) } />
+      <Route path="/rtl" render={() => (isLoggedIn() ? ( <RTL /> ) : ( <Redirect to="/login"/> )) } />
+      <Route path="/questionnaire/:id?" render={() => (isLoggedIn() ? ( <SurveyCreator /> ) : ( <Redirect to="/login"/> )) } />
+      <Route path="/patientanswers/:id?" render={() => (isLoggedIn()  ? ( <SurveyResult /> ) : ( <Redirect to="/login"/> )) } />
       <Redirect from="/" to="/admin/dashboard" />
 
     </Switch>
@@ -37,3 +42,18 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
+
+function isLoggedIn(){
+  console.log('in the require auth function')
+  return sessionStorage.jwt;
+}
+
+function requireAuth(nextState, replace) {
+  console.log('in the require auth function')
+  if (!sessionStorage.jwt) {
+    replace({
+      pathname: '/login',
+      state: { nextPathname: nextState.location.pathname }
+    })
+  }
+}

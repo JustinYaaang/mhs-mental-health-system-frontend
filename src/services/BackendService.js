@@ -93,7 +93,7 @@ const fetchUserAnswers = async () => {
 
 const fetchWeeklyResult = async (startDate, lastDate) => {
   console.log('fetchWeeklyCount')
-  var weeklyResultUrl = 'http://mhsbackend.azurewebsites.net/api/v1/patientanswers/'
+  var weeklyResultUrl = baseUrl + 'patientanswers/';
   console.log(startDate)
   console.log(lastDate)
   try {
@@ -175,6 +175,7 @@ const getQuestionnaire = async (qustionId) => {
 const getAuthenticationToken = async (body) => {
   var headers = { 'Content-Type': 'application/json' }
   try {
+    console.log('here')
     const response = await axios({
       method: 'post',
       url: baseUrl + authenticationUrl,
@@ -186,6 +187,7 @@ const getAuthenticationToken = async (body) => {
     return response
   } catch (error) {
     console.log('POST server error: ', error)
+    throw error;
   }
 }
 
