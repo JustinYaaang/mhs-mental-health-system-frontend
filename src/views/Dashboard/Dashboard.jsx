@@ -117,7 +117,7 @@ class Dashboard extends React.Component {
   };
 
   timeTrans(date){
-    date = new Date(date);//如果date为13位不需要乘1000
+    date = new Date(date);
     var Y = date.getFullYear() + '-';
     var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
     var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
@@ -184,10 +184,6 @@ class Dashboard extends React.Component {
 
     const dashboardData = {
       dailySalesChart: {
-        // data: {
-        //   labels: ["M", "T", "W", "T", "F", "S", "S"],
-        //   series: [[12, 17, 7, 17, 23, 18, 38]]
-        // },
         options: {
           lineSmooth: Chartist.Interpolation.cardinal({
             tension: 0
