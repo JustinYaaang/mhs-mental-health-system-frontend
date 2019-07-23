@@ -6,12 +6,10 @@ import Notifications from '@material-ui/icons/Notifications'
 import Setting from '@material-ui/icons/Settings'
 // core components/views for Admin layout
 import DashboardPage from 'views/Dashboard/Dashboard.jsx'
-import ManagerPage from 'views/Dashboard/ManagerDashboard.jsx'
 import UserProfile from 'views/UserProfile/UserProfile.jsx'
 import TableList from 'views/TableList/TableList.jsx'
 import Typography from 'views/Typography/Typography.jsx'
 import NotificationsPage from 'views/Notifications/Notifications.jsx'
-import ManagerDashboard from 'views/Dashboard/ManagerDashboard';
 
 // core components/views for RTL layout
 
@@ -22,14 +20,6 @@ const dashboardRoutes = [{
         icon: Dashboard,
         component: DashboardPage,
         layout: '/admin'
-    },
-    {
-        path: '/dashboard',
-        name: 'Dashboard',
-        rtlName: 'لوحة القيادة',
-        icon: Dashboard,
-        component: ManagerDashboard,
-        layout: '/manager'
     },
     {
         path: '/table',

@@ -13,7 +13,6 @@ import rootReducer from './reducers/RootReducer'
 import Admin from 'layouts/Admin.jsx'
 import Login from 'layouts/LoginPage.js'
 import Manager from 'layouts/Manager.jsx'
-import RTL from 'layouts/RTL.jsx'
 import SurveyCreator from 'layouts/SurveyCreator.js'
 import SurveyResult from 'layouts/SurveyResult.jsx'
 import Authentication from 'layouts/Login/Authentication.jsx'
@@ -23,88 +22,63 @@ import history from 'history.js'
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
-ReactDOM.render( <
-    Provider store = { store } >
-    <
-    Router history = { history } >
-    <
-    Switch >
-    <
-    Route path = '/login'
-    component = { Authentication }
-    /> <
-    Route path = '/manager'
-    render = {
-        () => (isLoggedIn() ?
-            (isManager() ? ( < Manager / > ) : ( < Redirect to = '/questionnaire' / > )) :
-            ( < Redirect to = '/login' / > ))
-    }
-    /> <
-    Route path = '/admin'
-    render = {
-        () => (isLoggedIn() ?
-            (isAdmin() ? ( < Admin / > ) : ( < Redirect to = '/questionnaire' / > )) :
-            ( < Redirect to = '/login' / > ))
-    }
-    /> <
-    Route path = '/rtl'
-    render = {
-        () => (isLoggedIn() ? ( < RTL / > ) : ( < Redirect to = '/login' / > )) }
-    /> <
-    Route path = '/questionnaire/:id?'
-    render = {
-        () => (isLoggedIn() ? ( < SurveyCreator / > ) : ( < Redirect to = '/login' / > )) }
-    /> <
-    Route path = '/patientanswers/:id?'
-    render = {
-        () => (isLoggedIn() ? ( < SurveyResult / > ) : ( < Redirect to = '/login' / > )) }
-    /> <
-    Redirect from = '/'
-    to = '/admin/dashboard' / >
+ReactDOM.render(
+  <Provider store={store}>
+    <Router history={history}>
+      <Switch>
+        <Route path='/login' component={Authentication} />
+        <Route path='/manager' render={() => (isLoggedIn()
+          ? (isManager() ? (<Manager />) : (<Redirect to='/questionnaire' />))
+          : (<Redirect to='/login' />))} />
+        <Route path='/admin' render={() => (isLoggedIn()
+          ? (isAdmin() ? (<Admin />) : (<Redirect to='/questionnaire' />))
+          : (<Redirect to='/login' />))} />
+        <Route path='/questionnaire/:id?' render={() => (isLoggedIn() ? (<SurveyCreator />) : (<Redirect to='/login' />))} />
+        <Route path='/patientanswers/:id?' render={() => (isLoggedIn() ? (<SurveyResult />) : (<Redirect to='/login' />))} />
+        <Redirect from='/' to='/admin/dashboard' />
 
-    <
-    /Switch> <
-    /Router> <
-    /Provider>,
-    document.getElementById('root')
+      </Switch>
+    </Router>
+  </Provider>,
+  document.getElementById('root')
 )
 
-function isLoggedIn() {
-    console.log('in the require auth function')
-    return sessionStorage.jwt
+function isLoggedIn () {
+  console.log('in the require auth function')
+  return sessionStorage.jwt
 }
 
-function getRole() {
-    console.log(sessionStorage.role)
-    return sessionStorage.role
+function getRole () {
+  console.log(sessionStorage.role)
+  return sessionStorage.role
 }
 
-function isAdmin() {
-    return getRole() === 'PATIENTS'
+function isAdmin () {
+  return getRole() === 'PATIENTS'
 }
 
-function isManager() {
-    return getRole() === 'PATIENTS'
+function isManager () {
+  return getRole() === 'PATIENTS'
 }
 
-function isClinician() {
-    return isClinician2() || isClinician3()
+function isClinician () {
+  return isClinician2() || isClinician3()
 }
 
-function isClinician2() {
-    return getRole() === 'CLINICIAN2'
+function isClinician2 () {
+  return getRole() === 'CLINICIAN2'
 }
 
-function isClinician3() {
-    return getRole() === 'CLINICIAN3'
+function isClinician3 () {
+  return getRole() === 'CLINICIAN3'
 }
 
-function requireAuth(nextState, replace) {
-    console.log('in the require auth function')
-    if (!sessionStorage.jwt) {
-        replace({
-            pathname: '/login',
-            state: { nextPathname: nextState.location.pathname }
-        })
-    }
+function requireAuth (nextState, replace) {
+  console.log('in the require auth function')
+  if (!sessionStorage.jwt) {
+    replace({
+      pathname: '/login',
+      state: { nextPathname: nextState.location.pathname }
+    })
+  }
 }

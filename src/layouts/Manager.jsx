@@ -12,7 +12,7 @@ import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 
-import routes from "routes.js";
+import routes  from "routes/RoutesManager.js";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
@@ -21,14 +21,6 @@ import logo from "assets/img/reactlogo.png";
 
 
 let ps;
-
-const rout=(
-  routes.map((prop, key) => {
-    if(prop.layout==='/manager'){
-      return prop
-    }
-  })
-)
 
 const switchRoutes = (
   <Switch>
@@ -73,7 +65,7 @@ class Dashboard extends React.Component {
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
-  getRoute() {
+  getroutese() {
     return window.location.pathname !== "/manager/maps";
   }
   resizeFunction = () => {
@@ -106,7 +98,7 @@ class Dashboard extends React.Component {
     return (
       <div className={classes.wrapper}>
         <Sidebar
-          routes={rout}
+          routes={routes}
           logoText={"MHS - Camden"}
           logo={logo}
           image={this.state.image}
@@ -117,7 +109,7 @@ class Dashboard extends React.Component {
         />
         <div className={classes.mainPanel} ref={this.mainPanel}>
           <Navbar
-            routes={rout}
+            routes={routes}
             handleDrawerToggle={this.handleDrawerToggle}
             {...rest}
           />
