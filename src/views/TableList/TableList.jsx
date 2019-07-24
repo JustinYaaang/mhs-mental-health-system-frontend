@@ -78,6 +78,10 @@ class TableList extends Component {
       })
   }
 
+  redirectToAnswers = (questionnaireResponseId) => {
+    document.location.href = '/patientanswers/'+ questionnaireResponseId;
+  }
+
   render () {
     return (
       <GridContainer>
@@ -102,6 +106,7 @@ class TableList extends Component {
                     tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
                     checkedIndexes={[]}
                     tasks={this.state.userAnswers}
+                    onRowClicked={(questionnaireResponseId) => this.redirectToAnswers(questionnaireResponseId)}
                   />
                 )
               },

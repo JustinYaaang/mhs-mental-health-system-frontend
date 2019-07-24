@@ -8,6 +8,7 @@ import Setting from '@material-ui/icons/Settings'
 import DashboardPage from 'views/Dashboard/Dashboard.jsx'
 import UserProfile from 'views/UserProfile/UserProfile.jsx'
 import TableList from 'views/TableList/TableList.jsx'
+import TrustList from 'layouts/Trusts/TrustList.jsx'
 import Typography from 'views/Typography/Typography.jsx'
 import NotificationsPage from 'views/Notifications/Notifications.jsx'
 
@@ -23,11 +24,11 @@ const dashboardRoutes = [
     layout: '/admin'
   },
   {
-    path: '/table',
-    name: 'Triage List(Will be removed)',
+    path: '/trust',
+    name: 'Trusts',
     rtlName: 'قائمة الجدول',
     icon: 'content_paste',
-    component: TableList,
+    component: TrustList,
     layout: '/admin'
   },
   {
