@@ -13,6 +13,8 @@ import rootReducer from './reducers/RootReducer'
 import Admin from 'layouts/Admin.jsx'
 import Login from 'layouts/LoginPage.js'
 import Manager from 'layouts/Manager.jsx'
+import Clinitian from 'layouts/Clinitian.jsx'
+import Trust from 'layouts/Trust.jsx'
 import SurveyCreator from 'layouts/SurveyCreator.js'
 import SurveyResult from 'layouts/SurveyResult.jsx'
 import Error401 from 'layouts/401.js'
@@ -33,8 +35,14 @@ ReactDOM.render(
         <Route path='/admin' render={(props) => (isLoggedIn()
           ? (isAdmin() ? (<Admin {...props} />) : (<Redirect to='/forbidden' />))
           : (<Redirect to='/login' />))} />
-          <Route path='/manager' render={(props) => (isLoggedIn()
+        <Route path='/manager' render={(props) => (isLoggedIn()
           ? (isManager() ? (<Manager {...props} />) : (<Redirect to='/forbidden' />))
+          : (<Redirect to='/login' />))} />
+        <Route path='/clinitian' render={(props) => (isLoggedIn()
+          ? (isClinician() ? (<Clinitian {...props} />) : (<Redirect to='/forbidden' />))
+          : (<Redirect to='/login' />))} />
+        <Route path='/trust' render={(props) => (isLoggedIn()
+          ? (isTrust() ? (<Trust {...props} />) : (<Redirect to='/forbidden' />))
           : (<Redirect to='/login' />))} />
         <Route path='/questionnaire/:id?' render={(props) => (isLoggedIn() ? (<SurveyCreator {...props} />) : (<Redirect to='/login' />))} />
         <Route path='/patientanswers/:id?' render={(props) => (isLoggedIn() ? (<SurveyResult {...props} />) : (<Redirect to='/login' />))} />
@@ -64,16 +72,20 @@ function isManager () {
   return getRole() === 'PATIENT'
 }
 
+function isTrust () {
+  return true// return isClinician2() || isClinician3()
+}
+
 function isClinician () {
-  return isClinician2() || isClinician3()
+  return true// return isClinician2() || isClinician3()
 }
 
 function isClinician2 () {
-  return getRole() === 'CLINICIAN2'
+  return getRole() === 'PATIENT'
 }
 
 function isClinician3 () {
-  return getRole() === 'CLINICIAN3'
+  return getRole() === 'PATIENT'
 }
 
 function requireAuth (nextState, replace) {
