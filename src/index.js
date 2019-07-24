@@ -12,8 +12,8 @@ import rootReducer from './reducers/RootReducer'
 // core components
 import Admin from 'layouts/Admin.jsx'
 import Login from 'layouts/LoginPage.js'
-import Manager from 'layouts/Manager.jsx'
-import Clinitian from 'layouts/Clinitian.jsx'
+import Service from 'layouts/Service.jsx'
+import Clinician from 'layouts/Clinician.jsx'
 import Trust from 'layouts/Trust.jsx'
 import SurveyCreator from 'layouts/SurveyCreator.js'
 import SurveyResult from 'layouts/SurveyResult.jsx'
@@ -35,11 +35,11 @@ ReactDOM.render(
         <Route path='/admin' render={(props) => (isLoggedIn()
           ? (isAdmin() ? (<Admin {...props} />) : (<Redirect to='/forbidden' />))
           : (<Redirect to='/login' />))} />
-        <Route path='/manager' render={(props) => (isLoggedIn()
-          ? (isManager() ? (<Manager {...props} />) : (<Redirect to='/forbidden' />))
+        <Route path='/service' render={(props) => (isLoggedIn()
+          ? (isManager() ? (<Service {...props} />) : (<Redirect to='/forbidden' />))
           : (<Redirect to='/login' />))} />
-        <Route path='/clinitian' render={(props) => (isLoggedIn()
-          ? (isClinician() ? (<Clinitian {...props} />) : (<Redirect to='/forbidden' />))
+        <Route path='/clinician' render={(props) => (isLoggedIn()
+          ? (isClinician() ? (<Clinician {...props} />) : (<Redirect to='/forbidden' />))
           : (<Redirect to='/login' />))} />
         <Route path='/trust' render={(props) => (isLoggedIn()
           ? (isTrust() ? (<Trust {...props} />) : (<Redirect to='/forbidden' />))
