@@ -12,7 +12,7 @@ import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 import rtlStyle from "assets/jss/material-dashboard-react/layouts/rtlStyle.jsx";
-import routes  from "routes/RoutesManager.js";
+import routes  from "routes/RoutesService.js";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
@@ -25,7 +25,7 @@ let ps;
 const switchRoutes = (
   <Switch>
     {routes.map((prop, key) => {
-      if (prop.layout === "/manager") {
+      if (prop.layout === "/service") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -36,7 +36,7 @@ const switchRoutes = (
       }
       return null;
     })}
-    <Redirect from="/manager" to="/manager/dashboard" />
+    <Redirect from="/service" to="/service/dashboard" />
   </Switch>
 );
 

@@ -24,36 +24,38 @@ const dashboardRoutes = [
   },
   {
     path: '/table',
-    name: 'Triage List',
+    name: 'Triage List(Will be removed)',
     rtlName: 'قائمة الجدول',
     icon: 'content_paste',
     component: TableList,
     layout: '/admin'
   },
   {
-    path: '/user',
-    name: 'User Profile',
-    rtlName: 'ملف تعريفي للمستخدم',
-    icon: Person,
-    component: UserProfile,
+    path: '/profile',
+    name: 'Profile',
+    rtlName: 'لوحة القيادة',
+    icon: Dashboard,
+    component: DashboardPage,
     layout: '/admin'
   },
   {
-    path: '/notifications',
-    name: 'Notifications',
-    rtlName: 'إخطارات',
-    icon: Notifications,
-    component: NotificationsPage,
-    layout: '/admin'
-  },
-  {
-    path: '/typography',
+    path: '/settings',
     name: 'Settings',
-    rtlName: 'طباعة',
+    rtlName: 'لوحة القيادة',
     icon: Setting,
-    component: Typography,
+    component: DashboardPage,
+    layout: '/admin'
+  },
+  {
+    path: '/logout',
+    name: 'Logout',
+    rtlName: 'لوحة القيادة',
+    icon: Dashboard,
+    component: DashboardPage,
     layout: '/admin'
   }
+  
+
 
 ]
 
