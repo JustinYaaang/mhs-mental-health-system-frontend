@@ -7,7 +7,7 @@ Brown
 
 =================================== */
 
-body {
+page-body {
     background: #795548;
     font-family: 'Lato', serif;
     color: #fff;
@@ -21,15 +21,15 @@ body {
     text-align: center;
   }
   
-  p, a {
+  .redirect-p, .redirect-a {
     font-size: 1em;
   }
   
-  h2, a {
+  h2, .redirect-a {
       text-transform: uppercase;
   }
   
-  a {
+  .redirect-a {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
@@ -42,7 +42,7 @@ body {
     transition: all .5s ease;
   }
   
-  a:hover {
+  .redirect-a:hover {
     background: #A1887F;
     border: 2px solid #A1887F;
     width: 132px;

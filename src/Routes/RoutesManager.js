@@ -5,12 +5,12 @@ import Notifications from '@material-ui/icons/Notifications'
 // import Out from "@material-ui/icons/ArrowBack";
 import Setting from '@material-ui/icons/Settings'
 // core components/views for Admin layout
-import DashboardPage from 'views/Dashboard/Dashboard.jsx.js'
-import ManagerPage from 'views/Dashboard/ManagerDashboard.jsx.js'
-import UserProfile from 'views/UserProfile/UserProfile.jsx.js'
-import TableList from 'views/TableList/TableList.jsx.js'
-import Typography from 'views/Typography/Typography.jsx.js'
-import NotificationsPage from 'views/Notifications/Notifications.jsx.js'
+import DashboardPage from 'views/Dashboard/Dashboard.jsx'
+import ManagerPage from 'views/Dashboard/ManagerDashboard.jsx'
+import UserProfile from 'views/UserProfile/UserProfile.jsx'
+import TableList from 'views/TableList/TableList.jsx'
+import Typography from 'views/Typography/Typography.jsx'
+import NotificationsPage from 'views/Notifications/Notifications.jsx'
 
 // core components/views for RTL layout
 

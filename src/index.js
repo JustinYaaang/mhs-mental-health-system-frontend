@@ -12,6 +12,7 @@ import rootReducer from './reducers/RootReducer'
 // core components
 import Admin from 'layouts/Admin.jsx'
 import Login from 'layouts/LoginPage.js'
+import Manager from 'layouts/Manager.jsx'
 import SurveyCreator from 'layouts/SurveyCreator.js'
 import SurveyResult from 'layouts/SurveyResult.jsx'
 import Error401 from 'layouts/401.js'
@@ -31,6 +32,9 @@ ReactDOM.render(
         <Route path='/forbidden' component={Error401} />
         <Route path='/admin' render={(props) => (isLoggedIn()
           ? (isAdmin() ? (<Admin {...props} />) : (<Redirect to='/forbidden' />))
+          : (<Redirect to='/login' />))} />
+          <Route path='/manager' render={(props) => (isLoggedIn()
+          ? (isManager() ? (<Manager {...props} />) : (<Redirect to='/forbidden' />))
           : (<Redirect to='/login' />))} />
         <Route path='/questionnaire/:id?' render={(props) => (isLoggedIn() ? (<SurveyCreator {...props} />) : (<Redirect to='/login' />))} />
         <Route path='/patientanswers/:id?' render={(props) => (isLoggedIn() ? (<SurveyResult {...props} />) : (<Redirect to='/login' />))} />
