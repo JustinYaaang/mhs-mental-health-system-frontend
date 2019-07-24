@@ -10,13 +10,12 @@ import thunk from 'redux-thunk'
 import rootReducer from './reducers/RootReducer'
 
 // core components
-import Admin from "layouts/Admin.jsx";
-import Login from "layouts/LoginPage.js";
-import RTL from "layouts/RTL.jsx";
-import SurveyCreator from "layouts/SurveyCreator.js";
-import SurveyResult from "layouts/SurveyResult.jsx";
-import Error401 from "layouts/401.js";
-import NotFound from "layouts/404.js";
+import Admin from 'layouts/Admin.jsx'
+import Login from 'layouts/LoginPage.js'
+import SurveyCreator from 'layouts/SurveyCreator.js'
+import SurveyResult from 'layouts/SurveyResult.jsx'
+import Error401 from 'layouts/401.js'
+import NotFound from 'layouts/404.js'
 import Authentication from 'layouts/Login/Authentication.jsx'
 
 import 'assets/css/material-dashboard-react.css?v=1.7.0'
@@ -26,20 +25,19 @@ const store = createStore(rootReducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <Provider store={store}>
-  <Router history={history}>
-    <Switch>
-      <Route path="/login" component={ Authentication } />
-      <Route path="/forbidden" component={ Error401 } />
-      <Route path="/admin" render={(props) => (isLoggedIn() 
-                                         ? ( isAdmin() ? ( <Admin {...props}/> ) : ( <Redirect to="/forbidden"/> ))
-                                         : ( <Redirect to="/login"/> ) ) } />  
-      <Route path="/rtl" render={(props) => (isLoggedIn() ? ( <RTL /> ) : ( <Redirect to="/login"/> )) } />
-      <Route path="/questionnaire/:id?" render={(props) => (isLoggedIn() ? (<SurveyCreator {...props}/> ) : ( <Redirect to="/login"/> )) } />
-      <Route path="/patientanswers/:id?" render={(props) => (isLoggedIn()  ? ( <SurveyResult {...props}/> ) : ( <Redirect to="/login"/> )) } />
-      <Redirect from="/" exact to="/admin" />
-      <Route component={ NotFound } />
-    </Switch>
-  </Router>
+    <Router history={history}>
+      <Switch>
+        <Route path='/login' component={Authentication} />
+        <Route path='/forbidden' component={Error401} />
+        <Route path='/admin' render={(props) => (isLoggedIn()
+          ? (isAdmin() ? (<Admin {...props} />) : (<Redirect to='/forbidden' />))
+          : (<Redirect to='/login' />))} />
+        <Route path='/questionnaire/:id?' render={(props) => (isLoggedIn() ? (<SurveyCreator {...props} />) : (<Redirect to='/login' />))} />
+        <Route path='/patientanswers/:id?' render={(props) => (isLoggedIn() ? (<SurveyResult {...props} />) : (<Redirect to='/login' />))} />
+        <Redirect from='/' exact to='/admin' />
+        <Route component={NotFound} />
+      </Switch>
+    </Router>
   </Provider>,
   document.getElementById('root')
 )
@@ -54,13 +52,8 @@ function getRole () {
   return sessionStorage.role
 }
 
-<<<<<<< HEAD
 function isAdmin () {
   return getRole() === 'PATIENT'
-=======
-function isAdmin(){
-  return getRole() === 'PATIENT';
->>>>>>> f2fd850f3587027a49460b2c2d812b74de963ed4
 }
 
 function isManager () {
