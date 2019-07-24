@@ -53,7 +53,7 @@ function getRole(){
 }
 
 function isAdmin(){
-  return getRole() === 'PATIENTS';
+  return getRole() === 'PATIENT';
 }
 
 function isManager(){
