@@ -12,23 +12,18 @@ import TableCell from "@material-ui/core/TableCell";
 // @material-ui/icons
 import Edit from "@material-ui/icons/Edit";
 import Close from "@material-ui/icons/Close";
-import View from "@material-ui/icons/RemoveRedEye";
-import Descending from "@material-ui/icons/ArrowDownward";
-import Ascending from "@material-ui/icons/ArrowUpward";
-import Filter from "@material-ui/icons/FilterList";
 // core components
 import tasksStyle from "assets/jss/material-dashboard-react/components/tasksStyle.jsx";
 // import { TableHead } from "@material-ui/core";
 import TableHead from "@material-ui/core/TableHead";
-import GridItem from 'components/Grid/GridItem.jsx'
-import GridContainer from 'components/Grid/GridContainer.jsx'
-import CustomInput from 'components/CustomInput/CustomInput.jsx'
-import { Button } from "@material-ui/core";
+import View from "@material-ui/icons/RemoveRedEye";
 
 
-class AnswerRows extends React.Component {
+
+
+class Tasks extends React.Component {
   state = {
-    checked: this.props.checkedIndexes,
+    checked: this.props.checkedIndexes
   };
   handleToggle = value => () => {
     const { checked } = this.state;
@@ -46,12 +41,6 @@ class AnswerRows extends React.Component {
     });
   };
 
-  redirectToAnswers = (tasks, index) => {
-    var selectedRow = tasks[index];
-    var questionnaireResponseId = selectedRow[selectedRow.length - 1];
-    document.location.href = '/patientanswers/'+ questionnaireResponseId;
-  }
-
   render() {
     const { classes, tableHeaderColor, tableHead, tasks, rtlActive} = this.props;
     console.log(tableHeaderColor)
@@ -59,7 +48,6 @@ class AnswerRows extends React.Component {
       [classes.tableCellRTL]: rtlActive
     });
     return (
-      <div>
       <Table className={classes.table}>
         {tableHead !== undefined ? (
           <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
@@ -68,17 +56,9 @@ class AnswerRows extends React.Component {
                 return (
                   <TableCell
                     className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={key}>
-                    <h4>{prop} 
-                    <IconButton
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    aria-label="Descending"
-                    //onClick={() => this.props.onDeleteClicked(index)}
+                    key={key}
                   >
-                    <Descending
-                    />
-                  </IconButton>
-                  </h4>
+                    {prop}
                   </TableCell>
                 );
               })}
@@ -92,25 +72,10 @@ class AnswerRows extends React.Component {
               curTasks.push(value[i]);
             }
             return (
-            <TableRow key={index} className={classes.tableRow} >
-              {/* <TableCell className={tableCellClasses}>
-                <Checkbox
-                  checked={this.state.checked.indexOf(index) !== -1}
-                  tabIndex={-1}
-                  onClick={this.handleToggle(index)}
-                  checkedIcon={<Check className={classes.checkedIcon} />}
-                  icon={<Check className={classes.uncheckedIcon} />}
-                  classes={{
-                    checked: classes.checked,
-                    root: classes.root
-                  }}
-                />
-              </TableCell> */}
-
-              {curTasks.map((value, index, arr) => {
-                if (index !== arr.length - 1) return <TableCell key={index} className={tableCellClasses}>{value}</TableCell>;
+            <TableRow key={index} className={classes.tableRow}>
+              {curTasks.map((value, index) => {
+                return <TableCell key={index} className={tableCellClasses}>{value}</TableCell>;
               })}
-
 
               <TableCell className={classes.tableActions}>
                 <Tooltip
@@ -122,7 +87,7 @@ class AnswerRows extends React.Component {
                   <IconButton
                     aria-label="{this.state.userAnswers}"
                     className={classes.tableActionButton}
-                    onClick={() => this.redirectToAnswers(tasks, index)}
+                    onClick={() => this.props.onViewClicked(index)}
                   >
                     <View
                       className={
@@ -131,36 +96,18 @@ class AnswerRows extends React.Component {
                     />
                   </IconButton>
                 </Tooltip>
-                {/* <Tooltip
-                  id="tooltip-top-start"
-                  title="Delete Questionnaire"
-                  placement="top"
-                  classes={{ tooltip: classes.tooltip }}
-                >
-                  <IconButton
-                    aria-label="Delete Questionnaire"
-                    className={classes.tableActionButton}
-                    onClick={() => this.props.onDeleteClicked(index)}
-                  >
-                    <Close
-                      className={
-                        classes.tableActionButtonIcon + " " + classes.close
-                      }
-                    />
-                  </IconButton>
-                </Tooltip> */}
+
               </TableCell>
 
             </TableRow>
           )})}
         </TableBody>
       </Table>
-      </div>
-   );
+    );
   }
 }
 
-AnswerRows.propTypes = {
+Tasks.propTypes = {
   classes: PropTypes.object.isRequired,
   tableHeaderColor: PropTypes.oneOf([
     "warning",
@@ -178,5 +125,5 @@ AnswerRows.propTypes = {
   
 };
 
-export default withStyles(tasksStyle)(AnswerRows);
+export default withStyles(tasksStyle)(Tasks);
 

@@ -59,9 +59,10 @@ class SurveyCreator extends Component {
   }
 
   componentWillMount() {
-    var id;
-    //const { id } = this.props.match.params;
-    if (id !== undefined) {
+    const { id } = this.props.match.params;
+    if (this.props.match !== undefined) {
+
+      const { id } = this.props.match.params;
       fetchQuestionnaire(id).then(
         response => {
           console.log(response);
@@ -176,16 +177,16 @@ class SurveyCreator extends Component {
         preConfirm: () => {
           var status = ""
           if(document.getElementById('myonoffswitch_1').checked) {
-            status = "Publish"
+            status = "PUBLISHED"
           } else {
-            status = "Draft"
+            status = "DRAFT"
           }
 
           var type = ""
           if(document.getElementById('myonoffswitch_2').checked) {
-            type = "Public"
+            type = "PUBLIC"
           } else {
-            type = "Private"
+            type = "PRIVATE"
           }
           this.checkStatus(survey_StringRepresentation,survey_jsonRepresentation,status,type);
         }
