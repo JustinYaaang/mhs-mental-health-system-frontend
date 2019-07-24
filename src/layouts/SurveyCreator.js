@@ -59,7 +59,9 @@ class SurveyCreator extends Component {
 
   componentWillMount() {
     const { id } = this.props.match.params;
-    if (id !== undefined) {
+    if (this.props.match !== undefined) {
+
+      const { id } = this.props.match.params;
       fetchQuestionnaire(id).then(
         response => {
           console.log(response);
