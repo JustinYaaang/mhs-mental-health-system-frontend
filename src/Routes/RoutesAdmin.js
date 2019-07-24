@@ -7,7 +7,8 @@ import Setting from '@material-ui/icons/Settings'
 // core components/views for Admin layout
 import DashboardPage from 'views/Dashboard/Dashboard.jsx'
 import UserProfile from 'views/UserProfile/UserProfile.jsx'
-import TableList from 'views/TableList/TableList.jsx'
+import TrustAddForm from 'views/Forms/TrustServiceForm'
+import TrustManagerForm from 'views/Forms/PersonForm.jsx'
 import Typography from 'views/Typography/Typography.jsx'
 import NotificationsPage from 'views/Notifications/Notifications.jsx'
 
@@ -23,11 +24,11 @@ const dashboardRoutes = [
     layout: '/admin'
   },
   {
-    path: '/table',
-    name: 'Triage List(Will be removed)',
-    rtlName: 'قائمة الجدول',
-    icon: 'content_paste',
-    component: TableList,
+    path: '/services',
+    name: 'Trust Services',
+    rtlName: 'لوحة القيادة',
+    icon: Dashboard,
+    component: TrustAddForm,
     layout: '/admin'
   },
   {
@@ -54,8 +55,6 @@ const dashboardRoutes = [
     component: DashboardPage,
     layout: '/admin'
   }
-  
-
 
 ]
 
