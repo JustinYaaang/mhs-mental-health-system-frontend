@@ -11,8 +11,8 @@ import Navbar from "components/Navbars/Navbar.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
-
-import routes from "routes/RoutesAdmin.js";
+import rtlStyle from "assets/jss/material-dashboard-react/layouts/rtlStyle.jsx";
+import routes  from "routes/RoutesClinitian.js";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
@@ -25,7 +25,7 @@ let ps;
 const switchRoutes = (
   <Switch>
     {routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
+      if (prop.layout === "/clinitian") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -36,7 +36,7 @@ const switchRoutes = (
       }
       return null;
     })}
-    <Redirect from="/admin" to="/admin/dashboard" />
+    <Redirect from="/clinitian" to="/clinitian/dashboard" />
   </Switch>
 );
 
@@ -80,7 +80,7 @@ class Dashboard extends React.Component {
     window.addEventListener("resize", this.resizeFunction);
   }
   componentDidUpdate(e) {
-    if (e.history.location.pathname !== e.location.pathname) {
+    if (e.history !== undefined && e.history.location.pathname !== e.location.pathname) {
       this.mainPanel.current.scrollTop = 0;
       if (this.state.mobileOpen) {
         this.setState({ mobileOpen: false });

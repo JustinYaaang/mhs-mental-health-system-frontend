@@ -11,20 +11,21 @@ import Navbar from "components/Navbars/Navbar.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
-
-import routes from "routes.js";
-
 import rtlStyle from "assets/jss/material-dashboard-react/layouts/rtlStyle.jsx";
+import routes  from "routes/RoutesManager.js";
+
+import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
+
 
 let ps;
 
 const switchRoutes = (
   <Switch>
     {routes.map((prop, key) => {
-      if (prop.layout === "/rtl") {
+      if (prop.layout === "/manager") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -35,16 +36,16 @@ const switchRoutes = (
       }
       return null;
     })}
-    <Redirect from="/rtl" to="/rtl/rtl-page" />
+    <Redirect from="/manager" to="/manager/dashboard" />
   </Switch>
 );
 
-class RTL extends React.Component {
+class Dashboard extends React.Component {
   state = {
     image: image,
     color: "blue",
     hasImage: true,
-    fixedClasses: "dropdown ",
+    fixedClasses: "dropdown show",
     mobileOpen: false
   };
   mainPanel = React.createRef();
@@ -79,8 +80,8 @@ class RTL extends React.Component {
     window.addEventListener("resize", this.resizeFunction);
   }
   componentDidUpdate(e) {
-    if (e.history !== undefined &&  e.history.location.pathname !== e.location.pathname) {
-      this.mainPanel.current.mainPanel.scrollTop = 0;
+    if (e.history !== undefined && e.history.location.pathname !== e.location.pathname) {
+      this.mainPanel.current.scrollTop = 0;
       if (this.state.mobileOpen) {
         this.setState({ mobileOpen: false });
       }
@@ -98,20 +99,18 @@ class RTL extends React.Component {
       <div className={classes.wrapper}>
         <Sidebar
           routes={routes}
-          logoText={"الإبداعية تيم"}
+          logoText={"MHS - Camden"}
           logo={logo}
           image={this.state.image}
           handleDrawerToggle={this.handleDrawerToggle}
           open={this.state.mobileOpen}
           color={this.state.color}
-          rtlActive
           {...rest}
         />
         <div className={classes.mainPanel} ref={this.mainPanel}>
           <Navbar
             routes={routes}
             handleDrawerToggle={this.handleDrawerToggle}
-            rtlActive
             {...rest}
           />
           {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
@@ -123,23 +122,22 @@ class RTL extends React.Component {
             <div className={classes.map}>{switchRoutes}</div>
           )}
           {this.getRoute() ? <Footer /> : null}
-          <FixedPlugin
+         {/* <FixedPlugin
             handleImageClick={this.handleImageClick}
             handleColorClick={this.handleColorClick}
             bgColor={this.state["color"]}
             bgImage={this.state["image"]}
             handleFixedClick={this.handleFixedClick}
             fixedClasses={this.state.fixedClasses}
-            rtlActive
-          />
+         /> */}
         </div>
       </div>
     );
   }
 }
 
-RTL.propTypes = {
+Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(rtlStyle)(RTL);
+export default withStyles(dashboardStyle)(Dashboard);
