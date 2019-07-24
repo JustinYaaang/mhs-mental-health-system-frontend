@@ -13,6 +13,7 @@ import CardBody from 'components/Card/CardBody.jsx'
 import Tasks from 'components/Tasks/Tasks.jsx'
 import AnswerRows from 'components/Tasks/AnswerRows.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
+import TrustServiceFrom from 'views/Forms/TrustServiceForm.jsx'
 import Grade from '@material-ui/icons/Grade'
 import Code from '@material-ui/icons/Code'
 import { fetchUserAnswers } from '../../services/BackendService'
@@ -49,7 +50,7 @@ const styles = {
   }
 }
 
-class TrustList extends Component {
+class TrustDetails extends Component {
   constructor (props) {
     super(props)
     this.state = { userAnswers: []
@@ -77,9 +78,8 @@ class TrustList extends Component {
     //   })
   }
 
-  redirectToTrustDetails = (trustId) => {
-      this.props.history.push('/admin/trusts/26426287u24')
-    // document.location.href = '/admin/trusts/'+ trustId;
+  redirectToTrustDetails = (questionnaireResponseId) => {
+    document.location.href = '/patientanswers/'+ questionnaireResponseId;
   }
 
   render () {
@@ -98,24 +98,25 @@ class TrustList extends Component {
             onCreateNewClicked={() => this.handleCreateNewQuestionnaireClicked()}
             tabs={[
               {
-                tabName: 'TRUSTS',
+                tabName: 'DETAILS',
+                tabIcon: Code,
+                tabContent: (
+                    <TrustServiceFrom/>
+                )
+              },
+              {
+                tabName: 'MANAGERS',
                 tabIcon: Code,
                 tabContent: (
                   <AnswerRows
-                    onRowClicked={(trustId) => this.redirectToTrustDetails(trustId)}
                     tableHeaderColor='primary'
-                    tableHead={['S/N', 'Trust Name', 'Description', 'Address', 'Postcode', 'Telephone']}
+                    tableHead={['S/N', 'Name', 'Email', 'Trust Name']}
                     checkedIndexes={[]}
-                    tasks={[['1', 'Central and North West London NHS Foundation Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
-                    ['2', 'East London NHS Foundation Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
-                    ['3', 'South West London and St George\'s Mental Health NHS Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
-                    ['4', 'Camden and Islington NHS Foundation Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
-                    ['5', 'West London NHS Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
-                    ['6', 'Barnet, Enfield and Haringey Mental Health Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
-                    ['7', 'South London & Maudsley N H S Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
-                    ['8', 'West London NHS Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
-                    ['9', 'Central London Community Healthcare NHS Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
-                    ['10', 'North East London NHS Foundation Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id']]}
+                    tasks={[['1', 'Busola', 'busola@gmail.com', 'Camden Trust', 'Manager Id'],
+                    ['2', 'Nick', 'nick@gmail.com', 'Camden Trust', 'Manager Id'],
+                    ['3', 'Chen', 'nick@gmail.com', 'Camden Trust', 'Manager Id'],
+                    ['4', 'Yiming', 'nick@gmail.com', 'Camden Trust', 'Manager Id'],
+                    ]}
                   />
                 )
               }
@@ -135,8 +136,8 @@ class TrustList extends Component {
   }
 }
 
-TrustList.propTypes = {
+TrustDetails.propTypes = {
   classes: PropTypes.object
 }
 
-export default withStyles(styles)(TrustList)
+export default withStyles(styles)(TrustDetails)

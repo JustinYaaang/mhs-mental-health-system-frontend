@@ -9,6 +9,9 @@ import DashboardPage from 'views/Dashboard/Dashboard.jsx'
 import UserProfile from 'views/UserProfile/UserProfile.jsx'
 import TableList from 'views/TableList/TableList.jsx'
 import TrustList from 'layouts/Trusts/TrustList.jsx'
+import trustdetails from 'layouts/Trusts/TrustDetails.jsx'
+import TrustAddForm from 'views/Forms/TrustServiceForm'
+import TrustManagerForm from 'views/Forms/PersonForm.jsx'
 import Typography from 'views/Typography/Typography.jsx'
 import NotificationsPage from 'views/Notifications/Notifications.jsx'
 
@@ -24,10 +27,11 @@ const dashboardRoutes = [
     layout: '/admin'
   },
   {
-    path: '/trust',
+    // path: '/services',
+    path: '/trusts',
     name: 'Trusts',
-    rtlName: 'قائمة الجدول',
-    icon: 'content_paste',
+    rtlName: 'لوحة القيادة',
+    icon: Dashboard,
     component: TrustList,
     layout: '/admin'
   },
@@ -36,7 +40,7 @@ const dashboardRoutes = [
     name: 'Profile',
     rtlName: 'لوحة القيادة',
     icon: Dashboard,
-    component: DashboardPage,
+    component: trustdetails,
     layout: '/admin'
   },
   {
@@ -55,8 +59,6 @@ const dashboardRoutes = [
     component: DashboardPage,
     layout: '/admin'
   }
-  
-
 
 ]
 

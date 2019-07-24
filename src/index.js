@@ -15,6 +15,7 @@ import Login from 'layouts/LoginPage.js'
 import Service from 'layouts/Service.jsx'
 import Clinician from 'layouts/Clinician.jsx'
 import Trust from 'layouts/Trust.jsx'
+import TrustDetails from 'layouts/Trusts/TrustDetails.jsx'
 import SurveyCreator from 'layouts/SurveyCreator.js'
 import SurveyResult from 'layouts/SurveyResult.jsx'
 import Error401 from 'layouts/401.js'
@@ -44,6 +45,7 @@ ReactDOM.render(
         <Route path='/trust' render={(props) => (isLoggedIn()
           ? (isTrust() ? (<Trust {...props} />) : (<Redirect to='/forbidden' />))
           : (<Redirect to='/login' />))} />
+       
         <Route path='/questionnaire/:id?' render={(props) => (isLoggedIn() ? (<SurveyCreator {...props} />) : (<Redirect to='/login' />))} />
         <Route path='/patientanswers/:id?' render={(props) => (isLoggedIn() ? (<SurveyResult {...props} />) : (<Redirect to='/login' />))} />
         <Redirect from='/' exact to='/admin' />

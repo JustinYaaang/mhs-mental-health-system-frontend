@@ -18,12 +18,14 @@ import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboar
 
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
+import TrustDetails from "./Trusts/TrustDetails.jsx";
 
 
 let ps;
 
 const switchRoutes = (
   <Switch>
+  <Route path={'/admin/trusts/:id'} component={TrustDetails}/>
     {routes.map((prop, key) => {
       if (prop.layout === "/admin") {
         return (
@@ -36,6 +38,7 @@ const switchRoutes = (
       }
       return null;
     })}
+   
     <Redirect from="/admin" to="/admin/dashboard" />
   </Switch>
 );
