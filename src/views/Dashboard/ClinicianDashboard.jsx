@@ -195,7 +195,7 @@ class Dashboard extends React.Component {
                   tabIcon: Grade,
                   tabContent: (
                     <TaskView
-                      tableHeaderColor="primary"
+                      tableHeaderColor="info"
                       tableHead={["Name", "Description", "Status", "Modify"]}
                       checkedIndexes={[]}
                       tasks={this.state.questionnairePublishedList}
