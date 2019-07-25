@@ -12,7 +12,7 @@ import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 import rtlStyle from "assets/jss/material-dashboard-react/layouts/rtlStyle.jsx";
-import routes  from "routes/RoutesTrust.js";
+import routes  from "Routes/RoutesTrust.js";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 

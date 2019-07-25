@@ -20,7 +20,7 @@ import All from "@material-ui/icons/AllInboxOutlined";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Tasks from "components/Tasks/Tasks.jsx";
-import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
+import AdminTabs from "components/CustomTabs/AdminTabs.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
@@ -239,7 +239,7 @@ class Dashboard extends React.Component {
           
           />
           <GridItem xs={12} sm={12} md={8}>
-            <CustomTabs
+            <AdminTabs
               title="Questionnaires :"
               headerColor="info"
               onCreateNewClicked={() => this.handleCreateNewQuestionnaireClicked()}
@@ -249,7 +249,7 @@ class Dashboard extends React.Component {
                   tabIcon: Grade,
                   tabContent: (
                     <Tasks
-                      tableHeaderColor="primary"
+                      tableHeaderColor="info"
                       tableHead={["Name", "Description", "Status", "Modify"]}
                       checkedIndexes={[]}
                       tasks={this.state.questionnairePublishedList}
