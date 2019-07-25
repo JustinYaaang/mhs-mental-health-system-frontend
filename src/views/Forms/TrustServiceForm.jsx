@@ -14,11 +14,11 @@ class TrustAddForm extends React.Component {
   }
 
   componentWillMount () {
-    const { id } = this.props.match.params
-    if(id!=''){
-        var hasDetails:'true'
+    // const { id } = this.props.match.params
+    // if(id!=''){
+    //     var hasDetails:'true'
         
-    }
+    // }
 
 }
 

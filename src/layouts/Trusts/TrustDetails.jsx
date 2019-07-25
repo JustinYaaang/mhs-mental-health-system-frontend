@@ -13,12 +13,12 @@ import CardBody from 'components/Card/CardBody.jsx'
 import Tasks from 'components/Tasks/Tasks.jsx'
 import AnswerRows from 'components/Tasks/AnswerRows.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
+import TrustServiceFrom from 'views/Forms/TrustServiceForm.jsx'
 import Grade from '@material-ui/icons/Grade'
 import Code from '@material-ui/icons/Code'
 import { fetchUserAnswers } from '../../services/BackendService'
 import { getAnsweredQuestionnaire, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
 
-// getQuestionnaireWithToken({"NHS_number": 1234567890});
 
 const styles = {
   cardCategoryWhite: {
@@ -50,7 +50,7 @@ const styles = {
   }
 }
 
-class TableList extends Component {
+class TrustDetails extends Component {
   constructor (props) {
     super(props)
     this.state = { userAnswers: []
@@ -59,26 +59,26 @@ class TableList extends Component {
   }
 
   componentWillMount () {
-    fetchUserAnswers()
-      .then(response => {
-        console.log(response)
-        var rows = []
-        for (var i = 0; i < response.length; i++) {
-          console.log(i)
-          var d = new Date(response[i].createdAt)
-          var dateString = d.toString()
-          dateString = dateString.substring(0, dateString.lastIndexOf(':'))
-          var row = [response[i].title, response[i].patient_name, response[i].score, response[i]._id, 'PENDING', dateString, response[i]._id]
-          rows.push(row)
-        }
-        this.setState({ userAnswers: rows })
-      })
-      .catch(error => {
-        console.error(error)
-      })
+    // fetchUserAnswers()
+    //   .then(response => {
+    //     console.log(response)
+    //     var rows = []
+    //     for (var i = 0; i < response.length; i++) {
+    //       console.log(i)
+    //       var d = new Date(response[i].createdAt)
+    //       var dateString = d.toString()
+    //       dateString = dateString.substring(0, dateString.lastIndexOf(':'))
+    //       var row = [response[i].title, response[i].patient_name, response[i].score, response[i]._id, 'PENDING', dateString, response[i]._id]
+    //       rows.push(row)
+    //     }
+    //     this.setState({ userAnswers: rows })
+    //   })
+    //   .catch(error => {
+    //     console.error(error)
+    //   })
   }
 
-  redirectToAnswers = (questionnaireResponseId) => {
+  redirectToTrustDetails = (questionnaireResponseId) => {
     document.location.href = '/patientanswers/'+ questionnaireResponseId;
   }
 
@@ -98,27 +98,25 @@ class TableList extends Component {
             onCreateNewClicked={() => this.handleCreateNewQuestionnaireClicked()}
             tabs={[
               {
-                tabName: 'PENDING',
-                tabIcon: Grade,
+                tabName: 'DETAILS',
+                tabIcon: Code,
                 tabContent: (
-                  <AnswerRows
-                    tableHeaderColor='primary'
-                    tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
-                    checkedIndexes={[]}
-                    tasks={this.state.userAnswers}
-                    onRowClicked={(questionnaireResponseId) => this.redirectToAnswers(questionnaireResponseId)}
-                  />
+                    <TrustServiceFrom/>
                 )
               },
               {
-                tabName: 'RESOLVED',
+                tabName: 'MANAGERS',
                 tabIcon: Code,
                 tabContent: (
                   <AnswerRows
                     tableHeaderColor='primary'
-                    tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
+                    tableHead={['S/N', 'Name', 'Email', 'Trust Name']}
                     checkedIndexes={[]}
-                    tasks={this.state.userAnswers}
+                    tasks={[['1', 'Busola', 'busola@gmail.com', 'Camden Trust', 'Manager Id'],
+                    ['2', 'Nick', 'nick@gmail.com', 'Camden Trust', 'Manager Id'],
+                    ['3', 'Chen', 'nick@gmail.com', 'Camden Trust', 'Manager Id'],
+                    ['4', 'Yiming', 'nick@gmail.com', 'Camden Trust', 'Manager Id'],
+                    ]}
                   />
                 )
               }
@@ -138,8 +136,8 @@ class TableList extends Component {
   }
 }
 
-TableList.propTypes = {
+TrustDetails.propTypes = {
   classes: PropTypes.object
 }
 
-export default withStyles(styles)(TableList)
+export default withStyles(styles)(TrustDetails)

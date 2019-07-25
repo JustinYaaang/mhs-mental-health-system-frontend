@@ -55,10 +55,11 @@ class AnswerRows extends React.Component {
     alert("Delete Clicked");
   };
 
-  redirectToAnswers = (tasks, index) => {
+  viewItemClicked = (tasks, index) => {
     var selectedRow = tasks[index];
-    var questionnaireResponseId = selectedRow[selectedRow.length - 1];
-    document.location.href = '/patientanswers/'+ questionnaireResponseId;
+    var id = selectedRow[selectedRow.length - 1];
+    // document.location.href = '/patientanswers/'+ questionnaireResponseId;
+    this.props.onRowClicked(id);
   }
 
   render() {
@@ -131,7 +132,7 @@ class AnswerRows extends React.Component {
                   <IconButton
                     aria-label="{this.state.userAnswers}"
                     className={classes.tableActionButton}
-                    onClick={() => this.redirectToAnswers(tasks, index)}
+                    onClick={() => this.viewItemClicked(tasks, index)}
                   >
                     <View
                       className={

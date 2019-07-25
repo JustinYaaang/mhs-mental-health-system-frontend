@@ -7,6 +7,9 @@ import Setting from '@material-ui/icons/Settings'
 // core components/views for Admin layout
 import DashboardPage from 'views/Dashboard/Dashboard.jsx'
 import UserProfile from 'views/UserProfile/UserProfile.jsx'
+import TableList from 'views/TableList/TableList.jsx'
+import TrustList from 'layouts/Trusts/TrustList.jsx'
+import trustdetails from 'layouts/Trusts/TrustDetails.jsx'
 import TrustAddForm from 'views/Forms/TrustServiceForm'
 import TrustManagerForm from 'views/Forms/PersonForm.jsx'
 import Typography from 'views/Typography/Typography.jsx'
@@ -24,11 +27,12 @@ const dashboardRoutes = [
     layout: '/admin'
   },
   {
-    path: '/services',
-    name: 'Trust Services',
+    // path: '/services',
+    path: '/trusts',
+    name: 'Trusts',
     rtlName: 'لوحة القيادة',
     icon: Dashboard,
-    component: TrustAddForm,
+    component: TrustList,
     layout: '/admin'
   },
   {
@@ -36,7 +40,7 @@ const dashboardRoutes = [
     name: 'Profile',
     rtlName: 'لوحة القيادة',
     icon: Dashboard,
-    component: DashboardPage,
+    component: trustdetails,
     layout: '/admin'
   },
   {

@@ -18,7 +18,6 @@ import Code from '@material-ui/icons/Code'
 import { fetchUserAnswers } from '../../services/BackendService'
 import { getAnsweredQuestionnaire, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
 
-// getQuestionnaireWithToken({"NHS_number": 1234567890});
 
 const styles = {
   cardCategoryWhite: {
@@ -50,7 +49,7 @@ const styles = {
   }
 }
 
-class TableList extends Component {
+class TrustList extends Component {
   constructor (props) {
     super(props)
     this.state = { userAnswers: []
@@ -59,27 +58,28 @@ class TableList extends Component {
   }
 
   componentWillMount () {
-    fetchUserAnswers()
-      .then(response => {
-        console.log(response)
-        var rows = []
-        for (var i = 0; i < response.length; i++) {
-          console.log(i)
-          var d = new Date(response[i].createdAt)
-          var dateString = d.toString()
-          dateString = dateString.substring(0, dateString.lastIndexOf(':'))
-          var row = [response[i].title, response[i].patient_name, response[i].score, response[i]._id, 'PENDING', dateString, response[i]._id]
-          rows.push(row)
-        }
-        this.setState({ userAnswers: rows })
-      })
-      .catch(error => {
-        console.error(error)
-      })
+    // fetchUserAnswers()
+    //   .then(response => {
+    //     console.log(response)
+    //     var rows = []
+    //     for (var i = 0; i < response.length; i++) {
+    //       console.log(i)
+    //       var d = new Date(response[i].createdAt)
+    //       var dateString = d.toString()
+    //       dateString = dateString.substring(0, dateString.lastIndexOf(':'))
+    //       var row = [response[i].title, response[i].patient_name, response[i].score, response[i]._id, 'PENDING', dateString, response[i]._id]
+    //       rows.push(row)
+    //     }
+    //     this.setState({ userAnswers: rows })
+    //   })
+    //   .catch(error => {
+    //     console.error(error)
+    //   })
   }
 
-  redirectToAnswers = (questionnaireResponseId) => {
-    document.location.href = '/patientanswers/'+ questionnaireResponseId;
+  redirectToTrustDetails = (trustId) => {
+      this.props.history.push('/admin/trusts/26426287u24')
+    // document.location.href = '/admin/trusts/'+ trustId;
   }
 
   render () {
@@ -98,27 +98,24 @@ class TableList extends Component {
             onCreateNewClicked={() => this.handleCreateNewQuestionnaireClicked()}
             tabs={[
               {
-                tabName: 'PENDING',
-                tabIcon: Grade,
-                tabContent: (
-                  <AnswerRows
-                    tableHeaderColor='primary'
-                    tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
-                    checkedIndexes={[]}
-                    tasks={this.state.userAnswers}
-                    onRowClicked={(questionnaireResponseId) => this.redirectToAnswers(questionnaireResponseId)}
-                  />
-                )
-              },
-              {
-                tabName: 'RESOLVED',
+                tabName: 'TRUSTS',
                 tabIcon: Code,
                 tabContent: (
                   <AnswerRows
+                    onRowClicked={(trustId) => this.redirectToTrustDetails(trustId)}
                     tableHeaderColor='primary'
-                    tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
+                    tableHead={['S/N', 'Trust Name', 'Description', 'Address', 'Postcode', 'Telephone']}
                     checkedIndexes={[]}
-                    tasks={this.state.userAnswers}
+                    tasks={[['1', 'Central and North West London NHS Foundation Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
+                    ['2', 'East London NHS Foundation Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
+                    ['3', 'South West London and St George\'s Mental Health NHS Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
+                    ['4', 'Camden and Islington NHS Foundation Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
+                    ['5', 'West London NHS Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
+                    ['6', 'Barnet, Enfield and Haringey Mental Health Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
+                    ['7', 'South London & Maudsley N H S Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
+                    ['8', 'West London NHS Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
+                    ['9', 'Central London Community Healthcare NHS Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
+                    ['10', 'North East London NHS Foundation Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id']]}
                   />
                 )
               }
@@ -138,8 +135,8 @@ class TableList extends Component {
   }
 }
 
-TableList.propTypes = {
+TrustList.propTypes = {
   classes: PropTypes.object
 }
 
-export default withStyles(styles)(TableList)
+export default withStyles(styles)(TrustList)
