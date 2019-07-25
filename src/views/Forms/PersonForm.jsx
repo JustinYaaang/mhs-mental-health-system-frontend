@@ -2,7 +2,7 @@ import React from 'react'
 import 'assets/css/AddForm.css'
 import Button from 'components/CustomButtons/Button.jsx'
 
-class TrustAddForm extends React.Component {
+class PersonForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = { 
@@ -51,7 +51,7 @@ class TrustAddForm extends React.Component {
   }
 }
 
-export default TrustAddForm
+export default PersonForm
 
 // id
 // name
