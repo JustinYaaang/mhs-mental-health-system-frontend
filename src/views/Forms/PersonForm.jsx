@@ -16,6 +16,8 @@ class TrustAddForm extends React.Component {
 
   componentWillMount () {
     const { id } = this.props.match.params
+    //if patient
+   //document.getElementById("trustnameinput_postcodeinput").placeholder="Postcode"
 }
 
   onChange (event) {
@@ -33,17 +35,17 @@ class TrustAddForm extends React.Component {
           <input name='email' type='email' class='form-control' id='firstnameinput' aria-describedby='emailHelp' placeholder='First Name' onChange={this.onChange} />
           <br/>
           
-          <input name='email' type='email' class='form-control' id='lastnameinput' aria-describedby='emailHelp' placeholder='First Name' onChange={this.onChange} />
+          <input name='email' type='email' class='form-control' id='lastnameinput' aria-describedby='emailHelp' placeholder='Last Name' onChange={this.onChange} />
         </div>
         <div class='form-group'>
           <input name='email' type='email' class='form-control' id='emailinput' aria-describedby='emailHelp' placeholder='email' onChange={this.onChange} />
           <br />
           <input name='email' type='email' class='form-control' id='passwordinput' aria-describedby='emailHelp' placeholder='password' onChange={this.onChange} />
           <br />
-          <input name='email' type='email' class='form-control' id='trustnameinput' aria-describedby='emailHelp' placeholder='Trust Name' onChange={this.onChange} />
+          <input name='email' type='email' class='form-control' id='trustnameinput_postcodeinput' aria-describedby='emailHelp' placeholder='Trust Name' onChange={this.onChange} />
         </div>
 
-        <Button onClick={this.onSave} id='loginbutton' type='button' color='primary'>Submit</Button>
+        <Button onClick={this.onSave} id='loginbutton' type='button' color='primary'>Save</Button>
       </form>
     )
   }
