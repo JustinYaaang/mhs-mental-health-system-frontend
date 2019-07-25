@@ -15,6 +15,7 @@ import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 import routes from "routes/RoutesAdmin.js";
 import extraRoutes from "routes/ExtraRoutesAdmin.jsx";
 
+
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
 import image from "assets/img/sidebar-2.jpg";

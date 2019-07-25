@@ -93,7 +93,7 @@ const fetchUserAnswers = async () => {
 
 const fetchWeeklyResult = async (startDate, lastDate) => {
   console.log('fetchWeeklyCount')
-  var weeklyResultUrl = baseUrl + 'patientanswers/';
+  var weeklyResultUrl = baseUrl + patientanswersUrl
   console.log(startDate)
   console.log(lastDate)
   try {

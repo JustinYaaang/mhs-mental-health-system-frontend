@@ -2,9 +2,11 @@
 import Dashboard from '@material-ui/icons/Dashboard'
 import Person from '@material-ui/icons/Person'
 import Notifications from '@material-ui/icons/Notifications'
-// import Out from "@material-ui/icons/ArrowBack";
 import Setting from '@material-ui/icons/Settings'
 import TransitEnterexit from '@material-ui/icons/TransitEnterexit'
+import account from '@material-ui/icons/AccountCircle'
+import List from  '@material-ui/icons/PlaylistPlay'
+import PatientsIcon from  '@material-ui/icons/LocalHospitalTwoTone'
 // core components/views for Admin layout
 import DashboardPage from 'views/Dashboard/Dashboard.jsx'
 import ClinicianPage from 'views/Dashboard/ClinicianDashboard.jsx'
@@ -27,7 +29,7 @@ const dashboardRoutes = [{
   path: '/patients',
   name: 'Patients',
   rtlName: 'لوحة القيادة',
-  icon: Dashboard,
+  icon: PatientsIcon,
   component: ClinicianPage,
   layout: '/clinician'
 },
@@ -35,7 +37,7 @@ const dashboardRoutes = [{
   path: '/triagelist',
   name: 'Triage List',
   rtlName: 'لوحة القيادة',
-  icon: Dashboard,
+  icon: List,
   component: TableList,
   layout: '/clinician'
 },
@@ -43,7 +45,7 @@ const dashboardRoutes = [{
   path: '/profile',
   name: 'Profile',
   rtlName: 'لوحة القيادة',
-  icon: Dashboard,
+  icon: account,
   component: ClinicianPage,
   layout: '/clinician'
 },
@@ -62,8 +64,6 @@ const dashboardRoutes = [{
   icon: TransitEnterexit,
   component: ClinicianPage,
   layout: '/clinician'
-}
-
-]
+}]
 
 export default dashboardRoutes

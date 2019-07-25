@@ -18,7 +18,10 @@ import Code from '@material-ui/icons/Code'
 import { fetchUserAnswers } from '../../services/BackendService'
 import { getAnsweredQuestionnaire, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
 
-// getQuestionnaireWithToken({"NHS_number": 1234567890});
+function getRole(){
+  console.log(sessionStorage.role);
+  return sessionStorage.role;
+}
 
 const styles = {
   cardCategoryWhite: {
@@ -59,6 +62,9 @@ class TableList extends Component {
   }
 
   componentWillMount () {
+    getRole();
+    console.log("testtttt" + getRole())
+
     fetchUserAnswers()
       .then(response => {
         console.log(response)
@@ -102,7 +108,7 @@ class TableList extends Component {
                 tabIcon: Grade,
                 tabContent: (
                   <AnswerRows
-                    tableHeaderColor='primary'
+                    tableHeaderColor='info'
                     tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
                     checkedIndexes={[]}
                     tasks={this.state.userAnswers}

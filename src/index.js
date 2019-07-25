@@ -18,6 +18,7 @@ import Trust from 'layouts/Trust.jsx'
 import TrustDetails from 'layouts/Trusts/TrustDetails.jsx'
 import SurveyCreator from 'layouts/SurveyCreator.js'
 import SurveyResult from 'layouts/SurveyResult.jsx'
+import QuestionnaireResult from 'layouts/QuestionnaireResult.jsx'
 import Error401 from 'layouts/401.js'
 import NotFound from 'layouts/404.js'
 import Authentication from 'layouts/Login/Authentication.jsx'
@@ -48,6 +49,7 @@ ReactDOM.render(
        
         <Route path='/questionnaire/:id?' render={(props) => (isLoggedIn() ? (<SurveyCreator {...props} />) : (<Redirect to='/login' />))} />
         <Route path='/patientanswers/:id?' render={(props) => (isLoggedIn() ? (<SurveyResult {...props} />) : (<Redirect to='/login' />))} />
+        <Route path='/questionnaireview/:id?' render={(props) => (isLoggedIn() ? (<QuestionnaireResult {...props} />) : (<Redirect to='/login' />))} />
         <Redirect from='/' exact to='/admin' />
         <Route component={NotFound} />
       </Switch>

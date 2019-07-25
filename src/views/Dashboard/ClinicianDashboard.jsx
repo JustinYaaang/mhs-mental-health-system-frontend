@@ -20,6 +20,7 @@ import All from "@material-ui/icons/AllInboxOutlined";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Tasks from "components/Tasks/Tasks.jsx";
+import TaskView from "components/Tasks/TaskView.jsx";
 import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
@@ -55,69 +56,20 @@ class Dashboard extends React.Component {
     this.setState({ value: index });
   };
 
-  handleEditQuestionnaireClick = (index, status) => {
-    console.log(index);
+  handleViewQuestionnaireClick = (index, status) => {
+  
     if(status === 'DRAFT'){
       const questionnaireId = this.state.idDraftList[index];
-      document.location.href = "/questionnaire/" + questionnaireId;
+      document.location.href = "/questionnaireview/" + questionnaireId;
     }
     else if(status === 'PUBLISHED'){
       const questionnaireId = this.state.idPublishedList[index];
-      document.location.href = "/questionnaire/" + questionnaireId;
+      document.location.href = "/questionnaireview/" + questionnaireId;
     }
   };
 
-  handleDeleteQuestionnaireClick = (index, status) => {
-    swal({
-      title: "Are you sure?",
-      text: "The questionnaire cannot recover!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    })
-    .then((willDelete) => {
-      if (willDelete) {
-        swal("The questionnaire has been deleted!", {
-          icon: "success",
-        });
-
-        if(status === 'DRAFT'){
-          const questionnaireId = this.state.idDraftList[index];
-          deleteQuestionnaire(questionnaireId).then(
-            
-            response => {
-              const idListBuffer = this.state.idDraftList.slice();
-              idListBuffer.splice(index, 1);
-              const questionnaireListBuffer = this.state.questionnaireDraftList.slice();
-              questionnaireListBuffer.splice(index, 1);
-              this.setState({idDraftList: idListBuffer, questionnaireDraftList: questionnaireListBuffer });
-            }
-          );
-        }
-        else if(status === 'PUBLISHED'){
-          const questionnaireId = this.state.idPublishedList[index];
-          deleteQuestionnaire(questionnaireId).then(
-            response => {
-              const idListBuffer = this.state.idPublishedList.slice();
-              idListBuffer.splice(index, 1);
-              const questionnaireListBuffer = this.state.questionnairePublishedList.slice();
-              questionnaireListBuffer.splice(index, 1);
-              this.setState({idPublishedList: idListBuffer, questionnairePublishedList: questionnaireListBuffer });
-            }
-          );
-        }
-      } else {
-        swal("The questionnaire is safe!");
-      }
-    });
-  };
-
-  handleCreateNewQuestionnaireClicked = () => {
-    document.location.href = "/questionnaire/";
-  };
-
   timeTrans(date){
-    date = new Date(date);//如果date为13位不需要乘1000
+    date = new Date(date);
     var Y = date.getFullYear() + '-';
     var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
     var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
@@ -175,19 +127,12 @@ class Dashboard extends React.Component {
     );
   }
 
-
-  
-
   render() {
     var Chartist = require("chartist");
     const { classes } = this.props;
 
     const dashboardData = {
       dailySalesChart: {
-        // data: {
-        //   labels: ["M", "T", "W", "T", "F", "S", "S"],
-        //   series: [[12, 17, 7, 17, 23, 18, 38]]
-        // },
         options: {
           lineSmooth: Chartist.Interpolation.cardinal({
             tension: 0
@@ -239,6 +184,41 @@ class Dashboard extends React.Component {
           daterange={"Just updated"} classes={classes}
           />
 
+          <GridItem xs={12} sm={12} md={8}>
+            <CustomTabs
+              title="Questionnaires :"
+              headerColor="info"
+              onCreateNewClicked={() => this.handleCreateNewQuestionnaireClicked()}
+              tabs={[
+                {
+                  tabName: "PUBLISHED",
+                  tabIcon: Grade,
+                  tabContent: (
+                    <TaskView
+                      tableHeaderColor="info"
+                      tableHead={["Name", "Description", "Status", "Modify"]}
+                      checkedIndexes={[]}
+                      tasks={this.state.questionnairePublishedList}
+                      onViewClicked={(index) => this.handleViewQuestionnaireClick(index, 'PUBLISHED')}
+                    />
+                  )
+                },
+                { 
+                  tabName: "DRAFT",
+                  tabIcon: Code,
+                  tabContent: (
+                    <TaskView
+                      tableHeaderColor="primary"
+                      tableHead={["Name", "Description", "Status", "Modify"]}
+                      checkedIndexes={[]}
+                      tasks={this.state.questionnaireDraftList}
+                      onViewClicked={(index) => this.handleViewQuestionnaireClick(index, 'DRAFT')}
+                    />
+                  )
+                }, 
+              ]}
+            />
+          </GridItem>
         </GridContainer>
       </div>
     );

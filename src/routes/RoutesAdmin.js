@@ -2,8 +2,10 @@
 import Dashboard from '@material-ui/icons/Dashboard'
 import Person from '@material-ui/icons/Person'
 import Notifications from '@material-ui/icons/Notifications'
-// import Out from "@material-ui/icons/ArrowBack";
+import Out from "@material-ui/icons/ArrowBack";
 import Setting from '@material-ui/icons/Settings'
+import TransitEnterexit from '@material-ui/icons/TransitEnterexit'
+import account from '@material-ui/icons/AccountCircle'
 // core components/views for Admin layout
 import DashboardPage from 'views/Dashboard/Dashboard.jsx'
 import UserProfile from 'views/UserProfile/UserProfile.jsx'
@@ -55,11 +57,10 @@ const dashboardRoutes = [
     path: '/logout',
     name: 'Logout',
     rtlName: 'لوحة القيادة',
-    icon: Dashboard,
+    icon: TransitEnterexit,
     component: DashboardPage,
     layout: '/admin'
   }
-
 ]
 
 export default dashboardRoutes
