@@ -15,9 +15,10 @@ import "jquery-ui/ui/widgets/datepicker.js";
 import "select2/dist/js/select2.js";
 import "jquery-bar-rating";
 
-import swal from "sweetalert";
+import Swal from 'sweetalert';
 
 import "icheck/skins/square/blue.css";
+import 'assets/css/SurveyCreator.css'
 
 import {postNewSurvey, updateSurvey, fetchQuestionnaire} from "services/BackendService";
 import Button from "components/CustomButtons/Button.jsx";
@@ -59,7 +60,7 @@ class SurveyCreator extends Component {
 
   componentWillMount() {
     const { id } = this.props.match.params;
-    if (this.props.match !== undefined) {
+    if (id !== undefined) {
 
       const { id } = this.props.match.params;
       fetchQuestionnaire(id).then(
@@ -89,19 +90,25 @@ class SurveyCreator extends Component {
     document.location.href = "/admin/dashboard/";
   };
 
-  checkStatus = (survey_StringRepresentation,survey_jsonRepresentation,status) => {
+  checkStatus = (survey_StringRepresentation,survey_jsonRepresentation,status,type) => {
 
       const { id } = this.props.match.params;
    
-      swal("Saved Successfully!");
+      Swal.fire({
+        position: 'top-end',
+        type: 'success',
+        title: 'Save Successfully!',
+        showConfirmButton: false,
+        timer: 1500
+      })
       var surveyJson = {
           "id": id,
           "title": survey_jsonRepresentation.title,
           "description": survey_jsonRepresentation.description,
           "status": status,
+          "type":type,
           "body":survey_StringRepresentation 
       }
-                
       
       var createSurveyUrl = baseUrl + fetchQuestionnairesUrl
 
@@ -125,7 +132,6 @@ class SurveyCreator extends Component {
               console.error(error);
           });
       }
-      
 }
 
   render() {
@@ -143,39 +149,56 @@ class SurveyCreator extends Component {
 
     jsonString = jsonString.replace('\n', '');
     var survey_jsonRepresentation = JSON.parse(this.surveyCreator.text);
-    
-
     var survey_StringRepresentation=JSON.stringify(survey_jsonRepresentation);
 
-    if (survey_jsonRepresentation.title && survey_jsonRepresentation.description){ //ju
-          swal("Select your choice", {
-            buttons: {
-              cancel: "Cancel",
-              Save: true,
-              catch: {
-                text: "Publish!",
-                value: "catch",
-              },
-            },
-          })
-          .then((value) => {
-            switch (value) {
-           
-              case "Save":
-                this.checkStatus(survey_StringRepresentation,survey_jsonRepresentation,"DRAFT");
-                break;
-           
-              case "catch":
-                this.checkStatus(survey_StringRepresentation,survey_jsonRepresentation,"PUBLISHED")
-                break;
-           
-              default:
-    
-            }
-          });
+    if (survey_jsonRepresentation.title && survey_jsonRepresentation.description){ 
+      Swal.fire({
+        title: 'Select the questionnaire type',
+        html:
+         `
+          <div class="onoffswitch">
+              <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch_1" checked>
+              <label class="onoffswitch-label" for="myonoffswitch_1">
+                  <span id="myonofflabel_1" class="onoffswitch-inner"></span>
+                  <span class="onoffswitch-switch"></span>
+              </label>
+              <label class="checkbox-label" for="myonoffswitch_1">Publish/Draft</label>
+              <div class="clear"></div>
+              <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch_2" checked>
+              <label class="onoffswitch-label" for="myonoffswitch_2">
+                  <span id="myonofflabel_2" class="onoffswitch-inner"></span>
+                  <span class="onoffswitch-switch"></span>
+              </label>
+              <label class="checkbox-label" for="myonoffswitch_2">Public/Private</label>
+          </div>
+          `,
+        focusConfirm: false,
+        showCancelButton: true,
+        preConfirm: () => {
+          var status = ""
+          if(document.getElementById('myonoffswitch_1').checked) {
+            status = "PUBLISHED"
+          } else {
+            status = "DRAFT"
+          }
+
+          var type = ""
+          if(document.getElementById('myonoffswitch_2').checked) {
+            type = "PUBLIC"
+          } else {
+            type = "PRIVATE"
+          }
+          this.checkStatus(survey_StringRepresentation,survey_jsonRepresentation,status,type);
+        }
+      });
     }
     else {
-        swal("Error!", "Enter Title and Description in settings!", "warning");
+      Swal.fire({
+        type: 'error',
+        title: 'Error',
+        text: 'Please Enter Title & Description',
+        footer: 'Check in Survery Setting'
+      })
     }
   };
 }

@@ -11,8 +11,8 @@ export function logInUser(body) {
     return getAuthenticationToken(body).then(response => {
         console.log(response);
         sessionStorage.setItem('jwt', response.data.token);
-        //sessionStorage.setItem('role', response.data.role[0]);
-        sessionStorage.setItem('role',"PATIENT");
+        // sessionStorage.setItem('role', response.data.role[0]);
+        sessionStorage.setItem('role', 'PATIENT');
         dispatch(loginSuccess());
         history.push('/');
     }).catch(error => {

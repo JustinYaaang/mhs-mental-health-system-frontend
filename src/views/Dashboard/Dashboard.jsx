@@ -20,7 +20,7 @@ import All from "@material-ui/icons/AllInboxOutlined";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Tasks from "components/Tasks/Tasks.jsx";
-import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
+import AdminTabs from "components/CustomTabs/AdminTabs.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
@@ -122,7 +122,7 @@ class Dashboard extends React.Component {
   };
 
   timeTrans(date){
-    date = new Date(date);//如果date为13位不需要乘1000
+    date = new Date(date);
     var Y = date.getFullYear() + '-';
     var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
     var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
@@ -191,10 +191,6 @@ class Dashboard extends React.Component {
 
     const dashboardData = {
       dailySalesChart: {
-        // data: {
-        //   labels: ["M", "T", "W", "T", "F", "S", "S"],
-        //   series: [[12, 17, 7, 17, 23, 18, 38]]
-        // },
         options: {
           lineSmooth: Chartist.Interpolation.cardinal({
             tension: 0
@@ -243,7 +239,7 @@ class Dashboard extends React.Component {
           
           />
           <GridItem xs={12} sm={12} md={8}>
-            <CustomTabs
+            <AdminTabs
               title="Questionnaires :"
               headerColor="info"
               onCreateNewClicked={() => this.handleCreateNewQuestionnaireClicked()}
@@ -253,7 +249,7 @@ class Dashboard extends React.Component {
                   tabIcon: Grade,
                   tabContent: (
                     <Tasks
-                      tableHeaderColor="primary"
+                      tableHeaderColor="info"
                       tableHead={["Name", "Description", "Status", "Modify"]}
                       checkedIndexes={[]}
                       tasks={this.state.questionnairePublishedList}
