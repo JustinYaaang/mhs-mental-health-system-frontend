@@ -15,8 +15,8 @@ import AnswerRows from 'components/Tasks/AnswerRows.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import Grade from '@material-ui/icons/Grade'
 import Code from '@material-ui/icons/Code'
-import { fetchUserAnswers } from '../../services/BackendService'
-import { getAnsweredQuestionnaire, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
+import { fetchUserAnswers, getOrganizations } from '../../services/BackendService'
+import { getAnsweredQuestionnaire, getOrganization, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
 
 
 const styles = {
@@ -50,39 +50,37 @@ const styles = {
 }
 
 class TrustList extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
-    this.state = { userAnswers: []
+    this.state = {
+      list: []
       // idList: []
     }
   }
 
-  componentWillMount () {
-    // fetchUserAnswers()
-    //   .then(response => {
-    //     console.log(response)
-    //     var rows = []
-    //     for (var i = 0; i < response.length; i++) {
-    //       console.log(i)
-    //       var d = new Date(response[i].createdAt)
-    //       var dateString = d.toString()
-    //       dateString = dateString.substring(0, dateString.lastIndexOf(':'))
-    //       var row = [response[i].title, response[i].patient_name, response[i].score, response[i]._id, 'PENDING', dateString, response[i]._id]
-    //       rows.push(row)
-    //     }
-    //     this.setState({ userAnswers: rows })
-    //   })
-    //   .catch(error => {
-    //     console.error(error)
-    //   })
+  componentWillMount() {
+    getOrganizations().then(response=>{
+      response={"message":"Organisation retrieved successfully","data":[{"_id":"5d3aff5326edba12fa4c5c98","role":"SERVICE","name":"Barts Mental Health Clinic","address1":"134 Barts Road","address2":"","postcode":"BRTS1B","description":"Barts Mental Health Clinic","link":"barts.nhs.gov.uk","email":"barts@nhs.gov.uk","telephone":"033448796645"}]}
+      var i=1;
+      var thelist=new Array()
+      response.data.map((map,key)=>{
+        thelist.push([
+          i,map.name,map.description,map.address1+" "+map.address2,map.postcode,map.telephone,map._id
+        ])
+        i++
+        console.log(thelist)
+        this.setState({list:thelist})
+      })
+    })
   }
 
   redirectToTrustDetails = (trustId) => {
-      this.props.history.push('/admin/trusts/26426287u24')
-    // document.location.href = '/admin/trusts/'+ trustId;
+    console.log(trustId)
+    this.props.history.push(this.props.history.location.pathname + "/" + trustId)
+    //document.location.href = '/admin/trusts/'+ "26426287u24";
   }
 
-  render () {
+  render() {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
@@ -106,16 +104,18 @@ class TrustList extends Component {
                     tableHeaderColor='primary'
                     tableHead={['S/N', 'Trust Name', 'Description', 'Address', 'Postcode', 'Telephone']}
                     checkedIndexes={[]}
-                    tasks={[['1', 'Central and North West London NHS Foundation Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
-                    ['2', 'East London NHS Foundation Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
-                    ['3', 'South West London and St George\'s Mental Health NHS Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
-                    ['4', 'Camden and Islington NHS Foundation Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
-                    ['5', 'West London NHS Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
-                    ['6', 'Barnet, Enfield and Haringey Mental Health Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
-                    ['7', 'South London & Maudsley N H S Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
-                    ['8', 'West London NHS Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
-                    ['9', 'Central London Community Healthcare NHS Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
-                    ['10', 'North East London NHS Foundation Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id']]}
+                    tasks={this.state.list}
+                  // tasks={[['1', 'Central and North West London NHS Foundation Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
+                  // ['2', 'East London NHS Foundation Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
+                  // ['3', 'South West London and St George\'s Mental Health NHS Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
+                  // ['4', 'Camden and Islington NHS Foundation Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
+                  // ['5', 'West London NHS Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
+                  // ['6', 'Barnet, Enfield and Haringey Mental Health Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
+                  // ['7', 'South London & Maudsley N H S Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
+                  // ['8', 'West London NHS Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
+                  // ['9', 'Central London Community Healthcare NHS Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id'],
+                  // ['10', 'North East London NHS Foundation Trust', 'Mental Health Services', '350 Euston Rd, Fitzrovia', 'NW1 3AX', '020 3214 5700', 'Trust Id']]}
+
                   />
                 )
               }

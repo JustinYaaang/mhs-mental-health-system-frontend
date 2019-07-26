@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { baseUrl, backendURL, fetchQuestionnairesUrl, patientanswersUrl, authenticationUrl, questionnaireWithoutToken } from '../variables/general'
+import { baseUrl, backendURL, Organizations, fetchQuestionnairesUrl, patientanswersUrl, authenticationUrl, questionnaireWithoutToken } from '../variables/general'
 
 const postNewSurvey = async (createSurveyUrl, surveyData) => {
   try {
@@ -111,26 +111,6 @@ const fetchWeeklyResult = async (startDate, lastDate) => {
   }
 }
 
-// const getAnsweredQuestionnaire = async (theId) => {
-//   axios({
-//     method: 'get',
-//     url: baseUrl + patientanswersUrl + '/' + theId
-//   }).then(function (response) {
-//     return response.data.data
-//   })
-
-//   return await axios.get(baseUrl + patientanswersUrl + '/' + theId)
-//     .then(function (response) {
-//       return response.data.data.body
-//     })
-
-//   return await axios.get(backendURL + theId)
-//     .then(function (response) {
-//       return response.data.data.body
-//     })
-//     .catch(function (error) {
-//       console.log(error)
-//     })
 
 const getAnsweredQuestionnaire = async (theId) => {
   return await axios.get(baseUrl + patientanswersUrl + '/' + theId)
@@ -173,6 +153,7 @@ const getQuestionnaire = async (qustionId) => {
 }
 
 const getAuthenticationToken = async (body) => {
+  console.log(body)
   var headers = { 'Content-Type': 'application/json' }
   try {
     console.log('here')
@@ -187,7 +168,7 @@ const getAuthenticationToken = async (body) => {
     return response
   } catch (error) {
     console.log('POST server error: ', error)
-    throw error;
+    throw error
   }
 }
 
@@ -230,25 +211,146 @@ const getQuestionnaireWithToken = async (body) => {
   } catch (error) {
     console.log('POST server error: ', error)
   }
-
-  // try {
-  //   const token = getAuthenticationToken({"NHS_number": 1234567890})
-  //   console.log(token);
-  //   try {
-  //     const res = await axios.get(baseUrl + questionnaireWithoutToken, {
-  //       headers:{ 'Authorization': 'Bearer ' + token}
-  //     });
-
-  //     console.log("res")
-  //     console.log(res)
-  //     return res;
-  //   } catch (error) {
-  //     console.log("GET server error: ", error);
-  //   }
-
-  // } catch (error) {
-  //   console.log("GET server error: ", error);
-  // }
 }
 
-export { postNewSurvey, updateSurvey, fetchQuestionnaires, fetchWeeklyResult, fetchUserAnswers, getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire, deleteQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken }
+/**
+ * Function that return a the organization list given the type. TODO
+ * @param {*} body 
+ */
+const getOrganizations = async (body) => {
+  var headers = { 'Content-Type': 'application/json' }
+  try {
+    const response = await axios({
+      method: 'get',
+      url: baseUrl + Organizations,
+      headers: headers,
+      data: body
+    })
+    console.log('getAuthenticationToken')
+    console.log(response.data.data)
+    var token = response.data.data
+    try {
+      const res = await axios.get(baseUrl + Organizations, {
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+
+      console.log('res.data.data')
+      console.log(res.data.data)
+      return res.data.data
+    } catch (error) {
+      console.log('GET server error: ', error)
+    }
+    return response.data.data
+  } catch (error) {
+    console.log('POST server error: ', error)
+  }
+}
+/**
+ * Function that returns an organization given the id
+ * @param {*} body 
+ */
+const getOrganization = async (body) => {
+  var headers = { 'Content-Type': 'application/json' }
+  try {
+    const response = await axios({
+      method: 'get',
+      url: baseUrl + Organizations + "body",
+      headers: headers,
+      data: body
+    })
+    console.log('getAuthenticationToken')
+    console.log(response.data.data)
+    var token = response.data.data
+    try {
+      const res = await axios.get(baseUrl + Organizations, {
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+
+      console.log('res.data.data')
+      console.log(res.data.data)
+      return res.data.data
+    } catch (error) {
+      console.log('GET server error: ', error)
+    }
+    return response.data.data
+  } catch (error) {
+    console.log('POST server error: ', error)
+  }
+}
+
+/**
+ * Function that updates an organization given the ID
+ * @param {*} body 
+ */
+const updateOrganization = async (body) => {
+  var headers = { 'Content-Type': 'application/json' }
+  try {
+    const response = await axios({
+      method: 'patch',
+      url: baseUrl + Organizations + "body",
+      headers: headers,
+      data: body
+    })
+    console.log('getAuthenticationToken')
+    console.log(response.data.data)
+    var token = response.data.data
+    try {
+      const res = await axios.get(baseUrl + Organizations, {
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+
+      console.log('res.data.data')
+      console.log(res.data.data)
+      return res.data.data
+    } catch (error) {
+      console.log('GET server error: ', error)
+    }
+    return response.data.data
+  } catch (error) {
+    console.log('POST server error: ', error)
+  }
+}
+
+/**
+ * Function that returs the personel given an organization id
+ * @param {*} body 
+ */
+const getPersonel = async (body) => {
+  var headers = { 'Content-Type': 'application/json' }
+  try {
+    const response = await axios({
+      method: 'patch',
+      url: baseUrl + Organizations + "body",
+      headers: headers,
+      data: body
+    })
+    console.log('getAuthenticationToken')
+    console.log(response.data.data)
+    var token = response.data.data
+    try {
+      const res = await axios.get(baseUrl + Organizations, {
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+
+      console.log('res.data.data')
+      console.log(res.data.data)
+      return res.data.data
+    } catch (error) {
+      console.log('GET server error: ', error)
+    }
+    return response.data.data
+  } catch (error) {
+    console.log('POST server error: ', error)
+  }
+}
+
+
+
+export {
+  postNewSurvey, updateSurvey, getOrganization, getOrganizations,
+  fetchQuestionnaires, fetchWeeklyResult, fetchUserAnswers,
+  getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire,
+  deleteQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken,
+  getQuestionnaireWithToken,
+  getPersonel, updateOrganization
+}

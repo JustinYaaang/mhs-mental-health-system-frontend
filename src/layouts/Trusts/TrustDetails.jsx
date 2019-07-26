@@ -17,7 +17,7 @@ import TrustServiceFrom from 'views/Forms/TrustServiceForm.jsx'
 import Grade from '@material-ui/icons/Grade'
 import Code from '@material-ui/icons/Code'
 import { fetchUserAnswers } from '../../services/BackendService'
-import { getAnsweredQuestionnaire, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
+import { getAnsweredQuestionnaire,getOrganization, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
 
 
 const styles = {
@@ -53,29 +53,17 @@ const styles = {
 class TrustDetails extends Component {
   constructor (props) {
     super(props)
-    this.state = { userAnswers: []
+    this.state = { id:""
       // idList: []
     }
   }
 
   componentWillMount () {
-    // fetchUserAnswers()
-    //   .then(response => {
-    //     console.log(response)
-    //     var rows = []
-    //     for (var i = 0; i < response.length; i++) {
-    //       console.log(i)
-    //       var d = new Date(response[i].createdAt)
-    //       var dateString = d.toString()
-    //       dateString = dateString.substring(0, dateString.lastIndexOf(':'))
-    //       var row = [response[i].title, response[i].patient_name, response[i].score, response[i]._id, 'PENDING', dateString, response[i]._id]
-    //       rows.push(row)
-    //     }
-    //     this.setState({ userAnswers: rows })
-    //   })
-    //   .catch(error => {
-    //     console.error(error)
-    //   })
+   const{id}=this.props.match.params
+   this.setState({id:id})
+
+
+
   }
 
   redirectToTrustDetails = (questionnaireResponseId) => {
@@ -101,7 +89,7 @@ class TrustDetails extends Component {
                 tabName: 'DETAILS',
                 tabIcon: Code,
                 tabContent: (
-                    <TrustServiceFrom/>
+                    <TrustServiceFrom organization={"trust"} id={this.state.id} />
                 )
               },
               {
