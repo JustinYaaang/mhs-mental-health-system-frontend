@@ -60,15 +60,14 @@ class TrustList extends Component {
 
   componentWillMount() {
     getOrganizations().then(response=>{
-      response={"message":"Organisation retrieved successfully","data":[{"_id":"5d3aff5326edba12fa4c5c98","role":"SERVICE","name":"Barts Mental Health Clinic","address1":"134 Barts Road","address2":"","postcode":"BRTS1B","description":"Barts Mental Health Clinic","link":"barts.nhs.gov.uk","email":"barts@nhs.gov.uk","telephone":"033448796645"}]}
       var i=1;
       var thelist=new Array()
-      response.data.map((map,key)=>{
+      response.forEach((map)=>{
         thelist.push([
           i,map.name,map.description,map.address1+" "+map.address2,map.postcode,map.telephone,map._id
         ])
         i++
-        console.log(thelist)
+       // console.log(thelist)
         this.setState({list:thelist})
       })
     })

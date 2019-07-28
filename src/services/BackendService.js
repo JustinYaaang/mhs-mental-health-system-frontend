@@ -111,7 +111,6 @@ const fetchWeeklyResult = async (startDate, lastDate) => {
   }
 }
 
-
 const getAnsweredQuestionnaire = async (theId) => {
   return await axios.get(baseUrl + patientanswersUrl + '/' + theId)
     .then(function (response) {
@@ -215,9 +214,47 @@ const getQuestionnaireWithToken = async (body) => {
 
 /**
  * Function that return a the organization list given the type. TODO
- * @param {*} body 
+ * @param {*} body
  */
 const getOrganizations = async (body) => {
+  console.log(body)
+  var url = baseUrl + Organizations
+  if (body !== undefined) {
+    url = baseUrl + Organizations + '/' + body
+  }
+  console.log(url)
+  var headers = { 'Content-Type': 'application/json' }
+  try {
+    // const response = await axios({
+    //   method: 'get',
+    //   url: url,
+    //   headers: headers,
+    //   data: body
+    // })
+    const response = await axios.get(url, { headers: headers })
+    console.log('getAuthenticationToken')
+    var token = response.data.data
+    try {
+      const res = await axios.get(url, {
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+
+      console.log('res.data.data')
+      console.log(res.data.data)
+      return res.data.data
+    } catch (error) {
+      console.log('GET server error: ', error)
+    }
+    return response.data.data
+  } catch (error) {
+    console.log('POST server error: ', error)
+  }
+}
+/**
+ * Function that returns an organization given the id
+ * @param {*} body
+ */
+const getOrganization = async (body) => {
   var headers = { 'Content-Type': 'application/json' }
   try {
     const response = await axios({
@@ -245,57 +282,25 @@ const getOrganizations = async (body) => {
     console.log('POST server error: ', error)
   }
 }
-/**
- * Function that returns an organization given the id
- * @param {*} body 
- */
-const getOrganization = async (body) => {
-  var headers = { 'Content-Type': 'application/json' }
-  try {
-    const response = await axios({
-      method: 'get',
-      url: baseUrl + Organizations + "body",
-      headers: headers,
-      data: body
-    })
-    console.log('getAuthenticationToken')
-    console.log(response.data.data)
-    var token = response.data.data
-    try {
-      const res = await axios.get(baseUrl + Organizations, {
-        headers: { 'Authorization': 'Bearer ' + token }
-      })
-
-      console.log('res.data.data')
-      console.log(res.data.data)
-      return res.data.data
-    } catch (error) {
-      console.log('GET server error: ', error)
-    }
-    return response.data.data
-  } catch (error) {
-    console.log('POST server error: ', error)
-  }
-}
 
 /**
  * Function that updates an organization given the ID
- * @param {*} body 
+ * @param {*} body
  */
 const updateOrganization = async (body) => {
   var headers = { 'Content-Type': 'application/json' }
   try {
     const response = await axios({
       method: 'patch',
-      url: baseUrl + Organizations + "body",
+      url: baseUrl + Organizations + '/' + body.id,
       headers: headers,
-      data: body
+      data: body.body
     })
     console.log('getAuthenticationToken')
     console.log(response.data.data)
     var token = response.data.data
     try {
-      const res = await axios.get(baseUrl + Organizations, {
+      const res = await axios.patch(baseUrl + Organizations + '/' + body.id, {
         headers: { 'Authorization': 'Bearer ' + token }
       })
 
@@ -313,14 +318,14 @@ const updateOrganization = async (body) => {
 
 /**
  * Function that returs the personel given an organization id
- * @param {*} body 
+ * @param {*} body
  */
 const getPersonel = async (body) => {
   var headers = { 'Content-Type': 'application/json' }
   try {
     const response = await axios({
       method: 'patch',
-      url: baseUrl + Organizations + "body",
+      url: baseUrl + Organizations + 'body',
       headers: headers,
       data: body
     })
@@ -343,8 +348,6 @@ const getPersonel = async (body) => {
     console.log('POST server error: ', error)
   }
 }
-
-
 
 export {
   postNewSurvey, updateSurvey, getOrganization, getOrganizations,

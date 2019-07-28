@@ -16,7 +16,7 @@ import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import TrustServiceFrom from 'views/Forms/TrustServiceForm.jsx'
 import Grade from '@material-ui/icons/Grade'
 import Code from '@material-ui/icons/Code'
-import { fetchUserAnswers } from '../../services/BackendService'
+import { fetchUserAnswers, getPersonel } from '../../services/BackendService'
 import { getAnsweredQuestionnaire,getOrganization, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
 
 
@@ -53,15 +53,16 @@ const styles = {
 class TrustDetails extends Component {
   constructor (props) {
     super(props)
-    this.state = { id:""
-      // idList: []
+    const{id}=this.props.match.params
+    this.state = { id:id
     }
   }
 
   componentWillMount () {
-   const{id}=this.props.match.params
-   this.setState({id:id})
-
+    // getPersonel().then(response=>{
+    
+    // })
+    console.log("state"+this.state.id)
 
 
   }
@@ -89,7 +90,7 @@ class TrustDetails extends Component {
                 tabName: 'DETAILS',
                 tabIcon: Code,
                 tabContent: (
-                    <TrustServiceFrom organization={"trust"} id={this.state.id} />
+                    <TrustServiceFrom organization={"trust"} id={"5d3d80a34e5dab0aa3363a55"} />
                 )
               },
               {

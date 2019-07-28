@@ -1,44 +1,42 @@
 import React from 'react'
 import 'assets/css/AddForm.css'
 import Button from 'components/CustomButtons/Button.jsx'
-import { getTrust,updateTrust } from 'services/BackendService'
-import { getOrganization ,updateOrganization} from 'services/BackendService';
+import { getTrust, updateTrust } from 'services/BackendService'
+import { getOrganizations, updateOrganization } from 'services/BackendService'
 class TrustAddForm extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
-      id: '',
-      hasDetails: 'false'
+      id: this.props.id,
+      hasDetails: 'false',
+      organization: this.props.organization
     }
     this.onChange = this.onChange.bind(this)
     this.onSave = this.onSave.bind(this)
   }
 
-  componentWillMount() {
-    console.log(this.props)
-    const { id } = this.props.id
-    const { organization } = this.props.organization
-    getOrganization(id).then(response => {
-
-      response = { 'message': 'Organisation retrieved successfully', 'data': [{ '_id': '5d3aff5326edba12fa4c5c98', 'role': 'SERVICE', 'name': 'Barts Mental Health Clinic', 'address1': '134 Barts Road', 'address2': '', 'postcode': 'BRTS1B', 'description': 'Barts Mental Health Clinic', 'link': 'barts.nhs.gov.uk', 'email': 'barts@nhs.gov.uk', 'telephone': '033448796645' }] }
+  componentWillMount () {
+    getOrganizations(this.state.id).then(response => {
+      console.log(response)
+      // response = { 'message': 'Organisation retrieved successfully', 'data': [{ '_id': '5d3aff5326edba12fa4c5c98', 'role': 'SERVICE', 'name': 'Barts Mental Health Clinic', 'address1': '134 Barts Road', 'address2': '', 'postcode': 'BRTS1B', 'description': 'Barts Mental Health Clinic', 'link': 'barts.nhs.gov.uk', 'email': 'barts@nhs.gov.uk', 'telephone': '033448796645' }] }
       // getmanagers.then{
-      var details = response.data[0]
-      document.getElementById('nameinput').value = details.name
-      document.getElementById('address1input').value = details.address1
-      document.getElementById('address2input').value = details.address2
-      document.getElementById('postcodeinput').value = details.postcode
-      document.getElementById('descriptioninput').value = details.description
-      document.getElementById('websiteinput').value = details.link
-      document.getElementById('emailinput').value = details.email
-      document.getElementById('telephoneinput').value = details.telephone
+
+      document.getElementById('nameinput').value = response.name
+      document.getElementById('address1input').value = response.address1
+      document.getElementById('address2input').value = response.address2
+      document.getElementById('postcodeinput').value = response.postcode
+      document.getElementById('descriptioninput').value = response.description
+      document.getElementById('websiteinput').value = response.link
+      document.getElementById('emailinput').value = response.email
+      document.getElementById('telephoneinput').value = response.telephone
       // }
     })
   }
 
-  onChange(event) {
+  onChange (event) {
   }
 
-  onSave(event) {
+  onSave (event) {
     var trustdetails = {
       name: document.getElementById('nameinput').value,
       address1: document.getElementById('address1input').value,
@@ -49,13 +47,17 @@ class TrustAddForm extends React.Component {
       email: document.getElementById('emailinput').value,
       telephone: document.getElementById('telephoneinput').value
     }
-    updateOrganization(trustdetails).then(response => {
+    var body = {
+      id: this.state.id,
+      body: trustdetails
+    }
+    updateOrganization(body).then(response => {
       console.log(response)
     })
     console.log(trustdetails)
   }
 
-  render() {
+  render () {
     return (
       <form class='trustform'>
         <label className='label-subtitle' for='label'>Please enter the details of the NHS Trust.</label>
