@@ -78,8 +78,8 @@ class TrustDetails extends Component {
 
   }
 
-  redirectToTrustDetails = (questionnaireResponseId) => {
-    document.location.href = '/patientanswers/'+ questionnaireResponseId;
+  redirectToManagerDetails = (managerId) => {
+   console.log("ManagerID "+managerId)
   }
 
   render () {
@@ -109,6 +109,7 @@ class TrustDetails extends Component {
                 tabIcon: Code,
                 tabContent: (
                   <AnswerRows
+                     onRowClicked={(managerId) => this.redirectToManagerDetails(managerId)}
                     tableHeaderColor='primary'
                     tableHead={['S/N', 'Name', 'Email', 'Trust Name']}
                     checkedIndexes={[]}
