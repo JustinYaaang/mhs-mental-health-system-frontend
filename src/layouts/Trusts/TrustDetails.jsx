@@ -16,8 +16,8 @@ import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import TrustServiceFrom from 'views/Forms/TrustServiceForm.jsx'
 import Grade from '@material-ui/icons/Grade'
 import Code from '@material-ui/icons/Code'
-import { fetchUserAnswers } from '../../services/BackendService'
-import { getAnsweredQuestionnaire, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
+import { fetchUserAnswers, getPersonel } from '../../services/BackendService'
+import { getAnsweredQuestionnaire,getOrganization, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
 
 
 const styles = {
@@ -53,33 +53,33 @@ const styles = {
 class TrustDetails extends Component {
   constructor (props) {
     super(props)
-    this.state = { userAnswers: []
-      // idList: []
+    const{id}=this.props.match.params
+    this.state = { id:id,personelList:''
     }
   }
 
   componentWillMount () {
-    // fetchUserAnswers()
-    //   .then(response => {
-    //     console.log(response)
-    //     var rows = []
-    //     for (var i = 0; i < response.length; i++) {
-    //       console.log(i)
-    //       var d = new Date(response[i].createdAt)
-    //       var dateString = d.toString()
-    //       dateString = dateString.substring(0, dateString.lastIndexOf(':'))
-    //       var row = [response[i].title, response[i].patient_name, response[i].score, response[i]._id, 'PENDING', dateString, response[i]._id]
-    //       rows.push(row)
-    //     }
-    //     this.setState({ userAnswers: rows })
-    //   })
-    //   .catch(error => {
-    //     console.error(error)
-    //   })
+    getPersonel().then(response=>{
+      console.log("response"+ response)
+      var i=1;
+      var thelist=new
+       Array()
+      response.forEach((map)=>{
+        thelist.push([
+          i,map.first_name,map.last_name,map.email,map._id,map._id
+        ])
+        i++
+       // console.log(thelist)
+        this.setState({personelList:thelist})
+      })
+    })
+
+
+
   }
 
-  redirectToTrustDetails = (questionnaireResponseId) => {
-    document.location.href = '/patientanswers/'+ questionnaireResponseId;
+  redirectToManagerDetails = (managerId) => {
+   console.log("ManagerID "+managerId)
   }
 
   render () {
@@ -101,7 +101,7 @@ class TrustDetails extends Component {
                 tabName: 'DETAILS',
                 tabIcon: Code,
                 tabContent: (
-                    <TrustServiceFrom/>
+                    <TrustServiceFrom organization={"trust"} id={this.state.id} />
                 )
               },
               {
@@ -109,14 +109,11 @@ class TrustDetails extends Component {
                 tabIcon: Code,
                 tabContent: (
                   <AnswerRows
+                     onRowClicked={(managerId) => this.redirectToManagerDetails(managerId)}
                     tableHeaderColor='primary'
                     tableHead={['S/N', 'Name', 'Email', 'Trust Name']}
                     checkedIndexes={[]}
-                    tasks={[['1', 'Busola', 'busola@gmail.com', 'Camden Trust', 'Manager Id'],
-                    ['2', 'Nick', 'nick@gmail.com', 'Camden Trust', 'Manager Id'],
-                    ['3', 'Chen', 'nick@gmail.com', 'Camden Trust', 'Manager Id'],
-                    ['4', 'Yiming', 'nick@gmail.com', 'Camden Trust', 'Manager Id'],
-                    ]}
+                    tasks={this.state.personelList}
                   />
                 )
               }

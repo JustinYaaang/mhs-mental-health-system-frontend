@@ -11,7 +11,7 @@ import UserProfile from 'views/UserProfile/UserProfile.jsx'
 import TableList from 'views/TableList/TableList.jsx'
 import Typography from 'views/Typography/Typography.jsx'
 import NotificationsPage from 'views/Notifications/Notifications.jsx'
-
+import IAPTList from 'layouts/Trusts/TrustList.jsx'
 // core components/views for RTL layout
 
 const dashboardRoutes = [{
@@ -23,11 +23,11 @@ const dashboardRoutes = [{
   layout: '/trust'
 },
 {
-  path: '/services',
+  path: '/service',
   name: 'IAPT Services',
   rtlName: 'لوحة القيادة',
   icon: Dashboard,
-  component: TrustPage,
+  component: IAPTList,
   layout: '/trust'
 },
 {

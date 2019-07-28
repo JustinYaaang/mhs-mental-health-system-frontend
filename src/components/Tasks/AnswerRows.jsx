@@ -60,6 +60,7 @@ class AnswerRows extends React.Component {
     var id = selectedRow[selectedRow.length - 1];
     // document.location.href = '/patientanswers/'+ questionnaireResponseId;
     this.props.onRowClicked(id);
+    
   }
 
   render() {

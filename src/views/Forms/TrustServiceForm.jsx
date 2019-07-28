@@ -1,26 +1,36 @@
 import React from 'react'
 import 'assets/css/AddForm.css'
 import Button from 'components/CustomButtons/Button.jsx'
-
+import { getTrust, updateTrust } from 'services/BackendService'
+import { getOrganizations, updateOrganization } from 'services/BackendService'
 class TrustAddForm extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { 
-        id: '',
-        hasDetails:'false'    
+    this.state = {
+      id: this.props.id,
+      hasDetails: 'false',
+      organization: this.props.organization
     }
     this.onChange = this.onChange.bind(this)
     this.onSave = this.onSave.bind(this)
   }
 
   componentWillMount () {
-    // const { id } = this.props.match.params
-    // if(id!=''){
-    //     var hasDetails:'true'
-        
-    // }
+    getOrganizations(this.state.id).then(response => {
+      // response = { 'message': 'Organisation retrieved successfully', 'data': [{ '_id': '5d3aff5326edba12fa4c5c98', 'role': 'SERVICE', 'name': 'Barts Mental Health Clinic', 'address1': '134 Barts Road', 'address2': '', 'postcode': 'BRTS1B', 'description': 'Barts Mental Health Clinic', 'link': 'barts.nhs.gov.uk', 'email': 'barts@nhs.gov.uk', 'telephone': '033448796645' }] }
+      // getmanagers.then{
 
-}
+      document.getElementById('nameinput').value = response.name
+      document.getElementById('address1input').value = response.address1
+      document.getElementById('address2input').value = response.address2
+      document.getElementById('postcodeinput').value = response.postcode
+      document.getElementById('descriptioninput').value = response.description
+      document.getElementById('websiteinput').value = response.link
+      document.getElementById('emailinput').value = response.email
+      document.getElementById('telephoneinput').value = response.telephone
+      // }
+    })
+  }
 
   onChange (event) {
   }
@@ -32,11 +42,17 @@ class TrustAddForm extends React.Component {
       address2: document.getElementById('address2input').value,
       postcode: document.getElementById('postcodeinput').value,
       description: document.getElementById('descriptioninput').value,
-      website: document.getElementById('websiteinput').value,
+      link: document.getElementById('websiteinput').value,
       email: document.getElementById('emailinput').value,
       telephone: document.getElementById('telephoneinput').value
     }
-    console.log(trustdetails)
+    var body = {
+      id: this.state.id,
+      body: trustdetails
+    }
+    updateOrganization(body).then(response => {
+      console.log(response)
+    })
   }
 
   render () {
