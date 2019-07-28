@@ -54,15 +54,26 @@ class TrustDetails extends Component {
   constructor (props) {
     super(props)
     const{id}=this.props.match.params
-    this.state = { id:id
+    this.state = { id:id,personelList:''
     }
   }
 
   componentWillMount () {
-    // getPersonel().then(response=>{
-    
-    // })
-    console.log("state"+this.state.id)
+    getPersonel().then(response=>{
+      console.log("response"+ response)
+      var i=1;
+      var thelist=new
+       Array()
+      response.forEach((map)=>{
+        thelist.push([
+          i,map.first_name,map.last_name,map.email,map._id,map._id
+        ])
+        i++
+       // console.log(thelist)
+        this.setState({personelList:thelist})
+      })
+    })
+
 
 
   }
@@ -90,7 +101,7 @@ class TrustDetails extends Component {
                 tabName: 'DETAILS',
                 tabIcon: Code,
                 tabContent: (
-                    <TrustServiceFrom organization={"trust"} id={"5d3d80a34e5dab0aa3363a55"} />
+                    <TrustServiceFrom organization={"trust"} id={this.state.id} />
                 )
               },
               {
@@ -101,11 +112,7 @@ class TrustDetails extends Component {
                     tableHeaderColor='primary'
                     tableHead={['S/N', 'Name', 'Email', 'Trust Name']}
                     checkedIndexes={[]}
-                    tasks={[['1', 'Busola', 'busola@gmail.com', 'Camden Trust', 'Manager Id'],
-                    ['2', 'Nick', 'nick@gmail.com', 'Camden Trust', 'Manager Id'],
-                    ['3', 'Chen', 'nick@gmail.com', 'Camden Trust', 'Manager Id'],
-                    ['4', 'Yiming', 'nick@gmail.com', 'Camden Trust', 'Manager Id'],
-                    ]}
+                    tasks={this.state.personelList}
                   />
                 )
               }

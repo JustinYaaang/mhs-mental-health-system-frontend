@@ -17,7 +17,6 @@ class TrustAddForm extends React.Component {
 
   componentWillMount () {
     getOrganizations(this.state.id).then(response => {
-      console.log(response)
       // response = { 'message': 'Organisation retrieved successfully', 'data': [{ '_id': '5d3aff5326edba12fa4c5c98', 'role': 'SERVICE', 'name': 'Barts Mental Health Clinic', 'address1': '134 Barts Road', 'address2': '', 'postcode': 'BRTS1B', 'description': 'Barts Mental Health Clinic', 'link': 'barts.nhs.gov.uk', 'email': 'barts@nhs.gov.uk', 'telephone': '033448796645' }] }
       // getmanagers.then{
 
@@ -54,7 +53,6 @@ class TrustAddForm extends React.Component {
     updateOrganization(body).then(response => {
       console.log(response)
     })
-    console.log(trustdetails)
   }
 
   render () {

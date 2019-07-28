@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { baseUrl, backendURL, Organizations, fetchQuestionnairesUrl, patientanswersUrl, authenticationUrl, questionnaireWithoutToken } from '../variables/general'
+import { baseUrl, backendURL, organizations, personel, fetchQuestionnairesUrl, patientanswersUrl, authenticationUrl, questionnaireWithoutToken } from '../variables/general'
 
 const postNewSurvey = async (createSurveyUrl, surveyData) => {
   try {
@@ -218,9 +218,9 @@ const getQuestionnaireWithToken = async (body) => {
  */
 const getOrganizations = async (body) => {
   console.log(body)
-  var url = baseUrl + Organizations
+  var url = baseUrl + organizations
   if (body !== undefined) {
-    url = baseUrl + Organizations + '/' + body
+    url = baseUrl + organizations + '/' + body
   }
   console.log(url)
   var headers = { 'Content-Type': 'application/json' }
@@ -259,7 +259,7 @@ const getOrganization = async (body) => {
   try {
     const response = await axios({
       method: 'get',
-      url: baseUrl + Organizations,
+      url: baseUrl + organizations,
       headers: headers,
       data: body
     })
@@ -267,7 +267,7 @@ const getOrganization = async (body) => {
     console.log(response.data.data)
     var token = response.data.data
     try {
-      const res = await axios.get(baseUrl + Organizations, {
+      const res = await axios.get(baseUrl + organizations, {
         headers: { 'Authorization': 'Bearer ' + token }
       })
 
@@ -292,7 +292,7 @@ const updateOrganization = async (body) => {
   try {
     const response = await axios({
       method: 'patch',
-      url: baseUrl + Organizations + '/' + body.id,
+      url: baseUrl + organizations + '/' + body.id,
       headers: headers,
       data: body.body
     })
@@ -300,7 +300,7 @@ const updateOrganization = async (body) => {
     console.log(response.data.data)
     var token = response.data.data
     try {
-      const res = await axios.patch(baseUrl + Organizations + '/' + body.id, {
+      const res = await axios.patch(baseUrl + organizations + '/' + body.id, {
         headers: { 'Authorization': 'Bearer ' + token }
       })
 
@@ -323,18 +323,9 @@ const updateOrganization = async (body) => {
 const getPersonel = async (body) => {
   var headers = { 'Content-Type': 'application/json' }
   try {
-    const response = await axios({
-      method: 'patch',
-      url: baseUrl + Organizations + 'body',
-      headers: headers,
-      data: body
-    })
-    console.log('getAuthenticationToken')
-    console.log(response.data.data)
-    var token = response.data.data
     try {
-      const res = await axios.get(baseUrl + Organizations, {
-        headers: { 'Authorization': 'Bearer ' + token }
+      const res = await axios.get(baseUrl + personel, {
+        headers: { 'Authorization': 'Bearer ' + sessionStorage.jwt }
       })
 
       console.log('res.data.data')
@@ -343,7 +334,6 @@ const getPersonel = async (body) => {
     } catch (error) {
       console.log('GET server error: ', error)
     }
-    return response.data.data
   } catch (error) {
     console.log('POST server error: ', error)
   }
