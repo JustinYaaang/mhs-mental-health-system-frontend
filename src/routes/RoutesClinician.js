@@ -12,6 +12,7 @@ import DashboardPage from 'views/Dashboard/Dashboard.jsx'
 import ClinicianPage from 'views/Dashboard/ClinicianDashboard.jsx'
 import UserProfile from 'views/UserProfile/UserProfile.jsx'
 import TableList from 'views/TableList/TableList.jsx'
+import PatientList from 'views/TableList/PatientList'
 import Typography from 'views/Typography/Typography.jsx'
 import NotificationsPage from 'views/Notifications/Notifications.jsx'
 
@@ -30,7 +31,7 @@ const dashboardRoutes = [{
   name: 'Patients',
   rtlName: 'لوحة القيادة',
   icon: PatientsIcon,
-  component: ClinicianPage,
+  component: PatientList,
   layout: '/clinician'
 },
 {

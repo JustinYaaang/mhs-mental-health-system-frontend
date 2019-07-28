@@ -46,15 +46,21 @@ class AnswerRows extends React.Component {
     });
   };
 
-  redirectToAnswers = (tasks, index) => {
+  redirectToAnswers = (tableHead,tasks, index) => {
     var selectedRow = tasks[index];
     var questionnaireResponseId = selectedRow[selectedRow.length - 1];
-    document.location.href = '/patientanswers/'+ questionnaireResponseId;
+    if(tableHead.length==3){
+      document.location.href = '/userdetail/'+ questionnaireResponseId;
+    }
+    else{
+      document.location.href = '/patientanswers/'+ questionnaireResponseId;
+    }
+    
   }
 
   render() {
     const { classes, tableHeaderColor, tableHead, tasks, rtlActive} = this.props;
-    console.log(tableHeaderColor)
+    console.log(tableHead);
     const tableCellClasses = classnames(classes.tableCell, {
       [classes.tableCellRTL]: rtlActive
     });
@@ -122,7 +128,7 @@ class AnswerRows extends React.Component {
                   <IconButton
                     aria-label="{this.state.userAnswers}"
                     className={classes.tableActionButton}
-                    onClick={() => this.redirectToAnswers(tasks, index)}
+                    onClick={() => this.redirectToAnswers(tableHead,tasks, index)}
                   >
                     <View
                       className={

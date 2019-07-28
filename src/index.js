@@ -17,6 +17,7 @@ import Clinician from 'layouts/Clinician.jsx'
 import Trust from 'layouts/Trust.jsx'
 import SurveyCreator from 'layouts/SurveyCreator.js'
 import SurveyResult from 'layouts/SurveyResult.jsx'
+import UserDetail from 'layouts/UserDetail.jsx'
 import QuestionnaireResult from 'layouts/QuestionnaireResult.jsx'
 import Error401 from 'layouts/401.js'
 import NotFound from 'layouts/404.js'
@@ -48,6 +49,7 @@ ReactDOM.render(
         <Route path='/questionnaire/:id?' render={(props) => (isLoggedIn() ? (<SurveyCreator {...props} />) : (<Redirect to='/login' />))} />
         <Route path='/patientanswers/:id?' render={(props) => (isLoggedIn() ? (<SurveyResult {...props} />) : (<Redirect to='/login' />))} />
         <Route path='/questionnaireview/:id?' render={(props) => (isLoggedIn() ? (<QuestionnaireResult {...props} />) : (<Redirect to='/login' />))} />
+        <Route path='/userdetail/:id?' render={(props) => (isLoggedIn() ? (<UserDetail {...props} />) : (<Redirect to='/login' />))} />
         <Redirect from='/' exact to='/admin' />
         <Route component={NotFound} />
       </Switch>

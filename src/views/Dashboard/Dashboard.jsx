@@ -26,7 +26,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import InformationCard from 'components/DashboardComponent/InformationCard.jsx';
 import LineGraph from 'components/DashboardComponent/LineGraph.jsx';
 
@@ -73,19 +73,22 @@ class Dashboard extends React.Component {
   };
 
   handleDeleteQuestionnaireClick = (index, status) => {
-    swal({
-      title: "Are you sure?",
-      text: "The questionnaire cannot recover!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "The questionnaire cannot retrieve",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Delete'
     })
-    .then((willDelete) => {
-      if (willDelete) {
-        swal("The questionnaire has been deleted!", {
-          icon: "success",
-        });
-
+    .then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Deleted!',
+          'The questionnaire has been deleted',
+          'success'
+        );
         if(status === 'DRAFT'){
           const questionnaireId = this.state.idDraftList[index];
           deleteQuestionnaire(questionnaireId).then(
@@ -111,8 +114,6 @@ class Dashboard extends React.Component {
             }
           );
         }
-      } else {
-        swal("The questionnaire is safe!");
       }
     });
   };

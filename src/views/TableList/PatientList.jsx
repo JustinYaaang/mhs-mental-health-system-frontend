@@ -53,82 +53,64 @@ const styles = {
   }
 }
 
-class TableList extends Component {
+class PatientList extends Component {
   constructor (props) {
     super(props)
-    this.state = { userAnswers: []
+    this.state = { userAnswers: [["John","aaa@gmail.com","1",'1231241241412']]
     }
   }
 
   componentWillMount () {
     getRole();
 
-    var role = "clinician2"
- 
-    fetchUserAnswers()
-      .then(response => {
-        console.log(response)
-        var rows = []
-        for (var i = 0; i < response.length; i++) {
-          console.log(i)
-          var d = new Date(response[i].createdAt)
-          var dateString = d.toString()
-          dateString = dateString.substring(0, dateString.lastIndexOf(':'))
-          var row = [response[i].title, response[i].patient_name, response[i].score, response[i]._id, 'PENDING', dateString, response[i]._id]
-          if( response[i].score<5){
-            rows.push(row)
-          }
-        }
-        this.setState({ userAnswers: rows })
-      })
-      .catch(error => {
-        console.error(error)
-      })
+    // fetchUserAnswers()
+    //   .then(response => {
+    //     console.log(response)
+    //     var rows = []
+    //     for (var i = 0; i < response.length; i++) {
+    //       console.log(i)
+    //       var d = new Date(response[i].createdAt)
+    //       var dateString = d.toString()
+    //       dateString = dateString.substring(0, dateString.lastIndexOf(':'))
+    //       var row = [response[i].title, response[i].patient_name, response[i].score, response[i]._id, 'PENDING', dateString, response[i]._id]
+    //       rows.push(row)
+    //       console.log(row);
+    //     }
+    //     this.setState({ userAnswers: rows })
+        
+    //   })
+    //   .catch(error => {
+    //     console.error(error)
+    //   })
   }
 
   render () {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
-          <AnswerTabs
-            // title="Submitted Questionnaires: "
-            headerColor='info'
-            onCreateNewClicked={() => this.handleCreateNewQuestionnaireClicked()}
-            tabs={[
-              {
-                tabName: 'PENDING',
-                tabIcon: Grade,
-                tabContent: (
-                  <AnswerRows
+          <Card>
+          <CardHeader color='info'>
+              <h4 className={styles.cardTitleWhite}>Patient List</h4>
+              <p className={styles.cardCategoryWhite} />
+            </CardHeader>
+          <CardBody>
+    
+          <AnswerRows
                     tableHeaderColor='info'
-                    tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
+                    tableHead={['Name', 'Email', 'Case']}
                     checkedIndexes={[]}
                     tasks={this.state.userAnswers}
                   />
-                )
-              },
-              {
-                tabName: 'RESOLVED',
-                tabIcon: Code,
-                tabContent: (
-                  <AnswerRows
-                    tableHeaderColor='primary'
-                    tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
-                    checkedIndexes={[]}
-                    tasks={this.state.userAnswers}
-                  />
-                )
-              }
-            ]}
-          />
+            </CardBody>
+          </Card>
         </GridItem>
       </GridContainer>
     )
   }
 }
 
-TableList.propTypes = {
+PatientList.propTypes = {
   classes: PropTypes.object
 }
 
-export default withStyles(styles)(TableList)
+export default withStyles(styles)(PatientList)
