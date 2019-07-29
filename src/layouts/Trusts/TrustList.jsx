@@ -79,6 +79,11 @@ class TrustList extends Component {
     //document.location.href = '/admin/trusts/'+ "26426287u24";
   }
 
+
+  createNewOrganization=()=>{
+    this.props.history.push(this.props.history.location.pathname + "/new")
+    console.log("!!")
+  }
   render() {
     return (
       <GridContainer>
@@ -92,13 +97,13 @@ class TrustList extends Component {
           <AnswerTabs
             // title="Submitted Questionnaires: "
             headerColor='info'
-            onCreateNewClicked={() => this.handleCreateNewQuestionnaireClicked()}
             tabs={[
               {
                 tabName: 'TRUSTS',
                 tabIcon: Code,
                 tabContent: (
                   <AnswerRows
+                    createNew={(trustId) => this.createNewOrganization(trustId)}
                     onRowClicked={(trustId) => this.redirectToTrustDetails(trustId)}
                     tableHeaderColor='primary'
                     tableHead={['S/N', 'Trust Name', 'Description', 'Address', 'Postcode', 'Telephone']}

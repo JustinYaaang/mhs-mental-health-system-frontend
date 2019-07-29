@@ -74,6 +74,10 @@ class AnswerRows extends React.Component {
     
   }
 
+  createNew=()=>{
+    this.props.createNew();
+  }
+
   render() {
     const { classes, tableHeaderColor, tableHead, tasks, rtlActive} = this.props;
     console.log(tableHeaderColor)
@@ -196,6 +200,7 @@ class AnswerRows extends React.Component {
                 >
                   <IconButton
                     aria-label="Create New"
+                    onClick={() => this.createNew()}
                     className={classes.tableActionButton}
                   >
 

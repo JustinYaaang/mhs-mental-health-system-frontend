@@ -59,30 +59,10 @@ class UserDetails extends Component {
   }
 
   componentWillMount () {
-    // getPersonel().then(response=>{
-    //   console.log("response"+ response)
-    //   var i=1;
-    //   var thelist=new
-    //    Array()
-    //   response.forEach((map)=>{
-    //     thelist.push([
-    //       i,map.first_name,map.last_name,map.email,map.trust,map._id
-    //     ])
-    //     i++
-    //    // console.log(thelist)
-    //     this.setState({personelList:thelist})
-    //   })
-    // })
-
-
 
   }
 
-  redirectToManagerDetails = (managerId) => {
-   console.log("ManagerID "+managerId)
-  }
-
-  render () {
+   render () {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>

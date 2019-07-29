@@ -2,13 +2,13 @@ import React from 'react'
 import 'assets/css/AddForm.css'
 import Button from 'components/CustomButtons/Button.jsx'
 import { getTrust, updateTrust } from 'services/BackendService'
-import { getOrganizations, updateOrganization } from 'services/BackendService'
+import { getOrganizations, updateOrganization,createOrganization } from 'services/BackendService'
 class TrustAddForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       id: this.props.id,
-      hasDetails: 'false',
+      hasDetails: this.props.hasDetails,
       organization: this.props.organization
     }
     this.onChange = this.onChange.bind(this)
@@ -16,22 +16,24 @@ class TrustAddForm extends React.Component {
   }
 
   componentWillMount () {
-    getOrganizations(this.state.id).then(response => {
+    if (this.state.hasDetails) {
+      getOrganizations(this.state.id).then(response => {
       // response = { 'message': 'Organisation retrieved successfully', 'data': [{ '_id': '5d3aff5326edba12fa4c5c98', 'role': 'SERVICE', 'name': 'Barts Mental Health Clinic', 'address1': '134 Barts Road', 'address2': '', 'postcode': 'BRTS1B', 'description': 'Barts Mental Health Clinic', 'link': 'barts.nhs.gov.uk', 'email': 'barts@nhs.gov.uk', 'telephone': '033448796645' }] }
       // getmanagers.then{
-      try {
-        document.getElementById('nameinput').value = response.name
-        document.getElementById('address1input').value = response.address1
-        document.getElementById('address2input').value = response.address2
-        document.getElementById('postcodeinput').value = response.postcode
-        document.getElementById('descriptioninput').value = response.description
-        document.getElementById('websiteinput').value = response.link
-        document.getElementById('emailinput').value = response.email
-        document.getElementById('telephoneinput').value = response.telephone
-      } catch (error) {
-        console.log(error + '\n' + response)
-      }
-    })
+        try {
+          document.getElementById('nameinput').value = response.name
+          document.getElementById('address1input').value = response.address1
+          document.getElementById('address2input').value = response.address2
+          document.getElementById('postcodeinput').value = response.postcode
+          document.getElementById('descriptioninput').value = response.description
+          document.getElementById('websiteinput').value = response.link
+          document.getElementById('emailinput').value = response.email
+          document.getElementById('telephoneinput').value = response.telephone
+        } catch (error) {
+          console.log(error + '\n' + response)
+        }
+      })
+    }
   }
 
   onChange (event) {
@@ -52,9 +54,16 @@ class TrustAddForm extends React.Component {
       id: this.state.id,
       body: trustdetails
     }
-    updateOrganization(body).then(response => {
-      console.log(response)
-    })
+    if (this.state.hasDetails) {
+      updateOrganization(body).then(response => {
+        console.log(response)
+      })
+    } else {
+      console.log(trustdetails)
+      createOrganization(trustdetails).then(response => {
+        console.log(response)
+      })
+    }
   }
 
   render () {

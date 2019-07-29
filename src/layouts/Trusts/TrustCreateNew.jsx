@@ -16,9 +16,9 @@ import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import TrustServiceFrom from 'views/Forms/TrustServiceForm.jsx'
 import Grade from '@material-ui/icons/Grade'
 import Code from '@material-ui/icons/Code'
-import { fetchUserAnswers, getPersonnel } from '../../services/BackendService'
+import { fetchUserAnswers, getPersonel } from '../../services/BackendService'
 import { getAnsweredQuestionnaire,getOrganization, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
-
+import TrustServiceForm from 'views/Forms/TrustServiceForm.jsx'
 
 const styles = {
   cardCategoryWhite: {
@@ -50,76 +50,23 @@ const styles = {
   }
 }
 
-class TrustDetails extends Component {
+class TrustCreateNew extends Component {
   constructor (props) {
     super(props)
     const{id}=this.props.match.params
-    this.state = { id:id,personelList:''
+    this.state = { id:id
     }
   }
 
   componentWillMount () {
-    getPersonnel().then(response=>{
-      console.log("response"+ response)
-      var i=1;
-      var thelist=new
-       Array()
-      response.forEach((map)=>{
-        thelist.push([
-          i,map.first_name,map.last_name,map.email,map.trust,map._id
-        ])
-        i++
-       // console.log(thelist)
-        this.setState({personelList:thelist})
-      })
-    })
-
-
 
   }
 
-  redirectToManagerDetails = (managerId) => {
-   console.log("ManagerID "+managerId)
-   this.props.history.push(this.props.history.location.pathname + "/" + managerId)
-  }
-
-  render () {
+   render () {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
-          {/* <Card> */}
-          {/* <CardHeader color='primary'>
-              <h4 className={styles.cardTitleWhite}>Submitted Questionnaires</h4>
-              <p className={styles.cardCategoryWhite} />
-            </CardHeader> */}
-          {/* <CardBody> */}
-          <AnswerTabs
-            // title="Submitted Questionnaires: "
-            headerColor='info'
-            onCreateNewClicked={() => this.handleCreateNewQuestionnaireClicked()}
-            tabs={[
-              {
-                tabName: 'DETAILS',
-                tabIcon: Code,
-                tabContent: (
-                    <TrustServiceFrom hasDetails={true} organization={"trust"} id={this.state.id} />
-                )
-              },
-              {
-                tabName: 'MANAGERS',
-                tabIcon: Code,
-                tabContent: (
-                  <AnswerRows
-                     onRowClicked={(managerId) => this.redirectToManagerDetails(managerId)}
-                    tableHeaderColor='primary'
-                    tableHead={['S/N', 'First Name', 'Last Name', 'Email', 'Trust Name']}
-                    checkedIndexes={[]}
-                    tasks={this.state.personelList}
-                  />
-                )
-              }
-            ]}
-          />
+         <TrustServiceForm hasDetails={false} organization={"trust"}/>
           {/* <Table
                 tableHeaderColor='primary'
                 // tableHead={["Questionnaire Name", "Patient Name", "Time", "Final Score", "Id", "Questionnaire Id"]}
@@ -134,8 +81,8 @@ class TrustDetails extends Component {
   }
 }
 
-TrustDetails.propTypes = {
+TrustCreateNew.propTypes = {
   classes: PropTypes.object
 }
 
-export default withStyles(styles)(TrustDetails)
+export default withStyles(styles)(TrustCreateNew)

@@ -260,6 +260,30 @@ const updateOrganization = async (body) => {
 }
 
 /**
+ * Function that updates an organization given the ID
+ * @param {*} body
+ */
+const createOrganization = async (body) => {
+  try {
+    try {
+      var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+      const res = await axios({
+        method: 'post',
+        url: baseUrl + organizations,
+        headers: headers,
+        data: body
+      })
+      console.log(res.data.data)
+      return res.data.data
+    } catch (error) {
+      console.log('GET server error: ', error)
+    }
+  } catch (error) {
+    console.log('POST server error: ', error)
+  }
+}
+
+/**
  * Function that returs the personel given an organization id
  * @param {*} body
  */
@@ -319,5 +343,5 @@ export {
   getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire,
   deleteQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken,
   getQuestionnaireWithToken,
-  getPersonnel, updatePersonnel, updateOrganization
+  getPersonnel, updatePersonnel, updateOrganization, createOrganization
 }
