@@ -387,11 +387,36 @@ const createPersonnel = async (body) => {
   }
 }
 
+/**
+ * Function that deletes a person
+ * @param {*} body
+ */
+const deletePersonnel = async (body) => {
+  try {
+    console.log(body)
+    try {
+      var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+      const res = await axios({
+        method: 'delete',
+        url: baseUrl + personnel+'/'+body,
+        headers: headers,
+        data: body
+      })
+      console.log(res.data.data)
+      return res.data.data
+    } catch (error) {
+      console.log('GET server error: ', error)
+    }
+  } catch (error) {
+    console.log('POST server error: ', error)
+  }
+}
+
 export {
   postNewSurvey, updateSurvey, getOrganizations,
   fetchQuestionnaires, fetchWeeklyResult, fetchUserAnswers,
   getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire,
   deleteQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken,
   getQuestionnaireWithToken,
-  getPersonnel, updatePersonnel, updateOrganization, deleteOrganization, createOrganization, createPersonnel
+  getPersonnel, updatePersonnel, updateOrganization, deleteOrganization, deletePersonnel,createOrganization, createPersonnel
 }

@@ -10,7 +10,7 @@ import AnswerRows from 'components/Tasks/AnswerRows.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import TrustServiceFrom from 'views/Forms/TrustServiceForm.jsx'
 import Code from '@material-ui/icons/Code'
-import { fetchUserAnswers, getPersonnel } from '../../services/BackendService'
+import { getPersonnel, deletePersonnel } from '../../services/BackendService'
 
 const styles = {
   cardCategoryWhite: {
@@ -79,7 +79,11 @@ class TrustDetails extends Component {
 
   }
 
-
+deleteManager=(managerId)=>{
+  deletePersonnel(managerId).then(response=>{
+    console.log(response)
+  })
+}
   render () {
     return (
       <GridContainer>
@@ -99,6 +103,7 @@ class TrustDetails extends Component {
                 tabIcon: Code,
                 tabContent: (
                   <AnswerRows
+                  onDeleteItemClicked={(managerId)=>this.deleteManager(managerId)}
                   createNew={() => this.createNewUser() /*Function for create new manager */}
                      onRowClicked={(managerId) => this.redirectToManagerDetails(managerId)/* Function for edit manager */}
                     tableHeaderColor='primary'
