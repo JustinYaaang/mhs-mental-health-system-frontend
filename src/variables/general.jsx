@@ -18,8 +18,10 @@ var server = [
   'Sign contract for "What are conference organizers afraid of?"'
 ]
 
-var baseUrl = 'http://localhost:3000/api/v1'//http://mhsbackend.azurewebsites.net/api/v1/'
-var fetchQuestionnairesUrl = '/questionnaire_sJS'
+var baseUrl = 'http://178.128.34.125/api/v1'
+//'http://localhost:3000/api/v1'//http://mhsbackend.azurewebsites.net/api/v1/'
+var fetchQuestionnairesUrl = '/questionnaire'
+// '/questionnaire_sJS'
 var patientanswersUrl = '/patientanswers'
 var backendUrl = 'http://178.128.34.125/api/v1'
 var createUserAnswers = '/useranswers'
