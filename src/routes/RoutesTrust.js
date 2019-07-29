@@ -2,7 +2,6 @@
 import Dashboard from '@material-ui/icons/Dashboard'
 import Person from '@material-ui/icons/Person'
 import Notifications from '@material-ui/icons/Notifications'
-// import Out from "@material-ui/icons/ArrowBack";
 import Setting from '@material-ui/icons/Settings'
 // core components/views for Admin layout
 import TransitEnterexit from '@material-ui/icons/TransitEnterexit'

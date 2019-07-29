@@ -56,9 +56,11 @@ class PersonForm extends React.Component {
     var pass2 = document.getElementById('passwordchange2').value
     if (pass1 !== '' || pass2 !== '') {
       if (pass2 !== pass1) {
-        document.getElementById('passwordlabel').innerHTML = 'Passwords dont match.'
-        document.getElementById('passwordchange1').style.backgroundColor = '#ED4747'
-        document.getElementById('passwordchange2').style.backgroundColor = '#ED4747'
+        document.getElementById('passwordchange1').style.backgroundColor = '#FEC2C2'
+        document.getElementById('passwordchange2').style.backgroundColor = '#FEC2C2'
+        swal('Passwords don\'t match!', {
+          icon: 'error'
+        })
         return
       } else {
         body.body.password = pass1
@@ -68,28 +70,52 @@ class PersonForm extends React.Component {
     }
 
     if (this.state.hasDetails) {
-      updatePersonnel(body).then(response => {
-        console.log(response)
-        document.getElementById('passwordchange1').value = ''
-        document.getElementById('passwordchange2').value = ''
-        swal('The entry has been updated!', {
-          icon: 'success'
+      if (this.allFieldsCompleted()) {
+        updatePersonnel(body).then(response => {
+          console.log(response)
+          document.getElementById('passwordchange1').value = ''
+          document.getElementById('passwordchange2').value = ''
+          swal('The entry has been updated!', {
+            icon: 'success'
+          })
         })
-      })
+      }else{
+        swal('Please fill all the fields!', {
+          icon: 'error'
+        }) 
+      }
     } else {
       if (!flag) {
-        document.getElementById('passwordlabel').innerHTML = 'Please specify a password.'
-        document.getElementById('passwordchange1').style.backgroundColor = '#ED4747'
-        document.getElementById('passwordchange2').style.backgroundColor = '#ED4747'
-      }
-      createPersonnel(body.body).then(response => {
-        swal('The entry has been updated!', {
-          icon: 'success'
+        swal('Passwords don\'t match!', {
+          icon: 'error'
         })
-        this.componentWillMount()
-        console.log(response)
-      })
+        document.getElementById('passwordchange1').style.backgroundColor = '#FEC2C2'
+        document.getElementById('passwordchange2').style.backgroundColor = '#FEC2C2'
+        swal('Passwords don\'t match!', {
+          icon: 'error'
+        })
+        return
+      }
+      if (this.allFieldsCompleted()) {
+        createPersonnel(body.body).then(response => {
+          this.componentWillMount()
+          console.log(response)
+        })
+      }
     }
+  }
+
+  allFieldsCompleted () {
+    var a = document.getElementById('firstnameinput').value
+    var b = document.getElementById('lastnameinput').value
+    var c = document.getElementById('emailinput').value
+    if (a === '' || b === '' || c === '') {
+      swal('Please fill all the fields!', {
+        icon: 'error'
+      })
+      return false
+    }
+    return true
   }
 
   render () {
@@ -107,7 +133,7 @@ class PersonForm extends React.Component {
           <br />
           <input name='email' type='email' class='form-control' id='passwordinput' aria-describedby='emailHelp' placeholder='password' onChange={this.onChange} readOnly />
           <br />
-          <input name='email' type='email' class='form-control' id='trustnameinput_postcodeinput' aria-describedby='emailHelp' placeholder='Trust Name' value={sessionStorage.organizationID}onChange={this.onChange} readOnly />
+          <input name='email' type='email' class='form-control' id='trustnameinput_postcodeinput' aria-describedby='emailHelp' placeholder='Trust Name' value={sessionStorage.organizationID} onChange={this.onChange} readOnly />
         </div>
         <br />
         <label className='label-subtitle' id='passwordlabel' for='label'>{this.state.hasDetails ? 'Change the password here:' : 'Enter password here:'}</label>
