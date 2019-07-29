@@ -2,8 +2,7 @@ import React from 'react'
 import 'assets/css/AddForm.css'
 import Button from 'components/CustomButtons/Button.jsx'
 import { getPersonnel, updatePersonnel, createPersonnel } from 'services/BackendService.js'
-
-
+import swal from 'sweetalert'
 
 /**
  * Component that displays a form for a Trust Manager, Service Manager, Clinitian
@@ -31,8 +30,8 @@ class PersonForm extends React.Component {
         document.getElementById('passwordinput').value = response.password
         document.getElementById('trustnameinput_postcodeinput').value = response.role //! !!!
       })
-    }else {
-     // document.getElementById('trustnameinput_postcodeinput').value = 'TRUSTMANAGER'
+    } else {
+      // document.getElementById('trustnameinput_postcodeinput').value = 'TRUSTMANAGER'
     }
     // if patient
     // document.getElementById("trustnameinput_postcodeinput").placeholder="Postcode"
@@ -73,6 +72,9 @@ class PersonForm extends React.Component {
         console.log(response)
         document.getElementById('passwordchange1').value = ''
         document.getElementById('passwordchange2').value = ''
+        swal('The entry has been updated!', {
+          icon: 'success'
+        })
       })
     } else {
       if (!flag) {
@@ -81,6 +83,10 @@ class PersonForm extends React.Component {
         document.getElementById('passwordchange2').style.backgroundColor = '#ED4747'
       }
       createPersonnel(body.body).then(response => {
+        swal('The entry has been updated!', {
+          icon: 'success'
+        })
+        this.componentWillMount()
         console.log(response)
       })
     }

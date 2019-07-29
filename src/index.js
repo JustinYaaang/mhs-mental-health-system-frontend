@@ -59,9 +59,8 @@ ReactDOM.render(
 )
 
 function getPath () {
-  
   return '/admin'
- 
+
   // if (isLoggedIn()) {
   //   if (isAdmin()) {
   //     return '/admin'
@@ -87,8 +86,7 @@ function isAdmin () {
 }
 
 function isManager () {
-  
-  return getRole() === 'TRUSTMANAGER'
+  return getRole() === 'ADMIN'
 }
 
 function isTrust () {

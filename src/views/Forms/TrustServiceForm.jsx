@@ -2,7 +2,7 @@ import React from 'react'
 import 'assets/css/AddForm.css'
 import Button from 'components/CustomButtons/Button.jsx'
 import { getOrganizations, updateOrganization, createOrganization } from 'services/BackendService'
-
+import swal from 'sweetalert'
 /**
  * Component that displays a form for a Trust or a Service
  */
@@ -10,11 +10,11 @@ class TrustAddForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      id: this.props.id, //the ID
-      //hasDetails:true => form in edit mode(the form is populated)
-      //hasDetails:false => form in creation mode(the form is not populated)
-      hasDetails: this.props.hasDetails, 
-      //Organization type: 1)trust, 2)service
+      id: this.props.id, // the ID
+      // hasDetails:true => form in edit mode(the form is populated)
+      // hasDetails:false => form in creation mode(the form is not populated)
+      hasDetails: this.props.hasDetails,
+      // Organization type: 1)trust, 2)service
       organization: this.props.organization
     }
     this.onChange = this.onChange.bind(this)
@@ -22,8 +22,24 @@ class TrustAddForm extends React.Component {
   }
 
   componentWillMount () {
-    //if(this.state.organization==trust){
-    if (this.state.hasDetails) {
+    if (this.state.organization == 'trust') {
+      if (this.state.hasDetails) {
+        getOrganizations(this.state.id).then(response => {
+          try {
+            document.getElementById('nameinput').value = response.name
+            document.getElementById('address1input').value = response.address1
+            document.getElementById('address2input').value = response.address2
+            document.getElementById('postcodeinput').value = response.postcode
+            document.getElementById('descriptioninput').value = response.description
+            document.getElementById('websiteinput').value = response.link
+            document.getElementById('emailinput').value = response.email
+            document.getElementById('telephoneinput').value = response.telephone
+          } catch (error) {
+            console.log(error + '\n' + response)
+          }
+        })
+      }
+    } else if (this.state.organization == 'service') {
       getOrganizations(this.state.id).then(response => {
         try {
           document.getElementById('nameinput').value = response.name
@@ -45,37 +61,44 @@ class TrustAddForm extends React.Component {
   }
 
   onSave (event) {
-    //if(this.state.organization==trust){
-    var trustdetails = {
-      name: document.getElementById('nameinput').value,
-      address1: document.getElementById('address1input').value,
-      address2: document.getElementById('address2input').value,
-      postcode: document.getElementById('postcodeinput').value,
-      description: document.getElementById('descriptioninput').value,
-      link: document.getElementById('websiteinput').value,
-      email: document.getElementById('emailinput').value,
-      telephone: document.getElementById('telephoneinput').value,
-      role: 'TRUST'
+    if (this.state.organization == 'trust' || this.state.organization == 'service') {
+      var trustdetails = {
+        name: document.getElementById('nameinput').value,
+        address1: document.getElementById('address1input').value,
+        address2: document.getElementById('address2input').value,
+        postcode: document.getElementById('postcodeinput').value,
+        description: document.getElementById('descriptioninput').value,
+        link: document.getElementById('websiteinput').value,
+        email: document.getElementById('emailinput').value,
+        telephone: document.getElementById('telephoneinput').value,
+        role: 'TRUST'
+      }
+      var body = {
+        id: this.state.id,
+        body: trustdetails
+      }
+      if (this.state.hasDetails) {
+        updateOrganization(body).then(response => {
+          console.log(response)
+          swal('The entry has been updated!', {
+            icon: 'success'
+          })
+          this.componentWillMount()
+        })
+      } else {
+        console.log(trustdetails)
+        createOrganization(trustdetails).then(response => {
+          console.log(response)
+          swal('The entry has been updated!', {
+            icon: 'success'
+          })
+          this.componentWillMount()
+        })
+      }
     }
-    var body = {
-      id: this.state.id,
-      body: trustdetails
-    }
-    if (this.state.hasDetails) {
-      updateOrganization(body).then(response => {
-        console.log(response)
-      })
-    } else {
-      console.log(trustdetails)
-      createOrganization(trustdetails).then(response => {
-        console.log(response)
-      })
-    }
-    //}else{
-
-
-
-      //}
+    //else{ IF there are different fields in for service
+    //     
+    // }
   }
 
   render () {

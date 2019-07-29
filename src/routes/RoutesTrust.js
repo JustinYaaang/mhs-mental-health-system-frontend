@@ -8,6 +8,7 @@ import Setting from '@material-ui/icons/Settings'
 import TransitEnterexit from '@material-ui/icons/TransitEnterexit'
 import TrustPage from 'views/Dashboard/TrustDashboard.jsx'
 import UserProfile from 'views/UserProfile/UserProfile.jsx'
+import ListAlt from '@material-ui/icons/ListAlt' 
 import TableList from 'views/TableList/TableList.jsx'
 import Typography from 'views/Typography/Typography.jsx'
 import NotificationsPage from 'views/Notifications/Notifications.jsx'
@@ -26,7 +27,7 @@ const dashboardRoutes = [{
   path: '/service',
   name: 'IAPT Services',
   rtlName: 'لوحة القيادة',
-  icon: Dashboard,
+  icon: ListAlt,
   component: IAPTList,
   layout: '/trust'
 },
