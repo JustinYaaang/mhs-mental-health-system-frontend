@@ -1,5 +1,7 @@
 import axios from 'axios'
-import { baseUrl, backendURL, organizations, personel, fetchQuestionnairesUrl, patientanswersUrl, authenticationUrl, questionnaireWithoutToken } from '../variables/general'
+import { baseUrl, backendURL, organizations, personel, 
+  fetchQuestionnairesUrl, patientanswersUrl, authenticationUrl, 
+  questionnaireWithoutToken } from '../variables/general'
 
 const postNewSurvey = async (createSurveyUrl, surveyData) => {
   try {

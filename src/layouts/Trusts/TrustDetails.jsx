@@ -66,7 +66,7 @@ class TrustDetails extends Component {
        Array()
       response.forEach((map)=>{
         thelist.push([
-          i,map.first_name,map.last_name,map.email,map._id,map._id
+          i,map.first_name,map.last_name,map.email,map.trust,map._id
         ])
         i++
        // console.log(thelist)
@@ -111,7 +111,7 @@ class TrustDetails extends Component {
                   <AnswerRows
                      onRowClicked={(managerId) => this.redirectToManagerDetails(managerId)}
                     tableHeaderColor='primary'
-                    tableHead={['S/N', 'Name', 'Email', 'Trust Name']}
+                    tableHead={['S/N', 'First Name', 'Last Name', 'Email', 'Trust Name']}
                     checkedIndexes={[]}
                     tasks={this.state.personelList}
                   />

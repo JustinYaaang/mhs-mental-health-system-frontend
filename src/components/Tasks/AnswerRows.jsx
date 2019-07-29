@@ -16,6 +16,7 @@ import View from "@material-ui/icons/RemoveRedEye";
 import Descending from "@material-ui/icons/ArrowDownward";
 import Ascending from "@material-ui/icons/ArrowUpward";
 import Filter from "@material-ui/icons/FilterList";
+import Add from "@material-ui/icons/AddCircle";
 // core components
 import tasksStyle from "assets/jss/material-dashboard-react/components/tasksStyle.jsx";
 // import { TableHead } from "@material-ui/core";
@@ -24,6 +25,8 @@ import GridItem from 'components/Grid/GridItem.jsx'
 import GridContainer from 'components/Grid/GridContainer.jsx'
 import CustomInput from 'components/CustomInput/CustomInput.jsx'
 import { Button } from "@material-ui/core";
+
+import 'assets/css/floatingbutton.css'
 
 
 class AnswerRows extends React.Component {
@@ -63,12 +66,29 @@ class AnswerRows extends React.Component {
     
   }
 
+  onDeleteItemClicked = (tasks, index) => {
+    var selectedRow = tasks[index];
+    var id = selectedRow[selectedRow.length - 1];
+    // document.location.href = '/patientanswers/'+ questionnaireResponseId;
+    this.props.onDeleteItemClicked(id);
+    
+  }
+
   render() {
     const { classes, tableHeaderColor, tableHead, tasks, rtlActive} = this.props;
     console.log(tableHeaderColor)
     const tableCellClasses = classnames(classes.tableCell, {
       [classes.tableCellRTL]: rtlActive
     });
+
+    var floatingButtonStyle = {
+      'margin-top': '25px', 
+      'height': '40px',
+      'width': '40px',
+      'color': '#005eb8'
+    };
+
+
     return (
       <div>
       <Table className={classes.table}>
@@ -126,7 +146,7 @@ class AnswerRows extends React.Component {
               <TableCell className={classes.tableActions}>
                 <Tooltip
                   id="tooltip-top"
-                  title="View Submission"
+                  title="View"
                   placement="top"
                   classes={{ tooltip: classes.tooltip }}
                 >
@@ -142,16 +162,16 @@ class AnswerRows extends React.Component {
                     />
                   </IconButton>
                 </Tooltip>
-                {/* <Tooltip
+                <Tooltip
                   id="tooltip-top-start"
-                  title="Delete Questionnaire"
+                  title="Delete"
                   placement="top"
                   classes={{ tooltip: classes.tooltip }}
                 >
                   <IconButton
-                    aria-label="Delete Questionnaire"
+                    aria-label="Delete"
                     className={classes.tableActionButton}
-                    onClick={() => this.props.onDeleteClicked(index)}
+                    onClick={() => this.onDeleteItemClicked(tasks, index)}
                   >
                     <Close
                       className={
@@ -159,13 +179,33 @@ class AnswerRows extends React.Component {
                       }
                     />
                   </IconButton>
-                </Tooltip> */}
+                </Tooltip>
               </TableCell>
 
             </TableRow>
           )})}
         </TableBody>
       </Table>
+
+      <div class="add-float">
+      <Tooltip
+                  id="tooltip-top-start"
+                  title="Create New"
+                  placement="top"
+                  classes={{ tooltip: classes.tooltip }}
+                >
+                  <IconButton
+                    aria-label="Create New"
+                    className={classes.tableActionButton}
+                  >
+
+                  <Add className= {classes.tableActionButtonIcon + " " + classes.add }
+                        style={floatingButtonStyle}/>
+                  
+                  </IconButton>
+                </Tooltip>
+
+              </div>
       </div>
    );
   }
