@@ -12,6 +12,7 @@ export function logInUser (body) {
       console.log(response)
       sessionStorage.setItem('jwt', response.data.token)
       sessionStorage.setItem('role', response.data.role[0])
+      console.log(response.data.role)
       // sessionStorage.setItem('role', 'PATIENT');
       dispatch(loginSuccess())
       history.push('/')

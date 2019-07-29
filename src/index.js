@@ -46,11 +46,11 @@ ReactDOM.render(
         <Route path='/trust' render={(props) => (isLoggedIn()
           ? (isTrust() ? (<Trust {...props} />) : (<Redirect to='/forbidden' />))
           : (<Redirect to='/login' />))} />
-       
+
         <Route path='/questionnaire/:id?' render={(props) => (isLoggedIn() ? (<SurveyCreator {...props} />) : (<Redirect to='/login' />))} />
         <Route path='/patientanswers/:id?' render={(props) => (isLoggedIn() ? (<SurveyResult {...props} />) : (<Redirect to='/login' />))} />
         <Route path='/questionnaireview/:id?' render={(props) => (isLoggedIn() ? (<QuestionnaireResult {...props} />) : (<Redirect to='/login' />))} />
-        <Redirect from='/' exact to='/admin' />
+        <Redirect from='/' exact to={getPath()} />
         <Route component={NotFound} />
       </Switch>
     </Router>
@@ -58,13 +58,27 @@ ReactDOM.render(
   document.getElementById('root')
 )
 
+function getPath () {
+  
+  return '/admin'
+ 
+  // if (isLoggedIn()) {
+  //   if (isAdmin()) {
+  //     return '/admin'
+  //   } else if (isManager()) {
+  //     return '/manager'
+  //   }
+  // } else{
+  //   return '/login'
+  // }
+}
+
 function isLoggedIn () {
   console.log('in the require auth function')
   return sessionStorage.jwt
 }
 
 function getRole () {
-  console.log(sessionStorage.role)
   return sessionStorage.role
 }
 
@@ -73,7 +87,8 @@ function isAdmin () {
 }
 
 function isManager () {
-  return getRole() === 'PATIENT'
+  
+  return getRole() === 'TRUSTMANAGER'
 }
 
 function isTrust () {

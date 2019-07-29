@@ -103,7 +103,7 @@ class TrustList extends Component {
                 tabIcon: Code,
                 tabContent: (
                   <AnswerRows
-                    createNew={(trustId) => this.createNewOrganization(trustId)}
+                    createNew={() => this.createNewOrganization()}
                     onRowClicked={(trustId) => this.redirectToTrustDetails(trustId)}
                     tableHeaderColor='primary'
                     tableHead={['S/N', 'Trust Name', 'Description', 'Address', 'Postcode', 'Telephone']}

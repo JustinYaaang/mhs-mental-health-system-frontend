@@ -48,7 +48,8 @@ class TrustAddForm extends React.Component {
       description: document.getElementById('descriptioninput').value,
       link: document.getElementById('websiteinput').value,
       email: document.getElementById('emailinput').value,
-      telephone: document.getElementById('telephoneinput').value
+      telephone: document.getElementById('telephoneinput').value,
+      role:"TRUST"
     }
     var body = {
       id: this.state.id,

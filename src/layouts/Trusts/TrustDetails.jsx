@@ -83,6 +83,13 @@ class TrustDetails extends Component {
    this.props.history.push(this.props.history.location.pathname + "/" + managerId)
   }
 
+
+  createNewUser=()=>{
+    this.props.history.push(this.props.history.location.pathname + "/manager/new")
+    console.log("!!")
+  }
+
+
   render () {
     return (
       <GridContainer>
@@ -96,7 +103,6 @@ class TrustDetails extends Component {
           <AnswerTabs
             // title="Submitted Questionnaires: "
             headerColor='info'
-            onCreateNewClicked={() => this.handleCreateNewQuestionnaireClicked()}
             tabs={[
               {
                 tabName: 'DETAILS',
@@ -110,6 +116,7 @@ class TrustDetails extends Component {
                 tabIcon: Code,
                 tabContent: (
                   <AnswerRows
+                  createNew={() => this.createNewUser()}
                      onRowClicked={(managerId) => this.redirectToManagerDetails(managerId)}
                     tableHeaderColor='primary'
                     tableHead={['S/N', 'First Name', 'Last Name', 'Email', 'Trust Name']}

@@ -1,7 +1,7 @@
 import React from 'react'
 import 'assets/css/AddForm.css'
 import Button from 'components/CustomButtons/Button.jsx'
-import { getPersonnel,updatePersonnel} from 'services/BackendService.js'
+import { getPersonnel, updatePersonnel, createPersonnel } from 'services/BackendService.js'
 class PersonForm extends React.Component {
   constructor (props) {
     super(props)
@@ -14,15 +14,18 @@ class PersonForm extends React.Component {
   }
 
   componentWillMount () {
-    console.log('in  person form' + this.state.id)
-    getPersonnel(this.state.id).then(response => {
-      console.log(response)
-      document.getElementById('firstnameinput').value = response.first_name
-      document.getElementById('lastnameinput').value = response.last_name
-      document.getElementById('emailinput').value = response.email
-      document.getElementById('passwordinput').value = response.password
-      document.getElementById('trustnameinput_postcodeinput').value = response.role //! !!!
-    })
+    console.log(this.state.hasDetails)
+    if (this.state.hasDetails) {
+      console.log('in  person form' + this.state.id)
+      getPersonnel(this.state.id).then(response => {
+        console.log(response)
+        document.getElementById('firstnameinput').value = response.first_name
+        document.getElementById('lastnameinput').value = response.last_name
+        document.getElementById('emailinput').value = response.email
+        document.getElementById('passwordinput').value = response.password
+        document.getElementById('trustnameinput_postcodeinput').value = response.role //! !!!
+      })
+    }
     // if patient
     // document.getElementById("trustnameinput_postcodeinput").placeholder="Postcode"
   }
@@ -31,17 +34,26 @@ class PersonForm extends React.Component {
   }
 
   onSave (event) {
-    var body={
-      id:this.state.id,
-      body:{
-        first_name:document.getElementById('firstnameinput').value,
-        last_name:document.getElementById('lastnameinput').value,
-        email:document.getElementById('emailinput').value
+    var body = {
+      id: this.state.id,
+      body: {
+        first_name: document.getElementById('firstnameinput').value,
+        last_name: document.getElementById('lastnameinput').value,
+        email: document.getElementById('emailinput').value,
+        password: '1234',
+        role: 'TRUSTMANAGER'
+
       }
     }
-    updatePersonnel(body).then(response => {
-      console.log(response)
-    })
+    if (this.state.hasDetails) {
+      updatePersonnel(body).then(response => {
+        console.log(response)
+      })
+    } else {
+      createPersonnel(body.body).then(response => {
+        console.log(response)
+      })
+    }
   }
 
   render () {
@@ -57,9 +69,9 @@ class PersonForm extends React.Component {
         <div class='form-group'>
           <input name='email' type='email' class='form-control' id='emailinput' aria-describedby='emailHelp' placeholder='email' onChange={this.onChange} />
           <br />
-          <input name='email' type='email' class='form-control' id='passwordinput' aria-describedby='emailHelp' placeholder='password' onChange={this.onChange} readOnly/>
+          <input name='email' type='email' class='form-control' id='passwordinput' aria-describedby='emailHelp' placeholder='password' onChange={this.onChange} readOnly />
           <br />
-          <input name='email' type='email' class='form-control' id='trustnameinput_postcodeinput' aria-describedby='emailHelp' placeholder='Trust Name' onChange={this.onChange} readOnly/>
+          <input name='email' type='email' class='form-control' id='trustnameinput_postcodeinput' aria-describedby='emailHelp' placeholder='Trust Name' onChange={this.onChange} readOnly />
         </div>
         <br />
         <label className='label-subtitle' for='label'>Change the password here:</label>
@@ -67,7 +79,6 @@ class PersonForm extends React.Component {
           <input name='email' type='email' class='form-control' id='passwordchange1' aria-describedby='emailHelp' placeholder='Enter password' onChange={this.onChange} />
           <br />
           <input name='email' type='email' class='form-control' id='passwordchange2' aria-describedby='emailHelp' placeholder='Enter password again' onChange={this.onChange} />
-
 
         </div>
         <Button onClick={this.onSave} id='loginbutton' type='button' color='primary'>Save</Button>

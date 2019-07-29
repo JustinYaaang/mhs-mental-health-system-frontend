@@ -337,11 +337,37 @@ const updatePersonnel = async (body) => {
     console.log('POST server error: ', error)
   }
 }
+
+/**
+ * Function that creates a person
+ * @param {*} body
+ */
+const createPersonnel = async (body) => {
+  try {
+    console.log(body)
+    try {
+      var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+      const res = await axios({
+        method: 'post',
+        url: baseUrl + personnel,
+        headers: headers,
+        data: body
+      })
+      console.log(res.data.data)
+      return res.data.data
+    } catch (error) {
+      console.log('GET server error: ', error)
+    }
+  } catch (error) {
+    console.log('POST server error: ', error)
+  }
+}
+
 export {
   postNewSurvey, updateSurvey, getOrganizations,
   fetchQuestionnaires, fetchWeeklyResult, fetchUserAnswers,
   getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire,
   deleteQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken,
   getQuestionnaireWithToken,
-  getPersonnel, updatePersonnel, updateOrganization, createOrganization
+  getPersonnel, updatePersonnel, updateOrganization, createOrganization, createPersonnel
 }
