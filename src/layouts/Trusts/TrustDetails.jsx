@@ -11,7 +11,7 @@ import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import TrustServiceFrom from 'views/Forms/TrustServiceForm.jsx'
 import Code from '@material-ui/icons/Code'
 import { getPersonnel, deletePersonnel } from '../../services/BackendService'
-
+import swal from 'sweetalert';
 const styles = {
   cardCategoryWhite: {
     '&,& a,& a:hover,& a:focus': {
@@ -80,9 +80,39 @@ class TrustDetails extends Component {
   }
 
 deleteManager=(managerId)=>{
-  deletePersonnel(managerId).then(response=>{
-    console.log(response)
+  swal({
+    title: "Are you sure?",
+    text: "Are you sure you want to delete this entry?",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
   })
+  .then((willDelete) => {
+    if (willDelete) {
+      deletePersonnel(managerId).then(response=>{
+        swal("The entry has been deleted!", {
+          icon: "success",
+        });
+        this.componentWillMount();
+      })
+      
+
+    } else {
+      swal('Action canceled');
+    }
+  });
+
+
+
+
+
+
+
+
+
+
+
+  
 }
   render () {
     return (
