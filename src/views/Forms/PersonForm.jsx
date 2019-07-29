@@ -2,13 +2,18 @@ import React from 'react'
 import 'assets/css/AddForm.css'
 import Button from 'components/CustomButtons/Button.jsx'
 import { getPersonnel, updatePersonnel, createPersonnel } from 'services/BackendService.js'
+
+
+
+/**
+ * Component that displays a form for a Trust Manager, Service Manager, Clinitian
+ */
 class PersonForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       id: this.props.id,
-      hasDetails: this.props.hasDetails,
-      organizationID: this.props.orgID
+      hasDetails: this.props.hasDetails
     }
     this.onChange = this.onChange.bind(this)
     this.onSave = this.onSave.bind(this)

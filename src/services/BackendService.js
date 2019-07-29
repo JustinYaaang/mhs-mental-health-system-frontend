@@ -284,6 +284,30 @@ const createOrganization = async (body) => {
 }
 
 /**
+ * Function that deletes an organization given the ID
+ * @param {*} body
+ */
+const deleteOrganization = async (body) => {
+  try {
+    try {
+      var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+      const res = await axios({
+        method: 'delete',
+        url: baseUrl + organizations+'/'+body,
+        headers: headers,
+        data: body
+      })
+      console.log(res.data.data)
+      return res.data.data
+    } catch (error) {
+      console.log('GET server error: ', error)
+    }
+  } catch (error) {
+    console.log('POST server error: ', error)
+  }
+}
+
+/**
  * Function that returs the personel given an organization id
  * @param {*} body
  */
@@ -369,5 +393,5 @@ export {
   getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire,
   deleteQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken,
   getQuestionnaireWithToken,
-  getPersonnel, updatePersonnel, updateOrganization, createOrganization, createPersonnel
+  getPersonnel, updatePersonnel, updateOrganization, deleteOrganization, createOrganization, createPersonnel
 }

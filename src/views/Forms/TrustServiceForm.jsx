@@ -22,6 +22,7 @@ class TrustAddForm extends React.Component {
   }
 
   componentWillMount () {
+    //if(this.state.organization==trust){
     if (this.state.hasDetails) {
       getOrganizations(this.state.id).then(response => {
         try {
@@ -44,6 +45,7 @@ class TrustAddForm extends React.Component {
   }
 
   onSave (event) {
+    //if(this.state.organization==trust){
     var trustdetails = {
       name: document.getElementById('nameinput').value,
       address1: document.getElementById('address1input').value,
@@ -69,6 +71,11 @@ class TrustAddForm extends React.Component {
         console.log(response)
       })
     }
+    //}else{
+
+
+
+      //}
   }
 
   render () {
