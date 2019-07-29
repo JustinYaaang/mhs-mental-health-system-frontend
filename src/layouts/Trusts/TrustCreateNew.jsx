@@ -17,7 +17,7 @@ import TrustServiceFrom from 'views/Forms/TrustServiceForm.jsx'
 import Grade from '@material-ui/icons/Grade'
 import Code from '@material-ui/icons/Code'
 import { fetchUserAnswers, getPersonel } from '../../services/BackendService'
-import { getAnsweredQuestionnaire,getOrganization, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
+import { getAnsweredQuestionnaire, getOrganization, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
 import TrustServiceForm from 'views/Forms/TrustServiceForm.jsx'
 
 const styles = {
@@ -49,32 +49,23 @@ const styles = {
     }
   }
 }
-
+/**
+ * Component for creating a new trust
+ */
 class TrustCreateNew extends Component {
   constructor (props) {
     super(props)
-    const{id}=this.props.match.params
-    this.state = { id:id
-    }
   }
 
   componentWillMount () {
 
   }
 
-   render () {
+  render () {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
-         <TrustServiceForm hasDetails={false} organization={"trust"}/>
-          {/* <Table
-                tableHeaderColor='primary'
-                // tableHead={["Questionnaire Name", "Patient Name", "Time", "Final Score", "Id", "Questionnaire Id"]}
-                tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
-                tableData={this.state.userAnswers}
-              />
-            </CardBody>
-          </Card> */}
+          <TrustServiceForm hasDetails={false} organization={'trust'} />
         </GridItem>
       </GridContainer>
     )

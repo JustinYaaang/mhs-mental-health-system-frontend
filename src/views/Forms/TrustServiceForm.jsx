@@ -1,14 +1,20 @@
 import React from 'react'
 import 'assets/css/AddForm.css'
 import Button from 'components/CustomButtons/Button.jsx'
-import { getTrust, updateTrust } from 'services/BackendService'
-import { getOrganizations, updateOrganization,createOrganization } from 'services/BackendService'
+import { getOrganizations, updateOrganization, createOrganization } from 'services/BackendService'
+
+/**
+ * Component that displays a form for a Trust or a Service
+ */
 class TrustAddForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      id: this.props.id,
-      hasDetails: this.props.hasDetails,
+      id: this.props.id, //the ID
+      //hasDetails:true => form in edit mode(the form is populated)
+      //hasDetails:false => form in creation mode(the form is not populated)
+      hasDetails: this.props.hasDetails, 
+      //Organization type: 1)trust, 2)service
       organization: this.props.organization
     }
     this.onChange = this.onChange.bind(this)
@@ -18,8 +24,6 @@ class TrustAddForm extends React.Component {
   componentWillMount () {
     if (this.state.hasDetails) {
       getOrganizations(this.state.id).then(response => {
-      // response = { 'message': 'Organisation retrieved successfully', 'data': [{ '_id': '5d3aff5326edba12fa4c5c98', 'role': 'SERVICE', 'name': 'Barts Mental Health Clinic', 'address1': '134 Barts Road', 'address2': '', 'postcode': 'BRTS1B', 'description': 'Barts Mental Health Clinic', 'link': 'barts.nhs.gov.uk', 'email': 'barts@nhs.gov.uk', 'telephone': '033448796645' }] }
-      // getmanagers.then{
         try {
           document.getElementById('nameinput').value = response.name
           document.getElementById('address1input').value = response.address1
@@ -49,7 +53,7 @@ class TrustAddForm extends React.Component {
       link: document.getElementById('websiteinput').value,
       email: document.getElementById('emailinput').value,
       telephone: document.getElementById('telephoneinput').value,
-      role:"TRUST"
+      role: 'TRUST'
     }
     var body = {
       id: this.state.id,
@@ -98,13 +102,3 @@ class TrustAddForm extends React.Component {
 }
 
 export default TrustAddForm
-
-// id
-// name
-// address line 1
-// address line 2
-// post code
-// description
-// website link
-// email
-// telephone

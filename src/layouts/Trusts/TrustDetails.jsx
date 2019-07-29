@@ -6,19 +6,11 @@ import withStyles from '@material-ui/core/styles/withStyles'
 // core components
 import GridItem from 'components/Grid/GridItem.jsx'
 import GridContainer from 'components/Grid/GridContainer.jsx'
-import Table from 'components/Table/Table.jsx'
-import Card from 'components/Card/Card.jsx'
-import CardHeader from 'components/Card/CardHeader.jsx'
-import CardBody from 'components/Card/CardBody.jsx'
-import Tasks from 'components/Tasks/Tasks.jsx'
 import AnswerRows from 'components/Tasks/AnswerRows.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import TrustServiceFrom from 'views/Forms/TrustServiceForm.jsx'
-import Grade from '@material-ui/icons/Grade'
 import Code from '@material-ui/icons/Code'
 import { fetchUserAnswers, getPersonnel } from '../../services/BackendService'
-import { getAnsweredQuestionnaire,getOrganization, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
-
 
 const styles = {
   cardCategoryWhite: {
@@ -53,24 +45,22 @@ const styles = {
 class TrustDetails extends Component {
   constructor (props) {
     super(props)
-    const{id}=this.props.match.params
+    const{id}=this.props.match.params //organization's ID
     sessionStorage.setItem('organizationID',id)
     this.state = { id:id,personelList:''
     }
   }
 
   componentWillMount () {
-    getPersonnel().then(response=>{
+    getPersonnel().then(response=>{ //Get the personel list from backend
       console.log("response"+ response)
-      var i=1;
-      var thelist=new
-       Array()
+      var counter=1;
+      var thelist=new Array() //list for storing the personnel
       response.forEach((map)=>{
         thelist.push([
-          i,map.first_name,map.last_name,map.email,map.trust,map._id
+          counter,map.first_name,map.last_name,map.email,map.trust,map._id
         ])
-        i++
-       // console.log(thelist)
+        counter++
         this.setState({personelList:thelist})
       })
     })
@@ -79,15 +69,14 @@ class TrustDetails extends Component {
 
   }
 
-  redirectToManagerDetails = (managerId) => {
-   console.log("ManagerID "+managerId)
+  redirectToManagerDetails = (managerId) => { //Function that redirects to the edit manager page
    this.props.history.push(this.props.history.location.pathname + "/" + managerId)
   }
 
 
-  createNewUser=()=>{
+  createNewUser=()=>{//Function that redirects to the create new manager page 
     this.props.history.push(this.props.history.location.pathname + "/manager/new")
-    console.log("!!")
+
   }
 
 
@@ -95,14 +84,7 @@ class TrustDetails extends Component {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
-          {/* <Card> */}
-          {/* <CardHeader color='primary'>
-              <h4 className={styles.cardTitleWhite}>Submitted Questionnaires</h4>
-              <p className={styles.cardCategoryWhite} />
-            </CardHeader> */}
-          {/* <CardBody> */}
           <AnswerTabs
-            // title="Submitted Questionnaires: "
             headerColor='info'
             tabs={[
               {
@@ -117,10 +99,10 @@ class TrustDetails extends Component {
                 tabIcon: Code,
                 tabContent: (
                   <AnswerRows
-                  createNew={() => this.createNewUser()}
-                     onRowClicked={(managerId) => this.redirectToManagerDetails(managerId)}
+                  createNew={() => this.createNewUser() /*Function for create new manager */}
+                     onRowClicked={(managerId) => this.redirectToManagerDetails(managerId)/* Function for edit manager */}
                     tableHeaderColor='primary'
-                    tableHead={['S/N', 'First Name', 'Last Name', 'Email', 'Trust Name']}
+                    tableHead={['S/N', 'First Name', 'Last Name', 'Email', 'Trust Name'] /**Table hearders */}
                     checkedIndexes={[]}
                     tasks={this.state.personelList}
                   />
@@ -128,14 +110,6 @@ class TrustDetails extends Component {
               }
             ]}
           />
-          {/* <Table
-                tableHeaderColor='primary'
-                // tableHead={["Questionnaire Name", "Patient Name", "Time", "Final Score", "Id", "Questionnaire Id"]}
-                tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
-                tableData={this.state.userAnswers}
-              />
-            </CardBody>
-          </Card> */}
         </GridItem>
       </GridContainer>
     )
