@@ -5,6 +5,7 @@ import Notifications from '@material-ui/icons/Notifications'
 import Out from "@material-ui/icons/ArrowBack";
 import Setting from '@material-ui/icons/Settings'
 import TransitEnterexit from '@material-ui/icons/TransitEnterexit'
+import ListAlt from '@material-ui/icons/ListAlt' 
 import account from '@material-ui/icons/AccountCircle'
 // core components/views for Admin layout
 import DashboardPage from 'views/Dashboard/Dashboard.jsx'
@@ -33,7 +34,7 @@ const dashboardRoutes = [
     path: '/trusts',
     name: 'Trusts',
     rtlName: 'لوحة القيادة',
-    icon: Dashboard,
+    icon: ListAlt,
     component: TrustList,
     layout: '/admin'
   },

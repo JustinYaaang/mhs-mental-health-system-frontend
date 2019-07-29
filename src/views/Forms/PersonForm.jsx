@@ -7,7 +7,8 @@ class PersonForm extends React.Component {
     super(props)
     this.state = {
       id: this.props.id,
-      hasDetails: this.props.hasDetails
+      hasDetails: this.props.hasDetails,
+      organizationID: this.props.orgID
     }
     this.onChange = this.onChange.bind(this)
     this.onSave = this.onSave.bind(this)
@@ -25,6 +26,8 @@ class PersonForm extends React.Component {
         document.getElementById('passwordinput').value = response.password
         document.getElementById('trustnameinput_postcodeinput').value = response.role //! !!!
       })
+    }else {
+     // document.getElementById('trustnameinput_postcodeinput').value = 'TRUSTMANAGER'
     }
     // if patient
     // document.getElementById("trustnameinput_postcodeinput").placeholder="Postcode"
@@ -40,16 +43,38 @@ class PersonForm extends React.Component {
         first_name: document.getElementById('firstnameinput').value,
         last_name: document.getElementById('lastnameinput').value,
         email: document.getElementById('emailinput').value,
-        password: '1234',
         role: 'TRUSTMANAGER'
 
       }
     }
+    var flag = false
+    var pass1 = document.getElementById('passwordchange1').value
+    var pass2 = document.getElementById('passwordchange2').value
+    if (pass1 !== '' || pass2 !== '') {
+      if (pass2 !== pass1) {
+        document.getElementById('passwordlabel').innerHTML = 'Passwords dont match.'
+        document.getElementById('passwordchange1').style.backgroundColor = '#ED4747'
+        document.getElementById('passwordchange2').style.backgroundColor = '#ED4747'
+        return
+      } else {
+        body.body.password = pass1
+        body.body.organisation_id = sessionStorage.organizationID
+        flag = true
+      }
+    }
+
     if (this.state.hasDetails) {
       updatePersonnel(body).then(response => {
         console.log(response)
+        document.getElementById('passwordchange1').value = ''
+        document.getElementById('passwordchange2').value = ''
       })
     } else {
+      if (!flag) {
+        document.getElementById('passwordlabel').innerHTML = 'Please specify a password.'
+        document.getElementById('passwordchange1').style.backgroundColor = '#ED4747'
+        document.getElementById('passwordchange2').style.backgroundColor = '#ED4747'
+      }
       createPersonnel(body.body).then(response => {
         console.log(response)
       })
@@ -71,10 +96,10 @@ class PersonForm extends React.Component {
           <br />
           <input name='email' type='email' class='form-control' id='passwordinput' aria-describedby='emailHelp' placeholder='password' onChange={this.onChange} readOnly />
           <br />
-          <input name='email' type='email' class='form-control' id='trustnameinput_postcodeinput' aria-describedby='emailHelp' placeholder='Trust Name' onChange={this.onChange} readOnly />
+          <input name='email' type='email' class='form-control' id='trustnameinput_postcodeinput' aria-describedby='emailHelp' placeholder='Trust Name' value={sessionStorage.organizationID}onChange={this.onChange} readOnly />
         </div>
         <br />
-        <label className='label-subtitle' for='label'>Change the password here:</label>
+        <label className='label-subtitle' id='passwordlabel' for='label'>{this.state.hasDetails ? 'Change the password here:' : 'Enter password here:'}</label>
         <div>
           <input name='email' type='email' class='form-control' id='passwordchange1' aria-describedby='emailHelp' placeholder='Enter password' onChange={this.onChange} />
           <br />

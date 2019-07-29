@@ -54,6 +54,7 @@ class TrustDetails extends Component {
   constructor (props) {
     super(props)
     const{id}=this.props.match.params
+    sessionStorage.setItem('organizationID',id)
     this.state = { id:id,personelList:''
     }
   }
