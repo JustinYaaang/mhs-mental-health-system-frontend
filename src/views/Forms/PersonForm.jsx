@@ -36,9 +36,7 @@ class PersonForm extends React.Component {
       body:{
         first_name:document.getElementById('firstnameinput').value,
         last_name:document.getElementById('lastnameinput').value,
-        email:document.getElementById('emailinput').value,
-        password:document.getElementById('passwordinput').value,
-        role:document.getElementById('trustnameinput_postcodeinput').value
+        email:document.getElementById('emailinput').value
       }
     }
     updatePersonnel(body).then(response => {
