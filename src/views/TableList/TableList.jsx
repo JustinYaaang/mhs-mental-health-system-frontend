@@ -11,11 +11,11 @@ import Card from 'components/Card/Card.jsx'
 import CardHeader from 'components/Card/CardHeader.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import Tasks from 'components/Tasks/Tasks.jsx'
-import AnswerRows from 'components/Tasks/AnswerRows.jsx'
+import TriageRows from 'components/Tasks/TriageRows.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import Grade from '@material-ui/icons/Grade'
 import Code from '@material-ui/icons/Code'
-import { fetchUserAnswers } from '../../services/BackendService'
+import { fetchUserAnswers,fetchUserDetil } from '../../services/BackendService'
 import { getAnsweredQuestionnaire, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
 
 function getRole(){
@@ -56,28 +56,36 @@ const styles = {
 class TableList extends Component {
   constructor (props) {
     super(props)
-    this.state = { userAnswers: []
-      // idList: []
+    this.state = {pendingList:[],closeList:[]
     }
   }
 
   componentWillMount () {
     getRole();
-    console.log("testtttt" + getRole())
 
+    var role = "clinician2"
+ 
     fetchUserAnswers()
       .then(response => {
-        console.log(response)
-        var rows = []
+        var rowsPending = []
+        var rowsResolve = []
+
         for (var i = 0; i < response.length; i++) {
-          console.log(i)
+         
           var d = new Date(response[i].createdAt)
           var dateString = d.toString()
           dateString = dateString.substring(0, dateString.lastIndexOf(':'))
-          var row = [response[i].title, response[i].patient_name, response[i].score, response[i]._id, 'PENDING', dateString, response[i]._id]
-          rows.push(row)
-        }
-        this.setState({ userAnswers: rows })
+            console.log(response[i].patient_id)
+            var row = [response[i].title, response[i].patient_name, response[i].score, response[i]._id, response[i].status, dateString, response[i]._id, response[i].patient_id]
+            if(response[i].status == 'PENDING'){
+              rowsPending.push(row)
+            }
+            else{
+              rowsResolve.push(row)
+            }
+          }
+          
+        this.setState({ pendingList: rowsPending,closeList: rowsResolve })
       })
       .catch(error => {
         console.error(error)
@@ -92,12 +100,6 @@ class TableList extends Component {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
-          {/* <Card> */}
-          {/* <CardHeader color='primary'>
-              <h4 className={styles.cardTitleWhite}>Submitted Questionnaires</h4>
-              <p className={styles.cardCategoryWhite} />
-            </CardHeader> */}
-          {/* <CardBody> */}
           <AnswerTabs
             // title="Submitted Questionnaires: "
             headerColor='info'
@@ -107,12 +109,13 @@ class TableList extends Component {
                 tabName: 'PENDING',
                 tabIcon: Grade,
                 tabContent: (
-                  <AnswerRows
+                  <TriageRows
                     tableHeaderColor='info'
                     tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
                     checkedIndexes={[]}
-                    tasks={this.state.userAnswers}
+                    tasks={this.state.pendingList}
                     onRowClicked={(questionnaireResponseId) => this.redirectToAnswers(questionnaireResponseId)}
+
                   />
                 )
               },
@@ -120,24 +123,16 @@ class TableList extends Component {
                 tabName: 'RESOLVED',
                 tabIcon: Code,
                 tabContent: (
-                  <AnswerRows
-                    tableHeaderColor='primary'
+                  <TriageRows
+                    tableHeaderColor='info'
                     tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
                     checkedIndexes={[]}
-                    tasks={this.state.userAnswers}
+                    tasks={this.state.closeList}
                   />
                 )
               }
             ]}
           />
-          {/* <Table
-                tableHeaderColor='primary'
-                // tableHead={["Questionnaire Name", "Patient Name", "Time", "Final Score", "Id", "Questionnaire Id"]}
-                tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
-                tableData={this.state.userAnswers}
-              />
-            </CardBody>
-          </Card> */}
         </GridItem>
       </GridContainer>
     )

@@ -20,6 +20,7 @@ var server = [
 
 var baseUrl = 'http://178.128.34.125/api/v1'
 //'http://localhost:3000/api/v1'//http://mhsbackend.azurewebsites.net/api/v1/'
+var patients = 'patients'
 var fetchQuestionnairesUrl = '/questionnaire'
 // '/questionnaire_sJS'
 var patientanswersUrl = '/patientanswers'
@@ -29,6 +30,7 @@ var authenticationUrl = '/users/authenticate'
 var questionnaireWithoutToken = '/questionnaires'
 var organizations = '/organisations'
 var personnel = '/users'
+
 module.exports = {
   // these 3 are used to create the tasks lists in TasksCard - Dashboard view
   bugs,
@@ -36,6 +38,7 @@ module.exports = {
   server,
   baseUrl,
   backendUrl,
+  patients,
   fetchQuestionnairesUrl,
   patientanswersUrl,
   createUserAnswers,

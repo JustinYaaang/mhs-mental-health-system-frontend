@@ -17,7 +17,6 @@ import TrustManagerForm from 'views/Forms/PersonForm.jsx'
 import Typography from 'views/Typography/Typography.jsx'
 import NotificationsPage from 'views/Notifications/Notifications.jsx'
 
-// core components/views for RTL layout
 
 const dashboardRoutes = [
   {
@@ -41,8 +40,8 @@ const dashboardRoutes = [
     path: '/profile',
     name: 'Profile',
     rtlName: 'لوحة القيادة',
-    icon: Dashboard,
-    component: trustdetails,
+    icon: account,
+    component: UserProfile,
     layout: '/admin'
   },
   {
@@ -50,7 +49,7 @@ const dashboardRoutes = [
     name: 'Settings',
     rtlName: 'لوحة القيادة',
     icon: Setting,
-    component: DashboardPage,
+    component: Setting,
     layout: '/admin'
   },
   {

@@ -175,9 +175,6 @@ class Dashboard extends React.Component {
     );
   }
 
-
-  
-
   render() {
     var Chartist = require("chartist");
     const { classes } = this.props;

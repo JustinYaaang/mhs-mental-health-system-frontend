@@ -34,19 +34,11 @@ const dashboardRoutes = [{
   layout: '/service'
 },
 {
-  path: '/patients',
-  name: 'Patients',
-  rtlName: 'لوحة القيادة',
-  icon: PatientsIcon,
-  component: ServiceDashboard,
-  layout: '/service'
-},
-{
   path: '/triagelist',
   name: 'Triage List',
   rtlName: 'لوحة القيادة',
   icon: List,
-  component: ServiceDashboard,
+  component: TableList,
   layout: '/service'
 },
 {

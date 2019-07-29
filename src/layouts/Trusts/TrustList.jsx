@@ -11,7 +11,7 @@ import Card from 'components/Card/Card.jsx'
 import CardHeader from 'components/Card/CardHeader.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import Tasks from 'components/Tasks/Tasks.jsx'
-import AnswerRows from 'components/Tasks/AnswerRows.jsx'
+import ListRows from 'components/Tasks/ListRows.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import Grade from '@material-ui/icons/Grade'
 import Code from '@material-ui/icons/Code'
@@ -102,7 +102,7 @@ class TrustList extends Component {
                 tabName: 'TRUSTS',
                 tabIcon: Code,
                 tabContent: (
-                  <AnswerRows
+                  <ListRows
                     createNew={(trustId) => this.createNewOrganization(trustId)}
                     onRowClicked={(trustId) => this.redirectToTrustDetails(trustId)}
                     tableHeaderColor='primary'
