@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { baseUrl, backendURL, fetchQuestionnairesUrl, patientanswersUrl, authenticationUrl, questionnaireWithoutToken } from '../variables/general'
+import { baseUrl, backendURL, fetchQuestionnairesUrl, patients, patientanswersUrl, authenticationUrl, questionnaireWithoutToken } from '../variables/general'
 
 const postNewSurvey = async (createSurveyUrl, surveyData) => {
   try {
@@ -151,6 +151,16 @@ const fetchQuestionnaire = async (questionnaireId) => {
     })
 }
 
+const fetchUserDetail = async (UserId) => {
+  return await axios.get(baseUrl + patients + '/' + UserId)
+    .then(function (response) {
+      return response.data.data
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+}
+
 const deleteQuestionnaire = async (questionnaireId) => {
   return await axios({
     method: 'delete',
@@ -251,4 +261,4 @@ const getQuestionnaireWithToken = async (body) => {
   // }
 }
 
-export { postNewSurvey, updateSurvey, fetchQuestionnaires, fetchWeeklyResult, fetchUserAnswers, getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire, deleteQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken }
+export { postNewSurvey, updateSurvey, fetchQuestionnaires,fetchUserDetail, fetchWeeklyResult, fetchUserAnswers, getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire, deleteQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken }

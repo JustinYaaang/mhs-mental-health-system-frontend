@@ -43,6 +43,7 @@ class Dashboard extends React.Component {
     questionnaireDraftList: [],
     totalQuestionnaire: 0,
     totalPending:0,
+    totalClose:0,
     dailySubmission: {
       labels:[],
       series:[[]]
@@ -129,8 +130,18 @@ class Dashboard extends React.Component {
 
     fetchUserAnswers()
       .then(response => {
-        
-        this.setState({ totalPending: response.length })
+        var pending = 0;
+        var close = 0;
+        for(var i = 0; i <  response.length; i++){
+            if(response[i].status == 'PENDING'){
+                pending++;
+            }
+            else{
+                close++;
+            }
+        }
+       
+        this.setState({ totalPending:pending,totalClose:close })
       })
       .catch(error => {
         console.error(error)
@@ -175,7 +186,7 @@ class Dashboard extends React.Component {
           daterange={"Just updated"} classes={classes}
           />
           <InformationCard 
-          color={"success"} title={"Total Patients"} value={this.state.totalQuestionnaire}
+          color={"success"} title={"Total Close Cases"} value={this.state.totalClose}
           daterange={"Updated today"} classes={classes}
           />
 

@@ -10,9 +10,8 @@ import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 // @material-ui/icons
-import Edit from "@material-ui/icons/Edit";
-import Close from "@material-ui/icons/Close";
 import View from "@material-ui/icons/RemoveRedEye";
+import Face from "@material-ui/icons/Face";
 import Descending from "@material-ui/icons/ArrowDownward";
 import Ascending from "@material-ui/icons/ArrowUpward";
 import Filter from "@material-ui/icons/FilterList";
@@ -48,14 +47,14 @@ class AnswerRows extends React.Component {
 
   redirectToAnswers = (tableHead,tasks, index) => {
     var selectedRow = tasks[index];
+    var questionnaireResponseId = selectedRow[selectedRow.length - 2];
+    document.location.href = '/patientanswers/'+ questionnaireResponseId;
+  }
+
+  redirectToUser = (tableHead,tasks, index) => {
+    var selectedRow = tasks[index];
     var questionnaireResponseId = selectedRow[selectedRow.length - 1];
-    if(tableHead.length==3){
-      document.location.href = '/userdetail/'+ questionnaireResponseId;
-    }
-    else{
-      document.location.href = '/patientanswers/'+ questionnaireResponseId;
-    }
-    
+    document.location.href = '/userdetail/'+ questionnaireResponseId;
   }
 
   render() {
@@ -114,7 +113,7 @@ class AnswerRows extends React.Component {
               </TableCell> */}
 
               {curTasks.map((value, index, arr) => {
-                if (index !== arr.length - 1) return <TableCell key={index} className={tableCellClasses}>{value}</TableCell>;
+                if (index !== arr.length - 2 && index !== arr.length - 1) return <TableCell key={index} className={tableCellClasses}>{value}</TableCell>;
               })}
 
 
@@ -137,26 +136,27 @@ class AnswerRows extends React.Component {
                     />
                   </IconButton>
                 </Tooltip>
-                {/* <Tooltip
-                  id="tooltip-top-start"
-                  title="Delete Questionnaire"
+
+                 <Tooltip
+                  id="tooltip-top"
+                  title="Patient Detail"
                   placement="top"
                   classes={{ tooltip: classes.tooltip }}
                 >
                   <IconButton
-                    aria-label="Delete Questionnaire"
+                    aria-label="{this.state.useDetail}"
                     className={classes.tableActionButton}
-                    onClick={() => this.props.onDeleteClicked(index)}
+                    onClick={() => this.redirectToUser(tableHead,tasks, index)}
                   >
-                    <Close
+                    <Face
                       className={
-                        classes.tableActionButtonIcon + " " + classes.close
+                        classes.tableActionButtonIcon + " " + classes.edit
                       }
                     />
                   </IconButton>
-                </Tooltip> */}
+                </Tooltip>
+         
               </TableCell>
-
             </TableRow>
           )})}
         </TableBody>

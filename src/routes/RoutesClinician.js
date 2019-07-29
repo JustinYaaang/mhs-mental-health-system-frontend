@@ -16,8 +16,6 @@ import PatientList from 'views/TableList/PatientList'
 import Typography from 'views/Typography/Typography.jsx'
 import NotificationsPage from 'views/Notifications/Notifications.jsx'
 
-// core components/views for RTL layout
-
 const dashboardRoutes = [{
   path: '/dashboard',
   name: 'Dashboard',
@@ -26,14 +24,14 @@ const dashboardRoutes = [{
   component: ClinicianPage,
   layout: '/clinician'
 },
-{
-  path: '/patients',
-  name: 'Patients',
-  rtlName: 'لوحة القيادة',
-  icon: PatientsIcon,
-  component: PatientList,
-  layout: '/clinician'
-},
+// {
+//   path: '/patients',
+//   name: 'Patients',
+//   rtlName: 'لوحة القيادة',
+//   icon: PatientsIcon,
+//   component: PatientList,
+//   layout: '/clinician'
+// },
 {
   path: '/triagelist',
   name: 'Triage List',
@@ -47,7 +45,7 @@ const dashboardRoutes = [{
   name: 'Profile',
   rtlName: 'لوحة القيادة',
   icon: account,
-  component: ClinicianPage,
+  component: UserProfile,
   layout: '/clinician'
 },
 {
@@ -55,7 +53,7 @@ const dashboardRoutes = [{
   name: 'Settings',
   rtlName: 'لوحة القيادة',
   icon: Setting,
-  component: ClinicianPage,
+  component: Setting,
   layout: '/clinician'
 },
 {

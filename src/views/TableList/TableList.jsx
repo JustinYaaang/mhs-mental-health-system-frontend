@@ -15,7 +15,7 @@ import AnswerRows from 'components/Tasks/AnswerRows.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import Grade from '@material-ui/icons/Grade'
 import Code from '@material-ui/icons/Code'
-import { fetchUserAnswers } from '../../services/BackendService'
+import { fetchUserAnswers,fetchUserDetil } from '../../services/BackendService'
 import { getAnsweredQuestionnaire, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
 
 function getRole(){
@@ -56,7 +56,7 @@ const styles = {
 class TableList extends Component {
   constructor (props) {
     super(props)
-    this.state = { userAnswers: []
+    this.state = {pendingList:[],closeList:[]
     }
   }
 
@@ -67,19 +67,25 @@ class TableList extends Component {
  
     fetchUserAnswers()
       .then(response => {
-        console.log(response)
-        var rows = []
+        var rowsPending = []
+        var rowsResolve = []
+
         for (var i = 0; i < response.length; i++) {
-          console.log(i)
+         
           var d = new Date(response[i].createdAt)
           var dateString = d.toString()
           dateString = dateString.substring(0, dateString.lastIndexOf(':'))
-          var row = [response[i].title, response[i].patient_name, response[i].score, response[i]._id, 'PENDING', dateString, response[i]._id]
-          if( response[i].score<5){
-            rows.push(row)
+            console.log(response[i].patient_id)
+            var row = [response[i].title, response[i].patient_name, response[i].score, response[i]._id, response[i].status, dateString, response[i]._id, response[i].patient_id]
+            if(response[i].status == 'PENDING'){
+              rowsPending.push(row)
+            }
+            else{
+              rowsResolve.push(row)
+            }
           }
-        }
-        this.setState({ userAnswers: rows })
+          
+        this.setState({ pendingList: rowsPending,closeList: rowsResolve })
       })
       .catch(error => {
         console.error(error)
@@ -103,7 +109,7 @@ class TableList extends Component {
                     tableHeaderColor='info'
                     tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
                     checkedIndexes={[]}
-                    tasks={this.state.userAnswers}
+                    tasks={this.state.pendingList}
                   />
                 )
               },
@@ -112,10 +118,10 @@ class TableList extends Component {
                 tabIcon: Code,
                 tabContent: (
                   <AnswerRows
-                    tableHeaderColor='primary'
+                    tableHeaderColor='info'
                     tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
                     checkedIndexes={[]}
-                    tasks={this.state.userAnswers}
+                    tasks={this.state.closeList}
                   />
                 )
               }

@@ -13,7 +13,6 @@ import TableList from 'views/TableList/TableList.jsx'
 import Typography from 'views/Typography/Typography.jsx'
 import NotificationsPage from 'views/Notifications/Notifications.jsx'
 
-// core components/views for RTL layout
 
 const dashboardRoutes = [
   {
@@ -29,7 +28,7 @@ const dashboardRoutes = [
     name: 'Profile',
     rtlName: 'لوحة القيادة',
     icon: account,
-    component: DashboardPage,
+    component: UserProfile,
     layout: '/admin'
   },
   {
@@ -37,7 +36,7 @@ const dashboardRoutes = [
     name: 'Settings',
     rtlName: 'لوحة القيادة',
     icon: Setting,
-    component: DashboardPage,
+    component: Setting,
     layout: '/admin'
   },
   {

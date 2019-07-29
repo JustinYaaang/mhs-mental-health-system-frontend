@@ -13,6 +13,7 @@ import ServiceDashboard from 'views/Dashboard/ServiceDashboard.jsx'
 import UserProfile from 'views/UserProfile/UserProfile.jsx'
 import TableList from 'views/TableList/TableList.jsx'
 import Typography from 'views/Typography/Typography.jsx'
+import PatientList from 'views/TableList/PatientList'
 import NotificationsPage from 'views/Notifications/Notifications.jsx'
 
 // core components/views for RTL layout
@@ -38,7 +39,7 @@ const dashboardRoutes = [{
   name: 'Patients',
   rtlName: 'لوحة القيادة',
   icon: PatientsIcon,
-  component: ServiceDashboard,
+  component: PatientList,
   layout: '/service'
 },
 {
@@ -46,7 +47,7 @@ const dashboardRoutes = [{
   name: 'Triage List',
   rtlName: 'لوحة القيادة',
   icon: List,
-  component: ServiceDashboard,
+  component: TableList,
   layout: '/service'
 },
 {
