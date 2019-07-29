@@ -19,16 +19,18 @@ class TrustAddForm extends React.Component {
     getOrganizations(this.state.id).then(response => {
       // response = { 'message': 'Organisation retrieved successfully', 'data': [{ '_id': '5d3aff5326edba12fa4c5c98', 'role': 'SERVICE', 'name': 'Barts Mental Health Clinic', 'address1': '134 Barts Road', 'address2': '', 'postcode': 'BRTS1B', 'description': 'Barts Mental Health Clinic', 'link': 'barts.nhs.gov.uk', 'email': 'barts@nhs.gov.uk', 'telephone': '033448796645' }] }
       // getmanagers.then{
-
-      document.getElementById('nameinput').value = response.name
-      document.getElementById('address1input').value = response.address1
-      document.getElementById('address2input').value = response.address2
-      document.getElementById('postcodeinput').value = response.postcode
-      document.getElementById('descriptioninput').value = response.description
-      document.getElementById('websiteinput').value = response.link
-      document.getElementById('emailinput').value = response.email
-      document.getElementById('telephoneinput').value = response.telephone
-      // }
+      try {
+        document.getElementById('nameinput').value = response.name
+        document.getElementById('address1input').value = response.address1
+        document.getElementById('address2input').value = response.address2
+        document.getElementById('postcodeinput').value = response.postcode
+        document.getElementById('descriptioninput').value = response.description
+        document.getElementById('websiteinput').value = response.link
+        document.getElementById('emailinput').value = response.email
+        document.getElementById('telephoneinput').value = response.telephone
+      } catch (error) {
+        console.log(error + '\n' + response)
+      }
     })
   }
 

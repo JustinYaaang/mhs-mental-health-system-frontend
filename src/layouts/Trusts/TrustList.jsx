@@ -61,7 +61,8 @@ class TrustList extends Component {
   componentWillMount() {
     getOrganizations().then(response=>{
       var i=1;
-      var thelist=new Array()
+      var thelist=new
+       Array()
       response.forEach((map)=>{
         thelist.push([
           i,map.name,map.description,map.address1+" "+map.address2,map.postcode,map.telephone,map._id
@@ -74,7 +75,6 @@ class TrustList extends Component {
   }
 
   redirectToTrustDetails = (trustId) => {
-    console.log(trustId)
     this.props.history.push(this.props.history.location.pathname + "/" + trustId)
     //document.location.href = '/admin/trusts/'+ "26426287u24";
   }

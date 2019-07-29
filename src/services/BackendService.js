@@ -1,7 +1,9 @@
 import axios from 'axios'
-import { baseUrl, backendURL, organizations, personel, 
-  fetchQuestionnairesUrl, patientanswersUrl, authenticationUrl, 
-  questionnaireWithoutToken } from '../variables/general'
+import {
+  baseUrl, backendURL, organizations, personnel,
+  fetchQuestionnairesUrl, patientanswersUrl, authenticationUrl,
+  questionnaireWithoutToken
+} from '../variables/general'
 
 const postNewSurvey = async (createSurveyUrl, surveyData) => {
   try {
@@ -207,13 +209,14 @@ const getQuestionnaireWithToken = async (body) => {
 /**
  * Function that return a the organization list given the type. If a id is given in the body
  * then the function returs the details for a single organization
- * @param {*} body 
+ * @param {*} body
  */
 const getOrganizations = async (body) => {
   var url = baseUrl + organizations
   if (body !== undefined) {
     url = baseUrl + organizations + '/' + body
   }
+  console.log(url)
   try {
     try {
       const res = await axios.get(url, {
@@ -238,11 +241,14 @@ const getOrganizations = async (body) => {
 const updateOrganization = async (body) => {
   try {
     try {
-      const res = await axios.patch(baseUrl + organizations + '/' + body.id, {
-        headers: { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+      var restofbody = body.body
+      var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+      const res = await axios({
+        method: 'put',
+        url: baseUrl + organizations + '/' + body.id,
+        headers: headers,
+        data: restofbody
       })
-
-      console.log('res.data.data')
       console.log(res.data.data)
       return res.data.data
     } catch (error) {
@@ -257,10 +263,10 @@ const updateOrganization = async (body) => {
  * Function that returs the personel given an organization id
  * @param {*} body
  */
-const getPersonel = async (body) => {
-  var url = baseUrl + personel
+const getPersonnel = async (body) => {
+  var url = baseUrl + personnel
   if (body !== undefined) {
-    url = baseUrl + personel + '/' + body
+    url = baseUrl + personnel + '/' + body
   }
   try {
     try {
@@ -283,11 +289,35 @@ const getPersonel = async (body) => {
   }
 }
 
+/**
+ * Function that updates a person given the ID
+ * @param {*} body
+ */
+const updatePersonnel = async (body) => {
+  try {
+    try {
+      var restofbody = body.body
+      var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+      const res = await axios({
+        method: 'put',
+        url: baseUrl + personnel + '/' + body.id,
+        headers: headers,
+        data: restofbody
+      })
+      console.log(res.data.data)
+      return res.data.data
+    } catch (error) {
+      console.log('GET server error: ', error)
+    }
+  } catch (error) {
+    console.log('POST server error: ', error)
+  }
+}
 export {
   postNewSurvey, updateSurvey, getOrganizations,
   fetchQuestionnaires, fetchWeeklyResult, fetchUserAnswers,
   getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire,
   deleteQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken,
   getQuestionnaireWithToken,
-  getPersonel, updateOrganization
+  getPersonnel, updatePersonnel, updateOrganization
 }

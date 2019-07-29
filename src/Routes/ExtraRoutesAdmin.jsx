@@ -12,6 +12,7 @@ import TrustList from 'layouts/Trusts/TrustList.jsx'
 import TrustDetails from 'layouts/Trusts/TrustDetails.jsx'
 import PersonForm from "views/Forms/PersonForm.jsx";
 import TrustAddForm from "views/Forms/TrustServiceForm.jsx";
+import UserDetails from "layouts/Trusts/UserDetails.jsx"
 import TrustManagerForm from 'views/Forms/PersonForm.jsx'
 import Typography from 'views/Typography/Typography.jsx'
 import NotificationsPage from 'views/Notifications/Notifications.jsx'
@@ -33,6 +34,14 @@ const dashboardRoutes = [
     rtlName: 'لوحة القيادة',
     icon: Dashboard,
     component: PersonForm,
+    layout: '/admin'
+  },
+  {
+    path: '/trusts/:id/:id',
+    name: 'Trust Manager Details',
+    rtlName: 'لوحة القيادة',
+    icon: Dashboard,
+    component: UserDetails,
     layout: '/admin'
   },
   {

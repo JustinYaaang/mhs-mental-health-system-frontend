@@ -18,16 +18,15 @@ var server = [
   'Sign contract for "What are conference organizers afraid of?"'
 ]
 
-var baseUrl = 'https://demo5424550.mockable.io'
-//'http://178.128.34.125/api/v1' //'http://127.0.0.1:3000/api/v1/'// 'http://mhsbackend.azurewebsites.net/api/v1/'
+var baseUrl = 'http://localhost:3000/api/v1'//http://mhsbackend.azurewebsites.net/api/v1/'
 var fetchQuestionnairesUrl = '/questionnaire_sJS'
 var patientanswersUrl = '/patientanswers'
 var backendUrl = 'http://178.128.34.125/api/v1'
 var createUserAnswers = '/useranswers'
-var authenticationUrl = '/patients/authenticate'
+var authenticationUrl = '/users/authenticate'
 var questionnaireWithoutToken = '/questionnaires'
 var organizations = '/organisations'
-var personel = '/users'
+var personnel = '/users'
 module.exports = {
   // these 3 are used to create the tasks lists in TasksCard - Dashboard view
   bugs,
@@ -41,5 +40,5 @@ module.exports = {
   authenticationUrl,
   questionnaireWithoutToken,
   organizations,
-  personel
+  personnel
 }

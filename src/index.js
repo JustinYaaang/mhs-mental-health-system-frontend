@@ -69,7 +69,7 @@ function getRole () {
 }
 
 function isAdmin () {
-  return getRole() === 'PATIENT'
+  return getRole() === 'ADMIN'
 }
 
 function isManager () {
