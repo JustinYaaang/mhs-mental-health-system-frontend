@@ -41,6 +41,7 @@ class PersonForm extends React.Component {
   }
 
   onSave (event) {
+    // get all the necessary details from the form
     var body = {
       id: this.state.id,
       body: {
@@ -51,57 +52,64 @@ class PersonForm extends React.Component {
 
       }
     }
-    var flag = false
+    var flag = true
+    // get the 2 password fields
     var pass1 = document.getElementById('passwordchange1').value
     var pass2 = document.getElementById('passwordchange2').value
+    // check if the password fields contain something
     if (pass1 !== '' || pass2 !== '') {
+      // if they contain and they are not the same
       if (pass2 !== pass1) {
         document.getElementById('passwordchange1').style.backgroundColor = '#FEC2C2'
         document.getElementById('passwordchange2').style.backgroundColor = '#FEC2C2'
-        swal('Passwords don\'t match!', {
+        swal('Passwords don\'t match!', { // throw error
           icon: 'error'
         })
+
         return
-      } else {
+      } else { // else add the password to the body
         body.body.password = pass1
         body.body.organisation_id = sessionStorage.organizationID
         flag = true
       }
     }
-
-    if (this.state.hasDetails) {
-      if (this.allFieldsCompleted()) {
-        updatePersonnel(body).then(response => {
-          console.log(response)
-          document.getElementById('passwordchange1').value = ''
-          document.getElementById('passwordchange2').value = ''
-          swal('The entry has been updated!', {
-            icon: 'success'
-          })
+    // Proceed only if all fields are filled
+    if (!this.allFieldsCompleted()) {
+      swal('Please fill all the fields!', { // else throw error
+        icon: 'error'
+      })
+      return
+    }
+    // // if the user entered passwords that dont match
+    // if (!flag) {
+    //   swal('Passwords don\'t match!', { // throw error
+    //     icon: 'error'
+    //   })
+    //   document.getElementById('passwordchange1').style.backgroundColor = '#FEC2C2'
+    //   document.getElementById('passwordchange2').style.backgroundColor = '#FEC2C2'
+    //   swal('Passwords don\'t match!', {
+    //     icon: 'error'
+    //   })
+    //   return
+    // }
+    if (this.state.hasDetails) { // if we are in edit mode
+      // send the details and clear the password field
+      updatePersonnel(body).then(response => {
+        console.log(response)
+        document.getElementById('passwordchange1').value = ''
+        document.getElementById('passwordchange2').value = ''
+        swal('The entry has been updated!', {
+          icon: 'success'
         })
-      }else{
-        swal('Please fill all the fields!', {
-          icon: 'error'
-        }) 
-      }
-    } else {
-      if (!flag) {
-        swal('Passwords don\'t match!', {
-          icon: 'error'
+      })
+    } else { // if we create a new person
+      createPersonnel(body.body).then(response => {
+        this.componentWillMount()
+        console.log(response)
+        swal('The entry has been updated!', {
+          icon: 'success'
         })
-        document.getElementById('passwordchange1').style.backgroundColor = '#FEC2C2'
-        document.getElementById('passwordchange2').style.backgroundColor = '#FEC2C2'
-        swal('Passwords don\'t match!', {
-          icon: 'error'
-        })
-        return
-      }
-      if (this.allFieldsCompleted()) {
-        createPersonnel(body.body).then(response => {
-          this.componentWillMount()
-          console.log(response)
-        })
-      }
+      })
     }
   }
 
