@@ -10,7 +10,7 @@ import AnswerRows from 'components/Tasks/AnswerRows.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import Code from '@material-ui/icons/Code'
 import { getOrganizations,deleteOrganization } from '../../services/BackendService'
-
+import swal from 'sweetalert';
 const styles = {
   cardCategoryWhite: {
     '&,& a,& a:hover,& a:focus': {
@@ -75,9 +75,29 @@ class TrustList extends Component {
   }
 
 deleteTrust=(trustId)=>{
-  deleteOrganization(trustId).then(response=>{
-    console.log(response)
+
+  swal({
+    title: "Are you sure?",
+    text: "Are you sure you want to delete this entry?",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
   })
+  .then((willDelete) => {
+    if (willDelete) {
+      deleteOrganization(trustId).then(response=>{
+        swal("The entry has been deleted!", {
+          icon: "success",
+        });
+        this.componentWillMount();
+      })
+      
+
+    } else {
+      swal('Action canceled');
+    }
+  });
+
 }
 
   render() {
