@@ -8,10 +8,14 @@ import {
 
 const postNewSurvey = async (createSurveyUrl, surveyData) => {
   try {
+    console.log(sessionStorage.jwt)
+    var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+
     const response = await axios({
       method: 'post',
       url: createSurveyUrl,
-      data: surveyData
+      data: surveyData,
+      headers: headers
     })
     return response
   } catch (error) {
@@ -32,10 +36,14 @@ const postNewSurvey = async (createSurveyUrl, surveyData) => {
 
 const updateSurvey = async (updateSurveyUrl, surveyData) => {
   try {
+    console.log(sessionStorage.jwt)
+    var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+
     const response = await axios({
       method: 'put',
       url: updateSurveyUrl,
-      data: surveyData
+      data: surveyData,
+      headers: headers
     })
     return response
   } catch (error) {
@@ -53,8 +61,16 @@ const updateSurvey = async (updateSurveyUrl, surveyData) => {
     })
 }
 const fetchQuestionnaires = async () => {
-  return await axios.get(baseUrl + fetchQuestionnairesUrl)
-    .then(function (response) {
+
+  var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+  await axios({
+    method: 'get',
+    url: baseUrl + fetchQuestionnairesUrl,
+    headers: headers
+  }).then(function (response) {
+
+      console.log(response);
+
       const data = response.data.data
       const idPublishedList = []
       const questionnairePublishedList = []
@@ -62,23 +78,28 @@ const fetchQuestionnaires = async () => {
       const questionnaireDraftList = []
 
       data.forEach(element => {
-        if (element.status === 'PUBLISHED') {
-          questionnairePublishedList.push([element.title, element.description, element.status])
+        var status = element.is_published ? 'PUBLISHED' : 'DRAFT';
+        if (status === 'PUBLISHED') {
+          questionnairePublishedList.push([element.title, element.description, status])
           idPublishedList.push(element._id)
-        } else if (element.status === 'DRAFT') {
-          questionnaireDraftList.push([element.title, element.description, element.status])
+        } else if (status === 'DRAFT') {
+          questionnaireDraftList.push([element.title, element.description, status])
           idDraftList.push(element._id)
-        } else if (element.status === 'DRAFT') {
-          questionnaireDraftList.push([element.title, element.description, element.status])
+        } else if (status === 'DRAFT') {
+          questionnaireDraftList.push([element.title, element.description, status])
           idDraftList.push(element._id)
         }
       })
+
       return {
         'idDraftList': idDraftList,
         'idPublishedList': idPublishedList,
         'questionnaireDraftList': questionnaireDraftList,
         'questionnairePublishedList': questionnairePublishedList
       }
+      
+    }).catch(error => {
+      console.log(error)
     })
 }
 
