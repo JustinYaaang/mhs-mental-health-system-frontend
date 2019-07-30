@@ -11,7 +11,7 @@ import Card from 'components/Card/Card.jsx'
 import CardHeader from 'components/Card/CardHeader.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import Tasks from 'components/Tasks/Tasks.jsx'
-import AnswerRows from 'components/Tasks/AnswerRows.jsx'
+import TriageRows from 'components/Tasks/TriageRows.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import Grade from '@material-ui/icons/Grade'
 import Code from '@material-ui/icons/Code'
@@ -92,6 +92,11 @@ class TableList extends Component {
       })
   }
 
+  redirectToAnswers = (questionnaireResponseId) => {
+    //document.location.href = this.props.history.location.pathname + '/'+ questionnaireResponseId;
+    this.props.history.push(this.props.history.location.pathname + "/" + questionnaireResponseId)
+  }
+
   render () {
     return (
       <GridContainer>
@@ -105,11 +110,12 @@ class TableList extends Component {
                 tabName: 'PENDING',
                 tabIcon: Grade,
                 tabContent: (
-                  <AnswerRows
+                  <TriageRows
                     tableHeaderColor='info'
                     tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
                     checkedIndexes={[]}
                     tasks={this.state.pendingList}
+                    onRowClicked={(questionnaireResponseId) => this.redirectToAnswers(questionnaireResponseId)}
                   />
                 )
               },
@@ -117,7 +123,7 @@ class TableList extends Component {
                 tabName: 'RESOLVED',
                 tabIcon: Code,
                 tabContent: (
-                  <AnswerRows
+                  <TriageRows
                     tableHeaderColor='info'
                     tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
                     checkedIndexes={[]}

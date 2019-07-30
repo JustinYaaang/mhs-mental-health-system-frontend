@@ -12,8 +12,8 @@ import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 import rtlStyle from "assets/jss/material-dashboard-react/layouts/rtlStyle.jsx";
-import routes  from "Routes/RoutesTrust.js";
-
+import routes  from "../Routes/RoutesTrust.js";
+import extraRoutes from "../Routes/ExtraRoutesTrust.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
 import image from "assets/img/sidebar-2.jpg";
@@ -24,6 +24,18 @@ let ps;
 
 const switchRoutes = (
   <Switch>
+     {extraRoutes.map((prop, key) => {
+      if (prop.layout === "/trust") {
+        return (
+          <Route
+            path={prop.layout + prop.path}
+            component={prop.component}
+            key={key}
+          />
+        );
+      }
+      return null;
+    })}
     {routes.map((prop, key) => {
       if (prop.layout === "/trust") {
         return (

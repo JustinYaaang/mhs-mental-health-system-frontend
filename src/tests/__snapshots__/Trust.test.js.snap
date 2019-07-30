@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TrustDetails should render correctly 1`] = `
+<TrustDetails
+  classes={
+    Object {
+      "cardCategoryWhite": "TrustDetails-cardCategoryWhite-1",
+      "cardTitleWhite": "TrustDetails-cardTitleWhite-2",
+    }
+  }
+/>
+`;
+
+exports[`TrustList should render correctly 1`] = `
+<TrustList
+  classes={
+    Object {
+      "cardCategoryWhite": "TrustList-cardCategoryWhite-3",
+      "cardTitleWhite": "TrustList-cardTitleWhite-4",
+    }
+  }
+/>
+`;

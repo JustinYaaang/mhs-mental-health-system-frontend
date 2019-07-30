@@ -1,7 +1,6 @@
 // @material-ui/icons
 import Dashboard from '@material-ui/icons/Dashboard'
 import Person from '@material-ui/icons/Person'
-import Notifications from '@material-ui/icons/Notifications'
 import List from  '@material-ui/icons/PlaylistPlay'
 import PatientsIcon from  '@material-ui/icons/LocalHospitalTwoTone'
 import ClinicianIco from  '@material-ui/icons/ListTwoTone'
@@ -11,7 +10,7 @@ import TransitEnterexit from '@material-ui/icons/TransitEnterexit'
 // core components/views for Admin layout
 import ServiceDashboard from 'views/Dashboard/ServiceDashboard.jsx'
 import UserProfile from 'views/UserProfile/UserProfile.jsx'
-
+import TableList from 'views/TableList/TableList.jsx'
 
 // core components/views for RTL layout
 
@@ -29,6 +28,14 @@ const dashboardRoutes = [{
   rtlName: 'لوحة القيادة',
   icon: ClinicianIco,
   component: ServiceDashboard,
+  layout: '/service'
+},
+{
+  path: '/triagelist',
+  name: 'Triage List',
+  rtlName: 'لوحة القيادة',
+  icon: List,
+  component: TableList,
   layout: '/service'
 },
 {

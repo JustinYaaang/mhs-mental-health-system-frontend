@@ -14,8 +14,7 @@ import "jquery-bar-rating";
 import * as widgets from "surveyjs-widgets";
 import "icheck/skins/square/blue.css";
 import axios from "axios";
-import { fetchQuestionnaire,getAnsweredQuestionnaire, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from "../services/BackendService";
-import { backendUrl, createUserAnswers } from "../variables/general";
+import { fetchQuestionnaire} from "../../services/BackendService";
 
 import FixedActions from "components/FixedPlugin/FixedActions.jsx";
 
@@ -49,13 +48,14 @@ class QuestionnaireResult extends Component {
         "completedHtml": "",
         "pages": [],
         "showProgressBar": ""
-      }
+      },
+      id: this.props.id, // the ID
     };
   }
 
   componentWillMount() {
-    const {id} = this.props.match.params;
-    fetchQuestionnaire(id)
+    //const {id} = this.props.match.params;
+    fetchQuestionnaire(this.state.id)
       .then(fetched_answers => {
         //this.setState({ answers: JSON.parse(fetched_answers.body) });
         var jsonData = fetched_answers.body;

@@ -12,19 +12,27 @@ import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 
-import routes from "Routes/RoutesAdmin.js";
+import routes from "../Routes/RoutesAdmin.js";
+import extraRoutes from "../Routes/ExtraRoutesAdmin.jsx";
+
 
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
+import TrustDetails from "./Trusts/TrustDetails.jsx";
+import PersonForm from "../views/Forms/PersonForm.jsx";
+import TrustAddForm from "../views/Forms/TrustServiceForm.jsx";
 
 
 let ps;
 
 const switchRoutes = (
   <Switch>
-    {routes.map((prop, key) => {
+  {/* <Route path={'/admin/trusts/new'} component={TrustAddForm}/>
+  <Route path={'/admin/trusts/manager/:id?'} component={PersonForm}/>
+  <Route path={'/admin/trusts/:id'} component={TrustDetails}/> */}
+    {extraRoutes.map((prop, key) => {
       if (prop.layout === "/admin") {
         return (
           <Route
@@ -36,6 +44,19 @@ const switchRoutes = (
       }
       return null;
     })}
+    {routes.map((prop, key) => {
+      if (prop.layout === "/admin") {
+        return (
+          <Route
+            path={prop.layout + prop.path}
+            component={prop.component}
+            key={key} 
+          />
+        );
+      }
+      return null;
+    })}
+   
     <Redirect from="/admin" to="/admin/dashboard" />
   </Switch>
 );

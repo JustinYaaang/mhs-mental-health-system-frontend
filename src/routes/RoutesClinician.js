@@ -1,7 +1,5 @@
 // @material-ui/icons
 import Dashboard from '@material-ui/icons/Dashboard'
-import Person from '@material-ui/icons/Person'
-import Notifications from '@material-ui/icons/Notifications'
 import Setting from '@material-ui/icons/Settings'
 import TransitEnterexit from '@material-ui/icons/TransitEnterexit'
 import account from '@material-ui/icons/AccountCircle'
@@ -12,9 +10,7 @@ import DashboardPage from 'views/Dashboard/Dashboard.jsx'
 import ClinicianPage from 'views/Dashboard/ClinicianDashboard.jsx'
 import UserProfile from 'views/UserProfile/UserProfile.jsx'
 import TableList from 'views/TableList/TableList.jsx'
-import PatientList from 'views/TableList/PatientList'
-import Typography from 'views/Typography/Typography.jsx'
-import NotificationsPage from 'views/Notifications/Notifications.jsx'
+
 
 const dashboardRoutes = [{
   path: '/dashboard',

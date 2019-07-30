@@ -18,14 +18,18 @@ var server = [
   'Sign contract for "What are conference organizers afraid of?"'
 ]
 
-var baseUrl ='http://mhsbackend.azurewebsites.net/api/v1/'// 'http://178.128.34.125/api/v1/' 
+var baseUrl = 'http://178.128.34.125/api/v1'
+//'http://localhost:3000/api/v1'//http://mhsbackend.azurewebsites.net/api/v1/'
 var patients = 'patients'
-var fetchQuestionnairesUrl = 'questionnaire_sJS'
-var patientanswersUrl = 'patientanswers'
-var backendUrl = 'http://178.128.34.125/api/v1/'
-var createUserAnswers = 'useranswers'
-var authenticationUrl = 'patients/authenticate'
-var questionnaireWithoutToken = 'questionnaires'
+var fetchQuestionnairesUrl = '/questionnaire'
+// '/questionnaire_sJS'
+var patientanswersUrl = '/patientanswers'
+var backendUrl = 'http://178.128.34.125/api/v1'
+var createUserAnswers = '/useranswers'
+var authenticationUrl = '/users/authenticate'
+var questionnaireWithoutToken = '/questionnaires'
+var organizations = '/organisations'
+var personnel = '/users'
 
 module.exports = {
   // these 3 are used to create the tasks lists in TasksCard - Dashboard view
@@ -39,5 +43,7 @@ module.exports = {
   patientanswersUrl,
   createUserAnswers,
   authenticationUrl,
-  questionnaireWithoutToken
+  questionnaireWithoutToken,
+  organizations,
+  personnel
 }
