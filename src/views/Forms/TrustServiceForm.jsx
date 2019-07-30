@@ -56,6 +56,7 @@ class TrustAddForm extends React.Component {
         })
       }
     } else if (this.state.organization == 'service') {
+      //document.getElementById('mainlabel').text = 'Please enter the details of the NHS Service.'
       if (this.state.hasDetails) {
         getOrganizations(this.state.id).then(response => {
           try {
@@ -144,7 +145,7 @@ class TrustAddForm extends React.Component {
   render () {
     return (
       <form class='trustform'>
-        <label className='label-subtitle' for='label'>Please enter the details of the NHS Trust.</label>
+        <label className='label-subtitle' id='mainlabel' for='label'>Please enter the details of the NHS Trust.</label>
         <div class='form-group'>
           <input name='email' type='email' class='form-control' id='nameinput' aria-describedby='emailHelp' placeholder='Name' onChange={this.onChange} />
         </div>

@@ -6,7 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 // core components
 import GridItem from 'components/Grid/GridItem.jsx'
 import GridContainer from 'components/Grid/GridContainer.jsx'
-import AnswerRows from 'components/Tasks/AnswerRows.jsx'
+import AnswerRows from 'components/Tasks/ListRows.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import TrustServiceFrom from 'views/Forms/TrustServiceForm.jsx'
 import Code from '@material-ui/icons/Code'
