@@ -11,10 +11,7 @@ import TransitEnterexit from '@material-ui/icons/TransitEnterexit'
 // core components/views for Admin layout
 import ServiceDashboard from 'views/Dashboard/ServiceDashboard.jsx'
 import UserProfile from 'views/UserProfile/UserProfile.jsx'
-import TableList from 'views/TableList/TableList.jsx'
-import Typography from 'views/Typography/Typography.jsx'
-import PatientList from 'views/TableList/PatientList'
-import NotificationsPage from 'views/Notifications/Notifications.jsx'
+
 
 // core components/views for RTL layout
 
@@ -35,27 +32,11 @@ const dashboardRoutes = [{
   layout: '/service'
 },
 {
-  path: '/patients',
-  name: 'Patients',
-  rtlName: 'لوحة القيادة',
-  icon: PatientsIcon,
-  component: PatientList,
-  layout: '/service'
-},
-{
-  path: '/triagelist',
-  name: 'Triage List',
-  rtlName: 'لوحة القيادة',
-  icon: List,
-  component: TableList,
-  layout: '/service'
-},
-{
   path: '/profile',
   name: 'Profile',
   rtlName: 'لوحة القيادة',
   icon: Person,
-  component: ServiceDashboard,
+  component: UserProfile,
   layout: '/service'
 },
 {
@@ -63,7 +44,7 @@ const dashboardRoutes = [{
   name: 'Settings',
   rtlName: 'لوحة القيادة',
   icon: Setting,
-  component: ServiceDashboard,
+  component: Setting,
   layout: '/service'
 },
 {
@@ -74,7 +55,6 @@ const dashboardRoutes = [{
   component: ServiceDashboard,
   layout: '/service'
 }
-
 ]
 
 export default dashboardRoutes

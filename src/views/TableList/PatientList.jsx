@@ -77,7 +77,6 @@ class PatientList extends Component {
     //       console.log(row);
     //     }
     //     this.setState({ userAnswers: rows })
-        
     //   })
     //   .catch(error => {
     //     console.error(error)

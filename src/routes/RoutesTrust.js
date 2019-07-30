@@ -35,7 +35,7 @@ const dashboardRoutes = [{
   name: 'Profile',
   rtlName: 'لوحة القيادة',
   icon: Dashboard,
-  component: TrustPage,
+  component: UserProfile,
   layout: '/trust'
 },
 {

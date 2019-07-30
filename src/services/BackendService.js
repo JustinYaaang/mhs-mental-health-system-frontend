@@ -36,8 +36,6 @@ const updateSurvey = async (updateSurveyUrl, surveyData) => {
   } catch (error) {
     console.log('PUT server error: ', error)
   }
-  // console.log(updateSurveyUrl)
-  // console.log(surveyData)
 
   axios.put(updateSurveyUrl, surveyData)
     .then(response => {
@@ -161,6 +159,7 @@ const fetchUserDetail = async (UserId) => {
     })
 }
 
+
 const deleteQuestionnaire = async (questionnaireId) => {
   return await axios({
     method: 'delete',
@@ -261,4 +260,4 @@ const getQuestionnaireWithToken = async (body) => {
   // }
 }
 
-export { postNewSurvey, updateSurvey, fetchQuestionnaires,fetchUserDetail, fetchWeeklyResult, fetchUserAnswers, getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire, deleteQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken }
+export { postNewSurvey, updateSurvey, fetchQuestionnaires, fetchUserDetail, fetchWeeklyResult, fetchUserAnswers, getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire, deleteQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken }

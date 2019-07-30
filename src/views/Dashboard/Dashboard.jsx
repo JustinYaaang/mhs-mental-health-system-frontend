@@ -52,6 +52,7 @@ class Dashboard extends React.Component {
     },
     seriesMax: 0,
   };
+  
   handleChange = (event, value) => {
     this.setState({ value: value });
   };
@@ -182,9 +183,6 @@ class Dashboard extends React.Component {
       }
     );
   }
-
-
-  
 
   render() {
     var Chartist = require("chartist");

@@ -73,7 +73,8 @@ function isAdmin () {
 }
 
 function isManager () {
-  return getRole() === 'PATIENT'
+  //return getRole() === 'PATIENT'
+  return true
 }
 
 function isTrust () {

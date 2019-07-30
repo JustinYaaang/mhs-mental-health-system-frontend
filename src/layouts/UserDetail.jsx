@@ -8,7 +8,6 @@ import InputLabel from '@material-ui/core/InputLabel'
 // core components
 import GridItem from 'components/Grid/GridItem.jsx'
 import GridContainer from 'components/Grid/GridContainer.jsx'
-import CustomInput from 'components/CustomInput/CustomInput.jsx'
 import Button from 'components/CustomButtons/Button.jsx'
 import Card from 'components/Card/Card.jsx'
 import CardHeader from 'components/Card/CardHeader.jsx'
@@ -16,6 +15,7 @@ import CardAvatar from 'components/Card/CardAvatar.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import CardFooter from 'components/Card/CardFooter.jsx'
 import {fetchUserDetail } from '../services/BackendService'
+import TextField from '@material-ui/core/TextField';
 
 import Table from "components/Table/Table.jsx";
 
@@ -79,6 +79,7 @@ class UserDetail extends Component {
 
       render () {
         const { classes } = this.props;
+      
         return (
           
           <div>
@@ -91,84 +92,72 @@ class UserDetail extends Component {
                   </CardHeader>
                   <CardBody>
                     <GridContainer>
-                      <GridItem xs={12} sm={12} md={5}>
-                        <CustomInput
-                          labelText='Service'
-                          id='company-disabled'
-                          formControlProps={{
-                            fullWidth: true
-                          }}
-                          inputProps={{
-                            disabled: true
+                      <GridItem xs={12} sm={12} md={6}>
+                        <TextField
+                          id="service"
+                          label="Service"
+                          value="Hello World"
+                          className={classes.textField}
+                          margin="normal"
+                          InputProps={{
+                            readOnly: true,
                           }}
                         />
                       </GridItem>
-                      <GridItem xs={12} sm={12} md={3}>
-                        <CustomInput
-                          labelText='Username'
-                          id='username'
-                          formControlProps={{
-                            fullWidth: true
+                      
+                      <GridItem xs={12} sm={12} md={6}>
+                        <TextField
+                          id="email"
+                          label="Email"
+                          value= {this.state.email}
+                          className={classes.textField}
+                          margin="normal"
+                          InputProps={{
+                            readOnly: true,
                           }}
-                          inputProps={{
-                              disabled: true
-                            }}
-                        />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <CustomInput
-                          labelText= {this.state.email}
-                          id='email-address'
-                          formControlProps={{
-                            fullWidth: true
-                          }}
-                          inputProps={{
-                              disabled: true
-                            }}
                         />
                       </GridItem>
                     </GridContainer>
                     <GridContainer>
-                      <GridItem xs={12} sm={12} md={6}>
-                        <CustomInput
-                          labelText={this.state.firstname}
-                          id='first-name'
-                          formControlProps={{
-                            fullWidth: true
-                          }}
-                          inputProps={{
-                              disabled: true
-                            }}
-                        />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={6}>
-                        <CustomInput
-                          labelText={this.state.lastname}
-                          id='last-name'
-                          formControlProps={{
-                            fullWidth: true
-                          }}
-                          inputProps={{
-                              disabled: true
-                            }}
-                        />
-                      </GridItem>
-                    </GridContainer>
-                    <GridContainer>
-                  
                       <GridItem xs={12} sm={12} md={4}>
-                        <CustomInput
-                          labelText={this.state.postcode}
-                          id='postal-code'
-                          formControlProps={{
-                            fullWidth: true
+
+                        <TextField
+                          id="firstname"
+                          label="First Name"
+                          value= {this.state.firstname}
+                          className={classes.textField}
+                          margin="normal"
+                          InputProps={{
+                            readOnly: true,
                           }}
-                          inputProps={{
-                              disabled: true
-                            }}
+                        />
+                      </GridItem>
+                      <GridItem xs={12} sm={12} md={4}>
+                        <TextField
+                          id="lastname"
+                          label="Last Name"
+                          value= {this.state.lastname}
+                          className={classes.textField}
+                          margin="normal"
+                          InputProps={{
+                            readOnly: true,
+                          }}
+                        />
+                      </GridItem>
+                      <GridItem xs={12} sm={12} md={4}>
+                        <TextField
+                          id="post"
+                          label="Post Code"
+                          value={this.state.postcode}
+                          className={classes.textField}
+                          margin="normal"
+                          InputProps={{
+                            readOnly: true,
+                          }}
                         />
                       </GridItem>
                     </GridContainer>
+                 
                     <GridContainer>
                       <GridItem xs={12} sm={12} md={12}>
                       <Table
