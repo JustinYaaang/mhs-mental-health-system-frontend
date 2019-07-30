@@ -30,11 +30,9 @@ class PersonForm extends React.Component {
         document.getElementById('passwordinput').value = response.password
         document.getElementById('trustnameinput_postcodeinput').value = response.role //! !!!
       })
-    } else {
-      // document.getElementById('trustnameinput_postcodeinput').value = 'TRUSTMANAGER'
+    } else { 
     }
-    // if patient
-    // document.getElementById("trustnameinput_postcodeinput").placeholder="Postcode"
+
   }
 
   onChange (event) {
