@@ -12,7 +12,8 @@ class PersonForm extends React.Component {
     super(props)
     this.state = {
       id: this.props.id,
-      hasDetails: this.props.hasDetails
+      hasDetails: this.props.hasDetails,
+      organization:'trust'
     }
     this.onChange = this.onChange.bind(this)
     this.onSave = this.onSave.bind(this)
@@ -50,13 +51,14 @@ class PersonForm extends React.Component {
 
       }
     }
-    var flag = false
+    var passwordFlag = false
     // get the 2 password fields
     var pass1 = document.getElementById('passwordchange1').value
     var pass2 = document.getElementById('passwordchange2').value
     // check if the password fields contain something
     if (pass1 !== '' || pass2 !== '') {
       // if they contain and they are not the same
+      console.log(pass1)
       if (pass2 !== pass1) {
         document.getElementById('passwordchange1').style.backgroundColor = '#FEC2C2'
         swal.fire({
@@ -69,7 +71,7 @@ class PersonForm extends React.Component {
       } else { // else add the password to the body
         body.body.password = pass1
         body.body.organisation_id = sessionStorage.organizationID
-        flag = true
+        passwordFlag = true
       }
     }
     // Proceed only if all fields are filled
@@ -89,7 +91,7 @@ class PersonForm extends React.Component {
         })
       })
     } else { // if we create a new person
-      if (!flag) {
+      if (passwordFlag) {
         createPersonnel(body.body).then(response => {
           this.componentWillMount()
           console.log(response)
@@ -99,7 +101,7 @@ class PersonForm extends React.Component {
             text: 'The entry has been created! '
           })
         })
-      }else {
+      } else {
         swal.fire({
           type: 'error',
           title: 'Error',
