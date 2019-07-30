@@ -6,7 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 // core components
 import GridItem from 'components/Grid/GridItem.jsx'
 import GridContainer from 'components/Grid/GridContainer.jsx'
-import PersonForm from 'views/Forms/PersonForm'
+import ClinitianForm from 'views/Forms/ClinitianForm'
 
 const styles = {
   cardCategoryWhite: {
@@ -54,7 +54,7 @@ class CreateClinician extends Component {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
-          <PersonForm hasDetails={false} organization={'service'} />
+          <ClinitianForm  hasDetails={false} organization={'clinitian'} />
         </GridItem>
       </GridContainer>
     )
