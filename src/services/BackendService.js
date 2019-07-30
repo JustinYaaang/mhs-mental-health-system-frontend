@@ -53,8 +53,43 @@ const updateSurvey = async (updateSurveyUrl, surveyData) => {
     })
 }
 const fetchQuestionnaires = async () => {
-  return await axios.get(baseUrl + fetchQuestionnairesUrl)
-    .then(function (response) {
+  // return await axios.get(baseUrl + fetchQuestionnairesUrl)
+  //   .then(function (response) {
+  //     const data = response.data.data
+  //     const idPublishedList = []
+  //     const questionnairePublishedList = []
+  //     const idDraftList = []
+  //     const questionnaireDraftList = []
+
+  //     data.forEach(element => {
+  //       if (element.status === 'PUBLISHED') {
+  //         questionnairePublishedList.push([element.title, element.description, element.status])
+  //         idPublishedList.push(element._id)
+  //       } else if (element.status === 'DRAFT') {
+  //         questionnaireDraftList.push([element.title, element.description, element.status])
+  //         idDraftList.push(element._id)
+  //       } else if (element.status === 'DRAFT') {
+  //         questionnaireDraftList.push([element.title, element.description, element.status])
+  //         idDraftList.push(element._id)
+  //       }
+  //     })
+  //     return {
+  //       'idDraftList': idDraftList,
+  //       'idPublishedList': idPublishedList,
+  //       'questionnaireDraftList': questionnaireDraftList,
+  //       'questionnairePublishedList': questionnairePublishedList
+  //     }
+  //   })
+
+    try {
+      var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+      const response = await axios({
+        method: 'get',
+        url: baseUrl + fetchQuestionnairesUrl,
+        headers: headers
+      })
+
+      console.log(response)
       const data = response.data.data
       const idPublishedList = []
       const questionnairePublishedList = []
@@ -79,7 +114,9 @@ const fetchQuestionnaires = async () => {
         'questionnaireDraftList': questionnaireDraftList,
         'questionnairePublishedList': questionnairePublishedList
       }
-    })
+    } catch (error) {
+      console.log('GET server error: ', error)
+    }
 }
 
 const fetchUserAnswers = async () => {
@@ -207,7 +244,7 @@ const getQuestionnaireWithToken = async (body) => {
       })
 
       console.log('res.data.data')
-      console.log(res.data.data)
+      console.log(res.data)
       return res.data.data
     } catch (error) {
       console.log('GET server error: ', error)
