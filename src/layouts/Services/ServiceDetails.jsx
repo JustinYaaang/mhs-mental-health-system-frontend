@@ -8,7 +8,7 @@ import GridItem from 'components/Grid/GridItem.jsx'
 import GridContainer from 'components/Grid/GridContainer.jsx'
 import AnswerRows from 'components/Tasks/AnswerRows.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
-import TrustServiceForm from 'views/Forms/TrustServiceForm.jsx'
+import TrustServiceFrom from 'views/Forms/TrustServiceForm.jsx'
 import Code from '@material-ui/icons/Code'
 import { getPersonnel, deletePersonnel } from '../../services/BackendService'
 import swal from 'sweetalert';
@@ -42,7 +42,7 @@ const styles = {
   }
 }
 
-class TrustDetails extends Component {
+class ServiceDetails extends Component {
   constructor (props) {
     super(props)
     const{id}=this.props.match.params //organization's ID
@@ -125,7 +125,7 @@ deleteManager=(managerId)=>{
                 tabName: 'DETAILS',
                 tabIcon: Code,
                 tabContent: (
-                    <TrustServiceForm hasDetails={true} organization={"trust"} id={this.state.id} />
+                    <TrustServiceFrom hasDetails={true} organization={"service"} id={this.state.id} />
                 )
               },
               {
@@ -151,8 +151,8 @@ deleteManager=(managerId)=>{
   }
 }
 
-TrustDetails.propTypes = {
+ServiceDetails.propTypes = {
   classes: PropTypes.object
 }
 
-export default withStyles(styles)(TrustDetails)
+export default withStyles(styles)(ServiceDetails)

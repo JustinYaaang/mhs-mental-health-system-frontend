@@ -8,9 +8,8 @@ import GridItem from 'components/Grid/GridItem.jsx'
 import GridContainer from 'components/Grid/GridContainer.jsx'
 import AnswerRows from 'components/Tasks/AnswerRows.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
-import TrustServiceForm from 'views/Forms/TrustServiceForm.jsx'
 import Code from '@material-ui/icons/Code'
-import { getPersonnel, deletePersonnel } from '../../services/BackendService'
+import { getOrganizations,deleteOrganization } from '../../services/BackendService'
 import swal from 'sweetalert';
 const styles = {
   cardCategoryWhite: {
@@ -42,44 +41,41 @@ const styles = {
   }
 }
 
-class TrustDetails extends Component {
-  constructor (props) {
+class ServiceList extends Component {
+  constructor(props) {
     super(props)
-    const{id}=this.props.match.params //organization's ID
-    sessionStorage.setItem('organizationID',id)
-    this.state = { id:id,personelList:''
+    this.state = {
+      list: []
     }
   }
 
-  componentWillMount () {
-    getPersonnel().then(response=>{ //Get the personel list from backend
-      console.log("response"+ response)
-      var counter=1;
-      var thelist=new Array() //list for storing the personnel
+  componentWillMount() {
+    getOrganizations().then(response=>{
+      var i=1;
+      var thelist=new
+       Array()
       response.forEach((map)=>{
         thelist.push([
-          counter,map.first_name,map.last_name,map.email,map.trust,map._id
+          i,map.name,map.description,map.address1+" "+map.address2,map.postcode,map.telephone,map._id
         ])
-        counter++
-        this.setState({personelList:thelist})
+        i++
+        this.setState({list:thelist})
       })
     })
-
-
-
   }
 
-  redirectToManagerDetails = (managerId) => { //Function that redirects to the edit manager page
-   this.props.history.push(this.props.history.location.pathname + "/" + managerId)
+  redirectToTrustDetails = (trustId) => {
+    this.props.history.push(this.props.history.location.pathname + "/" + trustId)
   }
 
 
-  createNewUser=()=>{//Function that redirects to the create new manager page 
-    this.props.history.push(this.props.history.location.pathname + "/manager/new")
-
+  createNewOrganization=()=>{
+    this.props.history.push(this.props.history.location.pathname + "/new")
+    console.log("!!")
   }
 
-deleteManager=(managerId)=>{
+deleteTrust=(trustId)=>{
+
   swal({
     title: "Are you sure?",
     text: "Are you sure you want to delete this entry?",
@@ -89,7 +85,7 @@ deleteManager=(managerId)=>{
   })
   .then((willDelete) => {
     if (willDelete) {
-      deletePersonnel(managerId).then(response=>{
+      deleteOrganization(trustId).then(response=>{
         swal("The entry has been deleted!", {
           icon: "success",
         });
@@ -102,19 +98,9 @@ deleteManager=(managerId)=>{
     }
   });
 
-
-
-
-
-
-
-
-
-
-
-  
 }
-  render () {
+
+  render() {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
@@ -122,24 +108,17 @@ deleteManager=(managerId)=>{
             headerColor='info'
             tabs={[
               {
-                tabName: 'DETAILS',
-                tabIcon: Code,
-                tabContent: (
-                    <TrustServiceForm hasDetails={true} organization={"trust"} id={this.state.id} />
-                )
-              },
-              {
-                tabName: 'MANAGERS',
+                tabName: 'SERVICES',
                 tabIcon: Code,
                 tabContent: (
                   <AnswerRows
-                  onDeleteItemClicked={(managerId)=>this.deleteManager(managerId)}
-                  createNew={() => this.createNewUser() /*Function for create new manager */}
-                     onRowClicked={(managerId) => this.redirectToManagerDetails(managerId)/* Function for edit manager */}
+                  onDeleteItemClicked={(trustId)=>this.deleteTrust(trustId)}
+                    createNew={() => this.createNewOrganization()}
+                    onRowClicked={(trustId) => this.redirectToTrustDetails(trustId)}
                     tableHeaderColor='primary'
-                    tableHead={['S/N', 'First Name', 'Last Name', 'Email', 'Trust Name'] /**Table hearders */}
+                    tableHead={['S/N', 'Service Name', 'Description', 'Address', 'Postcode', 'Telephone']}
                     checkedIndexes={[]}
-                    tasks={this.state.personelList}
+                    tasks={this.state.list}
                   />
                 )
               }
@@ -151,8 +130,8 @@ deleteManager=(managerId)=>{
   }
 }
 
-TrustDetails.propTypes = {
+ServiceList.propTypes = {
   classes: PropTypes.object
 }
 
-export default withStyles(styles)(TrustDetails)
+export default withStyles(styles)(ServiceList)

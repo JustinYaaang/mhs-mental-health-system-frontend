@@ -3,20 +3,37 @@ import 'assets/css/AddForm.css'
 import Button from 'components/CustomButtons/Button.jsx'
 import { getOrganizations, updateOrganization, createOrganization } from 'services/BackendService'
 import swal from 'sweetalert'
+import { thisTypeAnnotation } from '@babel/types'
 /**
  * Component that displays a form for a Trust or a Service
  */
 class TrustAddForm extends React.Component {
   constructor (props) {
     super(props)
+    var organization = ''
+    var details = false
+    // if we came fro history push there are no arguments so we search in the url
+    if (this.props.hasDetails === undefined) {
+      if (this.props.location.pathname === '/trust/service/new') {
+        organization = 'service'
+      } else {
+        organization = 'trust'
+      }
+    } else {
+      organization = this.props.organization
+      details = true
+    }
+
     this.state = {
       id: this.props.id, // the ID
       // hasDetails:true => form in edit mode(the form is populated)
       // hasDetails:false => form in creation mode(the form is not populated)
-      hasDetails: this.props.hasDetails,
+      hasDetails: details,
       // Organization type: 1)trust, 2)service
-      organization: 'trust'//todo
+      organization: organization
     }
+    console.log(this.props)
+
     this.onChange = this.onChange.bind(this)
     this.onSave = this.onSave.bind(this)
   }
@@ -40,20 +57,22 @@ class TrustAddForm extends React.Component {
         })
       }
     } else if (this.state.organization == 'service') {
-      getOrganizations(this.state.id).then(response => {
-        try {
-          document.getElementById('nameinput').value = response.name
-          document.getElementById('address1input').value = response.address1
-          document.getElementById('address2input').value = response.address2
-          document.getElementById('postcodeinput').value = response.postcode
-          document.getElementById('descriptioninput').value = response.description
-          document.getElementById('websiteinput').value = response.link
-          document.getElementById('emailinput').value = response.email
-          document.getElementById('telephoneinput').value = response.telephone
-        } catch (error) {
-          console.log(error + '\n' + response)
-        }
-      })
+      if (this.state.hasDetails) {
+        getOrganizations(this.state.id).then(response => {
+          try {
+            document.getElementById('nameinput').value = response.name
+            document.getElementById('address1input').value = response.address1
+            document.getElementById('address2input').value = response.address2
+            document.getElementById('postcodeinput').value = response.postcode
+            document.getElementById('descriptioninput').value = response.description
+            document.getElementById('websiteinput').value = response.link
+            document.getElementById('emailinput').value = response.email
+            document.getElementById('telephoneinput').value = response.telephone
+          } catch (error) {
+            console.log(error + '\n' + response)
+          }
+        })
+      }
     }
   }
 

@@ -1,19 +1,20 @@
 // @material-ui/icons
 import Dashboard from '@material-ui/icons/Dashboard'
 // core components/views for Admin layout
-import TrustDetails from 'layouts/Trusts/TrustDetails.jsx'
-import PersonForm from "views/Forms/PersonForm.jsx";
-import TrustAddForm from "views/Forms/TrustServiceForm.jsx";
+import ServiceDetails from 'layouts/Services/ServiceDetails.jsx'
+import PersonForm from 'views/Forms/PersonForm.jsx';
+import ServiceAddForm from 'views/Forms/TrustServiceForm.jsx';
+import ServiceUserDetails from 'layouts/Services/ServiceUserDetails.jsx'
+import ServiceCreateManager from 'layouts/Services/ServiceCreateManager.jsx'
 
 // core components/views for RTL layout
-
 const dashboardRoutes = [
   {
     path: '/service/new',
     name: 'Service Details',
     rtlName: 'لوحة القيادة',
     icon: Dashboard,
-    component: TrustAddForm,
+    component: ServiceAddForm,
     layout: '/trust'
   },
   {
@@ -25,11 +26,27 @@ const dashboardRoutes = [
     layout: '/trust'
   },
   {
+    path: '/service/:id?/manager/new',
+    name: 'Service Manager Details',
+    rtlName: 'لوحة القيادة',
+    icon: Dashboard,
+    component: ServiceCreateManager,
+    layout: '/trust'
+  },
+  {
+    path: '/service/:id/:id',
+    name: 'Service Manager Details',
+    rtlName: 'لوحة القيادة',
+    icon: Dashboard,
+    component: ServiceUserDetails,
+    layout: '/trust'
+  },
+  {
     path: '/service/:id',
     name: 'Service Overview',
     rtlName: 'لوحة القيادة',
     icon: Dashboard,
-    component: TrustDetails,
+    component: ServiceDetails,
     layout: '/trust'
   }
 

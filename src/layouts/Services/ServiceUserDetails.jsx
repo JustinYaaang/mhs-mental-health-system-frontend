@@ -6,18 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 // core components
 import GridItem from 'components/Grid/GridItem.jsx'
 import GridContainer from 'components/Grid/GridContainer.jsx'
-import Table from 'components/Table/Table.jsx'
-import Card from 'components/Card/Card.jsx'
-import CardHeader from 'components/Card/CardHeader.jsx'
-import CardBody from 'components/Card/CardBody.jsx'
-import Tasks from 'components/Tasks/Tasks.jsx'
-import AnswerRows from 'components/Tasks/AnswerRows.jsx'
-import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
-import TrustServiceForm from 'views/Forms/TrustServiceForm.jsx'
-import Grade from '@material-ui/icons/Grade'
-import Code from '@material-ui/icons/Code'
-import { fetchUserAnswers, getPersonel } from '../../services/BackendService'
-import { getAnsweredQuestionnaire, getOrganization, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
+import PersonForm from 'views/Forms/PersonForm.jsx'
 
 const styles = {
   cardCategoryWhite: {
@@ -48,12 +37,13 @@ const styles = {
     }
   }
 }
-/**
- * Component for creating a new trust
- */
-class TrustCreateNew extends Component {
+
+class ServiceUserDetails extends Component {
   constructor (props) {
     super(props)
+    const { id } = this.props.match.params
+    this.state = { id: id
+    }
   }
 
   componentWillMount () {
@@ -64,16 +54,15 @@ class TrustCreateNew extends Component {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
-          {/* The params are not send here, must fix TODO */}
-          <TrustServiceForm hasDetails={false} organization={'trust'} /> 
+          <PersonForm id={this.state.id} hasDetails />
         </GridItem>
       </GridContainer>
     )
   }
 }
 
-TrustCreateNew.propTypes = {
+ServiceUserDetails.propTypes = {
   classes: PropTypes.object
 }
 
-export default withStyles(styles)(TrustCreateNew)
+export default withStyles(styles)(ServiceUserDetails)

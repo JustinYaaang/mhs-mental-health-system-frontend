@@ -11,7 +11,7 @@ import ListAlt from '@material-ui/icons/ListAlt'
 import TableList from 'views/TableList/TableList.jsx'
 import Typography from 'views/Typography/Typography.jsx'
 import NotificationsPage from 'views/Notifications/Notifications.jsx'
-import IAPTList from 'layouts/Trusts/TrustList.jsx'
+import IAPTList from 'layouts/Services/ServiceList.jsx'
 // core components/views for RTL layout
 
 const dashboardRoutes = [{
