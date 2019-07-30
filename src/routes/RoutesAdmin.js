@@ -6,11 +6,11 @@ import ListAlt from '@material-ui/icons/ListAlt'
 import account from '@material-ui/icons/AccountCircle'
 // core components/views for Admin layout
 import DashboardPage from 'views/Dashboard/Dashboard.jsx'
+import UserProfile from 'views/UserProfile/UserProfile.jsx'
 import TrustList from 'layouts/Trusts/TrustList.jsx'
 import trustdetails from 'layouts/Trusts/TrustDetails.jsx'
 
 
-// core components/views for RTL layout
 
 const dashboardRoutes = [
   {
@@ -34,8 +34,8 @@ const dashboardRoutes = [
     path: '/profile',
     name: 'Profile',
     rtlName: 'لوحة القيادة',
-    icon: Dashboard,
-    component: trustdetails,
+    icon: account,
+    component: UserProfile,
     layout: '/admin'
   },
   {
@@ -43,7 +43,7 @@ const dashboardRoutes = [
     name: 'Settings',
     rtlName: 'لوحة القيادة',
     icon: Setting,
-    component: DashboardPage,
+    component: Setting,
     layout: '/admin'
   },
   {

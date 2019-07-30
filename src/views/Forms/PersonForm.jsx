@@ -2,7 +2,7 @@ import React from 'react'
 import 'assets/css/AddForm.css'
 import Button from 'components/CustomButtons/Button.jsx'
 import { getPersonnel, updatePersonnel, createPersonnel } from 'services/BackendService.js'
-import swal from 'sweetalert'
+import swal from 'sweetalert2'
 
 /**
  * Component that displays a form for a Trust Manager, Service Manager, Clinitian

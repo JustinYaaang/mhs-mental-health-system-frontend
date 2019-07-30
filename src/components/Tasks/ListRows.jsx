@@ -29,7 +29,7 @@ import { Button } from "@material-ui/core";
 import 'assets/css/floatingbutton.css'
 
 
-class AnswerRows extends React.Component {
+class ListRows extends React.Component {
   state = {
     checked: this.props.checkedIndexes,
   };
@@ -216,7 +216,7 @@ class AnswerRows extends React.Component {
   }
 }
 
-AnswerRows.propTypes = {
+ListRows.propTypes = {
   classes: PropTypes.object.isRequired,
   tableHeaderColor: PropTypes.oneOf([
     "warning",
@@ -234,5 +234,5 @@ AnswerRows.propTypes = {
   
 };
 
-export default withStyles(tasksStyle)(AnswerRows);
+export default withStyles(tasksStyle)(ListRows);
 

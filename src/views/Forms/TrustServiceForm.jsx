@@ -2,8 +2,7 @@ import React from 'react'
 import 'assets/css/AddForm.css'
 import Button from 'components/CustomButtons/Button.jsx'
 import { getOrganizations, updateOrganization, createOrganization } from 'services/BackendService'
-import swal from 'sweetalert'
-import { thisTypeAnnotation } from '@babel/types'
+import swal from 'sweetalert2'
 /**
  * Component that displays a form for a Trust or a Service
  */

@@ -6,12 +6,17 @@ import withStyles from '@material-ui/core/styles/withStyles'
 // core components
 import GridItem from 'components/Grid/GridItem.jsx'
 import GridContainer from 'components/Grid/GridContainer.jsx'
-import AnswerRows from 'components/Tasks/AnswerRows.jsx'
+import Table from 'components/Table/Table.jsx'
+import Card from 'components/Card/Card.jsx'
+import CardHeader from 'components/Card/CardHeader.jsx'
+import CardBody from 'components/Card/CardBody.jsx'
+import Tasks from 'components/Tasks/Tasks.jsx'
+import ListRows from 'components/Tasks/ListRows.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import TrustServiceForm from 'views/Forms/TrustServiceForm.jsx'
 import Code from '@material-ui/icons/Code'
 import { getPersonnel, deletePersonnel } from '../../services/BackendService'
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 const styles = {
   cardCategoryWhite: {
     '&,& a,& a:hover,& a:focus': {
@@ -132,7 +137,7 @@ deleteManager=(managerId)=>{
                 tabName: 'MANAGERS',
                 tabIcon: Code,
                 tabContent: (
-                  <AnswerRows
+                  <ListRows
                   onDeleteItemClicked={(managerId)=>this.deleteManager(managerId)}
                   createNew={() => this.createNewUser() /*Function for create new manager */}
                      onRowClicked={(managerId) => this.redirectToManagerDetails(managerId)/* Function for edit manager */}

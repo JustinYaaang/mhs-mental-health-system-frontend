@@ -26,7 +26,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 import InformationCard from 'components/DashboardComponent/InformationCard.jsx';
 import LineGraph from 'components/DashboardComponent/LineGraph.jsx';
 
@@ -174,9 +174,6 @@ class Dashboard extends React.Component {
       }
     );
   }
-
-
-  
 
   render() {
     var Chartist = require("chartist");

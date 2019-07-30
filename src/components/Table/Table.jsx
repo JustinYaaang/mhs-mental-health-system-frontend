@@ -48,7 +48,7 @@ class CustomTable extends Component {
                 <TableRow key={key} className={this.props.classes.tableBodyRow} onClick={() => this.redirectToAnswers(prop, key)}>
                   {
                     prop.map((prop, key, arr) => {
-                    if (key !== arr.length - 1) return (
+                    if (key !== arr.length) return (
                       <TableCell className={this.props.classes.tableCell} key={key}>
                         <h4>{prop}</h4>
                       </TableCell>

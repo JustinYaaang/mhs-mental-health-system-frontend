@@ -27,12 +27,12 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 import InformationCard from 'components/DashboardComponent/InformationCard.jsx';
 import LineGraph from 'components/DashboardComponent/LineGraph.jsx';
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import { fetchQuestionnaires, deleteQuestionnaire, fetchWeeklyResult } from "../../services/BackendService";
+import { fetchQuestionnaires, deleteQuestionnaire, fetchWeeklyResult,fetchUserAnswers } from "../../services/BackendService";
 
 class Dashboard extends React.Component {
   state = {
@@ -42,6 +42,8 @@ class Dashboard extends React.Component {
     idDraftList: [],
     questionnaireDraftList: [],
     totalQuestionnaire: 0,
+    totalPending:0,
+    totalClose:0,
     dailySubmission: {
       labels:[],
       series:[[]]
@@ -125,6 +127,25 @@ class Dashboard extends React.Component {
               'questionnaireDraftList': response.questionnaireDraftList, 'questionnairePublishedList': response.questionnairePublishedList});
       }
     );
+
+    fetchUserAnswers()
+      .then(response => {
+        var pending = 0;
+        var close = 0;
+        for(var i = 0; i <  response.length; i++){
+            if(response[i].status == 'PENDING'){
+                pending++;
+            }
+            else{
+                close++;
+            }
+        }
+       
+        this.setState({ totalPending:pending,totalClose:close })
+      })
+      .catch(error => {
+        console.error(error)
+      })
   }
 
   render() {
@@ -149,40 +170,35 @@ class Dashboard extends React.Component {
       },
 
       unanswered: 8,
-      waiting_patients: 18,
       percentage: 50,
     }
 
-    console.log(dashboardData)
-    console.log(this.state.dailySubmission)
     return (
       <div>
         <GridContainer>
           <InformationCard 
-          color={"info"} title={"Clinitians Level 2"} value={this.state.totalQuestionnaire}
+          color={"info"} title={"Total Questionnaires"} value={this.state.totalQuestionnaire}
           daterange={"Updated today"} classes={classes}
           />
+          
           <InformationCard 
-          color={"info"} title={"Clinitians Level 3"} value={dashboardData.unanswered}
-          daterange={"Updated just now"} classes={classes}
+          color={"danger"} title={"Total Pending Cases"} value={this.state.totalPending}
+          daterange={"Just updated"} classes={classes}
+          />
+          <InformationCard 
+          color={"success"} title={"Total Close Cases"} value={this.state.totalClose}
+          daterange={"Updated today"} classes={classes}
           />
 
         </GridContainer>
+  
         <GridContainer>
           <LineGraph
           color={"success"} dailySubmission={this.state.dailySubmission} type={"Line"}
           dashboardData={dashboardData}
           classes={classes}
-          
           />
-          <InformationCard 
-          color={"danger"} title={"Total Form 1 Patients to be triaged"} value={dashboardData.waiting_patients}
-          daterange={"Just updated"} classes={classes}
-          />
-          <InformationCard 
-          color={"success"} title={"Total Cases Closed"} value={dashboardData.waiting_patients}
-          daterange={"Just updated"} classes={classes}
-          />
+       
 
           <GridItem xs={12} sm={12} md={8}>
             <CustomTabs

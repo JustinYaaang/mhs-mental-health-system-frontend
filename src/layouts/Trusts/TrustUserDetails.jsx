@@ -6,6 +6,17 @@ import withStyles from '@material-ui/core/styles/withStyles'
 // core components
 import GridItem from 'components/Grid/GridItem.jsx'
 import GridContainer from 'components/Grid/GridContainer.jsx'
+import Table from 'components/Table/Table.jsx'
+import Card from 'components/Card/Card.jsx'
+import CardHeader from 'components/Card/CardHeader.jsx'
+import CardBody from 'components/Card/CardBody.jsx'
+import Tasks from 'components/Tasks/Tasks.jsx'
+import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
+import TrustServiceFrom from 'views/Forms/TrustServiceForm.jsx'
+import Grade from '@material-ui/icons/Grade'
+import Code from '@material-ui/icons/Code'
+import { fetchUserAnswers, getPersonel } from '../../services/BackendService'
+import { getAnsweredQuestionnaire,getOrganization, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
 import PersonForm from 'views/Forms/PersonForm.jsx'
 
 const styles = {

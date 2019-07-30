@@ -58,36 +58,6 @@ class SurveyResult extends Component {
     console.log("value changed!");
   }
 
-  onComplete = (result) => {
-    // var finalScore = 0;
-    // var tableData;
-    // var i = 1;
-
-    // console.log(result);
-    // console.log(result.valuesHash);
-    // console.log(result.valuesHash.Question1);
-    // tableData = "<tr><th scope='col'> Question </th><th scope='col'> Answer </th></tr>"
-
-
-    // Object.keys(result.valuesHash).map(function (key) {
-
-    //   tableData += "<tr>"
-    //   tableData += "<td > Question " + i + "</td>"
-    //   finalScore = finalScore + parseInt(result.valuesHash[key], 10);
-
-    //   tableData += "<td >" + result.valuesHash[key] + "</td>";
-    //   console.log(finalScore);
-    //   tableData += "</tr>"
-
-    // })
-    // $("#tbody1").html(tableData);
-    // document.querySelector('#finalScore').textContent = "Final score is " + finalScore;
-
-    // document.querySelector('#jsonSection').textContent = "Result JSON:\n" + JSON.stringify(result.data, null, 3);
-
-  };
-
-
   componentWillMount() {
     const {id} = this.props.match.params;
     getAnsweredQuestionnaire(id)

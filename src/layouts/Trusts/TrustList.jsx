@@ -6,11 +6,16 @@ import withStyles from '@material-ui/core/styles/withStyles'
 // core components
 import GridItem from 'components/Grid/GridItem.jsx'
 import GridContainer from 'components/Grid/GridContainer.jsx'
-import AnswerRows from 'components/Tasks/AnswerRows.jsx'
+import Table from 'components/Table/Table.jsx'
+import Card from 'components/Card/Card.jsx'
+import CardHeader from 'components/Card/CardHeader.jsx'
+import CardBody from 'components/Card/CardBody.jsx'
+import Tasks from 'components/Tasks/Tasks.jsx'
+import ListRows from 'components/Tasks/ListRows.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import Code from '@material-ui/icons/Code'
 import { getOrganizations,deleteOrganization } from '../../services/BackendService'
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 const styles = {
   cardCategoryWhite: {
     '&,& a,& a:hover,& a:focus': {
@@ -111,8 +116,8 @@ deleteTrust=(trustId)=>{
                 tabName: 'TRUSTS',
                 tabIcon: Code,
                 tabContent: (
-                  <AnswerRows
-                  onDeleteItemClicked={(trustId)=>this.deleteTrust(trustId)}
+                  <ListRows
+                    onDeleteItemClicked={(trustId)=>this.deleteTrust(trustId)}
                     createNew={() => this.createNewOrganization()}
                     onRowClicked={(trustId) => this.redirectToTrustDetails(trustId)}
                     tableHeaderColor='primary'
