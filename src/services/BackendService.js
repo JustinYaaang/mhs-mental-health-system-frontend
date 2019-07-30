@@ -178,7 +178,7 @@ const getAuthenticationToken = async (body) => {
       data: body
     })
     console.log('getAuthenticationToken')
-    console.log(response.data.data)
+    console.log(response)
     return response
   } catch (error) {
     console.log('POST server error: ', error)
@@ -337,8 +337,7 @@ const getPersonnel = async (body) => {
           body
         }
       })
-      console.log('res.data.data')
-      console.log(res.data.data)
+      console.log(res);
       return res.data.data
     } catch (error) {
       console.log('GET server error: ', error)
