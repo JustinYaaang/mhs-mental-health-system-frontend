@@ -13,7 +13,7 @@ import CardBody from 'components/Card/CardBody.jsx'
 import Tasks from 'components/Tasks/Tasks.jsx'
 import ListRows from 'components/Tasks/ListRows.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
-import TrustServiceFrom from 'views/Forms/TrustServiceForm.jsx'
+import TrustServiceFrom from '../../views/Forms/TrustServiceForm.jsx'
 import Code from '@material-ui/icons/Code'
 import { getPersonnel, deletePersonnel } from '../../services/BackendService'
 import swal from 'sweetalert2';

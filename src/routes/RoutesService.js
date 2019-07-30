@@ -8,9 +8,9 @@ import ClinicianIco from  '@material-ui/icons/ListTwoTone'
 import Setting from '@material-ui/icons/Settings'
 import TransitEnterexit from '@material-ui/icons/TransitEnterexit'
 // core components/views for Admin layout
-import ServiceDashboard from 'views/Dashboard/ServiceDashboard.jsx'
-import UserProfile from 'views/UserProfile/UserProfile.jsx'
-import TableList from 'views/TableList/TableList.jsx'
+import ServiceDashboard from '../views/Dashboard/ServiceDashboard.jsx'
+import UserProfile from '../views/UserProfile/UserProfile.jsx'
+import TableList from '../views/TableList/TableList.jsx'
 
 // core components/views for RTL layout
 

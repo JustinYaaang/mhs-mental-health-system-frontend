@@ -58,30 +58,44 @@ const fetchQuestionnaires = async () => {
       const questionnairePublishedList = []
       const idDraftList = []
       const questionnaireDraftList = []
-
+      
+      // data.forEach(element => {
+      //   console.log(element)
+      //   if (element.status === 'PUBLISHED') {
+      //     questionnairePublishedList.push([element.title, element.description, element.status])
+      //     idPublishedList.push(element._id)
+      //   } else if (element.status === 'Draft') {
+      //     questionnaireDraftList.push([element.title, element.description, element.status])
+      //     idDraftList.push(element._id)
+      //   } 
+      //   console.log(idDraftList)
+      // })
       data.forEach(element => {
-        if (element.status === 'PUBLISHED') {
-          questionnairePublishedList.push([element.title, element.description, element.status])
+        console.log(element)
+        if (element.is_published) {
+          questionnairePublishedList.push([element.title, element.description, 'PUBLISHED'])
           idPublishedList.push(element._id)
-        } else if (element.status === 'DRAFT') {
-          questionnaireDraftList.push([element.title, element.description, element.status])
+        } else{
+          questionnaireDraftList.push([element.title, element.description, 'DRAFT'])
           idDraftList.push(element._id)
-        } else if (element.status === 'DRAFT') {
-          questionnaireDraftList.push([element.title, element.description, element.status])
-          idDraftList.push(element._id)
-        }
+        } 
+        console.log(idDraftList)
       })
       return {
+       
         'idDraftList': idDraftList,
         'idPublishedList': idPublishedList,
         'questionnaireDraftList': questionnaireDraftList,
         'questionnairePublishedList': questionnairePublishedList
       }
     })
+    .catch(error => {
+      console.log(error)
+    })
 }
 
 const fetchUserAnswers = async () => {
-  console.log('fetchUserAnswers')
+ 
   var userAnswerUrl = baseUrl + patientanswersUrl
   try {
     const response = await axios.get(userAnswerUrl)
@@ -205,7 +219,6 @@ const getQuestionnaireWithToken = async (body) => {
         headers: { 'Authorization': 'Bearer ' + sessionStorage.jwt }
       })
 
-      console.log('res.data.data')
       console.log(res.data.data)
       return res.data.data
     } catch (error) {

@@ -1,9 +1,9 @@
 // @material-ui/icons
 import Dashboard from '@material-ui/icons/Dashboard'
 // core components/views for Admin layout
-import TrustDetails from 'layouts/Trusts/TrustDetails.jsx'
-import PersonForm from "views/Forms/PersonForm.jsx";
-import TrustAddForm from "views/Forms/TrustServiceForm.jsx";
+import TrustDetails from '../layouts/Trusts/TrustDetails.jsx'
+import PersonForm from "../views/Forms/PersonForm.jsx";
+import TrustAddForm from "../views/Forms/TrustServiceForm.jsx";
 
 // core components/views for RTL layout
 

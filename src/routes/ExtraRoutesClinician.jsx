@@ -1,8 +1,8 @@
 // @material-ui/icons
 import Dashboard from '@material-ui/icons/Dashboard'
 // core components/views for Admin layout
-import patientanswers from "views/Forms/SurveyResult";
-import userdetail from "views/Forms/UserDetail";
+import patientanswers from "../views/Forms/SurveyResult";
+import userdetail from "../views/Forms/UserDetail";
 
 // core components/views for RTL layout
 

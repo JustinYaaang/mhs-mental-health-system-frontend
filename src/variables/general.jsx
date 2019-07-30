@@ -1,6 +1,3 @@
-// ##############################
-// // // Tasks for TasksCard - see Dashboard view
-// #############################
 
 var bugs = [
   'Sign contract for "What are conference organizers afraid of?"',
@@ -21,8 +18,7 @@ var server = [
 var baseUrl = 'http://mhsbackend.azurewebsites.net/api/v1/' //'http://178.128.34.125/api/v1'
 //'http://localhost:3000/api/v1'
 var patients = 'patients'
-var fetchQuestionnairesUrl = '/questionnaire'
-// '/questionnaire_sJS'
+var fetchQuestionnairesUrl = '/questionnaire_sJS'//'/questionnaire'
 var patientanswersUrl = '/patientanswers'
 var backendUrl = 'http://178.128.34.125/api/v1'
 var createUserAnswers = '/useranswers'

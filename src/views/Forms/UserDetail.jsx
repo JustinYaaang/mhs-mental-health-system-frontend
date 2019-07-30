@@ -69,7 +69,7 @@ class UserDetail extends Component {
           
           <div>
             <GridContainer>
-              <GridItem xs={12} sm={12} md={6}>
+              <GridItem xs={12} sm={12} md={10}>
                 <Card>
                   <CardHeader color='info'>
                     <h4 className={classes.cardTitleWhite}>Patient Profile</h4>

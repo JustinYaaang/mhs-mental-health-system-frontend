@@ -121,6 +121,7 @@ class Dashboard extends React.Component {
     
     fetchQuestionnaires().then( //!!! AWAIT HERE
        response => {
+        console.log(response)
         this.setState({'totalQuestionnaire': response.idPublishedList.length + response.questionnaireDraftList.length,
         'idDraftList': response.idDraftList, 'idPublishedList': response.idPublishedList, 
               'questionnaireDraftList': response.questionnaireDraftList, 'questionnairePublishedList': response.questionnairePublishedList});

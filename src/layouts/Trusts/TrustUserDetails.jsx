@@ -12,12 +12,12 @@ import CardHeader from 'components/Card/CardHeader.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import Tasks from 'components/Tasks/Tasks.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
-import TrustServiceFrom from 'views/Forms/TrustServiceForm.jsx'
+import TrustServiceFrom from '../../views/Forms/TrustServiceForm.jsx'
 import Grade from '@material-ui/icons/Grade'
 import Code from '@material-ui/icons/Code'
 import { fetchUserAnswers, getPersonel } from '../../services/BackendService'
 import { getAnsweredQuestionnaire,getOrganization, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
-import PersonForm from 'views/Forms/PersonForm.jsx'
+import PersonForm from '../../views/Forms/PersonForm.jsx'
 
 const styles = {
   cardCategoryWhite: {
