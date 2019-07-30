@@ -75,23 +75,8 @@ class PersonForm extends React.Component {
     }
     // Proceed only if all fields are filled
     if (!this.allFieldsCompleted()) {
-      swal('Please fill all the fields!', { // else throw error
-        icon: 'error'
-      })
       return
     }
-    // // if the user entered passwords that dont match
-    // if (!flag) {
-    //   swal('Passwords don\'t match!', { // throw error
-    //     icon: 'error'
-    //   })
-    //   document.getElementById('passwordchange1').style.backgroundColor = '#FEC2C2'
-    //   document.getElementById('passwordchange2').style.backgroundColor = '#FEC2C2'
-    //   swal('Passwords don\'t match!', {
-    //     icon: 'error'
-    //   })
-    //   return
-    // }
     if (this.state.hasDetails) { // if we are in edit mode
       // send the details and clear the password field
       updatePersonnel(body).then(response => {

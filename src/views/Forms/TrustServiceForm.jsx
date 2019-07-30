@@ -7,7 +7,7 @@ import swal from 'sweetalert'
  * Component that displays a form for a Trust or a Service
  */
 class TrustAddForm extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       id: this.props.id, // the ID
@@ -21,7 +21,7 @@ class TrustAddForm extends React.Component {
     this.onSave = this.onSave.bind(this)
   }
 
-  componentWillMount () {
+  componentWillMount() {
     if (this.state.organization == 'trust') {
       if (this.state.hasDetails) {
         getOrganizations(this.state.id).then(response => {
@@ -57,10 +57,13 @@ class TrustAddForm extends React.Component {
     }
   }
 
-  onChange (event) {
+  onChange(event) {
   }
 
-  onSave (event) {
+  onSave(event) {
+    if (!this.allFieldsCompleted()) {
+      return
+    }
     if (this.state.organization == 'trust' || this.state.organization == 'service') {
       var trustdetails = {
         name: document.getElementById('nameinput').value,
@@ -101,7 +104,26 @@ class TrustAddForm extends React.Component {
     // }
   }
 
-  render () {
+
+  allFieldsCompleted() {
+    var a = document.getElementById('nameinput').value
+    var b = document.getElementById('address1input').value
+    var c = document.getElementById('address2input').value
+    var d = document.getElementById('postcodeinput').value
+    var e = document.getElementById('descriptioninput').value
+    var f = document.getElementById('websiteinput').value
+    var g = document.getElementById('emailinput').value
+    var h = document.getElementById('telephoneinput').value
+    if (a === '' || b === '' || c === '' || d === '' || e === '' || f === '' || g === '' || h === '') {
+      swal('Please fill all the fields!', {
+        icon: 'error'
+      })
+      return false
+    }
+    return true
+  }
+
+  render() {
     return (
       <form class='trustform'>
         <label className='label-subtitle' for='label'>Please enter the details of the NHS Trust.</label>
