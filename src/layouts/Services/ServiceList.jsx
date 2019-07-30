@@ -77,7 +77,7 @@ class ServiceList extends Component {
 
 deleteTrust=(trustId)=>{
 
-  swal({
+  swal.fire({ //???
     title: "Are you sure?",
     text: "Are you sure you want to delete this entry?",
     icon: "warning",
@@ -87,15 +87,17 @@ deleteTrust=(trustId)=>{
   .then((willDelete) => {
     if (willDelete) {
       deleteOrganization(trustId).then(response=>{
-        swal("The entry has been deleted!", {
+        swal.fire({
           icon: "success",
+          text:"The entry has been deleted!",
+          title:"Sucess"
         });
         this.componentWillMount();
       })
       
 
     } else {
-      swal('Action canceled');
+      swal.fire('Action canceled');
     }
   });
 

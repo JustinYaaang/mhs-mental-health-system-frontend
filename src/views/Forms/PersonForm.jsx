@@ -16,6 +16,7 @@ class PersonForm extends React.Component {
     }
     this.onChange = this.onChange.bind(this)
     this.onSave = this.onSave.bind(this)
+    console.log(this.state.hasDetails)
   }
 
   componentWillMount () {
@@ -30,9 +31,8 @@ class PersonForm extends React.Component {
         document.getElementById('passwordinput').value = response.password
         document.getElementById('trustnameinput_postcodeinput').value = response.role //! !!!
       })
-    } else { 
+    } else {
     }
-
   }
 
   onChange (event) {
@@ -50,7 +50,7 @@ class PersonForm extends React.Component {
 
       }
     }
-    var flag = true
+    var flag = false
     // get the 2 password fields
     var pass1 = document.getElementById('passwordchange1').value
     var pass2 = document.getElementById('passwordchange2').value
@@ -59,9 +59,10 @@ class PersonForm extends React.Component {
       // if they contain and they are not the same
       if (pass2 !== pass1) {
         document.getElementById('passwordchange1').style.backgroundColor = '#FEC2C2'
-        document.getElementById('passwordchange2').style.backgroundColor = '#FEC2C2'
-        swal('Passwords don\'t match!', { // throw error
-          icon: 'error'
+        swal.fire({
+          type: 'error',
+          title: 'Whoops..!',
+          text: 'Passwords don\'t match! '
         })
 
         return
@@ -81,18 +82,30 @@ class PersonForm extends React.Component {
         console.log(response)
         document.getElementById('passwordchange1').value = ''
         document.getElementById('passwordchange2').value = ''
-        swal('The entry has been updated!', {
-          icon: 'success'
+        swal.fire({
+          type: 'success',
+          title: 'Success',
+          text: 'The entry has been updated! '
         })
       })
     } else { // if we create a new person
-      createPersonnel(body.body).then(response => {
-        this.componentWillMount()
-        console.log(response)
-        swal('The entry has been updated!', {
-          icon: 'success'
+      if (!flag) {
+        createPersonnel(body.body).then(response => {
+          this.componentWillMount()
+          console.log(response)
+          swal.fire({
+            type: 'success',
+            title: 'Success',
+            text: 'The entry has been created! '
+          })
         })
-      })
+      }else {
+        swal.fire({
+          type: 'error',
+          title: 'Error',
+          text: 'Password error! '
+        })
+      }
     }
   }
 
@@ -101,8 +114,10 @@ class PersonForm extends React.Component {
     var b = document.getElementById('lastnameinput').value
     var c = document.getElementById('emailinput').value
     if (a === '' || b === '' || c === '') {
-      swal('Please fill all the fields!', {
-        icon: 'error'
+      swal.fire({
+        type: 'error',
+        title: 'Whoops',
+        text: 'Please fill all the fields '
       })
       return false
     }

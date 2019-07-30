@@ -14,9 +14,11 @@ class TrustAddForm extends React.Component {
     // if we came fro history push there are no arguments so we search in the url
     if (this.props.hasDetails === undefined) {
       if (this.props.location.pathname === '/trust/service/new') {
-        organization = 'service'
+        console.log('SERVICE')
+        organization = 'SERVICE'
       } else {
-        organization = 'trust'
+        organization = 'TRUST'
+        console.log('TRUST')
       }
     } else {
       organization = this.props.organization
@@ -38,7 +40,7 @@ class TrustAddForm extends React.Component {
   }
 
   componentWillMount () {
-    if (this.state.organization == 'trust') {
+    if (this.state.organization == 'TRUST') {
       if (this.state.hasDetails) {
         getOrganizations(this.state.id).then(response => {
           try {
@@ -55,8 +57,8 @@ class TrustAddForm extends React.Component {
           }
         })
       }
-    } else if (this.state.organization == 'service') {
-      //document.getElementById('mainlabel').text = 'Please enter the details of the NHS Service.'
+    } else if (this.state.organization == 'SERVICE') {
+      // ydocument.getElementById('mainlabel').text = 'Please enter the details of the NHS Service.'
       if (this.state.hasDetails) {
         getOrganizations(this.state.id).then(response => {
           try {
@@ -83,7 +85,7 @@ class TrustAddForm extends React.Component {
     if (!this.allFieldsCompleted()) {
       return
     }
-    if (this.state.organization === 'trust' || this.state.organization === 'service') {
+    if (this.state.organization === 'TRUST' || this.state.organization === 'SERVICE') {
       var trustdetails = {
         name: document.getElementById('nameinput').value,
         address1: document.getElementById('address1input').value,
@@ -93,7 +95,7 @@ class TrustAddForm extends React.Component {
         link: document.getElementById('websiteinput').value,
         email: document.getElementById('emailinput').value,
         telephone: document.getElementById('telephoneinput').value,
-        role: 'TRUST'
+        role: this.state.organization
       }
 
       var body = {
@@ -103,8 +105,10 @@ class TrustAddForm extends React.Component {
       if (this.state.hasDetails) {
         updateOrganization(body).then(response => {
           console.log(response)
-          swal('The entry has been updated!', {
-            icon: 'success'
+          swal.fire({
+            type: 'success',
+            title: 'Success',
+            text: 'The entry has been updated! '
           })
           this.componentWillMount()
         })
@@ -112,10 +116,12 @@ class TrustAddForm extends React.Component {
         console.log(trustdetails)
         createOrganization(trustdetails).then(response => {
           console.log(response)
-          swal('The entry has been created!', {
-            icon: 'success'
+          swal.fire({
+            type: 'success',
+            title: 'Success',
+            text: 'The entry has been created! '
           })
-          this.componentWillMount()
+          this.props.history.goBack()
         })
       }
     }
@@ -134,8 +140,10 @@ class TrustAddForm extends React.Component {
     var g = document.getElementById('emailinput').value
     var h = document.getElementById('telephoneinput').value
     if (a === '' || b === '' || c === '' || d === '' || e === '' || f === '' || g === '' || h === '') {
-      swal('Please fill all the fields!', {
-        icon: 'error'
+      swal.fire({
+        type: 'error',
+        title: 'Whoops..!',
+        text: 'Please fill all the fields '
       })
       return false
     }

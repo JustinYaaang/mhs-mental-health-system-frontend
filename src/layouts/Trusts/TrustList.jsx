@@ -81,7 +81,7 @@ class TrustList extends Component {
 
 deleteTrust=(trustId)=>{
 
-  swal({
+  swal.fire({
     title: "Are you sure?",
     text: "Are you sure you want to delete this entry?",
     icon: "warning",
@@ -91,7 +91,7 @@ deleteTrust=(trustId)=>{
   .then((willDelete) => {
     if (willDelete) {
       deleteOrganization(trustId).then(response=>{
-        swal("The entry has been deleted!", {
+        swal.fire("The entry has been deleted!", {
           icon: "success",
         });
         this.componentWillMount();

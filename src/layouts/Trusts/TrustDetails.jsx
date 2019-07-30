@@ -85,7 +85,7 @@ class TrustDetails extends Component {
   }
 
 deleteManager=(managerId)=>{
-  swal({
+  swal.fire({
     title: "Are you sure?",
     text: "Are you sure you want to delete this entry?",
     icon: "warning",
@@ -95,7 +95,7 @@ deleteManager=(managerId)=>{
   .then((willDelete) => {
     if (willDelete) {
       deletePersonnel(managerId).then(response=>{
-        swal("The entry has been deleted!", {
+        swal.fire("The entry has been deleted!", {
           icon: "success",
         });
         this.componentWillMount();
@@ -103,7 +103,7 @@ deleteManager=(managerId)=>{
       
 
     } else {
-      swal('Action canceled');
+      swal.fire('Action canceled');
     }
   });
 

@@ -44,25 +44,26 @@ const styles = {
 }
 
 class ServiceDetails extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
-    const{id}=this.props.match.params //organization's ID
-    sessionStorage.setItem('organizationID',id)
-    this.state = { id:id,personelList:''
+    const { id } = this.props.match.params //organization's ID
+    sessionStorage.setItem('organizationID', id)
+    this.state = {
+      id: id, personelList: ''
     }
   }
 
-  componentWillMount () {
-    getPersonnel().then(response=>{ //Get the personel list from backend
-      console.log("response"+ response)
-      var counter=1;
-      var thelist=new Array() //list for storing the personnel
-      response.forEach((map)=>{
+  componentWillMount() {
+    getPersonnel().then(response => { //Get the personel list from backend
+      console.log("response" + response)
+      var counter = 1;
+      var thelist = new Array() //list for storing the personnel
+      response.forEach((map) => {
         thelist.push([
-          counter,map.first_name,map.last_name,map.email,map.trust,map._id
+          counter, map.first_name, map.last_name, map.email, map.trust, map._id
         ])
         counter++
-        this.setState({personelList:thelist})
+        this.setState({ personelList: thelist })
       })
     })
 
@@ -71,39 +72,44 @@ class ServiceDetails extends Component {
   }
 
   redirectToManagerDetails = (managerId) => { //Function that redirects to the edit manager page
-   this.props.history.push(this.props.history.location.pathname + "/" + managerId)
+    this.props.history.push(this.props.history.location.pathname + "/" + managerId)
   }
 
 
-  createNewUser=()=>{//Function that redirects to the create new manager page 
+  createNewUser = () => {//Function that redirects to the create new manager page 
     this.props.history.push(this.props.history.location.pathname + "/manager/new")
 
   }
 
-deleteManager=(managerId)=>{
-  swal({
-    title: "Are you sure?",
-    text: "Are you sure you want to delete this entry?",
-    icon: "warning",
-    buttons: true,
-    dangerMode: true,
-  })
-  .then((willDelete) => {
-    if (willDelete) {
-      deletePersonnel(managerId).then(response=>{
-        swal("The entry has been deleted!", {
-          icon: "success",
-        });
-        this.componentWillMount();
-      })
-      
+  deleteManager = (managerId) => {
+    swal.fire({ //!!!!!!
+      title: "Are you sure?",
+      text: "Are you sure you want to delete this entry?",
+      type: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
 
-    } else {
-      swal('Action canceled');
-    }
-  });
+      .then((willDelete) => {
+        if (willDelete) {
+          deletePersonnel(managerId).then(response => {
+            swal.fire({
+              type: 'success',
+              title: 'Success!',
+              text: 'The entry has been deleted.! '
+            })
+            this.componentWillMount();
+          })
 
 
+        } else {
+          swal.fire({
+            type: 'info',
+            title: 'Success',
+            text: 'Action canceled.'
+          });
+        }
+      });
 
 
 
@@ -113,9 +119,11 @@ deleteManager=(managerId)=>{
 
 
 
-  
-}
-  render () {
+
+
+
+  }
+  render() {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
@@ -126,7 +134,7 @@ deleteManager=(managerId)=>{
                 tabName: 'DETAILS',
                 tabIcon: Code,
                 tabContent: (
-                    <TrustServiceFrom hasDetails={true} organization={"service"} id={this.state.id} />
+                  <TrustServiceFrom hasDetails={true} organization={"service"} id={this.state.id} />
                 )
               },
               {
@@ -134,9 +142,9 @@ deleteManager=(managerId)=>{
                 tabIcon: Code,
                 tabContent: (
                   <AnswerRows
-                  onDeleteItemClicked={(managerId)=>this.deleteManager(managerId)}
-                  createNew={() => this.createNewUser() /*Function for create new manager */}
-                     onRowClicked={(managerId) => this.redirectToManagerDetails(managerId)/* Function for edit manager */}
+                    onDeleteItemClicked={(managerId) => this.deleteManager(managerId)}
+                    createNew={() => this.createNewUser() /*Function for create new manager */}
+                    onRowClicked={(managerId) => this.redirectToManagerDetails(managerId)/* Function for edit manager */}
                     tableHeaderColor='primary'
                     tableHead={['S/N', 'First Name', 'Last Name', 'Email', 'Trust Name'] /**Table hearders */}
                     checkedIndexes={[]}
