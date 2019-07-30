@@ -70,10 +70,14 @@ function getPath () {
     else if (isTrustManager()) {
       path =  '/trust'
     }
+    else if (isClinician()) {
+      path =  '/clinician'
+    }
   } 
   else{
     path = '/login'
   }
+  console.log(path);
   return path;
 }
 
@@ -98,20 +102,16 @@ function isServiceManager () {
   return getRole() === 'SERVICEMANAGER'
 }
 
-function isTrust () {
-  return true// return isClinician2() || isClinician3()
-}
-
 function isClinician () {
-  return true// return isClinician2() || isClinician3()
+  return isClinician2() || isClinician3()
 }
 
 function isClinician2 () {
-  return getRole() === 'PATIENT'
+  return getRole() === 'STEP2'
 }
 
 function isClinician3 () {
-  return getRole() === 'PATIENT'
+  return getRole() === 'STEP3'
 }
 
 function requireAuth (nextState, replace) {

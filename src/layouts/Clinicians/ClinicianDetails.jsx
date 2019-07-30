@@ -38,7 +38,7 @@ const styles = {
   }
 }
 
-class ServiceUserDetails extends Component {
+class ClinicianDetails extends Component {
   constructor (props) {
     super(props)
     const { id } = this.props.match.params
@@ -61,8 +61,8 @@ class ServiceUserDetails extends Component {
   }
 }
 
-ServiceUserDetails.propTypes = {
+ClinicianDetails.propTypes = {
   classes: PropTypes.object
 }
 
-export default withStyles(styles)(ServiceUserDetails)
+export default withStyles(styles)(ClinicianDetails)

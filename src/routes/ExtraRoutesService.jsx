@@ -11,20 +11,20 @@ import ClinicianDetails from 'layouts/Clinicians/ClinicianDetails';
 
 const dashboardRoutes = [
   {
-    path: '/service/clinicians/new',
+    path: '/clinicians/new',
     name: 'Create New Clinician',
     rtlName: 'لوحة القيادة',
     icon: Dashboard,
     component: CreateClinician,
-    layout: '/trust'
+    layout: '/service'
   },
   {
-    path: '/service/clinicians/:id?',
+    path: '/clinicians/:id',
     name: 'Clinician Details',
     rtlName: 'لوحة القيادة',
     icon: Dashboard,
     component: ClinicianDetails,
-    layout: '/trust'
+    layout: '/service'
   },
 
 ]

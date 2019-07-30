@@ -9,7 +9,7 @@ import GridContainer from 'components/Grid/GridContainer.jsx'
 import AnswerRows from 'components/Tasks/ListRows.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import Code from '@material-ui/icons/Code'
-import { getOrganizations,deleteOrganization } from '../../services/BackendService'
+import { getOrganizations,deleteOrganization, getPersonnel, deletePersonnel } from '../../services/BackendService'
 import swal from 'sweetalert2'
 
 const styles = {
@@ -51,7 +51,8 @@ class ClinicianList extends Component {
   }
 
   componentWillMount() {
-    getOrganizations().then(response=>{
+    console.log("fetch clinicians")
+    getPersonnel().then(response=>{
       var i=1;
       var thelist=new
        Array()
@@ -65,17 +66,17 @@ class ClinicianList extends Component {
     })
   }
 
-  redirectToTrustDetails = (clinicianId) => {
+  redirectToClinicianDetails = (clinicianId) => {
     this.props.history.push(this.props.history.location.pathname + "/" + clinicianId)
   }
 
 
-  createNewOrganization=()=>{
+  createNewClinician=()=>{
     this.props.history.push(this.props.history.location.pathname + "/new")
     console.log("!!")
   }
 
-deleteTrust=(trustId)=>{
+deleteClinician=(clinicianId)=>{
 
   swal({
     title: "Are you sure?",
@@ -86,7 +87,7 @@ deleteTrust=(trustId)=>{
   })
   .then((willDelete) => {
     if (willDelete) {
-      deleteOrganization(trustId).then(response=>{
+      deletePersonnel(clinicianId).then(response=>{
         swal("The entry has been deleted!", {
           icon: "success",
         });
@@ -113,9 +114,9 @@ deleteTrust=(trustId)=>{
                 tabIcon: Code,
                 tabContent: (
                   <AnswerRows
-                    onDeleteItemClicked={(clinicianId)=>this.deleteTrust(clinicianId)}
-                    createNew={() => this.createNewOrganization()}
-                    onRowClicked={(clinicianId) => this.redirectToTrustDetails(clinicianId)}
+                    onDeleteItemClicked={(clinicianId)=>this.deleteClinician(clinicianId)}
+                    createNew={() => this.createNewClinician()}
+                    onRowClicked={(clinicianId) => this.redirectToClinicianDetails(clinicianId)}
                     tableHeaderColor='primary'
                     tableHead={['S/N', 'First Name', 'Last Name', 'Role', 'Email', 'Telephone']}
                     checkedIndexes={[]}
