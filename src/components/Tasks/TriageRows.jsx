@@ -52,13 +52,12 @@ class TriageRows extends React.Component {
     var selectedRow = tasks[index];
     var questionnaireResponseId = selectedRow[selectedRow.length - 2];
     this.props.onRowClicked(questionnaireResponseId);
-    //document.location.href = '/clinician/patientresult/'+ questionnaireResponseId;
   }
 
   redirectToUser = (tableHead,tasks, index) => {
     var selectedRow = tasks[index];
     var questionnaireResponseId = selectedRow[selectedRow.length - 1];
-    document.location.href = '/userdetail/'+ questionnaireResponseId;
+    this.props.onViewItemClicked(questionnaireResponseId);
   }
 
   render() {

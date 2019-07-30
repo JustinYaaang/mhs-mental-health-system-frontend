@@ -49,13 +49,12 @@ class QuestionnaireResult extends Component {
         "pages": [],
         "showProgressBar": ""
       },
-      id: this.props.id, // the ID
     };
   }
 
   componentWillMount() {
-    //const {id} = this.props.match.params;
-    fetchQuestionnaire(this.state.id)
+    const {id} = this.props.match.params;
+    fetchQuestionnaire(id)
       .then(fetched_answers => {
         //this.setState({ answers: JSON.parse(fetched_answers.body) });
         var jsonData = fetched_answers.body;

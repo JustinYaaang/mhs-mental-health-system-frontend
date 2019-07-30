@@ -14,7 +14,7 @@ import CardHeader from 'components/Card/CardHeader.jsx'
 import CardAvatar from 'components/Card/CardAvatar.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import CardFooter from 'components/Card/CardFooter.jsx'
-import {fetchUserDetail } from '../services/BackendService'
+import {fetchUserDetail } from '../../services/BackendService'
 import TextField from '@material-ui/core/TextField';
 
 import Table from "components/Table/Table.jsx";
@@ -54,22 +54,7 @@ class UserDetail extends Component {
         console.log(id)
         fetchUserDetail(id)
           .then(response => {
-           
-            // for (var i = 0; i < response.length; i++) {
-             
-            //   var d = new Date(response[i].createdAt)
-            //   var dateString = d.toString()
-            //   dateString = dateString.substring(0, dateString.lastIndexOf(':'))
-            //     console.log(response[i].patient_id)
-            //     var row = [response[i].title, response[i].patient_name, response[i].score, response[i]._id, response[i].status, dateString, response[i]._id, response[i].patient_id]
-            //     if(response[i].status == 'PENDING'){
-            //       rowsPending.push(row)
-            //     }
-            //     else{
-            //       rowsResolve.push(row)
-            //     }
-            //   }
-              console.log(response.email)
+            console.log(response.email)
             this.setState({ firstname: response.first_name, lastname:response.last_name, email: response.email,postcode:response.postcode })
           })
           .catch(error => {
@@ -166,7 +151,6 @@ class UserDetail extends Component {
                           tableData={[
                               [ "Questionnaire 1" , "Pending"] ,
                               [ "Questionnaire 2" , "Close"] ,
-                              
                           ]}
                       />
                       </GridItem>

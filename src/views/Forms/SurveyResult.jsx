@@ -14,8 +14,8 @@ import "jquery-bar-rating";
 import * as widgets from "surveyjs-widgets";
 import "icheck/skins/square/blue.css";
 import axios from "axios";
-import { getAnsweredQuestionnaire, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from "../services/BackendService";
-import { backendUrl, createUserAnswers } from "../variables/general";
+import { getAnsweredQuestionnaire} from "../../services/BackendService";
+
 
 import FixedActions from "components/FixedPlugin/FixedActions.jsx";
 
@@ -60,6 +60,7 @@ class SurveyResult extends Component {
 
   componentWillMount() {
     const {id} = this.props.match.params;
+    console.log(id)
     getAnsweredQuestionnaire(id)
       .then(fetched_answers => {
         this.setState({ answers: JSON.parse(fetched_answers.body) });

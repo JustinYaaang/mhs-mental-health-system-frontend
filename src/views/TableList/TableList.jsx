@@ -19,7 +19,6 @@ import { fetchUserAnswers,fetchUserDetil, fetchUser } from '../../services/Backe
 import { getAnsweredQuestionnaire, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
 
 function getRole(){
-  console.log(sessionStorage.role);
   return sessionStorage.role;
 }
 
@@ -93,8 +92,11 @@ class TableList extends Component {
   }
 
   redirectToAnswers = (questionnaireResponseId) => {
-    //document.location.href = this.props.history.location.pathname + '/'+ questionnaireResponseId;
     this.props.history.push(this.props.history.location.pathname + "/" + questionnaireResponseId)
+  }
+
+  viewUserDetail = (viewId) => {
+    this.props.history.push(this.props.history.location.pathname + "/user/" + viewId)
   }
 
   render () {
@@ -112,10 +114,11 @@ class TableList extends Component {
                 tabContent: (
                   <TriageRows
                     tableHeaderColor='info'
-                    tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
+                    tableHead={['Questionnaire Name', 'Patient Name', 'Score', 'NHS Number', 'Status', 'Time Submitted']}
                     checkedIndexes={[]}
                     tasks={this.state.pendingList}
                     onRowClicked={(questionnaireResponseId) => this.redirectToAnswers(questionnaireResponseId)}
+                    onViewItemClicked={(viewId)=>this.viewUserDetail(viewId)}
                   />
                 )
               },
@@ -128,6 +131,8 @@ class TableList extends Component {
                     tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
                     checkedIndexes={[]}
                     tasks={this.state.closeList}
+                    onRowClicked={(questionnaireResponseId) => this.redirectToAnswers(questionnaireResponseId)}
+                    onViewItemClicked={(viewId)=>this.viewUserDetail(viewId)}
                   />
                 )
               }
