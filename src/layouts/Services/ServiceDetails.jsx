@@ -11,7 +11,8 @@ import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import TrustServiceFrom from 'views/Forms/TrustServiceForm.jsx'
 import Code from '@material-ui/icons/Code'
 import { getPersonnel, deletePersonnel } from '../../services/BackendService'
-import swal from 'sweetalert';
+import swal from 'sweetalert2'
+
 const styles = {
   cardCategoryWhite: {
     '&,& a,& a:hover,& a:focus': {

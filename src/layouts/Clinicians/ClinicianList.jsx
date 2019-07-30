@@ -42,7 +42,7 @@ const styles = {
   }
 }
 
-class ServiceList extends Component {
+class ClinicianList extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -57,7 +57,7 @@ class ServiceList extends Component {
        Array()
       response.forEach((map)=>{
         thelist.push([
-          i,map.name,map.description,map.address1+" "+map.address2,map.postcode,map.telephone,map._id
+          i,map.first_name,map.last_name,map.role,map.email,map.telephone,map._id
         ])
         i++
         this.setState({list:thelist})
@@ -65,8 +65,8 @@ class ServiceList extends Component {
     })
   }
 
-  redirectToTrustDetails = (trustId) => {
-    this.props.history.push(this.props.history.location.pathname + "/" + trustId)
+  redirectToTrustDetails = (clinicianId) => {
+    this.props.history.push(this.props.history.location.pathname + "/" + clinicianId)
   }
 
 
@@ -109,15 +109,15 @@ deleteTrust=(trustId)=>{
             headerColor='info'
             tabs={[
               {
-                tabName: 'SERVICES',
+                tabName: 'CLINICIANS',
                 tabIcon: Code,
                 tabContent: (
                   <AnswerRows
-                  onDeleteItemClicked={(trustId)=>this.deleteTrust(trustId)}
+                    onDeleteItemClicked={(clinicianId)=>this.deleteTrust(clinicianId)}
                     createNew={() => this.createNewOrganization()}
-                    onRowClicked={(trustId) => this.redirectToTrustDetails(trustId)}
+                    onRowClicked={(clinicianId) => this.redirectToTrustDetails(clinicianId)}
                     tableHeaderColor='primary'
-                    tableHead={['S/N', 'Service Name', 'Description', 'Address', 'Postcode', 'Telephone']}
+                    tableHead={['S/N', 'First Name', 'Last Name', 'Role', 'Email', 'Telephone']}
                     checkedIndexes={[]}
                     tasks={this.state.list}
                   />
@@ -131,8 +131,8 @@ deleteTrust=(trustId)=>{
   }
 }
 
-ServiceList.propTypes = {
+ClinicianList.propTypes = {
   classes: PropTypes.object
 }
 
-export default withStyles(styles)(ServiceList)
+export default withStyles(styles)(ClinicianList)

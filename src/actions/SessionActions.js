@@ -11,7 +11,7 @@ export function logInUser (body) {
     return getAuthenticationToken(body).then(response => {
       console.log(response)
       sessionStorage.setItem('jwt', response.data.token)
-      sessionStorage.setItem('role', response.data.role[0])
+      sessionStorage.setItem('role', response.data.role)
       console.log(response.data.role)
       // sessionStorage.setItem('role', 'PATIENT');
       dispatch(loginSuccess())

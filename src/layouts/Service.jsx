@@ -13,6 +13,7 @@ import Sidebar from "components/Sidebar/Sidebar.jsx";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 import rtlStyle from "assets/jss/material-dashboard-react/layouts/rtlStyle.jsx";
 import routes  from "routes/RoutesService.js";
+import extraRoutes  from "routes/ExtraRoutesService.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
@@ -24,6 +25,18 @@ let ps;
 
 const switchRoutes = (
   <Switch>
+  {extraRoutes.map((prop, key) => {
+      if (prop.layout === "/service") {
+        return (
+          <Route
+            path={prop.layout + prop.path}
+            component={prop.component}
+            key={key}
+          />
+        );
+      }
+      return null;
+    })}
     {routes.map((prop, key) => {
       if (prop.layout === "/service") {
         return (

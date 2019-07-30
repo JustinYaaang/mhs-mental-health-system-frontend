@@ -39,13 +39,13 @@ ReactDOM.render(
           ? (isAdmin() ? (<Admin {...props} />) : (<Redirect to='/forbidden' />))
           : (<Redirect to='/login' />))} />
         <Route path='/service' render={(props) => (isLoggedIn()
-          ? (isManager() ? (<Service {...props} />) : (<Redirect to='/forbidden' />))
+          ? (isServiceManager() ? (<Service {...props} />) : (<Redirect to='/forbidden' />))
           : (<Redirect to='/login' />))} />
         <Route path='/clinician' render={(props) => (isLoggedIn()
           ? (isClinician() ? (<Clinician {...props} />) : (<Redirect to='/forbidden' />))
           : (<Redirect to='/login' />))} />
         <Route path='/trust' render={(props) => (isLoggedIn()
-          ? (isTrust() ? (<Trust {...props} />) : (<Redirect to='/forbidden' />))
+          ? (isTrustManager() ? (<Trust {...props} />) : (<Redirect to='/forbidden' />))
           : (<Redirect to='/login' />))} />
 
         <Route path='/questionnaire/:id?' render={(props) => (isLoggedIn() ? (<SurveyCreator {...props} />) : (<Redirect to='/login' />))} />
@@ -60,17 +60,21 @@ ReactDOM.render(
 )
 
 function getPath () {
-  return '/admin'
-
-  // if (isLoggedIn()) {
-  //   if (isAdmin()) {
-  //     return '/admin'
-  //   } else if (isManager()) {
-  //     return '/manager'
-  //   }
-  // } else{
-  //   return '/login'
-  // }
+  var path = '/';
+  if(isLoggedIn()) {
+    if (isAdmin()) {
+      path = '/admin'
+    } else if (isServiceManager()) {
+      path =  '/service'
+    }
+    else if (isTrustManager()) {
+      path =  '/trust'
+    }
+  } 
+  else{
+    path = '/login'
+  }
+  return path;
 }
 
 function isLoggedIn () {
@@ -86,8 +90,12 @@ function isAdmin () {
   return getRole() === 'ADMIN'
 }
 
-function isManager () {
-  return getRole() === 'ADMIN'
+function isTrustManager () {
+  return getRole() === 'TRUSTMANAGER'
+}
+
+function isServiceManager () {
+  return getRole() === 'SERVICEMANAGER'
 }
 
 function isTrust () {

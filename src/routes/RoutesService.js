@@ -10,6 +10,7 @@ import TransitEnterexit from '@material-ui/icons/TransitEnterexit'
 // core components/views for Admin layout
 import ServiceDashboard from 'views/Dashboard/ServiceDashboard.jsx'
 import TableList from 'views/TableList/TableList.jsx'
+import ClinicianList from 'layouts/Clinicians/ClinicianList.jsx'
 
 // core components/views for RTL layout
 
@@ -23,10 +24,10 @@ const dashboardRoutes = [{
 },
 {
   path: '/clinicians',
-  name: 'Clicians',
+  name: 'Clinicians',
   rtlName: 'لوحة القيادة',
   icon: ClinicianIco,
-  component: ServiceDashboard,
+  component: ClinicianList,
   layout: '/service'
 },
 {
