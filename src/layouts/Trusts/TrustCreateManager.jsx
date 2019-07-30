@@ -6,18 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 // core components
 import GridItem from 'components/Grid/GridItem.jsx'
 import GridContainer from 'components/Grid/GridContainer.jsx'
-import Table from 'components/Table/Table.jsx'
-import Card from 'components/Card/Card.jsx'
-import CardHeader from 'components/Card/CardHeader.jsx'
-import CardBody from 'components/Card/CardBody.jsx'
-import Tasks from 'components/Tasks/Tasks.jsx'
-import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
-import TrustServiceFrom from 'views/Forms/TrustServiceForm.jsx'
-import Grade from '@material-ui/icons/Grade'
-import Code from '@material-ui/icons/Code'
-import { fetchUserAnswers, getPersonel } from '../../services/BackendService'
-import { getAnsweredQuestionnaire,getOrganization, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
-import PersonForm from 'views/Forms/PersonForm.jsx'
+import PersonForm from 'views/Forms/PersonForm'
 
 const styles = {
   cardCategoryWhite: {
@@ -48,8 +37,10 @@ const styles = {
     }
   }
 }
-
-class UserDetails extends Component {
+/**
+ * Component for creating a new Trust Manager
+ */
+class TrustCreateManager extends Component {
   constructor (props) {
     super(props)
     const { id } = this.props.match.params
@@ -57,23 +48,21 @@ class UserDetails extends Component {
     }
   }
 
-  componentWillMount () {
 
-  }
 
   render () {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
-          <PersonForm id={this.state.id} hasDetails />
+          <PersonForm hasDetails={false} organization={'trust'} />
         </GridItem>
       </GridContainer>
     )
   }
 }
 
-UserDetails.propTypes = {
+TrustCreateManager.propTypes = {
   classes: PropTypes.object
 }
 
-export default withStyles(styles)(UserDetails)
+export default withStyles(styles)(TrustCreateManager)

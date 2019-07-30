@@ -1,7 +1,6 @@
 // @material-ui/icons
 import Dashboard from '@material-ui/icons/Dashboard'
 import Person from '@material-ui/icons/Person'
-import Notifications from '@material-ui/icons/Notifications'
 import List from  '@material-ui/icons/PlaylistPlay'
 import PatientsIcon from  '@material-ui/icons/LocalHospitalTwoTone'
 import ClinicianIco from  '@material-ui/icons/ListTwoTone'
@@ -10,10 +9,7 @@ import Setting from '@material-ui/icons/Settings'
 import TransitEnterexit from '@material-ui/icons/TransitEnterexit'
 // core components/views for Admin layout
 import ServiceDashboard from 'views/Dashboard/ServiceDashboard.jsx'
-import UserProfile from 'views/UserProfile/UserProfile.jsx'
 import TableList from 'views/TableList/TableList.jsx'
-import Typography from 'views/Typography/Typography.jsx'
-import NotificationsPage from 'views/Notifications/Notifications.jsx'
 
 // core components/views for RTL layout
 

@@ -1,25 +1,46 @@
 import React from 'react'
 import 'assets/css/AddForm.css'
 import Button from 'components/CustomButtons/Button.jsx'
-import { getTrust, updateTrust } from 'services/BackendService'
-import { getOrganizations, updateOrganization,createOrganization } from 'services/BackendService'
+import { getOrganizations, updateOrganization, createOrganization } from 'services/BackendService'
+import swal from 'sweetalert2'
+/**
+ * Component that displays a form for a Trust or a Service
+ */
 class TrustAddForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      id: this.props.id,
+      id: this.props.id, // the ID
+      // hasDetails:true => form in edit mode(the form is populated)
+      // hasDetails:false => form in creation mode(the form is not populated)
       hasDetails: this.props.hasDetails,
-      organization: this.props.organization
+      // Organization type: 1)trust, 2)service
+      organization: 'trust'//todo
     }
     this.onChange = this.onChange.bind(this)
     this.onSave = this.onSave.bind(this)
   }
 
   componentWillMount () {
-    if (this.state.hasDetails) {
+    if (this.state.organization == 'trust') {
+      if (this.state.hasDetails) {
+        getOrganizations(this.state.id).then(response => {
+          try {
+            document.getElementById('nameinput').value = response.name
+            document.getElementById('address1input').value = response.address1
+            document.getElementById('address2input').value = response.address2
+            document.getElementById('postcodeinput').value = response.postcode
+            document.getElementById('descriptioninput').value = response.description
+            document.getElementById('websiteinput').value = response.link
+            document.getElementById('emailinput').value = response.email
+            document.getElementById('telephoneinput').value = response.telephone
+          } catch (error) {
+            console.log(error + '\n' + response)
+          }
+        })
+      }
+    } else if (this.state.organization == 'service') {
       getOrganizations(this.state.id).then(response => {
-      // response = { 'message': 'Organisation retrieved successfully', 'data': [{ '_id': '5d3aff5326edba12fa4c5c98', 'role': 'SERVICE', 'name': 'Barts Mental Health Clinic', 'address1': '134 Barts Road', 'address2': '', 'postcode': 'BRTS1B', 'description': 'Barts Mental Health Clinic', 'link': 'barts.nhs.gov.uk', 'email': 'barts@nhs.gov.uk', 'telephone': '033448796645' }] }
-      // getmanagers.then{
         try {
           document.getElementById('nameinput').value = response.name
           document.getElementById('address1input').value = response.address1
@@ -40,30 +61,66 @@ class TrustAddForm extends React.Component {
   }
 
   onSave (event) {
-    var trustdetails = {
-      name: document.getElementById('nameinput').value,
-      address1: document.getElementById('address1input').value,
-      address2: document.getElementById('address2input').value,
-      postcode: document.getElementById('postcodeinput').value,
-      description: document.getElementById('descriptioninput').value,
-      link: document.getElementById('websiteinput').value,
-      email: document.getElementById('emailinput').value,
-      telephone: document.getElementById('telephoneinput').value
+    if (!this.allFieldsCompleted()) {
+      return
     }
-    var body = {
-      id: this.state.id,
-      body: trustdetails
+    if (this.state.organization === 'trust' || this.state.organization === 'service') {
+      var trustdetails = {
+        name: document.getElementById('nameinput').value,
+        address1: document.getElementById('address1input').value,
+        address2: document.getElementById('address2input').value,
+        postcode: document.getElementById('postcodeinput').value,
+        description: document.getElementById('descriptioninput').value,
+        link: document.getElementById('websiteinput').value,
+        email: document.getElementById('emailinput').value,
+        telephone: document.getElementById('telephoneinput').value,
+        role: 'TRUST'
+      }
+
+      var body = {
+        id: this.state.id,
+        body: trustdetails
+      }
+      if (this.state.hasDetails) {
+        updateOrganization(body).then(response => {
+          console.log(response)
+          swal('The entry has been updated!', {
+            icon: 'success'
+          })
+          this.componentWillMount()
+        })
+      } else {
+        console.log(trustdetails)
+        createOrganization(trustdetails).then(response => {
+          console.log(response)
+          swal('The entry has been created!', {
+            icon: 'success'
+          })
+          this.componentWillMount()
+        })
+      }
     }
-    if (this.state.hasDetails) {
-      updateOrganization(body).then(response => {
-        console.log(response)
+    // else{ IF there are different fields in for service
+    //
+    // }
+  }
+
+  allFieldsCompleted () {
+    var a = document.getElementById('nameinput').value
+    var b = document.getElementById('address1input').value
+    var c = document.getElementById('address2input').value
+    var d = document.getElementById('postcodeinput').value
+    var e = document.getElementById('descriptioninput').value
+    var f = document.getElementById('websiteinput').value
+    var g = document.getElementById('emailinput').value
+    var h = document.getElementById('telephoneinput').value
+    if (a === '' || b === '' || c === '' || d === '' || e === '' || f === '' || g === '' || h === '') {
+      swal('Please fill all the fields!', {
+        icon: 'error'
       })
-    } else {
-      console.log(trustdetails)
-      createOrganization(trustdetails).then(response => {
-        console.log(response)
-      })
+      return false
     }
+    return true
   }
 
   render () {
@@ -97,13 +154,3 @@ class TrustAddForm extends React.Component {
 }
 
 export default TrustAddForm
-
-// id
-// name
-// address line 1
-// address line 2
-// post code
-// description
-// website link
-// email
-// telephone
