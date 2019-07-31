@@ -13,11 +13,11 @@ class PersonForm extends React.Component {
     this.state = {
       id: this.props.id,
       hasDetails: this.props.hasDetails,
-      organization:'trust'
+      organization:this.props.organization
     }
     this.onChange = this.onChange.bind(this)
     this.onSave = this.onSave.bind(this)
-    console.log(this.state.hasDetails)
+    console.log(this.state.organization)
   }
 
   componentWillMount () {
@@ -47,7 +47,7 @@ class PersonForm extends React.Component {
         first_name: document.getElementById('firstnameinput').value,
         last_name: document.getElementById('lastnameinput').value,
         email: document.getElementById('emailinput').value,
-        role: 'TRUSTMANAGER'
+        role: this.state.organization
 
       }
     }

@@ -54,7 +54,7 @@ class ServiceCreateManager extends Component {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
-          <PersonForm hasDetails={false} organization={'service'} />
+          <PersonForm hasDetails={false} organization={'SERVICEMANAGER'} />
         </GridItem>
       </GridContainer>
     )

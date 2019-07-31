@@ -54,7 +54,7 @@ class TrustCreateManager extends Component {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
-          <PersonForm hasDetails={false} organization={'trust'} />
+          <PersonForm hasDetails={false} organization={'TRUSTMANAGER'} />
         </GridItem>
       </GridContainer>
     )

@@ -49,7 +49,9 @@ const styles = {
 
 class TrustDetails extends Component {
   constructor (props) {
+
     super(props)
+    console.log(this.props.history)
     const{id}=this.props.match.params //organization's ID
     sessionStorage.setItem('organizationID',id)
     this.state = { id:id,personelList:''
@@ -113,7 +115,7 @@ deleteManager=(managerId)=>{
                 tabName: 'DETAILS',
                 tabIcon: Code,
                 tabContent: (
-                    <TrustServiceForm hasDetails={true} organization={"trust"} id={this.state.id} />
+                    <TrustServiceForm hasDetails={true} organization={"TRUST"} id={this.state.id}/>
                 )
               },
               {

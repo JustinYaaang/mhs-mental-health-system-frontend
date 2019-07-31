@@ -134,7 +134,7 @@ class ServiceDetails extends Component {
                 tabName: 'DETAILS',
                 tabIcon: Code,
                 tabContent: (
-                  <TrustServiceFrom hasDetails={true} organization={"service"} id={this.state.id} />
+                  <TrustServiceFrom hasDetails={true} organization={"SERVICE"} id={this.state.id} />
                 )
               },
               {

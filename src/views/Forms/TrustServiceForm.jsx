@@ -9,6 +9,7 @@ import swal from 'sweetalert2'
 class TrustAddForm extends React.Component {
   constructor (props) {
     super(props)
+    console.log(this.props.history)
     var organization = ''
     var details = false
     // if we came fro history push there are no arguments so we search in the url
@@ -24,7 +25,6 @@ class TrustAddForm extends React.Component {
       organization = this.props.organization
       details = true
     }
-
     this.state = {
       id: this.props.id, // the ID
       // hasDetails:true => form in edit mode(the form is populated)
@@ -41,6 +41,7 @@ class TrustAddForm extends React.Component {
 
   componentWillMount () {
     if (this.state.organization == 'TRUST') {
+      console.log(this.state.id)
       if (this.state.hasDetails) {
         getOrganizations(this.state.id).then(response => {
           try {
@@ -104,13 +105,11 @@ class TrustAddForm extends React.Component {
       }
       if (this.state.hasDetails) {
         updateOrganization(body).then(response => {
-          console.log(response)
           swal.fire({
             type: 'success',
             title: 'Success',
             text: 'The entry has been updated! '
           })
-          this.componentWillMount()
         })
       } else {
         console.log(trustdetails)

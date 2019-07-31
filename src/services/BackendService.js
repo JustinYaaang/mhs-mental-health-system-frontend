@@ -1,15 +1,14 @@
 import axios from 'axios'
 import {
-  baseUrl, backendURL, organizations,  patients, personnel,
+  baseUrl, backendURL, organizations, patients, personnel,
   fetchQuestionnairesUrl, patientanswersUrl, authenticationUrl,
   questionnaireWithoutToken
 } from '../variables/general'
 
-
 const postNewSurvey = async (createSurveyUrl, surveyData) => {
   var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
-  console.log("postNewSurvey");
-  console.log(surveyData);
+  console.log('postNewSurvey')
+  console.log(surveyData)
   try {
     const response = await axios({
       method: 'post',
@@ -57,43 +56,43 @@ const updateSurvey = async (updateSurveyUrl, surveyData) => {
     })
 }
 const fetchQuestionnaires = async () => {
-    try {
-      var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
-      const response = await axios({
-        method: 'get',
-        url: baseUrl + fetchQuestionnairesUrl,
-        headers: headers
-      })
+  try {
+    var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+    const response = await axios({
+      method: 'get',
+      url: baseUrl + fetchQuestionnairesUrl,
+      headers: headers
+    })
 
-      console.log(response)
-      const data = response.data.data
-      const idPublishedList = []
-      const questionnairePublishedList = []
-      const idDraftList = []
-      const questionnaireDraftList = []
+    console.log(response)
+    const data = response.data.data
+    const idPublishedList = []
+    const questionnairePublishedList = []
+    const idDraftList = []
+    const questionnaireDraftList = []
 
-      data.forEach(element => {
-        var status = element.is_published ? 'PUBLISHED' : 'DRAFT';
+    data.forEach(element => {
+      var status = element.is_published ? 'PUBLISHED' : 'DRAFT'
         if (status === 'PUBLISHED') {
-          questionnairePublishedList.push([element.title, element.description, status])
-          idPublishedList.push(element._id)
-        } else if (status === 'DRAFT') {
-          questionnaireDraftList.push([element.title, element.description, status])
-          idDraftList.push(element._id)
-        } else if (status === 'DRAFT') {
-          questionnaireDraftList.push([element.title, element.description, status])
-          idDraftList.push(element._id)
-        }
-      })
-      return {
-        'idDraftList': idDraftList,
-        'idPublishedList': idPublishedList,
-        'questionnaireDraftList': questionnaireDraftList,
-        'questionnairePublishedList': questionnairePublishedList
+        questionnairePublishedList.push([element.title, element.description, status])
+        idPublishedList.push(element._id)
+      } else if (status === 'DRAFT') {
+        questionnaireDraftList.push([element.title, element.description, status])
+        idDraftList.push(element._id)
+      } else if (status === 'DRAFT') {
+        questionnaireDraftList.push([element.title, element.description, status])
+        idDraftList.push(element._id)
       }
-    } catch (error) {
-      console.log('GET server error: ', error)
+    })
+    return {
+      'idDraftList': idDraftList,
+      'idPublishedList': idPublishedList,
+      'questionnaireDraftList': questionnaireDraftList,
+      'questionnairePublishedList': questionnairePublishedList
     }
+  } catch (error) {
+    console.log('GET server error: ', error)
+  }
 }
 
 const fetchUserAnswers = async () => {
@@ -101,13 +100,13 @@ const fetchUserAnswers = async () => {
   var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
   return await axios({
     method: 'get',
-    url:  baseUrl + patientanswersUrl,
+    url: baseUrl + patientanswersUrl,
     headers: headers
-  }).then(response =>{
+  }).then(response => {
     console.log('response')
     console.log(response)
     return response.data.data
-  }).catch (error => {
+  }).catch(error => {
     console.log('GET server error: ', error)
   })
 }
@@ -119,34 +118,32 @@ const fetchWeeklyResult = async (startDate, lastDate) => {
   console.log(startDate)
   console.log(lastDate)
   return await axios.get(weeklyResultUrl, {
-      params: {
-        startDate: lastDate,
-        endDate: startDate,
-        groupby: 'date'
-      },
-      headers: headers
-    }).then(response => {
-      return response.data.data
-    }).catch (error => {
+    params: {
+      startDate: lastDate,
+      endDate: startDate,
+      groupby: 'date'
+    },
+    headers: headers
+  }).then(response => {
+    return response.data.data
+  }).catch(error => {
     console.log('GET server error: ', error)
   })
 }
 
 const getAnsweredQuestionnaire = async (theId) => {
-
   var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
   return await axios({
     method: 'get',
     url: baseUrl + patientanswersUrl + '/' + theId,
     headers: headers
   }).then(function (response) {
-      console.log(response)
-      return response.data.data
-    })
+    console.log(response)
+    return response.data.data
+  })
 }
 
 const fetchQuestionnaire = async (questionnaireId) => {
-
   var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
   return await axios({
     method: 'get',
@@ -169,13 +166,12 @@ const fetchUserDetail = async (UserId) => {
     url: baseUrl + patients + '/' + UserId,
     headers: headers
   }).then(function (response) {
-      return response.data.data
-    })
+    return response.data.data
+  })
     .catch(function (error) {
       console.log(error)
     })
 }
-
 
 const deleteQuestionnaire = async (questionnaireId) => {
   var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
@@ -205,13 +201,13 @@ const getAuthenticationToken = async (body) => {
   var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
   return await axios({
     method: 'post',
-      url: baseUrl + authenticationUrl,
-      headers: headers,
-      data: body
+    url: baseUrl + authenticationUrl,
+    headers: headers,
+    data: body
   })
     .then(function (response) {
-      console.log('getAuthenticationToken');
-      console.log(response);
+      console.log('getAuthenticationToken')
+      console.log(response)
       return response
     })
     .catch(function (error) {
@@ -338,7 +334,7 @@ const deleteOrganization = async (body) => {
       var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
       const res = await axios({
         method: 'delete',
-        url: baseUrl + organizations+'/'+body,
+        url: baseUrl + organizations + '/' + body,
         headers: headers,
         data: body
       })
@@ -371,7 +367,7 @@ const getPersonnel = async (body) => {
           body
         }
       })
-      console.log(res);
+      console.log(res)
       return res.data.data
     } catch (error) {
       console.log('GET server error: ', error)
@@ -387,6 +383,7 @@ const getPersonnel = async (body) => {
  */
 const updatePersonnel = async (body) => {
   try {
+    console.log(body)
     try {
       var restofbody = body.body
       var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
@@ -394,7 +391,7 @@ const updatePersonnel = async (body) => {
         method: 'put',
         url: baseUrl + personnel + '/' + body.id,
         headers: headers,
-        data: restofbody
+        data: body
       })
       console.log(res.data.data)
       return res.data.data
@@ -442,7 +439,7 @@ const deletePersonnel = async (body) => {
       var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
       const res = await axios({
         method: 'delete',
-        url: baseUrl + personnel+'/'+body,
+        url: baseUrl + personnel + '/' + body,
         headers: headers,
         data: body
       })
@@ -462,5 +459,5 @@ export {
   getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire,
   deleteQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken,
   getQuestionnaireWithToken,
-  getPersonnel, updatePersonnel, updateOrganization, deleteOrganization, deletePersonnel,createOrganization, createPersonnel
+  getPersonnel, updatePersonnel, updateOrganization, deleteOrganization, deletePersonnel, createOrganization, createPersonnel
 }

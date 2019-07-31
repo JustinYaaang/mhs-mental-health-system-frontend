@@ -8,19 +8,20 @@ import swal from 'sweetalert2'
  * Component that displays a form for a Trust Manager, Service Manager, Clinitian
  */
 class ClinitianForm extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       id: this.props.id,
       hasDetails: this.props.hasDetails,
-      organization: 'trust'
+      organization: this.props.organization
     }
     this.onChange = this.onChange.bind(this)
     this.onSave = this.onSave.bind(this)
     console.log(this.state.hasDetails)
   }
 
-  componentWillMount() {
+  componentWillMount () {
+    console.log(sessionStorage.organisationID)
     console.log(this.state.hasDetails)
     if (this.state.hasDetails) {
       console.log('in  person form' + this.state.id)
@@ -36,19 +37,21 @@ class ClinitianForm extends React.Component {
     }
   }
 
-
-  getStep(){
-
+  getStep () {
+    if (document.getElementById('r2').checked === true) return 'STEP3'
+    if (document.getElementById('r1').checked === true) return 'STEP2'
+    return undefined
   }
 
-  changeStep(step){
-
+  changeStep (step) {
+    document.getElementById(step).checked = true
   }
-  onChange(event) {
+  onChange (event) {
   }
 
-  onSave(event) {
+  onSave (event) {
     // get all the necessary details from the form
+    
     var body = {
       id: this.state.id,
       body: {
@@ -118,7 +121,7 @@ class ClinitianForm extends React.Component {
     }
   }
 
-  allFieldsCompleted() {
+  allFieldsCompleted () {
     var a = document.getElementById('firstnameinput').value
     var b = document.getElementById('lastnameinput').value
     var c = document.getElementById('emailinput').value
@@ -133,7 +136,7 @@ class ClinitianForm extends React.Component {
     return true
   }
 
-  render() {
+  render () {
     return (
       <form class='trustform'>
         <label className='label-subtitle' for='label'>Please enter the details of the NHS Person</label>
@@ -143,8 +146,8 @@ class ClinitianForm extends React.Component {
 
           <input name='email' type='email' class='form-control' id='lastnameinput' aria-describedby='emailHelp' placeholder='Last Name' onChange={this.onChange} />
           <br />
-          <input type='radio' id="r1" name='step' value='STEP2' /> Step 2 <br />
-          <input type='radio' id="r2" name='step' value='STEP3' /> Step 3<br />
+          <input type='radio' id='r1' name='step' value='STEP2' /> Step 2 <br />
+          <input type='radio' id='r2' name='step' value='STEP3' /> Step 3<br />
 
         </div>
         <div class='form-group'>
