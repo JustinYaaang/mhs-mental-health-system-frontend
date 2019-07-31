@@ -49,7 +49,7 @@ class ServiceDetails extends Component {
     const { id } = this.props.match.params //organization's ID
     sessionStorage.setItem('organizationID', id)
     this.state = {
-      id: id, personelList: ''
+      id: id, personelList: []
     }
   }
 
@@ -63,10 +63,11 @@ class ServiceDetails extends Component {
           counter, map.first_name, map.last_name, map.email, map.trust, map._id
         ])
         counter++
+
         this.setState({ personelList: thelist })
       })
     })
-
+   
 
 
   }
@@ -110,17 +111,6 @@ class ServiceDetails extends Component {
           });
         }
       });
-
-
-
-
-
-
-
-
-
-
-
 
   }
   render() {

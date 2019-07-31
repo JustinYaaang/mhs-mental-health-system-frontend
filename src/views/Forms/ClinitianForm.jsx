@@ -21,7 +21,6 @@ class ClinitianForm extends React.Component {
   }
 
   componentWillMount () {
-    console.log(sessionStorage.organisationID)
     console.log(this.state.hasDetails)
     if (this.state.hasDetails) {
       console.log('in  person form' + this.state.id)
