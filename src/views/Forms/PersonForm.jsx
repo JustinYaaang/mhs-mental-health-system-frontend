@@ -62,6 +62,7 @@ class PersonForm extends React.Component {
       console.log(pass1)
       if (pass2 !== pass1) {
         document.getElementById('passwordchange1').style.backgroundColor = '#FEC2C2'
+        document.getElementById('passwordchange2').style.backgroundColor = '#FEC2C2'
         swal.fire({
           type: 'error',
           title: 'Whoops..!',

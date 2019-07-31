@@ -31,15 +31,15 @@ class ClinitianForm extends React.Component {
         document.getElementById('lastnameinput').value = response.last_name
         document.getElementById('emailinput').value = response.email
         document.getElementById('passwordinput').value = response.password
-        document.getElementById('trustnameinput_postcodeinput').value = response.role //! !!!
+        this.changeStep(response.role)
       })
     } else {
     }
   }
 
   getStep () {
-    if (document.getElementById('r2').checked === true) return 'STEP3'
-    if (document.getElementById('r1').checked === true) return 'STEP2'
+    if (document.getElementById('STEP3').checked === true) return 'STEP3'
+    if (document.getElementById('STEP2').checked === true) return 'STEP2'
     return undefined
   }
 
@@ -51,7 +51,7 @@ class ClinitianForm extends React.Component {
 
   onSave (event) {
     // get all the necessary details from the form
-    
+
     var body = {
       id: this.state.id,
       body: {
@@ -71,6 +71,7 @@ class ClinitianForm extends React.Component {
       console.log(pass1)
       if (pass2 !== pass1) {
         document.getElementById('passwordchange1').style.backgroundColor = '#FEC2C2'
+        document.getElementById('passwordchange2').style.backgroundColor = '#FEC2C2'
         swal.fire({
           type: 'error',
           title: 'Whoops..!',
@@ -99,8 +100,17 @@ class ClinitianForm extends React.Component {
           title: 'Success',
           text: 'The entry has been updated! '
         })
+        this.state.history.goBack()
       })
     } else { // if we create a new person
+      if (this.getStep() === undefined) {
+        swal.fire({
+          type: 'error',
+          title: 'Error',
+          text: 'Please provide the role for the clinitian(Step 2//Step 3)'
+        })
+        return
+      }
       if (passwordFlag) {
         createPersonnel(body.body).then(response => {
           this.componentWillMount()
@@ -110,6 +120,7 @@ class ClinitianForm extends React.Component {
             title: 'Success',
             text: 'The entry has been created! '
           })
+          this.state.history.goBack()
         })
       } else {
         swal.fire({
@@ -146,8 +157,8 @@ class ClinitianForm extends React.Component {
 
           <input name='email' type='email' class='form-control' id='lastnameinput' aria-describedby='emailHelp' placeholder='Last Name' onChange={this.onChange} />
           <br />
-          <input type='radio' id='r1' name='step' value='STEP2' /> Step 2 <br />
-          <input type='radio' id='r2' name='step' value='STEP3' /> Step 3<br />
+          <input type='radio' id='STEP2' name='step' value='STEP2' /> Step 2 <br />
+          <input type='radio' id='STEP3' name='step' value='STEP3' /> Step 3<br />
 
         </div>
         <div class='form-group'>
