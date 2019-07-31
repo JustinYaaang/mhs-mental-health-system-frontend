@@ -35,11 +35,13 @@ const postNewSurvey = async (createSurveyUrl, surveyData) => {
 }
 
 const updateSurvey = async (updateSurveyUrl, surveyData) => {
+  var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
   try {
     const response = await axios({
       method: 'put',
       url: updateSurveyUrl,
-      data: surveyData
+      data: surveyData,
+      headers: headers
     })
     return response
   } catch (error) {
@@ -96,42 +98,49 @@ const fetchQuestionnaires = async () => {
 
 const fetchUserAnswers = async () => {
   console.log('fetchUserAnswers')
-  var userAnswerUrl = baseUrl + patientanswersUrl
-  try {
-    const response = await axios.get(userAnswerUrl)
-    // return response;
+  var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+  return await axios({
+    method: 'get',
+    url:  baseUrl + patientanswersUrl,
+    headers: headers
+  }).then(response =>{
     console.log('response')
     console.log(response)
     return response.data.data
-  } catch (error) {
+  }).catch (error => {
     console.log('GET server error: ', error)
-  }
+  })
 }
 
 const fetchWeeklyResult = async (startDate, lastDate) => {
   console.log('fetchWeeklyCount')
+  var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
   var weeklyResultUrl = baseUrl + patientanswersUrl
   console.log(startDate)
   console.log(lastDate)
-  try {
-    const response = await axios.get(weeklyResultUrl, {
+  return await axios.get(weeklyResultUrl, {
       params: {
         startDate: lastDate,
         endDate: startDate,
         groupby: 'date'
-      }
-    })
-
-    return response.data.data
-  } catch (error) {
+      },
+      headers: headers
+    }).then(response => {
+      return response.data.data
+    }).catch (error => {
     console.log('GET server error: ', error)
-  }
+  })
 }
 
 const getAnsweredQuestionnaire = async (theId) => {
-  return await axios.get(baseUrl + patientanswersUrl + '/' + theId)
-    .then(function (response) {
-      console.log('ttttt')
+
+  var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+  return await axios({
+    method: 'get',
+    url: baseUrl + patientanswersUrl + '/' + theId,
+    headers: headers
+  }).then(function (response) {
+      console.log(response)
       return response.data.data
     })
 }
@@ -154,8 +163,12 @@ const fetchQuestionnaire = async (questionnaireId) => {
 }
 
 const fetchUserDetail = async (UserId) => {
-  return await axios.get(baseUrl + patients + '/' + UserId)
-    .then(function (response) {
+  var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+  return await axios({
+    method: 'get',
+    url: baseUrl + patients + '/' + UserId,
+    headers: headers
+  }).then(function (response) {
       return response.data.data
     })
     .catch(function (error) {
@@ -189,25 +202,6 @@ const getQuestionnaire = async (qustionId) => {
 
 const getAuthenticationToken = async (body) => {
   console.log(body)
-  // var headers = { 'Content-Type': 'application/json' }
-  // try {
-  //   console.log('here')
-  //   var response = await axios({
-  //     method: 'post',
-  //     url: baseUrl + authenticationUrl,
-  //     headers: headers,
-  //     data: body
-  //   })
-
-  //   console.log('getAuthenticationToken');
-  //   console.log(response);
-  //   return response
-    
-  // } catch (error) {
-  //   console.log('POST server error: ', error)
-  //   throw error
-  // }
-
   var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
   return await axios({
     method: 'post',

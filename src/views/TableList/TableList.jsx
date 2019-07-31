@@ -76,14 +76,16 @@ class TableList extends Component {
           var dateString = d.toString()
           dateString = dateString.substring(0, dateString.lastIndexOf(':'))
             console.log(response[i].patient_id)
-            var row = [response[i].title, response[i].patient_name, response[i].score, response[i]._id, response[i].status, dateString, response[i]._id, response[i].patient_id]
-            if(response[i].status == 'PENDING' && response[i].service ==serviceClinician ){
+            var row = [response[i].title, response[i].score, response[i]._id, response[i].status, dateString, response[i]._id, response[i].patient_id]
+            if(response[i].status == 'PENDING'){ //&& response[i].service ==serviceClinician ){
               rowsPending.push(row)
             }
-            else if (response[i].status == 'RESOLVED' && response[i].service ==serviceClinician ){
+            else if (response[i].status == 'RESOLVED'){// && response[i].service ==serviceClinician ){
               rowsResolve.push(row)
             }
           }
+          console.log(rowsPending)
+          console.log(rowsResolve)
         this.setState({ pendingList: rowsPending,closeList: rowsResolve })
       })
       .catch(error => {
@@ -114,7 +116,7 @@ class TableList extends Component {
                 tabContent: (
                   <TriageRows
                     tableHeaderColor='info'
-                    tableHead={['Questionnaire Name', 'Patient Name', 'Score', 'NHS Number', 'Status', 'Time Submitted']}
+                    tableHead={['Questionnaire Name', 'Score', 'NHS Number', 'Status', 'Time Submitted']}
                     checkedIndexes={[]}
                     tasks={this.state.pendingList}
                     onRowClicked={(questionnaireResponseId) => this.redirectToAnswers(questionnaireResponseId)}
@@ -128,7 +130,7 @@ class TableList extends Component {
                 tabContent: (
                   <TriageRows
                     tableHeaderColor='info'
-                    tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
+                    tableHead={['Questionnaire Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
                     checkedIndexes={[]}
                     tasks={this.state.closeList}
                     onRowClicked={(questionnaireResponseId) => this.redirectToAnswers(questionnaireResponseId)}

@@ -21,7 +21,7 @@ var server = [
 var baseUrl = 'http://178.128.34.125/api/v1'
 // 'http://localhost:3000/api/v1'
 //http://mhsbackend.azurewebsites.net/api/v1/'
-var patients = 'patients'
+var patients = '/patients'
 var fetchQuestionnairesUrl = '/questionnaire_sJS'
 // '/questionnaire'
 // '/questionnaire_sJS'
