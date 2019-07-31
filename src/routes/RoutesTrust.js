@@ -35,7 +35,7 @@ const dashboardRoutes = [{
   name: 'Profile',
   rtlName: 'لوحة القيادة',
   icon: Dashboard,
-  component: TrustPage,
+  component: UserProfile,
   layout: '/trust'
 },
 {
@@ -50,9 +50,9 @@ const dashboardRoutes = [{
   path: '/logout',
   name: 'Logout',
   rtlName: 'لوحة القيادة',
-  icon: Dashboard,
-  component: TrustPage,
-  layout: '/trust'
+  icon: TransitEnterexit,
+  component: Dashboard,
+  layout: ''
 }
 
 ]

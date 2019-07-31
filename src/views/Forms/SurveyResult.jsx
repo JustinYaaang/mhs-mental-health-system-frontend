@@ -14,8 +14,8 @@ import "jquery-bar-rating";
 import * as widgets from "surveyjs-widgets";
 import "icheck/skins/square/blue.css";
 import axios from "axios";
-import { fetchQuestionnaire,getAnsweredQuestionnaire, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from "../services/BackendService";
-import { backendUrl, createUserAnswers } from "../variables/general";
+import { getAnsweredQuestionnaire} from "../../services/BackendService";
+
 
 import FixedActions from "components/FixedPlugin/FixedActions.jsx";
 
@@ -37,7 +37,7 @@ widgets.ckeditor(Survey);
 widgets.autocomplete(Survey, $);
 widgets.bootstrapslider(Survey);
 
-class QuestionnaireResult extends Component {
+class SurveyResult extends Component {
 
   constructor(props) {
     super(props);
@@ -49,17 +49,22 @@ class QuestionnaireResult extends Component {
         "completedHtml": "",
         "pages": [],
         "showProgressBar": ""
-      }
+      },
+      answers: {}
     };
+  }
+
+  onValueChanged = (result) => {
+    console.log("value changed!");
   }
 
   componentWillMount() {
     const {id} = this.props.match.params;
-    fetchQuestionnaire(id)
+    console.log(id)
+    getAnsweredQuestionnaire(id)
       .then(fetched_answers => {
-        //this.setState({ answers: JSON.parse(fetched_answers.body) });
-        var jsonData = fetched_answers.body;
-        console.log(jsonData)
+        this.setState({ answers: JSON.parse(fetched_answers.body) });
+        var jsonData = fetched_answers.questionnaireBody;
         var jsonFormatData = JSON.parse(jsonData);
         for (var i = 1; i < jsonFormatData.pages.length; i++) {
           if (jsonFormatData.pages[i].elements) {
@@ -91,20 +96,31 @@ class QuestionnaireResult extends Component {
               model={this.model}
             />
 
+            <center>
+              <table border="1" width="180" >
+                <tbody id="tbody1">
+
+                </tbody>
+              </table>
+            </center>
+            <div id="finalScore"></div>
+            <div id="jsonSection"></div>
           </div>
 
         </div>
-        {/* <FixedActions
+        <FixedActions
+              //handleImageClick={this.handleImageClick}
+              //handleColorClick={this.handleColorClick}
               bgColor={this.state["color"]}
               bgImage={this.state["image"]}
               handleFixedClick={this.handleFixedClick}
               fixedClasses={this.state.fixedClasses}
-          /> */}
+          />
       </div>
       
     );
   }
 }
 
-export default QuestionnaireResult;
+export default SurveyResult;
 

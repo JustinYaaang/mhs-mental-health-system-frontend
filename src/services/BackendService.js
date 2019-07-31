@@ -7,42 +7,46 @@ import {
 
 
 const postNewSurvey = async (createSurveyUrl, surveyData) => {
+  var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+  console.log("postNewSurvey");
+  console.log(surveyData);
   try {
     const response = await axios({
       method: 'post',
       url: createSurveyUrl,
-      data: surveyData
+      data: surveyData,
+      headers: headers
     })
     return response
   } catch (error) {
     console.log('POST server error: ', error)
   }
-  console.log(createSurveyUrl)
-  console.log(surveyData)
+  // console.log(createSurveyUrl)
+  // console.log(surveyData)
 
-  axios.post(createSurveyUrl, surveyData)
-    .then(function (response) {
-      console.log('response')
-      console.log(response)
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
+  // axios.post(createSurveyUrl, surveyData)
+  //   .then(function (response) {
+  //     console.log('response')
+  //     console.log(response)
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error)
+  //   })
 }
 
 const updateSurvey = async (updateSurveyUrl, surveyData) => {
+  var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
   try {
     const response = await axios({
       method: 'put',
       url: updateSurveyUrl,
-      data: surveyData
+      data: surveyData,
+      headers: headers
     })
     return response
   } catch (error) {
     console.log('PUT server error: ', error)
   }
-  // console.log(updateSurveyUrl)
-  // console.log(surveyData)
 
   axios.put(updateSurveyUrl, surveyData)
     .then(response => {
@@ -53,8 +57,15 @@ const updateSurvey = async (updateSurveyUrl, surveyData) => {
     })
 }
 const fetchQuestionnaires = async () => {
-  return await axios.get(baseUrl + fetchQuestionnairesUrl)
-    .then(function (response) {
+    try {
+      var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+      const response = await axios({
+        method: 'get',
+        url: baseUrl + fetchQuestionnairesUrl,
+        headers: headers
+      })
+
+      console.log(response)
       const data = response.data.data
       const idPublishedList = []
       const questionnairePublishedList = []
@@ -62,14 +73,15 @@ const fetchQuestionnaires = async () => {
       const questionnaireDraftList = []
 
       data.forEach(element => {
-        if (element.status === 'PUBLISHED') {
-          questionnairePublishedList.push([element.title, element.description, element.status])
+        var status = element.is_published ? 'PUBLISHED' : 'DRAFT';
+        if (status === 'PUBLISHED') {
+          questionnairePublishedList.push([element.title, element.description, status])
           idPublishedList.push(element._id)
-        } else if (element.status === 'DRAFT') {
-          questionnaireDraftList.push([element.title, element.description, element.status])
+        } else if (status === 'DRAFT') {
+          questionnaireDraftList.push([element.title, element.description, status])
           idDraftList.push(element._id)
-        } else if (element.status === 'DRAFT') {
-          questionnaireDraftList.push([element.title, element.description, element.status])
+        } else if (status === 'DRAFT') {
+          questionnaireDraftList.push([element.title, element.description, status])
           idDraftList.push(element._id)
         }
       })
@@ -79,53 +91,68 @@ const fetchQuestionnaires = async () => {
         'questionnaireDraftList': questionnaireDraftList,
         'questionnairePublishedList': questionnairePublishedList
       }
-    })
+    } catch (error) {
+      console.log('GET server error: ', error)
+    }
 }
 
 const fetchUserAnswers = async () => {
   console.log('fetchUserAnswers')
-  var userAnswerUrl = baseUrl + patientanswersUrl
-  try {
-    const response = await axios.get(userAnswerUrl)
-    // return response;
+  var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+  return await axios({
+    method: 'get',
+    url:  baseUrl + patientanswersUrl,
+    headers: headers
+  }).then(response =>{
     console.log('response')
     console.log(response)
     return response.data.data
-  } catch (error) {
+  }).catch (error => {
     console.log('GET server error: ', error)
-  }
+  })
 }
 
 const fetchWeeklyResult = async (startDate, lastDate) => {
   console.log('fetchWeeklyCount')
+  var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
   var weeklyResultUrl = baseUrl + patientanswersUrl
   console.log(startDate)
   console.log(lastDate)
-  try {
-    const response = await axios.get(weeklyResultUrl, {
+  return await axios.get(weeklyResultUrl, {
       params: {
         startDate: lastDate,
         endDate: startDate,
         groupby: 'date'
-      }
-    })
-
-    return response.data.data
-  } catch (error) {
+      },
+      headers: headers
+    }).then(response => {
+      return response.data.data
+    }).catch (error => {
     console.log('GET server error: ', error)
-  }
+  })
 }
 
 const getAnsweredQuestionnaire = async (theId) => {
-  return await axios.get(baseUrl + patientanswersUrl + '/' + theId)
-    .then(function (response) {
-      console.log('ttttt')
+
+  var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+  return await axios({
+    method: 'get',
+    url: baseUrl + patientanswersUrl + '/' + theId,
+    headers: headers
+  }).then(function (response) {
+      console.log(response)
       return response.data.data
     })
 }
 
 const fetchQuestionnaire = async (questionnaireId) => {
-  return await axios.get(baseUrl + fetchQuestionnairesUrl + '/' + questionnaireId)
+
+  var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+  return await axios({
+    method: 'get',
+    url: baseUrl + fetchQuestionnairesUrl + '/' + questionnaireId,
+    headers: headers
+  })
     .then(function (response) {
       const data = response.data.data
       return { 'id': data._id, 'body': data.body }
@@ -136,8 +163,12 @@ const fetchQuestionnaire = async (questionnaireId) => {
 }
 
 const fetchUserDetail = async (UserId) => {
-  return await axios.get(baseUrl + patients + '/' + UserId)
-    .then(function (response) {
+  var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+  return await axios({
+    method: 'get',
+    url: baseUrl + patients + '/' + UserId,
+    headers: headers
+  }).then(function (response) {
       return response.data.data
     })
     .catch(function (error) {
@@ -145,10 +176,13 @@ const fetchUserDetail = async (UserId) => {
     })
 }
 
+
 const deleteQuestionnaire = async (questionnaireId) => {
+  var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
   return await axios({
     method: 'delete',
-    url: baseUrl + fetchQuestionnairesUrl + '/' + questionnaireId
+    url: baseUrl + fetchQuestionnairesUrl + '/' + questionnaireId,
+    headers: headers
   }).then(function (response) {
     console.log(response)
   })
@@ -168,22 +202,22 @@ const getQuestionnaire = async (qustionId) => {
 
 const getAuthenticationToken = async (body) => {
   console.log(body)
-  var headers = { 'Content-Type': 'application/json' }
-  try {
-    console.log('here')
-    const response = await axios({
-      method: 'post',
+  var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+  return await axios({
+    method: 'post',
       url: baseUrl + authenticationUrl,
       headers: headers,
       data: body
+  })
+    .then(function (response) {
+      console.log('getAuthenticationToken');
+      console.log(response);
+      return response
     })
-    console.log('getAuthenticationToken')
-    console.log(response)
-    return response
-  } catch (error) {
-    console.log('POST server error: ', error)
-    throw error
-  }
+    .catch(function (error) {
+      console.log(error)
+      throw error
+    })
 }
 
 const getQuestionnaireWithoutToken = async () => {
@@ -207,7 +241,7 @@ const getQuestionnaireWithToken = async (body) => {
       })
 
       console.log('res.data.data')
-      console.log(res.data.data)
+      console.log(res.data)
       return res.data.data
     } catch (error) {
       console.log('GET server error: ', error)

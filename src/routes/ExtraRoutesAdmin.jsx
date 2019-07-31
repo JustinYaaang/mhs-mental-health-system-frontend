@@ -6,6 +6,7 @@ import PersonForm from "views/Forms/PersonForm.jsx";
 import TrustAddForm from "views/Forms/TrustServiceForm.jsx";
 import TrustUserDetails from "layouts/Trusts/TrustUserDetails.jsx"
 import TrustCreateManager from "layouts/Trusts/TrustCreateManager.jsx"
+import SurveyCreator from "layouts/SurveyCreator.js"
 
 // core components/views for RTL layout
 
@@ -49,8 +50,15 @@ const dashboardRoutes = [
     icon: Dashboard,
     component: TrustDetails,
     layout: '/admin'
+  },
+  {
+    path: '/dashboard/questionnaire/:id?',
+    name: 'Trust Overview',
+    rtlName: 'لوحة القيادة',
+    icon: Dashboard,
+    component: SurveyCreator,
+    layout: '/admin'
   }
-
 ]
 
 export default dashboardRoutes

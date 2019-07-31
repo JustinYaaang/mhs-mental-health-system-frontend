@@ -57,8 +57,8 @@ const dashboardRoutes = [{
   name: 'Logout',
   rtlName: 'لوحة القيادة',
   icon: TransitEnterexit,
-  component: ClinicianPage,
-  layout: '/clinician'
+  component: Dashboard,
+  layout: ''
 }]
 
 export default dashboardRoutes

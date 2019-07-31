@@ -15,11 +15,10 @@ import TriageRows from 'components/Tasks/TriageRows.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import Grade from '@material-ui/icons/Grade'
 import Code from '@material-ui/icons/Code'
-import { fetchUserAnswers,fetchUserDetil } from '../../services/BackendService'
+import { fetchUserAnswers,fetchUserDetil, fetchUser } from '../../services/BackendService'
 import { getAnsweredQuestionnaire, getQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken, getQuestionnaireWithToken } from '../../services/BackendService'
 
 function getRole(){
-  console.log(sessionStorage.role);
   return sessionStorage.role;
 }
 
@@ -64,6 +63,7 @@ class TableList extends Component {
     getRole();
 
     var role = "clinician2"
+    var serviceClinician = 'SERVICE1'
  
     fetchUserAnswers()
       .then(response => {
@@ -76,15 +76,16 @@ class TableList extends Component {
           var dateString = d.toString()
           dateString = dateString.substring(0, dateString.lastIndexOf(':'))
             console.log(response[i].patient_id)
-            var row = [response[i].title, response[i].patient_name, response[i].score, response[i]._id, response[i].status, dateString, response[i]._id, response[i].patient_id]
-            if(response[i].status == 'PENDING'){
+            var row = [response[i].title, response[i].score, response[i]._id, response[i].status, dateString, response[i]._id, response[i].patient_id]
+            if(response[i].status == 'PENDING'){ //&& response[i].service ==serviceClinician ){
               rowsPending.push(row)
             }
-            else{
+            else if (response[i].status == 'RESOLVED'){// && response[i].service ==serviceClinician ){
               rowsResolve.push(row)
             }
           }
-          
+          console.log(rowsPending)
+          console.log(rowsResolve)
         this.setState({ pendingList: rowsPending,closeList: rowsResolve })
       })
       .catch(error => {
@@ -93,7 +94,11 @@ class TableList extends Component {
   }
 
   redirectToAnswers = (questionnaireResponseId) => {
-    document.location.href = '/patientanswers/'+ questionnaireResponseId;
+    this.props.history.push(this.props.history.location.pathname + "/" + questionnaireResponseId)
+  }
+
+  viewUserDetail = (viewId) => {
+    this.props.history.push(this.props.history.location.pathname + "/user/" + viewId)
   }
 
   render () {
@@ -111,11 +116,11 @@ class TableList extends Component {
                 tabContent: (
                   <TriageRows
                     tableHeaderColor='info'
-                    tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
+                    tableHead={['Questionnaire Name', 'Score', 'NHS Number', 'Status', 'Time Submitted']}
                     checkedIndexes={[]}
                     tasks={this.state.pendingList}
                     onRowClicked={(questionnaireResponseId) => this.redirectToAnswers(questionnaireResponseId)}
-
+                    onViewItemClicked={(viewId)=>this.viewUserDetail(viewId)}
                   />
                 )
               },
@@ -125,9 +130,11 @@ class TableList extends Component {
                 tabContent: (
                   <TriageRows
                     tableHeaderColor='info'
-                    tableHead={['Questionnaire Name', 'Patient Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
+                    tableHead={['Questionnaire Name', 'Predicted Score', 'NHS Number', 'Status', 'Time Submitted']}
                     checkedIndexes={[]}
                     tasks={this.state.closeList}
+                    onRowClicked={(questionnaireResponseId) => this.redirectToAnswers(questionnaireResponseId)}
+                    onViewItemClicked={(viewId)=>this.viewUserDetail(viewId)}
                   />
                 )
               }

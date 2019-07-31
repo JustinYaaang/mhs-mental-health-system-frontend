@@ -52,6 +52,7 @@ class Dashboard extends React.Component {
     },
     seriesMax: 0,
   };
+  
   handleChange = (event, value) => {
     this.setState({ value: value });
   };
@@ -64,11 +65,13 @@ class Dashboard extends React.Component {
     console.log(index);
     if(status === 'DRAFT'){
       const questionnaireId = this.state.idDraftList[index];
-      document.location.href = "/questionnaire/" + questionnaireId;
+      this.props.history.push(this.props.history.location.pathname + "/questionnaire/" + questionnaireId)
+      // document.location.href = "/questionnaire/" + questionnaireId;
     }
     else if(status === 'PUBLISHED'){
       const questionnaireId = this.state.idPublishedList[index];
-      document.location.href = "/questionnaire/" + questionnaireId;
+      this.props.history.push(this.props.history.location.pathname + "/questionnaire/" + questionnaireId)
+      // document.location.href = "/questionnaire/" + questionnaireId;
     }
   };
 
@@ -119,7 +122,8 @@ class Dashboard extends React.Component {
   };
 
   handleCreateNewQuestionnaireClicked = () => {
-    document.location.href = "/questionnaire/";
+    // document.location.href = "/questionnaire/";
+    this.props.history.push(this.props.history.location.pathname + "/questionnaire")
   };
 
   timeTrans(date){
@@ -182,9 +186,6 @@ class Dashboard extends React.Component {
       }
     );
   }
-
-
-  
 
   render() {
     var Chartist = require("chartist");
