@@ -97,6 +97,7 @@ deleteManager=(managerId)=>{
         swal.fire("The entry has been deleted!", {
           icon: "success",
         });
+        this.setState({personelList:[]})
         this.componentWillMount();
       })
     } else {

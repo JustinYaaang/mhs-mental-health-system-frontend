@@ -76,7 +76,6 @@ class ServiceList extends Component {
   }
 
 deleteTrust=(trustId)=>{
-
   swal.fire({ //???
     title: "Are you sure?",
     text: "Are you sure you want to delete this entry?",

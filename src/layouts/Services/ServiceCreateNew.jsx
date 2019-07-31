@@ -43,6 +43,7 @@ const styles = {
 class ServiceCreateNew extends Component {
   constructor (props) {
     super(props)
+    console.log(this.props.history)
   }
 
   componentWillMount () {

@@ -54,6 +54,7 @@ class ServiceDetails extends Component {
   }
 
   componentWillMount() {
+    console.log("test")
     getPersonnel().then(response => { //Get the personel list from backend
       console.log("response" + response)
       var counter = 1;
@@ -94,12 +95,14 @@ class ServiceDetails extends Component {
       .then((willDelete) => {
         if (willDelete) {
           deletePersonnel(managerId).then(response => {
+            this.setState({personelList:[]})
+            this.componentWillMount();
             swal.fire({
               type: 'success',
               title: 'Success!',
               text: 'The entry has been deleted.! '
             })
-            this.componentWillMount();
+            
           })
 
 
@@ -124,7 +127,7 @@ class ServiceDetails extends Component {
                 tabName: 'DETAILS',
                 tabIcon: Code,
                 tabContent: (
-                  <TrustServiceFrom hasDetails={true} organization={"SERVICE"} id={this.state.id} />
+                  <TrustServiceFrom hasDetails={true} organization={"SERVICE"} id={this.state.id} history={this.props.history}/>
                 )
               },
               {

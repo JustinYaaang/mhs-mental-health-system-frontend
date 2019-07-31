@@ -13,11 +13,12 @@ class PersonForm extends React.Component {
     this.state = {
       id: this.props.id,
       hasDetails: this.props.hasDetails,
-      organization:this.props.organization
+      organization: this.props.organization,
+      history: this.props.history
     }
     this.onChange = this.onChange.bind(this)
     this.onSave = this.onSave.bind(this)
-    console.log(this.state.organization)
+    console.log(this.props.history)
   }
 
   componentWillMount () {
@@ -89,17 +90,20 @@ class PersonForm extends React.Component {
           title: 'Success',
           text: 'The entry has been updated! '
         })
+        this.state.history.goBack()
       })
     } else { // if we create a new person
       if (passwordFlag) {
         createPersonnel(body.body).then(response => {
           this.componentWillMount()
-          console.log(response)
+          console.log(this.props.history)
+          console.log('!!!!!!')
           swal.fire({
             type: 'success',
             title: 'Success',
             text: 'The entry has been created! '
           })
+          this.state.history.goBack()
         })
       } else {
         swal.fire({

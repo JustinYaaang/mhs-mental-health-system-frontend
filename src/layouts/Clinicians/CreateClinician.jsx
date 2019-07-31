@@ -54,7 +54,7 @@ class CreateClinician extends Component {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
-          <ClinitianForm  hasDetails={false} organization={'clinitian'} />
+          <ClinitianForm  hasDetails={false} organization={'clinitian'} history={this.props.history}/>
         </GridItem>
       </GridContainer>
     )

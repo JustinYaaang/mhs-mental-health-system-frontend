@@ -13,7 +13,8 @@ class ClinitianForm extends React.Component {
     this.state = {
       id: this.props.id,
       hasDetails: this.props.hasDetails,
-      organization: this.props.organization
+      organization: this.props.organization,
+      history: this.props.history
     }
     this.onChange = this.onChange.bind(this)
     this.onSave = this.onSave.bind(this)

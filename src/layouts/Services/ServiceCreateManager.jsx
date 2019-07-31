@@ -43,6 +43,7 @@ const styles = {
 class ServiceCreateManager extends Component {
   constructor (props) {
     super(props)
+    console.log(this.props.history)
     const { id } = this.props.match.params
     this.state = { id: id
     }
@@ -54,7 +55,7 @@ class ServiceCreateManager extends Component {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
-          <PersonForm hasDetails={false} organization={'SERVICEMANAGER'} />
+          <PersonForm hasDetails={false} organization={'SERVICEMANAGER'} history={this.props.history} />
         </GridItem>
       </GridContainer>
     )

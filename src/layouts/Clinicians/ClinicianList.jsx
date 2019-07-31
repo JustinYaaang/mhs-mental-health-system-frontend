@@ -9,7 +9,7 @@ import GridContainer from 'components/Grid/GridContainer.jsx'
 import AnswerRows from 'components/Tasks/ListRows.jsx'
 import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import Code from '@material-ui/icons/Code'
-import { getOrganizations,deleteOrganization, getPersonnel, deletePersonnel } from '../../services/BackendService'
+import { getOrganizations, deleteOrganization, getPersonnel, deletePersonnel } from '../../services/BackendService'
 import swal from 'sweetalert2'
 
 const styles = {
@@ -52,16 +52,16 @@ class ClinicianList extends Component {
 
   componentWillMount() {
     console.log("fetch clinicians")
-    getPersonnel().then(response=>{
-      var i=1;
-      var thelist=new
-       Array()
-      response.forEach((map)=>{
+    getPersonnel().then(response => {
+      var i = 1;
+      var thelist = new
+        Array()
+      response.forEach((map) => {
         thelist.push([
-          i,map.first_name,map.last_name,map.role,map.email,map.telephone,map._id
+          i, map.first_name, map.last_name, map.role, map.email, map.telephone, map._id
         ])
         i++
-        this.setState({list:thelist})
+        this.setState({ list: thelist })
       })
     })
   }
@@ -71,36 +71,37 @@ class ClinicianList extends Component {
   }
 
 
-  createNewClinician=()=>{
+  createNewClinician = () => {
     this.props.history.push(this.props.history.location.pathname + "/new")
     console.log("!!")
   }
 
-deleteClinician=(clinicianId)=>{
+  deleteClinician = (clinicianId) => {
 
-  swal({
-    title: "Are you sure?",
-    text: "Are you sure you want to delete this entry?",
-    icon: "warning",
-    buttons: true,
-    dangerMode: true,
-  })
-  .then((willDelete) => {
-    if (willDelete) {
-      deletePersonnel(clinicianId).then(response=>{
-        swal("The entry has been deleted!", {
-          icon: "success",
-        });
-        this.componentWillMount();
-      })
-      
+    swal({
+      title: "Are you sure?",
+      text: "Are you sure you want to delete this entry?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          deletePersonnel(clinicianId).then(response => {
+            swal("The entry has been deleted!", {
+              icon: "success",
+            });
+            this.setState({ personelList: [] })
+            this.componentWillMount();
+          })
 
-    } else {
-      swal('Action canceled');
-    }
-  });
 
-}
+        } else {
+          swal('Action canceled');
+        }
+      });
+
+  }
 
   render() {
     return (
@@ -114,7 +115,7 @@ deleteClinician=(clinicianId)=>{
                 tabIcon: Code,
                 tabContent: (
                   <AnswerRows
-                    onDeleteItemClicked={(clinicianId)=>this.deleteClinician(clinicianId)}
+                    onDeleteItemClicked={(clinicianId) => this.deleteClinician(clinicianId)}
                     createNew={() => this.createNewClinician()}
                     onRowClicked={(clinicianId) => this.redirectToClinicianDetails(clinicianId)}
                     tableHeaderColor='primary'

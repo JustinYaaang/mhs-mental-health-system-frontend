@@ -31,7 +31,8 @@ class TrustAddForm extends React.Component {
       // hasDetails:false => form in creation mode(the form is not populated)
       hasDetails: details,
       // Organization type: 1)trust, 2)service
-      organization: organization
+      organization: organization,
+      history: this.props.history
     }
     console.log(this.props)
 
@@ -110,6 +111,7 @@ class TrustAddForm extends React.Component {
             title: 'Success',
             text: 'The entry has been updated! '
           })
+          this.state.history.goBack()
         })
       } else {
         console.log(trustdetails)
