@@ -54,7 +54,7 @@ class ServiceCreateNew extends Component {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
-          <TrustServiceForm hasDetails={false} organization={'service'} />
+          <TrustServiceForm hasDetails={false} organization={'service'} history={this.props.history}/>
         </GridItem>
       </GridContainer>
     )
