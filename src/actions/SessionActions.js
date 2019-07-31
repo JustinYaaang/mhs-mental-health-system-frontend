@@ -6,6 +6,10 @@ export function loginSuccess () {
   return { type: types.LOG_IN_SUCCESS }
 }
 
+export function logoutSuccess () {
+  return { type: types.LOG_OUT_SUCCESS }
+}
+
 export function logInUser (body) {
   return function (dispatch) {
     return getAuthenticationToken(body).then(response => {
@@ -15,10 +19,21 @@ export function logInUser (body) {
       console.log(response.data.role)
       // sessionStorage.setItem('role', 'PATIENT');
       dispatch(loginSuccess())
-      history.push('/')
+      document.location.href = '/'
+      // history.push('/')
     }).catch(error => {
       console.log('Session Actions error: ', error)
       throw (error)
     })
+  }
+}
+
+export function logOutUser () {
+  return function (dispatch) {
+      sessionStorage.removeItem('jwt')
+      sessionStorage.removeItem('role')
+      dispatch(logoutSuccess())
+      document.location.href = '/'
+      // history.push('/')
   }
 }

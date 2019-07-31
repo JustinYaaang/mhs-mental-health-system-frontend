@@ -9,6 +9,7 @@ import Setting from '@material-ui/icons/Settings'
 import TransitEnterexit from '@material-ui/icons/TransitEnterexit'
 // core components/views for Admin layout
 import ServiceDashboard from 'views/Dashboard/ServiceDashboard.jsx'
+import UserProfile from 'views/UserProfile/UserProfile.jsx'
 import TableList from 'views/TableList/TableList.jsx'
 import ClinicianList from 'layouts/Clinicians/ClinicianList.jsx'
 
@@ -43,7 +44,7 @@ const dashboardRoutes = [{
   name: 'Profile',
   rtlName: 'لوحة القيادة',
   icon: Person,
-  component: ServiceDashboard,
+  component: UserProfile,
   layout: '/service'
 },
 {
@@ -51,7 +52,7 @@ const dashboardRoutes = [{
   name: 'Settings',
   rtlName: 'لوحة القيادة',
   icon: Setting,
-  component: ServiceDashboard,
+  component: Setting,
   layout: '/service'
 },
 {
@@ -59,10 +60,9 @@ const dashboardRoutes = [{
   name: 'Logout',
   rtlName: 'لوحة القيادة',
   icon: TransitEnterexit,
-  component: ServiceDashboard,
-  layout: '/service'
+  component: Dashboard,
+  layout: ''
 }
-
 ]
 
 export default dashboardRoutes

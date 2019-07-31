@@ -12,8 +12,8 @@ import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 
-import routes from "routes/RoutesAdmin.js";
-import extraRoutes from "routes/ExtraRoutesAdmin.jsx";
+import routes from "../routes/RoutesAdmin.js";
+import extraRoutes from "../routes/ExtraRoutesAdmin.jsx";
 
 
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";

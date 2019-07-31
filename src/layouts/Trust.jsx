@@ -12,8 +12,8 @@ import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 import rtlStyle from "assets/jss/material-dashboard-react/layouts/rtlStyle.jsx";
-import routes  from "routes/RoutesTrust.js";
-import extraRoutes from "routes/ExtraRoutesTrust.jsx";
+import routes  from "../routes/RoutesTrust.js";
+import extraRoutes from "../routes/ExtraRoutesTrust.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
 import image from "assets/img/sidebar-2.jpg";

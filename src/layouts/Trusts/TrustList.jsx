@@ -16,6 +16,7 @@ import AnswerTabs from 'components/CustomTabs/AnswerTabs.jsx'
 import Code from '@material-ui/icons/Code'
 import { getOrganizations,deleteOrganization } from '../../services/BackendService'
 import swal from 'sweetalert2';
+
 const styles = {
   cardCategoryWhite: {
     '&,& a,& a:hover,& a:focus': {
@@ -76,7 +77,6 @@ class TrustList extends Component {
 
   createNewOrganization=()=>{
     this.props.history.push(this.props.history.location.pathname + "/new")
-    console.log("!!")
   }
 
 deleteTrust=(trustId)=>{
@@ -96,8 +96,6 @@ deleteTrust=(trustId)=>{
         });
         this.componentWillMount();
       })
-      
-
     } else {
       swal('Action canceled');
     }

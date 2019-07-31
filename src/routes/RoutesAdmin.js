@@ -51,8 +51,8 @@ const dashboardRoutes = [
     name: 'Logout',
     rtlName: 'لوحة القيادة',
     icon: TransitEnterexit,
-    component: DashboardPage,
-    layout: '/admin'
+    component: Dashboard,
+    layout: ''
   }
 ]
 

@@ -69,9 +69,6 @@ class TrustDetails extends Component {
         this.setState({personelList:thelist})
       })
     })
-
-
-
   }
 
   redirectToManagerDetails = (managerId) => { //Function that redirects to the edit manager page
@@ -100,24 +97,10 @@ deleteManager=(managerId)=>{
         });
         this.componentWillMount();
       })
-      
-
     } else {
       swal('Action canceled');
     }
-  });
-
-
-
-
-
-
-
-
-
-
-
-  
+  }); 
 }
   render () {
     return (
@@ -140,7 +123,7 @@ deleteManager=(managerId)=>{
                   <ListRows
                   onDeleteItemClicked={(managerId)=>this.deleteManager(managerId)}
                   createNew={() => this.createNewUser() /*Function for create new manager */}
-                     onRowClicked={(managerId) => this.redirectToManagerDetails(managerId)/* Function for edit manager */}
+                    onRowClicked={(managerId) => this.redirectToManagerDetails(managerId)/* Function for edit manager */}
                     tableHeaderColor='primary'
                     tableHead={['S/N', 'First Name', 'Last Name', 'Email', 'Trust Name'] /**Table hearders */}
                     checkedIndexes={[]}

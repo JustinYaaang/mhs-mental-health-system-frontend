@@ -90,7 +90,7 @@ class SurveyCreator extends Component {
     document.location.href = "/admin/dashboard/";
   };
 
-  checkStatus = (survey_StringRepresentation,survey_jsonRepresentation,status,type) => {
+  checkStatus = (survey_StringRepresentation,survey_jsonRepresentation,is_published,is_public) => {
 
       const { id } = this.props.match.params;
    
@@ -105,9 +105,10 @@ class SurveyCreator extends Component {
           "id": id,
           "title": survey_jsonRepresentation.title,
           "description": survey_jsonRepresentation.description,
-          "status": status,
-          "type":type,
-          "body":survey_StringRepresentation 
+          "is_published": is_published,
+          "is_public":is_public,
+          "body":survey_StringRepresentation,
+          "role": is_public ? 'FORM1': 'FORM2'
       }
       
       var createSurveyUrl = baseUrl + fetchQuestionnairesUrl
@@ -116,7 +117,7 @@ class SurveyCreator extends Component {
           postNewSurvey(createSurveyUrl, surveyJson)
           .then(results => {
               console.log(results)
-              {document.location.href = '/admin/dashboard/'}
+              {document.location.href = '/admin/dashboard'}
           })
           .catch(error => {
               console.error(error);
@@ -126,7 +127,7 @@ class SurveyCreator extends Component {
           updateSurvey(createSurveyUrl,surveyJson)
           .then(results => {
             console.log(results)
-            {document.location.href = '/admin/dashboard/'}
+            {document.location.href = '/admin/dashboard'}
           })
           .catch(error => {
               console.error(error);
@@ -138,8 +139,8 @@ class SurveyCreator extends Component {
     
     return(
       <div>
-        <Button round color="info" onClick={this.handleDashboard}><Dashboard />Dashboard</Button>
-        <Button justIcon round color="info" onClick={this.handleDashboard}><Dashboard /></Button>
+        {/* <Button round color="info" onClick={this.handleDashboard}><Dashboard />Dashboard</Button>
+        <Button justIcon round color="info" onClick={this.handleDashboard}><Dashboard /></Button> */}
         <div id="surveyCreatorContainer"></div>
     </div>);
   }
@@ -175,20 +176,20 @@ class SurveyCreator extends Component {
         focusConfirm: false,
         showCancelButton: true,
         preConfirm: () => {
-          var status = ""
+          var is_published = true
           if(document.getElementById('myonoffswitch_1').checked) {
-            status = "PUBLISHED"
+            is_published = true
           } else {
-            status = "DRAFT"
+            is_published = false
           }
 
-          var type = ""
+          var is_public = true
           if(document.getElementById('myonoffswitch_2').checked) {
-            type = "PUBLIC"
+            is_public = true
           } else {
-            type = "PRIVATE"
+            is_public = false
           }
-          this.checkStatus(survey_StringRepresentation,survey_jsonRepresentation,status,type);
+          this.checkStatus(survey_StringRepresentation,survey_jsonRepresentation,is_published,is_public);
         }
       });
     }

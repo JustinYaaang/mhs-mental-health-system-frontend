@@ -19,7 +19,6 @@ import All from "@material-ui/icons/AllInboxOutlined";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Tasks from "components/Tasks/Tasks.jsx";
 import TaskView from "components/Tasks/TaskView.jsx";
 import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
 import Card from "components/Card/Card.jsx";
@@ -120,7 +119,7 @@ class Dashboard extends React.Component {
       },
     );
     
-     fetchQuestionnaires().then( //!!! AWAIT HERE
+    fetchQuestionnaires().then( //!!! AWAIT HERE
        response => {
         this.setState({'totalQuestionnaire': response.idPublishedList.length + response.questionnaireDraftList.length,
         'idDraftList': response.idDraftList, 'idPublishedList': response.idPublishedList, 
