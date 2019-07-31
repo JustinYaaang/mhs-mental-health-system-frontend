@@ -64,7 +64,7 @@ class TrustCreateNew extends Component {
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           {/* The params are not send here, must fix TODO */}
-          <TrustServiceForm hasDetails={false} organization={'trust'} /> 
+          <TrustServiceForm hasDetails={false} organization={'trust'} history={this.props.history}/> 
         </GridItem>
       </GridContainer>
     )

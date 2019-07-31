@@ -116,7 +116,7 @@ deleteManager=(managerId)=>{
                 tabName: 'DETAILS',
                 tabIcon: Code,
                 tabContent: (
-                    <TrustServiceForm hasDetails={true} organization={"TRUST"} id={this.state.id}/>
+                    <TrustServiceForm hasDetails={true} organization={"TRUST"} id={this.state.id} history={this.props.history}/>
                 )
               },
               {

@@ -7,6 +7,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import GridItem from 'components/Grid/GridItem.jsx'
 import GridContainer from 'components/Grid/GridContainer.jsx'
 import PersonForm from 'views/Forms/PersonForm'
+import { thisExpression } from '@babel/types';
 
 const styles = {
   cardCategoryWhite: {
@@ -46,6 +47,7 @@ class TrustCreateManager extends Component {
     const { id } = this.props.match.params
     this.state = { id: id
     }
+    console.log(this.props.history)
   }
 
   render () {

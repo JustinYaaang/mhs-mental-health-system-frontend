@@ -49,7 +49,6 @@ class PersonForm extends React.Component {
         last_name: document.getElementById('lastnameinput').value,
         email: document.getElementById('emailinput').value,
         role: this.state.organization
-
       }
     }
     var passwordFlag = false

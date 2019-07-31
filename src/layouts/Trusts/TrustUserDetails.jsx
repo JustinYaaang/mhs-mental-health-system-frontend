@@ -65,7 +65,7 @@ class UserDetails extends Component {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
-          <PersonForm id={this.state.id} hasDetails />
+          <PersonForm id={this.state.id} hasDetails history={this.props.history}/>
         </GridItem>
       </GridContainer>
     )
