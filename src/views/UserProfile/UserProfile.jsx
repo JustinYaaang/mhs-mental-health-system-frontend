@@ -35,9 +35,7 @@ const styles = {
     textDecoration: 'none'
   }
 }
-function onSave () {
-  console.log('asdasdasdsd')
-}
+
 
 class UserProfile extends React.Component {
   constructor (props) {
@@ -49,11 +47,18 @@ class UserProfile extends React.Component {
       details: details
     }
   }
+
+
+  onSave () {
+    console.log(document.getElementById('last-name').value)
+  }
+
+
   render () {
     return (
       <div>
         <GridContainer>
-          <GridItem xs={12} sm={12} md={8}>
+          <GridItem xs={12} sm={12} md={10}>
             <Card>
               <CardHeader color='primary'>
                 <h4 className={this.state.classes.cardTitleWhite}>Edit Profile</h4>
@@ -165,7 +170,7 @@ class UserProfile extends React.Component {
               </CardFooter>
             </Card>
           </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
+          <GridItem xs={5} sm={5} md={2}>
             <Card profile>
               <CardAvatar profile>
                 <a href='#pablo' onClick={e => e.preventDefault()}>
