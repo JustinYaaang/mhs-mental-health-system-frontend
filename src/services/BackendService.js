@@ -73,7 +73,7 @@ const fetchQuestionnaires = async () => {
 
     data.forEach(element => {
       var status = element.is_published ? 'PUBLISHED' : 'DRAFT'
-        if (status === 'PUBLISHED') {
+      if (status === 'PUBLISHED') {
         questionnairePublishedList.push([element.title, element.description, status])
         idPublishedList.push(element._id)
       } else if (status === 'DRAFT') {
@@ -354,26 +354,25 @@ const deleteOrganization = async (body) => {
  */
 const getPersonnel = async (body) => {
   var url = baseUrl + personnel
-  if (body !== undefined) {
-    url = baseUrl + personnel + '/' + body
+  var request = {
+    method: 'get',
+    url: url+'/'+body,
+    headers: { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+  }
+  if (body!==undefined && body.organisation_id !== undefined) {
+    request = {
+      method: 'get',
+      url: url,
+      headers: { 'Authorization': 'Bearer ' + sessionStorage.jwt },
+      params: body
+    }
   }
   try {
-    try {
-      const res = await axios({
-        method: 'get',
-        url: url,
-        headers: { 'Authorization': 'Bearer ' + sessionStorage.jwt },
-        data: {
-          body
-        }
-      })
-      console.log(res)
-      return res.data.data
-    } catch (error) {
-      console.log('GET server error: ', error)
-    }
+    const res = await axios(request)
+    console.log(res)
+    return res.data.data
   } catch (error) {
-    console.log('POST server error: ', error)
+    console.log('GET server error: ', error)
   }
 }
 
