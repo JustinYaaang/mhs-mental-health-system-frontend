@@ -58,11 +58,13 @@ class Dashboard extends React.Component {
   
     if(status === 'DRAFT'){
       const questionnaireId = this.state.idDraftList[index];
-      document.location.href = "/questionnaireview/" + questionnaireId;
+      this.props.history.push(this.props.history.location.pathname + "/questionnaire/" + questionnaireId)
+
     }
     else if(status === 'PUBLISHED'){
       const questionnaireId = this.state.idPublishedList[index];
-      document.location.href = "/questionnaireview/" + questionnaireId;
+      this.props.history.push(this.props.history.location.pathname + "/questionnaire/" + questionnaireId)
+
     }
   };
  

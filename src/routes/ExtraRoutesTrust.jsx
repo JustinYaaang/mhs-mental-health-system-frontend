@@ -6,6 +6,8 @@ import PersonForm from 'views/Forms/PersonForm.jsx';
 import ServiceAddForm from 'views/Forms/TrustServiceForm.jsx';
 import ServiceUserDetails from 'layouts/Services/ServiceUserDetails.jsx'
 import ServiceCreateManager from 'layouts/Services/ServiceCreateManager.jsx'
+import QuestionnaireResult from "views/Forms/QuestionnaireResult.jsx";
+
 
 // core components/views for RTL layout
 const dashboardRoutes = [
@@ -47,6 +49,14 @@ const dashboardRoutes = [
     rtlName: 'لوحة القيادة',
     icon: Dashboard,
     component: ServiceDetails,
+    layout: '/trust'
+  },
+  {
+    path: '/dashboard/questionnaire/:id',
+    name: 'questionnaire',
+    rtlName: 'لوحة القيادة',
+    icon: Dashboard,
+    component: QuestionnaireResult,
     layout: '/trust'
   }
 
