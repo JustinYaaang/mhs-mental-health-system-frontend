@@ -137,7 +137,8 @@ class Dashboard extends React.Component {
             if(response[i].status == 'PENDING'){
                 pending++;
             }
-            else{
+            else if(response[i].status == 'RESOLVED')
+            {
                 close++;
             }
         }
@@ -169,7 +170,6 @@ class Dashboard extends React.Component {
           }
         }
       },
-
       unanswered: 8,
       percentage: 50,
     }
@@ -178,16 +178,16 @@ class Dashboard extends React.Component {
       <div>
         <GridContainer>
           <InformationCard 
-          color={"info"} title={"Total Questionnaires"} value={this.state.totalQuestionnaire}
+          color={"info"} title={"Outstanding Cases"} value={this.state.totalPending}
           daterange={"Updated today"} classes={classes}
           />
           
           <InformationCard 
-          color={"danger"} title={"Total Pending Cases"} value={this.state.totalPending}
+          color={"danger"} title={"Number Triage"} value={this.state.totalClose}
           daterange={"Just updated"} classes={classes}
           />
           <InformationCard 
-          color={"success"} title={"Total Close Cases"} value={this.state.totalClose}
+          color={"success"} title={"More information require"} value={this.state.totalClose}
           daterange={"Updated today"} classes={classes}
           />
 
@@ -225,7 +225,7 @@ class Dashboard extends React.Component {
                   tabIcon: Code,
                   tabContent: (
                     <TaskView
-                      tableHeaderColor="primary"
+                      tableHeaderColor="info"
                       tableHead={["Name", "Description", "Status", "Modify"]}
                       checkedIndexes={[]}
                       tasks={this.state.questionnaireDraftList}

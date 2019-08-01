@@ -45,7 +45,8 @@ class Dashboard extends React.Component {
     questionnairePublishedList: [],
     idDraftList: [],
     questionnaireDraftList: [],
-    totalQuestionnaire: 0,
+    totalPublishedQuestionnaire: 0,
+    totalDraftQuestionnaire: 0,
     dailySubmission: {
       labels:[],
       series:[[]]
@@ -180,7 +181,7 @@ class Dashboard extends React.Component {
     
      fetchQuestionnaires().then( //!!! AWAIT HERE
        response => {
-        this.setState({'totalQuestionnaire': response.idPublishedList.length + response.questionnaireDraftList.length,
+        this.setState({'totalPublishedQuestionnaire': response.idPublishedList.length, 'totalDraftQuestionnaire': response.idDraftList.length,
         'idDraftList': response.idDraftList, 'idPublishedList': response.idPublishedList, 
               'questionnaireDraftList': response.questionnaireDraftList, 'questionnairePublishedList': response.questionnairePublishedList});
       }
@@ -219,23 +220,22 @@ class Dashboard extends React.Component {
       <div>
         <GridContainer>
           <InformationCard 
-          color={"info"} title={"Total Questionnaires"} value={this.state.totalQuestionnaire}
+          color={"info"} title={"Total Published Questionnaires Designed"} value={this.state.totalPublishedQuestionnaire}
           daterange={"Updated today"} classes={classes}
           />
           <InformationCard 
-          color={"danger"} title={"Pending Cases"} value={dashboardData.unanswered}
+          color={"danger"} title={"Total Draft Questionnaires Designed"} value={this.state.totalDraftQuestionnaire}
           daterange={"Updated just now"} classes={classes}
           />
-
-            <InformationCard 
-          color={"success"} title={"Total Cases"} value={dashboardData.waiting_patients}
+          <InformationCard 
+          color={"success"} title={"Total Trusts"} value={dashboardData.waiting_patients}
           daterange={"Just updated"} classes={classes}
           />
 
         </GridContainer>
         <GridContainer>
           <LineGraph
-          color={"success"} dailySubmission={this.state.dailySubmission} type={"Line"}
+          color={"success"}  dailySubmission={this.state.dailySubmission} type={"Line"}
           dashboardData={dashboardData}
           classes={classes}
           
@@ -265,7 +265,7 @@ class Dashboard extends React.Component {
                   tabIcon: Code,
                   tabContent: (
                     <Tasks
-                      tableHeaderColor="primary"
+                      tableHeaderColor="info"
                       tableHead={["Name", "Description", "Status", "Modify"]}
                       checkedIndexes={[]}
                       tasks={this.state.questionnaireDraftList}

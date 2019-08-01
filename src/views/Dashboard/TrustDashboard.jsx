@@ -21,16 +21,11 @@ import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import TaskView from "components/Tasks/TaskView.jsx";
 import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
-import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import CardIcon from "components/Card/CardIcon.jsx";
-import CardBody from "components/Card/CardBody.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
 import InformationCard from 'components/DashboardComponent/InformationCard.jsx';
 import LineGraph from 'components/DashboardComponent/LineGraph.jsx';
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import { fetchQuestionnaires, deleteQuestionnaire, fetchWeeklyResult } from "../../services/BackendService";
+import { fetchQuestionnaires, getOrganizations, fetchWeeklyResult } from "../../services/BackendService";
 
 class Dashboard extends React.Component {
   state = {
@@ -39,7 +34,9 @@ class Dashboard extends React.Component {
     questionnairePublishedList: [],
     idDraftList: [],
     questionnaireDraftList: [],
-    totalQuestionnaire: 0,
+    totalPublishedQuestionnaire: 0,
+    totalDraftQuestionnaire: 0,
+    totalService: 0,
     dailySubmission: {
       labels:[],
       series:[[]]
@@ -120,11 +117,15 @@ class Dashboard extends React.Component {
     
      fetchQuestionnaires().then( //!!! AWAIT HERE
        response => {
-        this.setState({'totalQuestionnaire': response.idPublishedList.length + response.questionnaireDraftList.length,
+        this.setState({'totalPublishedQuestionnaire': response.idPublishedList.length,  'totalDraftQuestionnaire':response.questionnaireDraftList.length,
         'idDraftList': response.idDraftList, 'idPublishedList': response.idPublishedList, 
               'questionnaireDraftList': response.questionnaireDraftList, 'questionnairePublishedList': response.questionnairePublishedList});
       }
     );
+
+    getOrganizations().then(response=>{
+      this.setState({'totalService':response.length})
+    })
   }
 
   render() {
@@ -133,10 +134,6 @@ class Dashboard extends React.Component {
 
     const dashboardData = {
       dailySalesChart: {
-        // data: {
-        //   labels: ["M", "T", "W", "T", "F", "S", "S"],
-        //   series: [[12, 17, 7, 17, 23, 18, 38]]
-        // },
         options: {
           lineSmooth: Chartist.Interpolation.cardinal({
             tension: 0
@@ -152,7 +149,6 @@ class Dashboard extends React.Component {
         }
       },
 
-      unanswered: 8,
       waiting_patients: 18,
       percentage: 50,
     }
@@ -163,16 +159,16 @@ class Dashboard extends React.Component {
       <div>
         <GridContainer>
           <InformationCard 
-            color={"info"} title={"Total Service"} value={this.state.totalQuestionnaire}
+            color={"info"} title={"Total Published Questionnaire"} value={this.state.totalPublishedQuestionnaire}
             daterange={"Updated today"} classes={classes}
           />
           <InformationCard 
-            color={"success"} title={"Total Clinician"} value={dashboardData.unanswered}
+            color={"success"} title={"Total Draft Questionnaire"} value={this.state.totalDraftQuestionnaire}
             daterange={"Updated just now"} classes={classes}
           />
 
           <InformationCard 
-            color={"primary"} title={"Total Questionnaire"} value={dashboardData.unanswered}
+            color={"primary"} title={"Total Services"} value={this.state.totalService}
             daterange={"Updated just now"} classes={classes}
           />
 
@@ -209,7 +205,7 @@ class Dashboard extends React.Component {
                   tabIcon: Code,
                   tabContent: (
                     <TaskView
-                      tableHeaderColor="primary"
+                      tableHeaderColor="info"
                       tableHead={["Name", "Description", "Status", "Modify"]}
                       checkedIndexes={[]}
                       tasks={this.state.questionnaireDraftList}

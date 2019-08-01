@@ -59,7 +59,6 @@ const dashboardRoutes = [
     component: QuestionnaireResult,
     layout: '/trust'
   }
-
 ]
 
 export default dashboardRoutes

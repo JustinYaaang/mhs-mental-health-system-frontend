@@ -39,7 +39,7 @@ class LineGraph extends React.Component {
             />
           </CardHeader>
           <CardBody>
-            <h4 className={this.props.classes.cardTitle}>Daily Engagement</h4>
+            <h4 className={this.props.classes.cardTitle}>Weekly Patient Submission</h4>
             <p className={this.props.classes.cardCategory}>
               <span className={this.props.classes.successText}>
                 <ArrowUpward className={this.props.classes.upArrowCardCategory} />{this.props.dashboardData.percentage}%

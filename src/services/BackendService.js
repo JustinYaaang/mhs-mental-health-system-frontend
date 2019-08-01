@@ -20,17 +20,7 @@ const postNewSurvey = async (createSurveyUrl, surveyData) => {
   } catch (error) {
     console.log('POST server error: ', error)
   }
-  // console.log(createSurveyUrl)
-  // console.log(surveyData)
 
-  // axios.post(createSurveyUrl, surveyData)
-  //   .then(function (response) {
-  //     console.log('response')
-  //     console.log(response)
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error)
-  //   })
 }
 
 const updateSurvey = async (updateSurveyUrl, surveyData) => {
@@ -79,9 +69,6 @@ const fetchQuestionnaires = async () => {
       } else if (status === 'DRAFT') {
         questionnaireDraftList.push([element.title, element.description, status])
         idDraftList.push(element._id)
-      } else if (status === 'DRAFT') {
-        questionnaireDraftList.push([element.title, element.description, status])
-        idDraftList.push(element._id)
       }
     })
     return {
@@ -103,8 +90,7 @@ const fetchUserAnswers = async () => {
     url: baseUrl + patientanswersUrl,
     headers: headers
   }).then(response => {
-    console.log('response')
-    console.log(response)
+
     return response.data.data
   }).catch(error => {
     console.log('GET server error: ', error)
@@ -115,8 +101,7 @@ const fetchWeeklyResult = async (startDate, lastDate) => {
   console.log('fetchWeeklyCount')
   var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
   var weeklyResultUrl = baseUrl + patientanswersUrl
-  console.log(startDate)
-  console.log(lastDate)
+
   return await axios.get(weeklyResultUrl, {
     params: {
       startDate: lastDate,
@@ -125,6 +110,7 @@ const fetchWeeklyResult = async (startDate, lastDate) => {
     },
     headers: headers
   }).then(response => {
+    console.log(response.data.data)
     return response.data.data
   }).catch(error => {
     console.log('GET server error: ', error)
