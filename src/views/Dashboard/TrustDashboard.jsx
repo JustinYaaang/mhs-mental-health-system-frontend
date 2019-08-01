@@ -26,14 +26,11 @@ import LineGraph from 'components/DashboardComponent/LineGraph.jsx';
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { fetchQuestionnaires, getOrganizations, fetchWeeklyResult } from "../../services/BackendService";
+import Questionnaire from "../Questionnaire/Questionnaire.jsx"
 
 class Dashboard extends React.Component {
   state = {
     value: 0,
-    idPublishedList: [],
-    questionnairePublishedList: [],
-    idDraftList: [],
-    questionnaireDraftList: [],
     totalPublishedQuestionnaire: 0,
     totalDraftQuestionnaire: 0,
     totalService: 0,
@@ -51,19 +48,7 @@ class Dashboard extends React.Component {
     this.setState({ value: index });
   };
 
-  handleViewQuestionnaireClick = (index, status) => {
-  
-    if(status === 'DRAFT'){
-      const questionnaireId = this.state.idDraftList[index];
-      this.props.history.push(this.props.history.location.pathname + "/questionnaire/" + questionnaireId)
 
-    }
-    else if(status === 'PUBLISHED'){
-      const questionnaireId = this.state.idPublishedList[index];
-      this.props.history.push(this.props.history.location.pathname + "/questionnaire/" + questionnaireId)
-
-    }
-  };
  
   timeTrans(date){
     date = new Date(date);//如果date为13位不需要乘1000
@@ -108,8 +93,7 @@ class Dashboard extends React.Component {
           }   
           myday--;
       }
-        console.log(dailysubmit.series[0]);
-        console.log(Math.max(...dailysubmit.series[0]));
+  
         var seriesMax = 1.10 * Math.max(...dailysubmit.series[0]);
         this.setState({'dailySubmission':dailysubmit, 'seriesMax': seriesMax})
       },
@@ -118,8 +102,7 @@ class Dashboard extends React.Component {
      fetchQuestionnaires().then( //!!! AWAIT HERE
        response => {
         this.setState({'totalPublishedQuestionnaire': response.idPublishedList.length,  'totalDraftQuestionnaire':response.questionnaireDraftList.length,
-        'idDraftList': response.idDraftList, 'idPublishedList': response.idPublishedList, 
-              'questionnaireDraftList': response.questionnaireDraftList, 'questionnairePublishedList': response.questionnairePublishedList});
+        });
       }
     );
 
@@ -148,13 +131,10 @@ class Dashboard extends React.Component {
           }
         }
       },
-
       waiting_patients: 18,
       percentage: 50,
     }
 
-    console.log(dashboardData)
-    console.log(this.state.dailySubmission)
     return (
       <div>
         <GridContainer>
@@ -178,44 +158,10 @@ class Dashboard extends React.Component {
           color={"success"} dailySubmission={this.state.dailySubmission} type={"Line"}
           dashboardData={dashboardData}
           classes={classes}
-          
           />
 
-          <GridItem xs={12} sm={12} md={8}>
-            <CustomTabs
-              title="Questionnaires :"
-              headerColor="info"
-              onCreateNewClicked={() => this.handleCreateNewQuestionnaireClicked()}
-              tabs={[
-                {
-                  tabName: "PUBLISHED",
-                  tabIcon: Grade,
-                  tabContent: (
-                    <TaskView
-                      tableHeaderColor="info"
-                      tableHead={["Name", "Description", "Status", "Modify"]}
-                      checkedIndexes={[]}
-                      tasks={this.state.questionnairePublishedList}
-                      onViewClicked={(index) => this.handleViewQuestionnaireClick(index, 'PUBLISHED')}
-                    />
-                  )
-                },
-                { 
-                  tabName: "DRAFT",
-                  tabIcon: Code,
-                  tabContent: (
-                    <TaskView
-                      tableHeaderColor="info"
-                      tableHead={["Name", "Description", "Status", "Modify"]}
-                      checkedIndexes={[]}
-                      tasks={this.state.questionnaireDraftList}
-                      onViewClicked={(index) => this.handleViewQuestionnaireClick(index, 'DRAFT')}
-                    />
-                  )
-                }, 
-              ]}
-            />
-          </GridItem>
+        <Questionnaire question = {this.props.history} value = {8}/>
+
         </GridContainer>
       </div>
     );

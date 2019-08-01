@@ -24,7 +24,6 @@ import TrustDetails from "./Trusts/TrustDetails.jsx";
 import PersonForm from "../views/Forms/PersonForm.jsx";
 import TrustAddForm from "../views/Forms/TrustServiceForm.jsx";
 
-
 let ps;
 
 const switchRoutes = (
@@ -60,7 +59,7 @@ const switchRoutes = (
     <Redirect from="/admin" to="/admin/dashboard" />
   </Switch>
 );
-
+ 
 class Dashboard extends React.Component {
   state = {
     image: image,
