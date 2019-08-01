@@ -116,7 +116,8 @@ class Dashboard extends React.Component {
   }
   componentWillMount(){
     getPersonnel(sessionStorage.jwt).then(response=>{
-      sessionStorage.setItem("personDetails",response)
+      console.log(response)
+      sessionStorage.setItem("personDetails",JSON.stringify(response))
     })
   }
   

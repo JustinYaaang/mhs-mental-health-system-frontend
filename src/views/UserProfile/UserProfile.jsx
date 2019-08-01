@@ -17,7 +17,6 @@ import CardFooter from 'components/Card/CardFooter.jsx'
 
 import avatar from 'assets/img/faces/marc.jpg'
 
-
 const styles = {
   cardCategoryWhite: {
     color: 'rgba(255,255,255,.62)',
@@ -36,146 +35,153 @@ const styles = {
     textDecoration: 'none'
   }
 }
+function onSave () {
+  console.log('asdasdasdsd')
+}
 
-function UserProfile (props) {
-  const { classes } = props
-  return (
-    <div>
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={8}>
-          <Card>
-            <CardHeader color='primary'>
-              <h4 className={classes.cardTitleWhite}>Edit Profile</h4>
-              <p className={classes.cardCategoryWhite}>Complete your profile</p>
-            </CardHeader>
-            <CardBody>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={5}>
-                  <CustomInput
-                    labelText='Company (disabled)'
-                    id='company-disabled'
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      disabled: true
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={3}>
-                  <CustomInput
-                    labelText='Username'
-                    id='username'
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText='Email address'
-                    id='email-address'
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={6}>
-                  <CustomInput
-                    labelText='First Name'
-                    id='first-name'
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={6}>
-                  <CustomInput
-                    labelText='Last Name'
-                    id='last-name'
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText='City'
-                    id='city'
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText='Country'
-                    id='country'
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText='Postal Code'
-                    id='postal-code'
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={12}>
-                  <InputLabel style={{ color: '#AAAAAA' }}>About me</InputLabel>
-                  <CustomInput
-                    labelText="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
-                    id='about-me'
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      multiline: true,
-                      rows: 5
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
-            </CardBody>
-            <CardFooter>
-              <Button color='primary'>Update Profile</Button>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card profile>
-            <CardAvatar profile>
-              <a href='#pablo' onClick={e => e.preventDefault()}>
-                <img src={avatar} alt='...' />
-              </a>
-            </CardAvatar>
-            <CardBody profile>
-              <h6 className={classes.cardCategory}>CEO / CO-FOUNDER</h6>
-              <h4 className={classes.cardTitle}>Alec Thompson</h4>
-              <p className={classes.description}>
-                Don{"'"}t be scared of the truth because we need to restart the
-                human foundation in truth And I love you like Kanye loves Kanye
-                I love Rick Owens’ bed design but the back is...
-              </p>
-              <Button color='primary' round>
-                Follow
-              </Button>
-            </CardBody>
-          </Card>
-        </GridItem>
-      </GridContainer>
-    </div>
-  )
+class UserProfile extends React.Component {
+  constructor (props) {
+    super(props)
+    const { classes } = props
+    var details = JSON.parse(sessionStorage.personDetails)
+    this.state = {
+      classes: classes,
+      details: details
+    }
+  }
+  render () {
+    return (
+      <div>
+        <GridContainer>
+          <GridItem xs={12} sm={12} md={8}>
+            <Card>
+              <CardHeader color='primary'>
+                <h4 className={this.state.classes.cardTitleWhite}>Edit Profile</h4>
+                <p className={this.state.classes.cardCategoryWhite}>Complete your profile</p>
+              </CardHeader>
+              <CardBody>
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={5}>
+                    <CustomInput
+                      labelText='Role'
+                      id='company-disabled'
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        disabled: true
+                      }}
+                      value={this.state.details.role}
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={4}>
+                    <CustomInput
+                      labelText='Email address/Username'
+                      id='email-address'
+                      formControlProps={{
+                        fullWidth: true,
+                        disabled: true
+                      }
+
+                      }
+                      value={this.state.details.email}
+                    />
+                  </GridItem>
+                </GridContainer>
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={6}>
+                    <CustomInput
+                      labelText='First Name'
+                      id='first-name'
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      value={this.state.details.first_name}
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={6}>
+                    <CustomInput
+                      labelText='Last Name'
+                      id='last-name'
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      value={this.state.details.last_name}
+                    />
+                  </GridItem>
+                </GridContainer>
+                <GridContainer>
+
+                  <GridItem xs={12} sm={12} md={3}>
+                    <CustomInput
+                      labelText='Position'
+                      id='username'
+                      formControlProps={{
+                        fullWidth: true,
+                        disabled: true
+                      }}
+                      value={this.state.details.organisation_id.name}
+                    />
+                  </GridItem>
+
+                  <GridItem xs={12} sm={12} md={3}>
+                    <CustomInput
+                      labelText='Position Type'
+                      id='username'
+                      formControlProps={{
+                        fullWidth: true,
+                        disabled: true
+                      }}
+                      value={this.state.details.organisation_id.role}
+                    />
+                  </GridItem>
+
+                  <GridItem xs={12} sm={12} md={4}>
+                    <CustomInput
+                      labelText='Position Address'
+                      id='country'
+                      formControlProps={{
+                        fullWidth: true,
+                        disabled: true
+                      }}
+                      value={this.state.details.organisation_id.address1 + ' ' + this.state.details.organisation_id.address2}
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={4}>
+                    <CustomInput
+                      labelText='Postal Code'
+                      id='postal-code'
+                      formControlProps={{
+                        fullWidth: true,
+                        disabled: true
+                      }}
+                      value={this.state.details.organisation_id.postcode}
+                    />
+                  </GridItem>
+                </GridContainer>
+              </CardBody>
+              <CardFooter>
+                <Button onClick={this.onSave} color='primary'>Update Profile</Button>
+              </CardFooter>
+            </Card>
+          </GridItem>
+          <GridItem xs={12} sm={12} md={4}>
+            <Card profile>
+              <CardAvatar profile>
+                <a href='#pablo' onClick={e => e.preventDefault()}>
+                  <img src={avatar} alt='...' />
+                </a>
+              </CardAvatar>
+              <CardBody profile>
+                <h6 className={this.state.classes.cardCategory}>{this.state.details.role}</h6>
+                <h4 className={this.state.classes.cardTitle}>{this.state.details.first_name + ' ' + this.state.details.last_name}</h4>
+              </CardBody>
+            </Card>
+          </GridItem>
+        </GridContainer>
+      </div>
+    )
+  }
 }
 
 UserProfile.propTypes = {

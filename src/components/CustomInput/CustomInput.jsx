@@ -11,6 +11,7 @@ import Clear from '@material-ui/icons/Clear'
 import Check from '@material-ui/icons/Check'
 // core components
 import customInputStyle from 'assets/jss/material-dashboard-react/components/customInputStyle.jsx'
+import { TextField } from '@material-ui/core';
 
 function CustomInput ({ ...props }) {
   const {
@@ -21,7 +22,8 @@ function CustomInput ({ ...props }) {
     labelProps,
     inputProps,
     error,
-    success
+    success,
+    value
   } = props
 
   const labelClasses = classNames({
@@ -56,7 +58,9 @@ function CustomInput ({ ...props }) {
           disabled: classes.disabled,
           underline: underlineClasses
         }}
+        defaultValue={value}
         id={id}
+      
         {...inputProps}
       />
       {error ? (
