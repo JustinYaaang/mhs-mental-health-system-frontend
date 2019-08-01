@@ -18,7 +18,7 @@ import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboar
 import {getOrganizations} from "services/BackendService.js"
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
-
+import {getPersonnel} from 'services/BackendService'
 
 let ps;
 
@@ -107,12 +107,11 @@ class Dashboard extends React.Component {
     window.removeEventListener("resize", this.resizeFunction);
   }
 
-  componentDidMount() {
-    // console.log(sessionStorage.currentOrganizationID)
-    // getOrganizations(sessionStorage.currentOrganizationID).then(response => {
-    //   console.log(response)
-    //   this.setState({ orgName: sessionStorage.currentOrganizationID })
-    // })
+  componentWillMount(){
+    getPersonnel(sessionStorage.jwt).then(response=>{
+      sessionStorage.setItem("personDetails",response)
+      this.setState({orgName:response.organisation_id.name})
+    })
   }
 
 
@@ -123,7 +122,7 @@ class Dashboard extends React.Component {
       <div className={classes.wrapper}>
         <Sidebar
           routes={routes}
-          logoText={"MHS- "+this.state.orgName}
+          logoText={this.state.orgName}
           logo={logo}
           image={this.state.image}
           handleDrawerToggle={this.handleDrawerToggle}

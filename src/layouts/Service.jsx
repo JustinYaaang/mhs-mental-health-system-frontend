@@ -19,7 +19,7 @@ import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboar
 
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
-
+import {getPersonnel} from 'services/BackendService'
 
 let ps;
 
@@ -59,7 +59,8 @@ class Dashboard extends React.Component {
     color: "blue",
     hasImage: true,
     fixedClasses: "dropdown show",
-    mobileOpen: false
+    mobileOpen: false,
+    orgName:''
   };
   mainPanel = React.createRef();
   handleImageClick = image => {
@@ -106,13 +107,19 @@ class Dashboard extends React.Component {
     }
     window.removeEventListener("resize", this.resizeFunction);
   }
+  componentWillMount(){
+    getPersonnel(sessionStorage.jwt).then(response=>{
+      sessionStorage.setItem("personDetails",response)
+      this.setState({orgName:response.organisation_id.name})
+    })
+  }
   render() {
     const { classes, ...rest } = this.props;
     return (
       <div className={classes.wrapper}>
         <Sidebar
           routes={routes}
-          logoText={"MHS - Camden"}
+          logoText={this.state.orgName}
           logo={logo}
           image={this.state.image}
           handleDrawerToggle={this.handleDrawerToggle}

@@ -14,7 +14,7 @@ import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 
 import routes from "../routes/RoutesAdmin.js";
 import extraRoutes from "../routes/ExtraRoutesAdmin.jsx";
-
+import {getPersonnel} from 'services/BackendService'
 
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
@@ -23,7 +23,7 @@ import logo from "assets/img/reactlogo.png";
 import TrustDetails from "./Trusts/TrustDetails.jsx";
 import PersonForm from "../views/Forms/PersonForm.jsx";
 import TrustAddForm from "../views/Forms/TrustServiceForm.jsx";
-import {getOrganizations} from "services/BackendService.js"
+
 
 let ps;
 
@@ -113,6 +113,11 @@ class Dashboard extends React.Component {
       ps.destroy();
     }
     window.removeEventListener("resize", this.resizeFunction);
+  }
+  componentWillMount(){
+    getPersonnel(sessionStorage.jwt).then(response=>{
+      sessionStorage.setItem("personDetails",response)
+    })
   }
   
   render() {
