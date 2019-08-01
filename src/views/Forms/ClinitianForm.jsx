@@ -58,7 +58,8 @@ class ClinitianForm extends React.Component {
         first_name: document.getElementById('firstnameinput').value,
         last_name: document.getElementById('lastnameinput').value,
         email: document.getElementById('emailinput').value,
-        role: this.getStep()
+        role: this.getStep(),
+        organisation_id: sessionStorage.currentOrganizationID
       }
     }
     var passwordFlag = false

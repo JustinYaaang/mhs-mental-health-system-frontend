@@ -23,13 +23,13 @@ import logo from "assets/img/reactlogo.png";
 import TrustDetails from "./Trusts/TrustDetails.jsx";
 import PersonForm from "../views/Forms/PersonForm.jsx";
 import TrustAddForm from "../views/Forms/TrustServiceForm.jsx";
-
+import {getOrganizations} from "services/BackendService.js"
 
 let ps;
 
 const switchRoutes = (
   <Switch>
-  {/* <Route path={'/admin/trusts/new'} component={TrustAddForm}/>
+    {/* <Route path={'/admin/trusts/new'} component={TrustAddForm}/>
   <Route path={'/admin/trusts/manager/:id?'} component={PersonForm}/>
   <Route path={'/admin/trusts/:id'} component={TrustDetails}/> */}
     {extraRoutes.map((prop, key) => {
@@ -50,13 +50,13 @@ const switchRoutes = (
           <Route
             path={prop.layout + prop.path}
             component={prop.component}
-            key={key} 
+            key={key}
           />
         );
       }
       return null;
     })}
-   
+
     <Redirect from="/admin" to="/admin/dashboard" />
   </Switch>
 );
@@ -114,13 +114,14 @@ class Dashboard extends React.Component {
     }
     window.removeEventListener("resize", this.resizeFunction);
   }
+  
   render() {
     const { classes, ...rest } = this.props;
     return (
       <div className={classes.wrapper}>
         <Sidebar
           routes={routes}
-          logoText={"MHS - Camden"}
+          logoText={"ADMIN"}
           logo={logo}
           image={this.state.image}
           handleDrawerToggle={this.handleDrawerToggle}
@@ -140,10 +141,10 @@ class Dashboard extends React.Component {
               <div className={classes.container}>{switchRoutes}</div>
             </div>
           ) : (
-            <div className={classes.map}>{switchRoutes}</div>
-          )}
+              <div className={classes.map}>{switchRoutes}</div>
+            )}
           {this.getRoute() ? <Footer /> : null}
-         {/* <FixedPlugin
+          {/* <FixedPlugin
             handleImageClick={this.handleImageClick}
             handleColorClick={this.handleColorClick}
             bgColor={this.state["color"]}

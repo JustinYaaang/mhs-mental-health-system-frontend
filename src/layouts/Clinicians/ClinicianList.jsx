@@ -51,8 +51,8 @@ class ClinicianList extends Component {
   }
 
   componentWillMount() {
-    console.log("fetch clinicians")
-    getPersonnel().then(response => {
+    var body = { organisation_id: sessionStorage.currentOrganizationID }
+    getPersonnel(body).then(response => {
       var i = 1;
       var thelist = new
         Array()
@@ -61,8 +61,9 @@ class ClinicianList extends Component {
           i, map.first_name, map.last_name, map.role, map.email, map.telephone, map._id
         ])
         i++
-        this.setState({ list: thelist })
+
       })
+      this.setState({ list: thelist })
     })
   }
 
@@ -78,7 +79,7 @@ class ClinicianList extends Component {
 
   deleteClinician = (clinicianId) => {
 
-    swal({
+    swal.fire({
       title: "Are you sure?",
       text: "Are you sure you want to delete this entry?",
       icon: "warning",
@@ -88,7 +89,7 @@ class ClinicianList extends Component {
       .then((willDelete) => {
         if (willDelete) {
           deletePersonnel(clinicianId).then(response => {
-            swal("The entry has been deleted!", {
+            swal.fire("The entry has been deleted!", {
               icon: "success",
             });
             this.setState({ personelList: [] })

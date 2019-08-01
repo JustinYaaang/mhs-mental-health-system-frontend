@@ -14,7 +14,7 @@ import CardHeader from 'components/Card/CardHeader.jsx'
 import CardAvatar from 'components/Card/CardAvatar.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import CardFooter from 'components/Card/CardFooter.jsx'
-import {fetchUserDetail } from '../../services/BackendService'
+import {getPersonnel } from '../../services/BackendService'
 import TextField from '@material-ui/core/TextField';
 
 import Table from "components/Table/Table.jsx";
@@ -52,7 +52,7 @@ class UserDetail extends Component {
     componentWillMount() {
         const {id} = this.props.match.params;
         console.log(id)
-        fetchUserDetail(id)
+        getPersonnel(id)
           .then(response => {
             console.log(response.email)
             this.setState({ firstname: response.first_name, lastname:response.last_name, email: response.email,postcode:response.postcode })
