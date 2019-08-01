@@ -110,7 +110,7 @@ class Dashboard extends React.Component {
 
   componentWillMount(){
     getPersonnel(sessionStorage.jwt).then(response=>{
-      sessionStorage.setItem("personDetails",response)
+      sessionStorage.setItem("personDetails",JSON.stringify(response))
       this.setState({orgName:response.organisation_id.name})
     })
   }

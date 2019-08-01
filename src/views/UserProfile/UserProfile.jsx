@@ -114,7 +114,7 @@ class UserProfile extends React.Component {
 
                   <GridItem xs={12} sm={12} md={3}>
                     <CustomInput
-                      labelText='Position'
+                      labelText='Organisation Name'
                       id='username'
                       formControlProps={{
                         fullWidth: true,
@@ -126,7 +126,7 @@ class UserProfile extends React.Component {
 
                   <GridItem xs={12} sm={12} md={3}>
                     <CustomInput
-                      labelText='Position Type'
+                      labelText='Organisation Type'
                       id='username'
                       formControlProps={{
                         fullWidth: true,
