@@ -7,6 +7,8 @@ import TrustAddForm from "views/Forms/TrustServiceForm.jsx";
 import TrustUserDetails from "layouts/Trusts/TrustUserDetails.jsx"
 import TrustCreateManager from "layouts/Trusts/TrustCreateManager.jsx"
 import SurveyCreator from "layouts/SurveyCreator.js"
+import QuestionnaireResult from "views/Forms/QuestionnaireResult.jsx";
+
 
 // core components/views for RTL layout
 
@@ -54,6 +56,14 @@ const dashboardRoutes = [
   {
     path: '/dashboard/questionnaire/:id?',
     name: 'Trust Overview',
+    rtlName: 'لوحة القيادة',
+    icon: Dashboard,
+    component: SurveyCreator,
+    layout: '/admin'
+  },
+  {
+    path: '/dashboard/questionnaire/:id',
+    name: 'questionnaire',
     rtlName: 'لوحة القيادة',
     icon: Dashboard,
     component: SurveyCreator,

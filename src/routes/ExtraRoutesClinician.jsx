@@ -3,6 +3,8 @@ import Dashboard from '@material-ui/icons/Dashboard'
 // core components/views for Admin layout
 import patientanswers from "views/Forms/SurveyResult";
 import userdetail from "views/Forms/UserDetail";
+import QuestionnaireResult from "views/Forms/QuestionnaireResult.jsx";
+
 
 // core components/views for RTL layout
 
@@ -21,6 +23,14 @@ const dashboardRoutes = [
     rtlName: 'لوحة القيادة',
     icon: Dashboard,
     component: patientanswers,
+    layout: '/clinician'
+  },
+  {
+    path: '/dashboard/questionnaire/:id',
+    name: 'questionnaire',
+    rtlName: 'لوحة القيادة',
+    icon: Dashboard,
+    component: QuestionnaireResult,
     layout: '/clinician'
   }
 ]
