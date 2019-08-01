@@ -60,7 +60,6 @@ class TrustDetails extends Component {
   }
 
   componentWillMount() {
-    console.log("ID!!!=== " + sessionStorage.organizationID)
     var body = { organisation_id: sessionStorage.organizationID }
     getPersonnel(body).then(response => { //Get the personel list from backend
       console.log("response" + response)

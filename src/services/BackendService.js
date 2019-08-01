@@ -356,10 +356,10 @@ const getPersonnel = async (body) => {
   var url = baseUrl + personnel
   var request = {
     method: 'get',
-    url: url+'/'+body,
+    url: url + '/' + body,
     headers: { 'Authorization': 'Bearer ' + sessionStorage.jwt }
   }
-  if (body!==undefined && body.organisation_id !== undefined) {
+  if (body !== undefined && body.organisation_id !== undefined) {
     request = {
       method: 'get',
       url: url,

@@ -54,8 +54,8 @@ class ServiceDetails extends Component {
   }
 
   componentWillMount() {
-    console.log("test")
-    getPersonnel().then(response => { //Get the personel list from backend
+    var body = { organisation_id: sessionStorage.organizationID }
+    getPersonnel(body).then(response => { //Get the personel list from backend
       console.log("response" + response)
       var counter = 1;
       var thelist = new Array() //list for storing the personnel
@@ -65,8 +65,9 @@ class ServiceDetails extends Component {
         ])
         counter++
 
-        this.setState({ personelList: thelist })
+       
       })
+      this.setState({ personelList: thelist })
     })
    
 
