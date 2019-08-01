@@ -31,7 +31,7 @@ import InformationCard from 'components/DashboardComponent/InformationCard.jsx';
 import LineGraph from 'components/DashboardComponent/LineGraph.jsx';
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import { fetchQuestionnaires, deleteQuestionnaire, fetchWeeklyResult } from "../../services/BackendService";
+import { fetchQuestionnaires, fetchUserAnswers, fetchWeeklyResult } from "../../services/BackendService";
 
 class Dashboard extends React.Component {
   state = {
@@ -40,7 +40,7 @@ class Dashboard extends React.Component {
     questionnairePublishedList: [],
     idDraftList: [],
     questionnaireDraftList: [],
-    totalQuestionnaire: 0,
+    totalStep: 0,
     totalPending:0,
     totalClose:0,
     dailySubmission: {
@@ -61,13 +61,11 @@ class Dashboard extends React.Component {
   
     if(status === 'DRAFT'){
       const questionnaireId = this.state.idDraftList[index];
-      //document.location.href = "/questionnaireview/" + questionnaireId;
       this.props.history.push(this.props.history.location.pathname + "/questionnaire/" + questionnaireId)
 
     }
     else if(status === 'PUBLISHED'){
       const questionnaireId = this.state.idPublishedList[index];
-      //document.location.href = "/questionnaireview/" + questionnaireId;
       this.props.history.push(this.props.history.location.pathname + "/questionnaire/" + questionnaireId)
     }
   };
@@ -81,7 +79,6 @@ class Dashboard extends React.Component {
   };
 
   componentWillMount() {
-
     var todayTime = new Date( Date.parse( new Date()));
     var todayDate = this.timeTrans(todayTime);
     var lastTime = new Date( Date.parse( new Date())-(7*86400000));
@@ -101,6 +98,7 @@ class Dashboard extends React.Component {
         var dataTransfer = new Map([[0, 'S'], [1, 'M'], [2,'T'],[3, 'W'], [4, 'T'], [5, 'F'], [6,'S']]);
         var myday=todayTime.getDay();
         
+        console.log(myday)
         for(var i =6; i>= 0; i--){
           if(myday == -1){
             myday = 6;
@@ -124,11 +122,29 @@ class Dashboard extends React.Component {
     
      fetchQuestionnaires().then( //!!! AWAIT HERE
        response => {
-        this.setState({'totalQuestionnaire': response.idPublishedList.length + response.questionnaireDraftList.length,
-        'idDraftList': response.idDraftList, 'idPublishedList': response.idPublishedList, 
+        this.setState({'idDraftList': response.idDraftList, 'idPublishedList': response.idPublishedList, 
               'questionnaireDraftList': response.questionnaireDraftList, 'questionnairePublishedList': response.questionnairePublishedList});
       }
     );
+
+    fetchUserAnswers()
+      .then(response => {
+        var rowsPending = 0;
+        var rowsResolve = 0;
+
+        for (var i = 0; i < response.length; i++) {
+            if(response[i].status == 'PENDING'){ //&& response[i].service ==serviceClinician ){
+              rowsPending++;
+            }
+            else if (response[i].status == 'RESOLVED'){// && response[i].service ==serviceClinician ){
+              rowsResolve++;
+            }
+          }
+        this.setState({ 'totalPending': rowsPending,'totalClose': rowsResolve })
+      })
+      .catch(error => {
+        console.error(error)
+      })
   }
 
   render() {
@@ -137,10 +153,6 @@ class Dashboard extends React.Component {
 
     const dashboardData = {
       dailySalesChart: {
-        // data: {
-        //   labels: ["M", "T", "W", "T", "F", "S", "S"],
-        //   series: [[12, 17, 7, 17, 23, 18, 38]]
-        // },
         options: {
           lineSmooth: Chartist.Interpolation.cardinal({
             tension: 0
@@ -161,22 +173,20 @@ class Dashboard extends React.Component {
       percentage: 50,
     }
 
-    console.log(dashboardData)
-    console.log(this.state.dailySubmission)
     return (
       <div>
         <GridContainer>
           <InformationCard 
-          color={"info"} title={"Total Level 2 Clinician"} value={this.state.totalQuestionnaire}
+          color={"info"} title={"Outstanding Cases"} value={this.state.totalPending}
           daterange={"Updated today"} classes={classes}
           />
           
           <InformationCard 
-          color={"danger"} title={"Total Level 2 Clinician"} value={this.state.totalPending}
+          color={"danger"} title={"Number Triage"} value={this.state.totalClose}
           daterange={"Just updated"} classes={classes}
           />
           <InformationCard 
-          color={"success"} title={"Total Pending Cases"} value={this.state.totalPending}
+          color={"success"} title={"More information required"} value={this.state.totalStep}
           daterange={"Updated today"} classes={classes}
           />
 
@@ -213,7 +223,7 @@ class Dashboard extends React.Component {
                   tabIcon: Code,
                   tabContent: (
                     <TaskView
-                      tableHeaderColor="primary"
+                      tableHeaderColor="info"
                       tableHead={["Name", "Description", "Status", "Modify"]}
                       checkedIndexes={[]}
                       tasks={this.state.questionnaireDraftList}
