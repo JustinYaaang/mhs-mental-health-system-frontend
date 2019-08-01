@@ -35,21 +35,17 @@ function Header ({ ...props }) {
     <AppBar className={classes.appBar + appBarClasses}>
       <Toolbar className={classes.container}>
         <div className={classes.flex}>
-          {/* Here we create navbar brand, based on route name */}
           <Button color='transparent' href='#' className={classes.title}>
             {makeBrand()}
           </Button>
         </div>
-        <Hidden smDown implementation='css'>
-          {props.rtlActive ? <RTLNavbarLinks /> : <AdminNavbarLinks />}
-        </Hidden>
         <Hidden mdUp implementation='css'>
           <IconButton
             color='inherit'
             aria-label='open drawer'
             onClick={props.handleDrawerToggle}
           >
-            <Menu />
+            {/* <Menu /> */}
           </IconButton>
         </Hidden>
       </Toolbar>
