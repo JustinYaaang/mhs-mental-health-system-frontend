@@ -49,8 +49,16 @@ class Dashboard extends React.Component {
     this.setState({ value: index });
   };
 
-  componentWillMount() {
+  handleViewResultClick = (page) => {
+    if(page == 'triagelist'){
+        window.location.href = '/service/triagelist'
+    }
+    else{
+        console.log("clickkkkkkk")
+    }
+  };
 
+  componentWillMount() {
     fetchUserAnswers()
       .then(response => {
         var rowsPending = 0;
@@ -75,35 +83,29 @@ class Dashboard extends React.Component {
 
     const { classes } = this.props;
 
-    const dashboardData = {
-      unanswered: 8,
-      waiting_patients: 18,
-      percentage: 50,
-    }
-
     return (
       <div>
         <GridContainer>
           <InformationCard 
-          color={"info"} title={"Outstanding Cases"} value={this.state.totalPending}
-          daterange={"Updated today"} classes={classes}
+            color={"info"} title={"Outstanding Cases"} value={this.state.totalPending}
+            daterange={"Updated today"} classes={classes} onViewClicked={() => this.handleViewResultClick('triagelist')}
           />
           
           <InformationCard 
-          color={"danger"} title={"Number Triage"} value={this.state.totalClose}
-          daterange={"Just updated"} classes={classes}
+            color={"danger"} title={"Number Triage"} value={this.state.totalClose}
+            daterange={"Just updated"} classes={classes} onViewClicked={() => this.handleViewResultClick('triagelist')}
           />
+
           <InformationCard 
-          color={"success"} title={"More information required"} value={this.state.totalStep}
-          daterange={"Updated today"} classes={classes}
+            color={"success"} title={"More information required"} value={this.state.totalStep}
+            daterange={"Updated today"} classes={classes} onViewClicked={() => this.handleViewResultClick('triagelist')}
           />
 
         </GridContainer>
+
         <GridContainer>
-   
           <LineChart/>
           <Questionnaire question = {this.props.history} value = {8}/>
-
         </GridContainer>
    
       </div>

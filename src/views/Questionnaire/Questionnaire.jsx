@@ -36,13 +36,11 @@ class Questionnaire extends React.Component{
     
       if(status === 'DRAFT'){
         const questionnaireId = this.state.idDraftList[index];
-        //console.log(this.props.history.location.pathname)
         this.props.question.push(this.props.question.location.pathname + "/questionnaire/" + questionnaireId)
   
       }
       else if(status === 'PUBLISHED'){
         const questionnaireId = this.state.idPublishedList[index];
-        //console.log(this.props.history.location.pathname)
         this.props.question.push(this.props.question.location.pathname + "/questionnaire/" + questionnaireId)
       }
     };

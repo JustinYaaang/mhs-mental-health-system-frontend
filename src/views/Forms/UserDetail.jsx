@@ -16,7 +16,6 @@ import CardBody from 'components/Card/CardBody.jsx'
 import CardFooter from 'components/Card/CardFooter.jsx'
 import {fetchUserDetail } from '../../services/BackendService'
 import TextField from '@material-ui/core/TextField';
-
 import Table from "components/Table/Table.jsx";
 
 const styles = {
@@ -45,7 +44,8 @@ class UserDetail extends Component {
           firstname: [],
           lastname:[],
           email:[],
-          postcode:[]
+          postcode:[],
+          service:[]
       }
     }
 
@@ -66,10 +66,9 @@ class UserDetail extends Component {
         const { classes } = this.props;
       
         return (
-          
           <div>
             <GridContainer>
-              <GridItem xs={12} sm={12} md={6}>
+              <GridItem xs={12} sm={12} md={10}>
                 <Card>
                   <CardHeader color='info'>
                     <h4 className={classes.cardTitleWhite}>Patient Profile</h4>

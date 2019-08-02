@@ -33,7 +33,7 @@ class InformationCard extends React.Component {
   render () {
     return (
       <GridItem xs={12} sm={6} md={4}>
-        <Card>
+        <Card onClick={() => this.props.onViewClicked()}>
           <CardHeader color={this.state.color} stats icon>
             <CardIcon color={this.state.color}>
               <All />

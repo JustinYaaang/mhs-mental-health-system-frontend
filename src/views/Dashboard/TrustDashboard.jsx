@@ -48,8 +48,15 @@ class Dashboard extends React.Component {
     this.setState({ value: index });
   };
 
+  handleViewResultClick = (page) => {
+    if(page == 'questionnaire'){
+        window.location.href = '/trust/questionnaire'
+    }
+    else if(page == 'service'){
+        window.location.href = '/trust/service'
+    }
+  };
 
- 
   timeTrans(date){
     date = new Date(date);//如果date为13位不需要乘1000
     var Y = date.getFullYear() + '-';
@@ -140,16 +147,16 @@ class Dashboard extends React.Component {
         <GridContainer>
           <InformationCard 
             color={"info"} title={"Total Published Questionnaire"} value={this.state.totalPublishedQuestionnaire}
-            daterange={"Updated today"} classes={classes}
+            daterange={"Updated today"} classes={classes} onViewClicked={() => this.handleViewResultClick('questionnaire')}
           />
           <InformationCard 
             color={"success"} title={"Total Draft Questionnaire"} value={this.state.totalDraftQuestionnaire}
-            daterange={"Updated just now"} classes={classes}
+            daterange={"Updated just now"} classes={classes} onViewClicked={() => this.handleViewResultClick('questionnaire')}
           />
 
           <InformationCard 
             color={"primary"} title={"Total Services"} value={this.state.totalService}
-            daterange={"Updated just now"} classes={classes}
+            daterange={"Updated just now"} classes={classes} onViewClicked={() => this.handleViewResultClick('service')}
           />
 
         </GridContainer>

@@ -51,7 +51,6 @@ const dashboardRoutes = [
     component: QuestionnaireResult,
     layout: '/service'
   },
-  ,
   {
     path: '/questionnaire/questionnaire/:id?',
     name: 'Trust Overview',

@@ -5,33 +5,8 @@ import PropTypes from "prop-types";
 import ChartistGraph from "react-chartist";
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
-import Icon from "@material-ui/core/Icon";
-// @material-ui/icons
-import DateRange from "@material-ui/icons/DateRange";
-import LocalOffer from "@material-ui/icons/LocalOffer";
-import Update from "@material-ui/icons/Update";
-import ArrowUpward from "@material-ui/icons/ArrowUpward";
-import AccessTime from "@material-ui/icons/AccessTime";
-import Accessibility from "@material-ui/icons/Accessibility";
-import Grade from "@material-ui/icons/Grade";
-import Code from "@material-ui/icons/Code";
-import All from "@material-ui/icons/AllInboxOutlined";
-// core components
-import GridItem from "components/Grid/GridItem.jsx";
-import GridContainer from "components/Grid/GridContainer.jsx";
-import TaskView from "components/Tasks/TaskView.jsx";
-import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
-import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import CardIcon from "components/Card/CardIcon.jsx";
-import CardBody from "components/Card/CardBody.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
-
-import InformationCard from 'components/DashboardComponent/InformationCard.jsx';
 import LineGraph from 'components/DashboardComponent/LineGraph.jsx';
-
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import QuestionnaireAdmin from "../Questionnaire/QuestionnaireAdmin"
 import {fetchWeeklyResult } from "../../services/BackendService";
 
 class SideQuestionAdmin extends React.Component{
@@ -76,14 +51,13 @@ class SideQuestionAdmin extends React.Component{
             }
     
             for(var i = 0; i<response.length;i++){
-              dailysubmit.series[0][response[i].dayOfWeek+1] = response[i].count
+              dailysubmit.series[0][response[i].dayOfWeek] = response[i].count
             }
     
             var seriesMax = 1.10 * Math.max(...dailysubmit.series[0]);
             this.setState({'dailySubmission':dailysubmit, 'seriesMax': seriesMax})
           },
         );
-  
     }
     render(){
         var Chartist = require("chartist");
@@ -104,11 +78,7 @@ class SideQuestionAdmin extends React.Component{
                 left: 0
               }
             }
-          },
-    
-          unanswered: 8,
-          waiting_patients: 18,
-          percentage: 50,
+          }
         }
 
         return(
@@ -117,7 +87,6 @@ class SideQuestionAdmin extends React.Component{
                 dashboardData={dashboardData}
                 classes={classes}
                 />
-         
         )
     }
   }

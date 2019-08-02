@@ -41,16 +41,16 @@ class Dashboard extends React.Component {
     this.setState({ value: index });
   };
 
-  timeTrans(date){
-    date = new Date(date);
-    var Y = date.getFullYear() + '-';
-    var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-    var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
-    return Y+M+D;
+  handleViewResultClick = (page) => {
+    if(page == 'triagelist'){
+        window.location.href = '/clinician/triagelist'
+    }
+    else{
+        console.log("clickkkkkkk")
+    }
   };
 
   componentWillMount() {
- 
     fetchQuestionnaires().then( //!!! AWAIT HERE
        response => {
         this.setState({'totalQuestionnaire': response.idPublishedList.length + response.questionnaireDraftList.length,});
@@ -80,26 +80,22 @@ class Dashboard extends React.Component {
   render() {
   
     const { classes } = this.props;
-    const dashboardData = {
-      unanswered: 8,
-      percentage: 50,
-    }
 
     return (
       <div>
         <GridContainer>
           <InformationCard 
           color={"info"} title={"Outstanding Cases"} value={this.state.totalPending}
-          daterange={"Updated today"} classes={classes}
+          daterange={"Updated today"} classes={classes} onViewClicked={() => this.handleViewResultClick('triagelist')}
           />
           
           <InformationCard 
           color={"danger"} title={"Number Triage"} value={this.state.totalClose}
-          daterange={"Just updated"} classes={classes}
+          daterange={"Just updated"} classes={classes} onViewClicked={() => this.handleViewResultClick('triagelist')}
           />
           <InformationCard 
           color={"success"} title={"More information require"} value={this.state.totalClose}
-          daterange={"Updated today"} classes={classes}
+          daterange={"Updated today"} classes={classes} onViewClicked={() => this.handleViewResultClick('triagelist')}
           />
 
         </GridContainer>

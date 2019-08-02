@@ -7,8 +7,7 @@ import {
 
 const postNewSurvey = async (createSurveyUrl, surveyData) => {
   var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
-  console.log('postNewSurvey')
-  console.log(surveyData)
+
   try {
     const response = await axios({
       method: 'post',
