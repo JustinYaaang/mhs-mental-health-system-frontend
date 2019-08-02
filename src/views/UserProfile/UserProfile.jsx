@@ -36,7 +36,6 @@ const styles = {
   }
 }
 
-
 class UserProfile extends React.Component {
   constructor (props) {
     super(props)
@@ -48,11 +47,9 @@ class UserProfile extends React.Component {
     }
   }
 
-
   onSave () {
     console.log(document.getElementById('last-name').value)
   }
-
 
   render () {
     return (
@@ -62,7 +59,7 @@ class UserProfile extends React.Component {
             <Card>
               <CardHeader color='primary'>
                 <h4 className={this.state.classes.cardTitleWhite}>Edit Profile</h4>
-                <p className={this.state.classes.cardCategoryWhite}>Complete your profile</p>
+                <p className={this.state.classes.cardCategoryWhite}>Edit your profile</p>
               </CardHeader>
               <CardBody>
                 <GridContainer>
@@ -143,7 +140,7 @@ class UserProfile extends React.Component {
 
                   <GridItem xs={12} sm={12} md={4}>
                     <CustomInput
-                      labelText='Position Address'
+                      labelText='Organisation Address'
                       id='country'
                       formControlProps={{
                         fullWidth: true,
@@ -154,13 +151,36 @@ class UserProfile extends React.Component {
                   </GridItem>
                   <GridItem xs={12} sm={12} md={4}>
                     <CustomInput
-                      labelText='Postal Code'
+                      labelText='Organisation postalcode'
                       id='postal-code'
                       formControlProps={{
                         fullWidth: true,
                         disabled: true
                       }}
                       value={this.state.details.organisation_id.postcode}
+                    />
+                  </GridItem>
+                </GridContainer>
+                <h3 >Change your password here:</h3>
+                <GridContainer>
+                
+                  <GridItem xs={12} sm={12} md={4}>
+                  
+                  <CustomInput
+                      labelText='Password 1'
+                      id='postal-code'
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                    />
+                </GridItem>
+                  <GridItem xs={12} sm={12} md={4}>
+                    <CustomInput
+                      labelText='Password 2'
+                      id='postal-code'
+                      formControlProps={{
+                        fullWidth: true
+                      }}
                     />
                   </GridItem>
                 </GridContainer>
