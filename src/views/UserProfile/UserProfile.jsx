@@ -77,7 +77,7 @@ class UserProfile extends React.Component {
           swal.fire({
             type: 'success',
             title: 'Success',
-            text: 'The entry has been updated! '
+            text: 'Your password been updated! '
           })
         })
       }
