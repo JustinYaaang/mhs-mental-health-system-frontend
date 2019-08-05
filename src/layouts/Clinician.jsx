@@ -109,7 +109,7 @@ class Dashboard extends React.Component {
 
   componentWillMount(){
     getPersonnel(sessionStorage.jwt).then(response=>{
-      sessionStorage.setItem("personDetails",response)
+      sessionStorage.setItem("personDetails",JSON.stringify(response))
       this.setState({orgName:response.organisation_id.name})
     })
   }
@@ -144,15 +144,8 @@ class Dashboard extends React.Component {
           ) : (
             <div className={classes.map}>{switchRoutes}</div>
           )}
-          {this.getRoute() ? <Footer /> : null}
-         {/* <FixedPlugin
-            handleImageClick={this.handleImageClick}
-            handleColorClick={this.handleColorClick}
-            bgColor={this.state["color"]}
-            bgImage={this.state["image"]}
-            handleFixedClick={this.handleFixedClick}
-            fixedClasses={this.state.fixedClasses}
-         /> */}
+          {/* {this.getRoute() ? <Footer /> : null} */}
+
         </div>
       </div>
     );
