@@ -25,18 +25,23 @@ class Authentication extends React.Component {
     if (this.state.credentials.email === '') {
       document.getElementById('maillabel').innerHTML = 'Please fill your email address'
       document.getElementById('mailInput').style.backgroundColor = '#FEC2C2'
-      flag=false
+      flag = false
     }
     if (this.state.credentials.password === '') {
       document.getElementById('passlabel').innerHTML = 'Please fill your password'
       document.getElementById('passwordInput').style.backgroundColor = '#FEC2C2'
-      flag=false
+      flag = false
     }
     if (flag) {
       document.getElementById('passwordInput').style.backgroundColor = 'white'
       document.getElementById('mailInput').style.backgroundColor = 'white'
       event.preventDefault()
       var auth = this.props.actions.logInUser(this.state.credentials)
+      auth.then(response => {
+        document.getElementById('mainlabel').style.color = 'red'
+        document.getElementById('mainlabel').innerHTML = 'Wrong Username/Password'
+
+      })
     }
   }
 
@@ -45,7 +50,7 @@ class Authentication extends React.Component {
       <form class='loginform'>
         <div class='form-group'>
           <label className='label-title' for='label'>Welcome to MHS</label>
-          <label className='label-subtitle' for='label'>Please enter your login credentials.</label>
+          <label className='label-subtitle' id='mainlabel' for='label'>Please enter your login credentials.</label>
           <br />
           <label className='label-header' id='maillabel' for='exampleInputEmail1'>Email address</label>
           <input name='email' type='email' class='form-control' id='mailInput' aria-describedby='emailHelp' placeholder='Enter email' onChange={this.onChange} />
