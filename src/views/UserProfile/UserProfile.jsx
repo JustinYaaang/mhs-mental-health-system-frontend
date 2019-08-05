@@ -14,9 +14,9 @@ import CardHeader from 'components/Card/CardHeader.jsx'
 import CardAvatar from 'components/Card/CardAvatar.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import CardFooter from 'components/Card/CardFooter.jsx'
-
+import { updatePersonnel } from 'services/BackendService.js'
 import avatar from 'assets/img/faces/marc.jpg'
-
+import swal from 'sweetalert2'
 const styles = {
   cardCategoryWhite: {
     color: 'rgba(255,255,255,.62)',
@@ -48,7 +48,40 @@ class UserProfile extends React.Component {
   }
 
   onSave () {
-    console.log(document.getElementById('last-name').value)
+    var pass1 = document.getElementById('password1').value
+    var pass2 = document.getElementById('password2').value
+    // check if the password fields contain something
+    if (pass1 !== '' || pass2 !== '') {
+      // if they contain and they are not the same
+      console.log(pass1)
+      if (pass2 !== pass1) {
+        document.getElementById('password1').style.backgroundColor = '#FEC2C2'
+        document.getElementById('password2').style.backgroundColor = '#FEC2C2'
+        swal.fire({
+          type: 'error',
+          title: 'Whoops..!',
+          text: 'Passwords don\'t match! '
+        })
+      } else { // else add the password to the body
+        var id=JSON.parse(sessionStorage.personDetails)._id
+        var body = {
+          id: id,
+          body: {
+            password: pass1
+          }
+        }
+        updatePersonnel(body).then(response => {
+          console.log(response)
+          document.getElementById('password1').value = ''
+          document.getElementById('password2').value = ''
+          swal.fire({
+            type: 'success',
+            title: 'Success',
+            text: 'The entry has been updated! '
+          })
+        })
+      }
+    }
   }
 
   render () {
@@ -96,7 +129,8 @@ class UserProfile extends React.Component {
                       labelText='First Name'
                       id='first-name'
                       formControlProps={{
-                        fullWidth: true
+                        fullWidth: true,
+                        disabled: true
                       }}
                       value={this.state.details.first_name}
                     />
@@ -106,7 +140,8 @@ class UserProfile extends React.Component {
                       labelText='Last Name'
                       id='last-name'
                       formControlProps={{
-                        fullWidth: true
+                        fullWidth: true,
+                        disabled: true
                       }}
                       value={this.state.details.last_name}
                     />
@@ -163,21 +198,21 @@ class UserProfile extends React.Component {
                 </GridContainer>
                 <h3 >Change your password here:</h3>
                 <GridContainer>
-                
+
                   <GridItem xs={12} sm={12} md={4}>
-                  
-                  <CustomInput
+
+                    <CustomInput
                       labelText='Password 1'
-                      id='postal-code'
+                      id='password1'
                       formControlProps={{
                         fullWidth: true
                       }}
                     />
-                </GridItem>
+                  </GridItem>
                   <GridItem xs={12} sm={12} md={4}>
                     <CustomInput
                       labelText='Password 2'
-                      id='postal-code'
+                      id='password2'
                       formControlProps={{
                         fullWidth: true
                       }}
