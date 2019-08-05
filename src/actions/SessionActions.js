@@ -13,7 +13,6 @@ export function logoutSuccess () {
 export function logInUser (body) {
   return function (dispatch) {
     return getAuthenticationToken(body).then(response => {
-      console.log(response)
       sessionStorage.setItem('jwt', response.data.token)
       sessionStorage.setItem('role', response.data.role)
       sessionStorage.setItem('currentOrganizationID', response.data.organisation_id) 
@@ -24,7 +23,8 @@ export function logInUser (body) {
       // history.push('/')
     }).catch(error => {
       console.log('Session Actions error: ', error)
-      throw (error)
+      //throw (error)
+      return false
     })
   }
 }
