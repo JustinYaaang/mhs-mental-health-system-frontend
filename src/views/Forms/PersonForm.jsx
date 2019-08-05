@@ -28,8 +28,11 @@ class PersonForm extends React.Component {
       getPersonnel(this.state.id).then(response => {
         console.log(response)
         document.getElementById('firstnameinput').value = response.first_name
+        document.getElementById('firstnameinput').readOnly = true
         document.getElementById('lastnameinput').value = response.last_name
+        document.getElementById('lastnameinput').readOnly = true
         document.getElementById('emailinput').value = response.email
+        document.getElementById('emailinput').readOnly = true
         document.getElementById('passwordinput').value = response.password
         document.getElementById('trustnameinput_postcodeinput').value = response.role //! !!!
       })
@@ -41,16 +44,6 @@ class PersonForm extends React.Component {
   }
 
   onSave (event) {
-    // get all the necessary details from the form
-    var body = {
-      id: this.state.id,
-      body: {
-        first_name: document.getElementById('firstnameinput').value,
-        last_name: document.getElementById('lastnameinput').value,
-        email: document.getElementById('emailinput').value,
-        role: this.state.organization
-      }
-    }
     var passwordFlag = false
     // get the 2 password fields
     var pass1 = document.getElementById('passwordchange1').value
@@ -70,17 +63,23 @@ class PersonForm extends React.Component {
 
         return
       } else { // else add the password to the body
-        body.body.password = pass1
-        body.body.organisation_id = sessionStorage.organizationID
+        // body.body.organisation_id = sessionStorage.organizationID
         passwordFlag = true
       }
     }
     // Proceed only if all fields are filled
-    if (!this.allFieldsCompleted()) {
-      return
-    }
+
     if (this.state.hasDetails) { // if we are in edit mode
-      // send the details and clear the password field
+      if (passwordFlag === false) {
+        this.state.history.goBack()
+        return
+      }
+      var body = {
+        id: this.state.id,
+        body: {
+          password: pass1
+        }
+      }
       updatePersonnel(body).then(response => {
         console.log(response)
         document.getElementById('passwordchange1').value = ''
@@ -88,16 +87,28 @@ class PersonForm extends React.Component {
         swal.fire({
           type: 'success',
           title: 'Success',
-          text: 'The entry has been updated! '
+          text: 'The password has been updated! '
         })
         this.state.history.goBack()
       })
     } else { // if we create a new person
+      if (!this.allFieldsCompleted()) {
+        return
+      }
+      var body = {
+        id: this.state.id,
+        body: {
+          first_name: document.getElementById('firstnameinput').value,
+          last_name: document.getElementById('lastnameinput').value,
+          email: document.getElementById('emailinput').value,
+          role: this.state.organization,
+          password: pass1,
+          organisation_id: sessionStorage.organizationID
+        }
+      }
       if (passwordFlag) {
         createPersonnel(body.body).then(response => {
           this.componentWillMount()
-          console.log(this.props.history)
-          console.log('!!!!!!')
           swal.fire({
             type: 'success',
             title: 'Success',

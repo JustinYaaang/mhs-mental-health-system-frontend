@@ -63,7 +63,7 @@ class UserProfile extends React.Component {
           text: 'Passwords don\'t match! '
         })
       } else { // else add the password to the body
-        var id=JSON.parse(sessionStorage.personDetails)._id
+        var id = JSON.parse(sessionStorage.personDetails)._id
         var body = {
           id: id,
           body: {
