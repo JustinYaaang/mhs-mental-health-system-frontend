@@ -4,12 +4,13 @@ import Setting from '@material-ui/icons/Settings'
 import TransitEnterexit from '@material-ui/icons/TransitEnterexit'
 import ListAlt from '@material-ui/icons/ListAlt' 
 import account from '@material-ui/icons/AccountCircle'
+import question from '@material-ui/icons/FormatListNumbered'
 // core components/views for Admin layout
 import DashboardPage from 'views/Dashboard/Dashboard.jsx'
 import UserProfile from 'views/UserProfile/UserProfile.jsx'
 import TrustList from 'layouts/Trusts/TrustList.jsx'
 import trustdetails from 'layouts/Trusts/TrustDetails.jsx'
-
+import SideQuestionAdmin from "../views/Forms/SideQuestionAdmin"
 
 
 const dashboardRoutes = [
@@ -22,12 +23,19 @@ const dashboardRoutes = [
     layout: '/admin'
   },
   {
-    // path: '/services',
     path: '/trusts',
     name: 'Trusts',
     rtlName: 'لوحة القيادة',
     icon: ListAlt,
     component: TrustList,
+    layout: '/admin'
+  },
+  {
+    path: '/questionnaire',
+    name: 'Questionnaire',
+    rtlName: 'لوحة القيادة',
+    icon: question,
+    component: SideQuestionAdmin,
     layout: '/admin'
   },
   {

@@ -58,6 +58,14 @@ const dashboardRoutes = [
     icon: Dashboard,
     component: QuestionnaireResult,
     layout: '/trust'
+  },
+  {
+    path: '/questionnaire/questionnaire/:id?',
+    name: 'Trust Overview',
+    rtlName: 'لوحة القيادة',
+    icon: Dashboard,
+    component: QuestionnaireResult,
+    layout: '/trust'
   }
 ]
 

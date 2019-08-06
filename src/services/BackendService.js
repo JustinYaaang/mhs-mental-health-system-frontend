@@ -7,8 +7,7 @@ import {
 
 const postNewSurvey = async (createSurveyUrl, surveyData) => {
   var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
-  console.log('postNewSurvey')
-  console.log(surveyData)
+
   try {
     const response = await axios({
       method: 'post',
@@ -20,7 +19,6 @@ const postNewSurvey = async (createSurveyUrl, surveyData) => {
   } catch (error) {
     console.log('POST server error: ', error)
   }
-
 }
 
 const updateSurvey = async (updateSurveyUrl, surveyData) => {
@@ -102,7 +100,9 @@ const fetchWeeklyResult = async (startDate, lastDate) => {
   var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
   var weeklyResultUrl = baseUrl + patientanswersUrl
 
-  return await axios.get(weeklyResultUrl, {
+  return await axios({
+    method:'get',
+    url: weeklyResultUrl, 
     params: {
       startDate: lastDate,
       endDate: startDate,

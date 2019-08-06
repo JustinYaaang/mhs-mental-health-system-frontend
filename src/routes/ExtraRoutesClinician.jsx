@@ -5,7 +5,6 @@ import patientanswers from "views/Forms/SurveyResult";
 import userdetail from "views/Forms/UserDetail";
 import QuestionnaireResult from "views/Forms/QuestionnaireResult.jsx";
 
-
 // core components/views for RTL layout
 
 const dashboardRoutes = [
@@ -28,6 +27,14 @@ const dashboardRoutes = [
   {
     path: '/dashboard/questionnaire/:id',
     name: 'questionnaire',
+    rtlName: 'لوحة القيادة',
+    icon: Dashboard,
+    component: QuestionnaireResult,
+    layout: '/clinician'
+  },
+  {
+    path: '/questionnaire/questionnaire/:id?',
+    name: 'Trust Overview',
     rtlName: 'لوحة القيادة',
     icon: Dashboard,
     component: QuestionnaireResult,

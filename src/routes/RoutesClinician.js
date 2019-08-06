@@ -10,7 +10,8 @@ import DashboardPage from 'views/Dashboard/Dashboard.jsx'
 import ClinicianPage from 'views/Dashboard/ClinicianDashboard.jsx'
 import UserProfile from 'views/UserProfile/UserProfile.jsx'
 import TableList from 'views/TableList/TableList.jsx'
-
+import question from '@material-ui/icons/FormatListNumbered'
+import SideQuestion from "../views/Forms/SideQuestion"
 
 const dashboardRoutes = [{
   path: '/dashboard',
@@ -34,6 +35,14 @@ const dashboardRoutes = [{
   rtlName: 'لوحة القيادة',
   icon: List,
   component: TableList,
+  layout: '/clinician'
+},
+{
+  path: '/questionnaire',
+  name: 'Questionnaire',
+  rtlName: 'لوحة القيادة',
+  icon: question,
+  component: SideQuestion,
   layout: '/clinician'
 },
 {
