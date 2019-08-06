@@ -38,9 +38,10 @@ class Authentication extends React.Component {
       event.preventDefault()
       var auth = this.props.actions.logInUser(this.state.credentials)
       auth.then(response => {
-        document.getElementById('mainlabel').style.color = 'red'
-        document.getElementById('mainlabel').innerHTML = 'Wrong Username/Password'
-
+        if (!response) {
+          document.getElementById('mainlabel').style.color = 'red'
+          document.getElementById('mainlabel').innerHTML = 'Wrong Username/Password'
+        }
       })
     }
   }
