@@ -1,0 +1,356 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Clinitian Form should render correctly 1`] = `
+<form
+  class="trustform"
+>
+  <label
+    className="label-subtitle"
+    for="label"
+  >
+    Please enter the details of the NHS Person
+  </label>
+  <div
+    class="form-group"
+  >
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="firstnameinput"
+      name="email"
+      onChange={[Function]}
+      placeholder="First Name"
+      type="email"
+    />
+    <br />
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="lastnameinput"
+      name="email"
+      onChange={[Function]}
+      placeholder="Last Name"
+      type="email"
+    />
+    <br />
+    <input
+      id="STEP2"
+      name="step"
+      type="radio"
+      value="STEP2"
+    />
+     Step 2 
+    <br />
+    <input
+      id="STEP3"
+      name="step"
+      type="radio"
+      value="STEP3"
+    />
+     Step 3
+    <br />
+  </div>
+  <div
+    class="form-group"
+  >
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="emailinput"
+      name="email"
+      onChange={[Function]}
+      placeholder="email"
+      type="email"
+    />
+    <br />
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="passwordinput"
+      name="email"
+      onChange={[Function]}
+      placeholder="password"
+      readOnly={true}
+      type="email"
+    />
+    <br />
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="trustnameinput_postcodeinput"
+      name="email"
+      onChange={[Function]}
+      placeholder="Trust Name"
+      readOnly={true}
+      type="email"
+    />
+  </div>
+  <br />
+  <label
+    className="label-subtitle"
+    for="label"
+    id="passwordlabel"
+  >
+    Enter password here:
+  </label>
+  <div>
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="passwordchange1"
+      name="email"
+      onChange={[Function]}
+      placeholder="Enter password"
+      type="email"
+    />
+    <br />
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="passwordchange2"
+      name="email"
+      onChange={[Function]}
+      placeholder="Enter password again"
+      type="email"
+    />
+  </div>
+  <WithStyles(RegularButton)
+    color="primary"
+    id="loginbutton"
+    onClick={[Function]}
+    type="button"
+  >
+    Save
+  </WithStyles(RegularButton)>
+</form>
+`;
+
+exports[`Person Form should render correctly 1`] = `
+<form
+  class="trustform"
+>
+  <label
+    className="label-subtitle"
+    for="label"
+  >
+    Please enter the details of the NHS Person
+  </label>
+  <div
+    class="form-group"
+  >
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="firstnameinput"
+      name="email"
+      onChange={[Function]}
+      placeholder="First Name"
+      type="email"
+    />
+    <br />
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="lastnameinput"
+      name="email"
+      onChange={[Function]}
+      placeholder="Last Name"
+      type="email"
+    />
+  </div>
+  <div
+    class="form-group"
+  >
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="emailinput"
+      name="email"
+      onChange={[Function]}
+      placeholder="email"
+      type="email"
+    />
+    <br />
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="passwordinput"
+      name="email"
+      onChange={[Function]}
+      placeholder="password"
+      readOnly={true}
+      type="email"
+    />
+    <br />
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="trustnameinput_postcodeinput"
+      name="email"
+      onChange={[Function]}
+      placeholder="Trust Name"
+      readOnly={true}
+      type="email"
+    />
+  </div>
+  <br />
+  <label
+    className="label-subtitle"
+    for="label"
+    id="passwordlabel"
+  >
+    Enter password here:
+  </label>
+  <div>
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="passwordchange1"
+      name="email"
+      onChange={[Function]}
+      placeholder="Enter password"
+      type="email"
+    />
+    <br />
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="passwordchange2"
+      name="email"
+      onChange={[Function]}
+      placeholder="Enter password again"
+      type="email"
+    />
+  </div>
+  <WithStyles(RegularButton)
+    color="primary"
+    id="loginbutton"
+    onClick={[Function]}
+    type="button"
+  >
+    Save
+  </WithStyles(RegularButton)>
+</form>
+`;
+
+exports[`Trust and Service Form should render correctly 1`] = `
+<form
+  class="trustform"
+>
+  <label
+    className="label-subtitle"
+    for="label"
+    id="mainlabel"
+  >
+    Please enter the details of the NHS Trust.
+  </label>
+  <div
+    class="form-group"
+  >
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="nameinput"
+      name="email"
+      onChange={[Function]}
+      placeholder="Name"
+      type="email"
+    />
+  </div>
+  <div
+    class="form-group"
+  >
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="address1input"
+      name="email"
+      onChange={[Function]}
+      placeholder="Address Line 1"
+      type="email"
+    />
+    <br />
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="address2input"
+      name="email"
+      onChange={[Function]}
+      placeholder="Address Line 2"
+      type="email"
+    />
+    <br />
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="postcodeinput"
+      name="email"
+      onChange={[Function]}
+      placeholder="Postcode"
+      type="email"
+    />
+  </div>
+  <div
+    class="form-group"
+  >
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="descriptioninput"
+      name="email"
+      onChange={[Function]}
+      placeholder="Description"
+      type="email"
+    />
+    <br />
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="websiteinput"
+      name="email"
+      onChange={[Function]}
+      placeholder="Website link"
+      type="email"
+    />
+    <br />
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="emailinput"
+      name="email"
+      onChange={[Function]}
+      placeholder="email"
+      type="email"
+    />
+    <br />
+    <input
+      aria-describedby="emailHelp"
+      class="form-control"
+      id="telephoneinput"
+      name="email"
+      onChange={[Function]}
+      placeholder="Telephone"
+      type="email"
+    />
+  </div>
+  <WithStyles(RegularButton)
+    color="primary"
+    id="loginbutton"
+    onClick={[Function]}
+    type="button"
+  >
+    Submit
+  </WithStyles(RegularButton)>
+</form>
+`;
+
+exports[`User details should render correctly 1`] = `
+<UserDetail
+  classes={
+    Object {
+      "cardCategoryWhite": "UserDetail-cardCategoryWhite-1",
+      "cardTitleWhite": "UserDetail-cardTitleWhite-2",
+    }
+  }
+/>
+`;

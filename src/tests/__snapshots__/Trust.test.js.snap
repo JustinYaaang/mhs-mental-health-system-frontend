@@ -1,5 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Trust Create Manager should render correctly 1`] = `
+<TrustCreateManager
+  classes={
+    Object {
+      "cardCategoryWhite": "TrustCreateManager-cardCategoryWhite-5",
+      "cardTitleWhite": "TrustCreateManager-cardTitleWhite-6",
+    }
+  }
+/>
+`;
+
+exports[`Trust Create New should render correctly 1`] = `
+<TrustCreateNew
+  classes={
+    Object {
+      "cardCategoryWhite": "TrustCreateNew-cardCategoryWhite-7",
+      "cardTitleWhite": "TrustCreateNew-cardTitleWhite-8",
+    }
+  }
+/>
+`;
+
+exports[`Trust User Details should render correctly 1`] = `
+<UserDetails
+  classes={
+    Object {
+      "cardCategoryWhite": "UserDetails-cardCategoryWhite-9",
+      "cardTitleWhite": "UserDetails-cardTitleWhite-10",
+    }
+  }
+/>
+`;
+
 exports[`TrustDetails should render correctly 1`] = `
 <TrustDetails
   classes={
