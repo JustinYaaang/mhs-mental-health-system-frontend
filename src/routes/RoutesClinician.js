@@ -39,7 +39,7 @@ const dashboardRoutes = [{
 },
 {
   path: '/questionnaire',
-  name: 'Questionnaire',
+  name: 'Questionnaires',
   rtlName: 'لوحة القيادة',
   icon: question,
   component: SideQuestion,

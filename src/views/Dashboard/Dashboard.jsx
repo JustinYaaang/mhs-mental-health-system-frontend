@@ -85,7 +85,7 @@ class Dashboard extends React.Component {
 
     return (
       <div>
-        <GridContainer>
+        {/* <GridContainer>
           <InformationCard 
             color={"info"} title={"Total Published Questionnaires"} value={this.state.totalPublishedQuestionnaire}
             daterange={"Updated today"} classes={classes} onViewClicked={() => this.handleViewResultClick('questionnaire')}
@@ -99,10 +99,10 @@ class Dashboard extends React.Component {
             daterange={"Just updated"} classes={classes} onViewClicked={() => this.handleViewResultClick('trust')}
           />
 
-        </GridContainer>
+        </GridContainer> */}
         <GridContainer>
-          <LineChart/>
-          <QuestionnaireAdmin question = {this.props.history} value = {8}/>
+          {/* <LineChart/> */}
+          <QuestionnaireAdmin question = {this.props.history}/>
         </GridContainer>
       </div>
     );

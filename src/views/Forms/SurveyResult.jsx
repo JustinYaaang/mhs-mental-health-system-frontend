@@ -63,9 +63,11 @@ class SurveyResult extends Component {
     console.log(id)
     getAnsweredQuestionnaire(id)
       .then(fetched_answers => {
-        this.setState({ answers: JSON.parse(fetched_answers.body) });
+        this.setState({ answers: fetched_answers.body });
+        // this.setState({ answers: JSON.parse(fetched_answers.body) });
         var jsonData = fetched_answers.questionnaireBody;
-        var jsonFormatData = JSON.parse(jsonData);
+        // var jsonFormatData = JSON.parse(jsonData);
+        var jsonFormatData = jsonData;
         for (var i = 1; i < jsonFormatData.pages.length; i++) {
           if (jsonFormatData.pages[i].elements) {
             jsonFormatData.pages[0].elements = jsonFormatData.pages[0].elements.concat(jsonFormatData.pages[i].elements)

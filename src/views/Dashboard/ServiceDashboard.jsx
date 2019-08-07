@@ -92,12 +92,12 @@ class Dashboard extends React.Component {
           />
           
           <InformationCard 
-            color={"danger"} title={"Number Triage"} value={this.state.totalClose}
+            color={"danger"} title={"Number Triaged"} value={this.state.totalClose}
             daterange={"Just updated"} classes={classes} onViewClicked={() => this.handleViewResultClick('triagelist')}
           />
 
           <InformationCard 
-            color={"success"} title={"More information required"} value={this.state.totalStep}
+            color={"success"} title={"More Information Required"} value={this.state.totalStep}
             daterange={"Updated today"} classes={classes} onViewClicked={() => this.handleViewResultClick('triagelist')}
           />
 
