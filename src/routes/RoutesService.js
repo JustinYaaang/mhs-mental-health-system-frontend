@@ -12,7 +12,8 @@ import ServiceDashboard from 'views/Dashboard/ServiceDashboard.jsx'
 import UserProfile from 'views/UserProfile/UserProfile.jsx'
 import TableList from 'views/TableList/TableList.jsx'
 import ClinicianList from 'layouts/Clinicians/ClinicianList.jsx'
-
+import question from '@material-ui/icons/FormatListNumbered'
+import SideQuestion from "../views/Forms/SideQuestion"
 // core components/views for RTL layout
 
 const dashboardRoutes = [{
@@ -37,6 +38,14 @@ const dashboardRoutes = [{
   rtlName: 'لوحة القيادة',
   icon: List,
   component: TableList,
+  layout: '/service'
+},  
+{
+  path: '/questionnaire',
+  name: 'Questionnaires',
+  rtlName: 'لوحة القيادة',
+  icon: question,
+  component: SideQuestion,
   layout: '/service'
 },
 {

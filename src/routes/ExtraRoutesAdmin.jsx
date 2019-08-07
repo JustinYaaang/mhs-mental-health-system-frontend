@@ -68,6 +68,22 @@ const dashboardRoutes = [
     icon: Dashboard,
     component: SurveyCreator,
     layout: '/admin'
+  },
+  {
+    path: '/questionnaire/questionnaire/:id?',
+    name: 'Trust Overview',
+    rtlName: 'لوحة القيادة',
+    icon: Dashboard,
+    component: SurveyCreator,
+    layout: '/admin'
+  },
+  {
+    path: '/questionnaire/questionnaire/:id',
+    name: 'questionnaire',
+    rtlName: 'لوحة القيادة',
+    icon: Dashboard,
+    component: SurveyCreator,
+    layout: '/admin'
   }
 ]
 

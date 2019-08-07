@@ -12,6 +12,8 @@ import TableList from 'views/TableList/TableList.jsx'
 import Typography from 'views/Typography/Typography.jsx'
 import NotificationsPage from 'views/Notifications/Notifications.jsx'
 import IAPTList from 'layouts/Services/ServiceList.jsx'
+import question from '@material-ui/icons/FormatListNumbered'
+import SideQuestion from "../views/Forms/SideQuestion"
 // core components/views for RTL layout
 
 const dashboardRoutes = [{
@@ -28,6 +30,14 @@ const dashboardRoutes = [{
   rtlName: 'لوحة القيادة',
   icon: ListAlt,
   component: IAPTList,
+  layout: '/trust'
+},  
+{
+  path: '/questionnaire',
+  name: 'Questionnaires',
+  rtlName: 'لوحة القيادة',
+  icon: question,
+  component: SideQuestion,
   layout: '/trust'
 },
 {
