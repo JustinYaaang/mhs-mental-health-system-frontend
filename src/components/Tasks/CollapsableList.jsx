@@ -67,9 +67,11 @@ class CollapsableList extends React.Component {
 
   render() {
     console.log(this.props)
-    const { classes, tableHeaderColor, tableHead, tasks, rtlActive } = this.props.props;
-    const { title } = this.props.title
-    console.log(tableHead);
+    const { classes, tableHeaderColor, tableHead, rtlActive } = this.props.props;
+    var tasks = this.props.tasks
+    if(this.props.tasks===undefined){
+      tasks=[]
+    }
     const tableCellClasses = classnames(classes.tableCell, {
       [classes.tableCellRTL]: rtlActive
     });

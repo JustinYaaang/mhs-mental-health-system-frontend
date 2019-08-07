@@ -36,6 +36,7 @@ import CollapsableList from './CollapsableList'
 class TriageRows extends React.Component {
   state = {
     checked: this.props.checkedIndexes,
+    answers:{}
   };
   handleToggle = value => () => {
     const { checked } = this.state;
@@ -65,8 +66,17 @@ class TriageRows extends React.Component {
     this.props.onViewItemClicked(questionnaireResponseId);
   }
 
+
+
   render() {
     const { classes, tableHeaderColor, tableHead, tasks, rtlActive } = this.props;
+    var answers={BLUE:[],GREEN:[],RED:[],UNKNOWN:[]}
+    console.log(this.props.tasks)
+    this.props.tasks.forEach(element => {
+      console.log(element[1])
+      answers[element[1]].push(element)
+    });
+    console.log(answers)
     console.log(tableHead);
     const tableCellClasses = classnames(classes.tableCell, {
       [classes.tableCellRTL]: rtlActive
@@ -83,10 +93,10 @@ class TriageRows extends React.Component {
     return (
       <div>
         <Table className={classes.table}>
-          <CollapsableList props={this.props} title={"Red"}/>
-          <CollapsableList props={this.props} title={"Green"}/>
-          <CollapsableList props={this.props} title={"Blue"}/>
-          <CollapsableList props={this.props} title={"Unknown"}/>
+          <CollapsableList props={this.props} tasks={answers['RED']} title={"Red"}/>
+          <CollapsableList props={this.props} tasks={answers['GREEN']} title={"Green"}/>
+          <CollapsableList props={this.props} tasks={answers['BLUE']} title={"Blue"}/>
+          <CollapsableList props={this.props} tasks={answers['UNKNOWN']} title={"Unknown"}/>
         </Table>
 
         <div class="add-float">
