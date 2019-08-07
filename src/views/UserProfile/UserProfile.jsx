@@ -204,6 +204,7 @@ class UserProfile extends React.Component {
                     <CustomInput
                       labelText='Password 1'
                       id='password1'
+                      type='password'
                       formControlProps={{
                         fullWidth: true
                       }}
@@ -213,6 +214,7 @@ class UserProfile extends React.Component {
                     <CustomInput
                       labelText='Password 2'
                       id='password2'
+                      type='password'
                       formControlProps={{
                         fullWidth: true
                       }}

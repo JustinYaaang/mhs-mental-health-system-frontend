@@ -61,7 +61,7 @@ class UserDetail extends Component {
             tableData.push([element[0], element[2]])
           }
         })
-        this.setState({ tableData:tableData,firstname: response.first_name, lastname: response.last_name, email: response.email, postcode: response.postcode })
+        this.setState({ tableData: tableData, firstname: response.first_name, lastname: response.last_name, email: response.email, postcode: response.postcode })
       })
       .catch(error => {
         console.error(error)
