@@ -16,7 +16,15 @@ import "select2/dist/js/select2.js";
 import "jquery-bar-rating";
 
 import Swal from 'sweetalert2';
-
+import clsx from 'clsx';
+import Buttona from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Paper from '@material-ui/core/Paper';
 import "icheck/skins/square/blue.css";
 import 'assets/css/SurveyCreator.css'
 
@@ -25,6 +33,30 @@ import Button from "components/CustomButtons/Button.jsx";
 import Hidden from "@material-ui/core/Hidden";
 import Dashboard from "@material-ui/icons/Dashboard";
 import { baseUrl, fetchQuestionnairesUrl } from "../variables/general";
+import { withStyles } from '@material-ui/core/styles';
+import { purple } from '@material-ui/core/colors';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import Grid from '@material-ui/core/Grid';
+import GridItem from 'components/Grid/GridItem.jsx'
+
+import { makeStyles } from '@material-ui/core/styles';
+import Input from '@material-ui/core/Input';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import FilledInput from '@material-ui/core/FilledInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+
+import IconButton from '@material-ui/core/IconButton';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
 var mainColor = "#005EB8";
 var mainHoverColor = "#003087";
@@ -55,17 +87,142 @@ class SurveyCreator extends Component {
 
   state = {
     questionnaireId: '',
-    questionnaireBody: ''
+    questionnaireBody: '',
+    setOpen: false,
+    open: false,
+    checkedPublic:true,
+    checkedPublish:true,
+    jsonRep:[],
+    stringRep: [],
+    redInput:[],
+    redQuestion:[],
+    redCondition:[], 
+    greenInput:[],
+    greenQuestion:[],
+    greenCondition:[],
+    questionList:[]
   }
 
+  handleClickOpen() {
+    this.setState({open: true});
+  }
+
+  handleClose() {
+    this.setState({open: false});
+  }
+
+  handleChangeSwitch = id => event =>  {
+    if(id == 'checkedPublic')
+    {
+      this.setState({checkedPublic: event.target.checked});
+    }
+    else if(id == 'checkedPublish'){
+      this.setState({checkedPublish: event.target.checked});
+    }
+  }
+
+  handleSubmit(jsonRep, stringRep) {
+    this.setState({open: false});
+
+    const { id } = this.props.match.params;
+   
+    var rules = {'RED':[],'GREEN':[]}
+    this.state.redInput.map((item, index) => {
+      rules['RED'].push({
+        'name': this.state.redQuestion[index],
+        'value': this.state.redInput[index],
+        'condition': this.state.redCondition[index],
+      })
+    })
+    this.state.greenInput.map((item, index) => {
+      rules['GREEN'].push({
+        'name': this.state.greenQuestion[index],
+        'value': this.state.greenInput[index],
+        'condition': this.state.greenCondition[index],
+      })
+    })
+      // Swal.fire({
+      //   position: 'top-end',
+      //   type: 'success',
+      //   title: 'Save Successfully!',
+      //   showConfirmButton: false,
+      //   timer: 1500
+      // })
+    var surveyJson = {
+      "id": id,
+      "title": this.state.jsonRep.title,
+      "description": this.state.jsonRep.description,
+      "is_published": this.state.checkedPublish,
+      "is_public":this.state.checkedPublic,
+      "body":this.state.stringRep,
+      "role": this.state.checkedPublic ? 'FORM1': 'FORM2',
+      "rules": rules
+    }
+      console.log(surveyJson)
+
+      // var createSurveyUrl = baseUrl + fetchQuestionnairesUrl
+
+      // if(id == undefined){
+      //     postNewSurvey(createSurveyUrl, surveyJson)
+      //     .then(results => {
+      //         console.log(results)
+      //         {document.location.href = '/admin/dashboard'}
+      //     })
+      //     .catch(error => {
+      //         console.error(error);
+      //     });
+      // }else{
+      //     createSurveyUrl = createSurveyUrl + '/' + id
+      //     updateSurvey(createSurveyUrl,surveyJson)
+      //     .then(results => {
+      //       console.log(results)
+      //       {document.location.href = '/admin/dashboard'}
+      //     })
+      //     .catch(error => {
+      //         console.error(error);
+      //     });
+      // }
+  }
+
+  handleChange = (id, badge) => event => {
+    if(badge == 'red'){
+      this.setState({redInput: this.state.redInput.map((item, _index) => _index == id ? event.target.value : item)})
+      console.log(this.state.redInput)
+    }
+    else if(badge == 'green'){
+      this.setState({greenInput: this.state.greenInput.map((item, _index) => _index == id ? event.target.value : item)})
+      console.log(this.state.greenInput)
+    }
+  };
+
+  handleChangeQuestion = (id, badge) => event => {
+    if(badge == 'red'){
+      this.setState({redQuestion: this.state.redQuestion.map((item, _index) => _index == id ? event.target.value : item)})
+      console.log(this.state.redQuestion)
+    }else if(badge == 'green'){
+      this.setState({greenQuestion: this.state.greenQuestion.map((item, _index) => _index == id ? event.target.value : item)})
+      console.log(this.state.greenQuestion)
+    }
+  };
+
+  handleChangeCondition = (id, badge) => event => {
+    if(badge == 'red'){
+      this.setState({redCondition: this.state.redCondition.map((item, _index) => _index == id ? event.target.value : item)})
+      console.log(this.state.redCondition)
+    }else if(badge == 'green'){
+      this.setState({greenCondition: this.state.greenCondition.map((item, _index) => _index == id ? event.target.value : item)})
+      console.log(this.state.greenCondition)
+    }
+  };
+  
   componentWillMount() {
+
     const { id } = this.props.match.params;
     if (id !== undefined) {
 
       const { id } = this.props.match.params;
       fetchQuestionnaire(id).then(
         response => {
-          console.log(response);
           this.setState({ questionnaireId: response.id, questionnaireBody: response.body });
           this.surveyCreator.text = this.state.questionnaireBody;
         }
@@ -90,118 +247,209 @@ class SurveyCreator extends Component {
     document.location.href = "/admin/dashboard/";
   };
 
-  checkStatus = (survey_StringRepresentation,survey_jsonRepresentation,is_published,is_public) => {
-
-      const { id } = this.props.match.params;
-   
-      Swal.fire({
-        position: 'top-end',
-        type: 'success',
-        title: 'Save Successfully!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      var surveyJson = {
-          "id": id,
-          "title": survey_jsonRepresentation.title,
-          "description": survey_jsonRepresentation.description,
-          "is_published": is_published,
-          "is_public":is_public,
-          "body":survey_StringRepresentation,
-          "role": is_public ? 'FORM1': 'FORM2'
-      }
-      
-      var createSurveyUrl = baseUrl + fetchQuestionnairesUrl
-
-      if(id == undefined){
-          postNewSurvey(createSurveyUrl, surveyJson)
-          .then(results => {
-              console.log(results)
-              {document.location.href = '/admin/dashboard'}
-          })
-          .catch(error => {
-              console.error(error);
-          });
-      }else{
-          createSurveyUrl = createSurveyUrl + '/' + id
-          updateSurvey(createSurveyUrl,surveyJson)
-          .then(results => {
-            console.log(results)
-            {document.location.href = '/admin/dashboard'}
-          })
-          .catch(error => {
-              console.error(error);
-          });
-      }
-}
-
   render() {
-    
+
+    var stylePaper = {'margin-left': '170px'}
     return(
       <div>
-        {/* <Button round color="info" onClick={this.handleDashboard}><Dashboard />Dashboard</Button>
-        <Button justIcon round color="info" onClick={this.handleDashboard}><Dashboard /></Button> */}
-        <div id="surveyCreatorContainer"></div>
+        <div>
+
+      <Dialog open={this.state.open} onClose={this.handleClose.bind(this)} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogContent>
+        <Paper>
+          <Typography component="p">
+          Red Badge
+          <IconButton style = { stylePaper} aria-label="add" onClick={() => {
+                  this.setState({
+                    redInput: this.state.redInput.concat(['0']),
+                    redQuestion: this.state.redQuestion.concat(['Question 1']),
+                    redCondition: this.state.redCondition.concat(['gt'])
+                  })
+                }}>
+              <AddIcon/>
+          </IconButton>
+      
+          </Typography>
+        </Paper>
+
+        {this.state.redInput.map((item, idx) => {
+          return <Board parent={this} index={idx} question={this.state.redQuestion[idx]} condition={this.state.redCondition[idx]} input={this.state.redInput[idx]} badge={'red'} questionList = {this.state.questionList}/>;
+        })}
+
+        <Paper>
+          <Typography component="p">
+          Green Badge
+          <IconButton style = { stylePaper} aria-label="add">
+              <AddIcon onClick={() => {
+                  this.setState({
+                      greenInput: this.state.greenInput.concat(['0']),
+                      greenQuestion: this.state.greenQuestion.concat(['Question 1']),
+                      greenCondition: this.state. greenCondition.concat(['gt'])
+                  })
+                }}/>
+          </IconButton>
+          </Typography>
+        </Paper>
+
+        {this.state.greenInput.map((item, idx) => {
+          return <Board parent={this} index={idx} question={this.state.greenQuestion[idx]} condition={this.state.greenCondition[idx]} input={this.state.greenInput[idx]} badge={'green'}/>;
+        })}
+     
+
+        <Grid component="label" container alignItems="center" spacing={1}>
+          <Grid item xs={4}>Draft</Grid>
+            <Grid item xs={4}>
+              <Switch
+                checked={this.state.checkedPublish}
+                onChange={this.handleChangeSwitch('checkedPublish').bind(this)}
+                value="checkedB"
+                color="primary"
+              />
+            </Grid>
+          <Grid item xs={4}>Published</Grid>
+        
+          </Grid>
+
+          <Grid component="label" container alignItems="center" spacing={1} >
+          <Grid item xs={4}>Private</Grid>
+            <Grid item xs={4}>
+              <Switch
+                checked={this.state.checkedPublic}
+                onChange={this.handleChangeSwitch('checkedPublic').bind(this)}
+                value="checkedB"
+                color="primary"
+              />
+            </Grid>
+          <Grid item xs={4}>Public</Grid>
+
+        </Grid>
+
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={this.handleClose.bind(this)} color="info">
+            Cancel
+          </Button>
+          <Button onClick={this.handleSubmit.bind(this)} color="info">
+            Subscribe
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      </div>
+      <div id="surveyCreatorContainer"></div>
     </div>);
   }
 
   saveMySurvey = () => {
-    var jsonString = JSON.stringify(this.surveyCreator.text);
+    this.setState({open: true});
+    
+    // var jsonString = JSON.stringify(this.surveyCreator.text);
+    
 
-    jsonString = jsonString.replace('\n', '');
-    var survey_jsonRepresentation = JSON.parse(this.surveyCreator.text);
-    var survey_StringRepresentation=JSON.stringify(survey_jsonRepresentation);
+    // jsonString = jsonString.replace('\n', '');
+    // var survey_jsonRepresentation = JSON.parse(this.surveyCreator.text);
+    // var survey_StringRepresentation=JSON.stringify(survey_jsonRepresentation);
+    // for(var i = 0; i<survey_jsonRepresentation.pages.length; i++){
+    //   for(var j = 0; j<survey_jsonRepresentation.pages[i].elements.length; j++){
+    //       this.state.questionList.push([survey_jsonRepresentation.pages[i].elements[j].name])
+    //   }
+    // }
 
-    if (survey_jsonRepresentation.title && survey_jsonRepresentation.description){ 
-      Swal.fire({
-        title: 'Select the questionnaire type',
-        html:
-         `
-          <div class="onoffswitch">
-              <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch_1" checked>
-              <label class="onoffswitch-label" for="myonoffswitch_1">
-                  <span id="myonofflabel_1" class="onoffswitch-inner"></span>
-                  <span class="onoffswitch-switch"></span>
-              </label>
-              <label class="checkbox-label" for="myonoffswitch_1">Publish/Draft</label>
-              <div class="clear"></div>
-              <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch_2" checked>
-              <label class="onoffswitch-label" for="myonoffswitch_2">
-                  <span id="myonofflabel_2" class="onoffswitch-inner"></span>
-                  <span class="onoffswitch-switch"></span>
-              </label>
-              <label class="checkbox-label" for="myonoffswitch_2">Public/Private</label>
-          </div>
-          `,
-        focusConfirm: false,
-        showCancelButton: true,
-        preConfirm: () => {
-          var is_published = true
-          if(document.getElementById('myonoffswitch_1').checked) {
-            is_published = true
-          } else {
-            is_published = false
-          }
+    // if (survey_jsonRepresentation.title && survey_jsonRepresentation.description){ 
+    //   this.setState({open: true, jsonRep: survey_jsonRepresentation, stringRep: survey_StringRepresentation});
 
-          var is_public = true
-          if(document.getElementById('myonoffswitch_2').checked) {
-            is_public = true
-          } else {
-            is_public = false
-          }
-          this.checkStatus(survey_StringRepresentation,survey_jsonRepresentation,is_published,is_public);
-        }
-      });
-    }
-    else {
-      Swal.fire({
-        type: 'error',
-        title: 'Error',
-        text: 'Please Enter Title & Description',
-        footer: 'Check in Survery Setting'
-      })
-    }
+    // }
+    // else {
+    //   Swal.fire({
+    //     type: 'error',
+    //     title: 'Error',
+    //     text: 'Please Enter Title & Description',
+    //     footer: 'Check in Survery Setting'
+    //   })
+    // }
   };
 }
+
+class Board extends React.Component {
+
+  render() {
+
+    var styleBoard = {'margin-left': '10px'}
+    var styleTop = {'margin-top': '5px'}
+
+    return (
+      <div>
+        <form autoComplete="off" style = {styleTop}>
+          <FormControl >
+            <InputLabel htmlFor="age-native-simple">Question</InputLabel>
+              <Select
+                native
+                styleTop
+                value={this.props.question}
+                onChange={this.props.parent.handleChangeQuestion(this.props.index,this.props.badge).bind(this)}
+                inputProps={{
+                  name: 'question',
+                  id: 'age-native-simple',
+                }}
+              >
+              
+              <option value={'Question 1'}>Question 1</option>
+              <option value={'Question 2'}>Question 2</option>
+              <option value={'Question 3'}>Question 3</option>
+
+        {/* {this.state.questionList.map((item, idx) => {
+          return <QuestionList parent={this} index={idx} question={this.state.redQuestion[idx]} condition={this.state.redCondition[idx]} input={this.state.redInput[idx]} badge={'red'} questionList = {this.state.questionList}/>;
+        })} */}
+            </Select>
+          </FormControl>
+
+          <FormControl>
+            <InputLabel htmlFor="age-native-simple">Condition</InputLabel>
+            <Select
+              native
+              style = {styleBoard}
+              value={this.props.condition}
+              onChange={this.props.parent.handleChangeCondition(this.props.index, this.props.badge).bind(this)}
+              inputProps={{
+                name: 'condition',
+                id: 'age-native-simple',
+              }}
+            >
+            
+              <option value={'great'}>gt</option>
+              <option value={'less'}>ls</option>
+              <option value={'equal'}>equal</option>
+            </Select>
+          </FormControl>
+
+          <TextField
+            id="value"
+            value={this.props.input}
+            onChange={this.props.parent.handleChange(this.props.index,this.props.badge).bind(this)}
+            label="Value"
+            type="number"
+            style = {styleBoard}
+            required = {true}
+          />  
+        </form>
+      </div>
+    );
+  }
+}
+
+// class QuestionList extends React.Component {
+
+//   render() {
+
+//     return (
+//       <div>
+  
+//       </div>
+//     );
+//   }
+// }
+
 
 export default SurveyCreator;

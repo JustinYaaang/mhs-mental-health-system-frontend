@@ -110,19 +110,6 @@ class TriageRows extends React.Component {
             }
             return (
             <TableRow key={index} className={classes.tableRow} >
-              {/* <TableCell className={tableCellClasses}>
-                <Checkbox
-                  checked={this.state.checked.indexOf(index) !== -1}
-                  tabIndex={-1}
-                  onClick={this.handleToggle(index)}
-                  checkedIcon={<Check className={classes.checkedIcon} />}
-                  icon={<Check className={classes.uncheckedIcon} />}
-                  classes={{
-                    checked: classes.checked,
-                    root: classes.root
-                  }}
-                />
-              </TableCell> */}
 
               {curTasks.map((value, index, arr) => {
                 if (index !== arr.length - 2 && index !== arr.length - 1) return <TableCell key={index} className={tableCellClasses}>{value}</TableCell>;
