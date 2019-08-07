@@ -36,7 +36,7 @@ import CollapsableList from './CollapsableList'
 class TriageRows extends React.Component {
   state = {
     checked: this.props.checkedIndexes,
-    answers:{}
+    answers: {}
   };
   handleToggle = value => () => {
     const { checked } = this.state;
@@ -69,8 +69,9 @@ class TriageRows extends React.Component {
 
 
   render() {
+    console.log("Triage Rows props=" + JSON.stringify(this.props.onViewItemClicked))
     const { classes, tableHeaderColor, tableHead, tasks, rtlActive } = this.props;
-    var answers={BLUE:[],GREEN:[],RED:[],UNKNOWN:[]}
+    var answers = { BLUE: [], GREEN: [], RED: [], UNKNOWN: [] }
     console.log(this.props.tasks)
     this.props.tasks.forEach(element => {
       console.log(element[1])
@@ -93,10 +94,20 @@ class TriageRows extends React.Component {
     return (
       <div>
         <Table className={classes.table}>
-          <CollapsableList props={this.props} tasks={answers['RED']} title={"Red"}/>
-          <CollapsableList props={this.props} tasks={answers['GREEN']} title={"Green"}/>
-          <CollapsableList props={this.props} tasks={answers['BLUE']} title={"Blue"}/>
-          <CollapsableList props={this.props} tasks={answers['UNKNOWN']} title={"Unknown"}/>
+          <CollapsableList props={this.props} tasks={answers['RED']}
+            onRowClicked={this.props.onRowClicked}
+            onViewItemClicked={this.props.onViewItemClicked}
+            title={"Red"} />
+          <CollapsableList
+            onRowClicked={this.props.onRowClicked}
+            onViewItemClicked={this.props.onViewItemClicked}
+            props={this.props} tasks={answers['GREEN']} title={"Green"} />
+          <CollapsableList onRowClicked={this.props.onRowClicked}
+            onViewItemClicked={this.props.onViewItemClicked}
+            props={this.props} tasks={answers['BLUE']} title={"Blue"} />
+          <CollapsableList onRowClicked={this.props.onRowClicked}
+            onViewItemClicked={this.props.onViewItemClicked}
+            props={this.props} tasks={answers['UNKNOWN']} title={"Unknown"} />
         </Table>
 
         <div class="add-float">

@@ -32,7 +32,6 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import 'assets/css/floatingbutton.css'
 
-
 class CollapsableList extends React.Component {
   state = {
     checked: this.props.checkedIndexes,
@@ -55,7 +54,7 @@ class CollapsableList extends React.Component {
 
   redirectToAnswers = (tableHead, tasks, index) => {
     var selectedRow = tasks[index];
-    var questionnaireResponseId = selectedRow[selectedRow.length - 2];
+    var questionnaireResponseId = selectedRow[selectedRow.length - 2]; 
     this.props.onRowClicked(questionnaireResponseId);
   }
 
@@ -66,7 +65,7 @@ class CollapsableList extends React.Component {
   }
 
   render() {
-    console.log(this.props)
+    console.log("Collapsable props= "+JSON.stringify(this.props.onViewItemClicked))
     const { classes, tableHeaderColor, tableHead, rtlActive } = this.props.props;
     var tasks = this.props.tasks
     if(this.props.tasks===undefined){
@@ -99,7 +98,7 @@ class CollapsableList extends React.Component {
 
             {tableHead !== undefined ? (
               <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
-                <TableRow className={classes.tableHeadRow}>
+                <TableRow className={classes[classes.tableHeadRow+" collapsable"]}>
                   {tableHead.map((prop, key) => {
                     return (
                       <TableCell
@@ -205,5 +204,5 @@ CollapsableList.propTypes = {
 
 };
 
-export default withStyles(tasksStyle)(CollapsableList);
+export default withStyles()(CollapsableList);
 
