@@ -161,9 +161,9 @@ class PersonForm extends React.Component {
         <br />
         <label className='label-subtitle' id='passwordlabel' for='label'>{this.state.hasDetails ? 'Change the password here:' : 'Enter password here:'}</label>
         <div>
-          <input name='email' type='email' class='form-control' id='passwordchange1' aria-describedby='emailHelp' placeholder='Enter password' onChange={this.onChange} />
+          <input name='password1' type='password' class='form-control' id='passwordchange1' aria-describedby='emailHelp' placeholder='Enter password' onChange={this.onChange} />
           <br />
-          <input name='email' type='email' class='form-control' id='passwordchange2' aria-describedby='emailHelp' placeholder='Enter password again' onChange={this.onChange} />
+          <input name='password2' type='password' class='form-control' id='passwordchange2' aria-describedby='emailHelp' placeholder='Enter password again' onChange={this.onChange} />
 
         </div>
         <Button onClick={this.onSave} id='loginbutton' type='button' color='primary'>Save</Button>

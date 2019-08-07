@@ -69,15 +69,13 @@ class TriageRows extends React.Component {
 
 
   render() {
-    console.log("Triage Rows props=" + JSON.stringify(this.props.onViewItemClicked))
+    
     const { classes, tableHeaderColor, tableHead, tasks, rtlActive } = this.props;
     var answers = { BLUE: [], GREEN: [], RED: [], UNKNOWN: [] }
-    console.log(this.props.tasks)
+    sessionStorage.setItem('questionnaires',JSON.stringify(this.props.tasks))
     this.props.tasks.forEach(element => {
-      console.log(element[1])
       answers[element[1]].push(element)
     });
-    console.log(answers)
     console.log(tableHead);
     const tableCellClasses = classnames(classes.tableCell, {
       [classes.tableCellRTL]: rtlActive
