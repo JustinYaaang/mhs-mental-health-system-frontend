@@ -71,7 +71,6 @@ class SurveyCreator extends Component {
     checkedPublic:true,
     checkedPublish:true,
     jsonRep:[],
-    stringRep: [],
     redInput:[],
     redQuestion:[],
     redCondition:[], 
@@ -135,7 +134,7 @@ class SurveyCreator extends Component {
       "description": this.state.jsonRep.description,
       "is_published": this.state.checkedPublish,
       "is_public":this.state.checkedPublic,
-      "body":this.state.stringRep,
+      "body":this.state.jsonRep,
       "role": this.state.checkedPublic ? 'FORM1': 'FORM2',
       "rules": rules
     }
@@ -204,7 +203,7 @@ class SurveyCreator extends Component {
       fetchQuestionnaire(id).then(
         response => {
           this.setState({ questionnaireId: response.id, questionnaireBody: response.body });
-          this.surveyCreator.text = this.state.questionnaireBody;
+          this.surveyCreator.text = JSON.stringify(this.state.questionnaireBody);
         }
       );
     }
@@ -316,13 +315,10 @@ class SurveyCreator extends Component {
   /*click the save survery button */
   saveMySurvey = () => {
 
-    var jsonString = JSON.stringify(this.surveyCreator.text);
-    jsonString = jsonString.replace('\n', '');
     var survey_jsonRepresentation = JSON.parse(this.surveyCreator.text);
-    var survey_StringRepresentation=JSON.stringify(survey_jsonRepresentation);
 
     if (survey_jsonRepresentation.title && survey_jsonRepresentation.description){ 
-      this.setState({open: true, jsonRep: survey_jsonRepresentation, stringRep: survey_StringRepresentation});
+      this.setState({open: true, jsonRep: survey_jsonRepresentation});
       this.setState({questionList: []})
    
       for(var i = 0; i<survey_jsonRepresentation.pages.length; i++){
@@ -344,6 +340,7 @@ class SurveyCreator extends Component {
     }
   };
 }
+
 
 class Board extends React.Component {
 
@@ -385,7 +382,7 @@ class Board extends React.Component {
                 id: 'age-native-simple',
               }}
             >
-            
+      
               <option value={'great'}>gt</option>
               <option value={'less'}>ls</option>
               <option value={'equal'}>equal</option>
