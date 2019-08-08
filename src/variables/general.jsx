@@ -18,13 +18,12 @@ var server = [
   'Sign contract for "What are conference organizers afraid of?"'
 ]
 
-var baseUrl = 'http://178.128.34.125/api/v1'
+var baseUrl = 'https://mhsbackend.azurewebsites.net/api/v1'
 var patients = '/patients'
 var fetchQuestionnairesUrl = '/questionnaire_sJS'
 // '/questionnaire'
 // '/questionnaire_sJS'
 var patientanswersUrl = '/patientanswers'
-var backendUrl = 'http://178.128.34.125/api/v1'
 var createUserAnswers = '/useranswers'
 var authenticationUrl = '/users/authenticate'
 var questionnaireWithoutToken = '/questionnaires'
@@ -37,7 +36,6 @@ module.exports = {
   website,
   server,
   baseUrl,
-  backendUrl,
   patients,
   fetchQuestionnairesUrl,
   patientanswersUrl,
