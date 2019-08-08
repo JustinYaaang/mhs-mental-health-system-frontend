@@ -121,7 +121,7 @@ class SurveyCreator extends Component {
     }
   }
 
-  handleSubmit(jsonRep, stringRep) {
+  handleSubmit() {
     this.setState({open: false});
 
     const { id } = this.props.match.params;
@@ -141,14 +141,15 @@ class SurveyCreator extends Component {
         'condition': this.state.greenCondition[index],
       })
     })
-      // Swal.fire({
-      //   position: 'top-end',
-      //   type: 'success',
-      //   title: 'Save Successfully!',
-      //   showConfirmButton: false,
-      //   timer: 1500
-      // })
-    var surveyJson = {
+      Swal.fire({
+        position: 'center',
+        type: 'success',
+        title: 'Save Successfully!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+
+      var surveyJson = {
       "id": id,
       "title": this.state.jsonRep.title,
       "description": this.state.jsonRep.description,
@@ -158,30 +159,29 @@ class SurveyCreator extends Component {
       "role": this.state.checkedPublic ? 'FORM1': 'FORM2',
       "rules": rules
     }
-      console.log(surveyJson)
 
-      // var createSurveyUrl = baseUrl + fetchQuestionnairesUrl
+      var createSurveyUrl = baseUrl + fetchQuestionnairesUrl
 
-      // if(id == undefined){
-      //     postNewSurvey(createSurveyUrl, surveyJson)
-      //     .then(results => {
-      //         console.log(results)
-      //         {document.location.href = '/admin/dashboard'}
-      //     })
-      //     .catch(error => {
-      //         console.error(error);
-      //     });
-      // }else{
-      //     createSurveyUrl = createSurveyUrl + '/' + id
-      //     updateSurvey(createSurveyUrl,surveyJson)
-      //     .then(results => {
-      //       console.log(results)
-      //       {document.location.href = '/admin/dashboard'}
-      //     })
-      //     .catch(error => {
-      //         console.error(error);
-      //     });
-      // }
+      if(id == undefined){
+          postNewSurvey(createSurveyUrl, surveyJson)
+          .then(results => {
+              console.log(results)
+              {document.location.href = '/admin/dashboard'}
+          })
+          .catch(error => {
+              console.error(error);
+          });
+      }else{
+          createSurveyUrl = createSurveyUrl + '/' + id
+          updateSurvey(createSurveyUrl,surveyJson)
+          .then(results => {
+            console.log(results)
+            {document.location.href = '/admin/dashboard'}
+          })
+          .catch(error => {
+              console.error(error);
+          });
+      }
   }
 
   handleChange = (id, badge) => event => {
@@ -243,10 +243,6 @@ class SurveyCreator extends Component {
     this.surveyCreator.saveSurveyFunc = this.saveMySurvey;
   }
 
-  handleDashboard = () => {
-    document.location.href = "/admin/dashboard/";
-  };
-
   render() {
 
     var stylePaper = {'margin-left': '170px'}
@@ -274,7 +270,7 @@ class SurveyCreator extends Component {
         </Paper>
 
         {this.state.redInput.map((item, idx) => {
-          return <Board parent={this} index={idx} question={this.state.redQuestion[idx]} condition={this.state.redCondition[idx]} input={this.state.redInput[idx]} badge={'red'} questionList = {this.state.questionList}/>;
+          return <Board parent={this} index={idx} question={this.state.redQuestion[idx]} condition={this.state.redCondition[idx]} input={this.state.redInput[idx]} badge={'red'} questionList={this.state.questionList}/>;
         })}
 
         <Paper>
@@ -293,7 +289,7 @@ class SurveyCreator extends Component {
         </Paper>
 
         {this.state.greenInput.map((item, idx) => {
-          return <Board parent={this} index={idx} question={this.state.greenQuestion[idx]} condition={this.state.greenCondition[idx]} input={this.state.greenInput[idx]} badge={'green'}/>;
+          return <Board parent={this} index={idx} question={this.state.greenQuestion[idx]} condition={this.state.greenCondition[idx]} input={this.state.greenInput[idx]} badge={'green'} questionList={this.state.questionList}/>;
         })}
      
 
@@ -343,32 +339,33 @@ class SurveyCreator extends Component {
   }
 
   saveMySurvey = () => {
-    this.setState({open: true});
-    
-    // var jsonString = JSON.stringify(this.surveyCreator.text);
-    
 
-    // jsonString = jsonString.replace('\n', '');
-    // var survey_jsonRepresentation = JSON.parse(this.surveyCreator.text);
-    // var survey_StringRepresentation=JSON.stringify(survey_jsonRepresentation);
-    // for(var i = 0; i<survey_jsonRepresentation.pages.length; i++){
-    //   for(var j = 0; j<survey_jsonRepresentation.pages[i].elements.length; j++){
-    //       this.state.questionList.push([survey_jsonRepresentation.pages[i].elements[j].name])
-    //   }
-    // }
+    var jsonString = JSON.stringify(this.surveyCreator.text);
+    jsonString = jsonString.replace('\n', '');
+    var survey_jsonRepresentation = JSON.parse(this.surveyCreator.text);
+    var survey_StringRepresentation=JSON.stringify(survey_jsonRepresentation);
 
-    // if (survey_jsonRepresentation.title && survey_jsonRepresentation.description){ 
-    //   this.setState({open: true, jsonRep: survey_jsonRepresentation, stringRep: survey_StringRepresentation});
-
-    // }
-    // else {
-    //   Swal.fire({
-    //     type: 'error',
-    //     title: 'Error',
-    //     text: 'Please Enter Title & Description',
-    //     footer: 'Check in Survery Setting'
-    //   })
-    // }
+    if (survey_jsonRepresentation.title && survey_jsonRepresentation.description){ 
+      this.setState({open: true, jsonRep: survey_jsonRepresentation, stringRep: survey_StringRepresentation});
+      this.setState({questionList: []})
+   
+      for(var i = 0; i<survey_jsonRepresentation.pages.length; i++){
+        if(survey_jsonRepresentation.pages[i].elements != undefined){
+          for(var j = 0; j<survey_jsonRepresentation.pages[i].elements.length; j++){
+            var questionName = survey_jsonRepresentation.pages[i].elements[j].name;
+            this.state.questionList.push(<option value={questionName}>{questionName}</option>);
+          }
+        }
+      }
+    }
+    else {
+      Swal.fire({
+        type: 'error',
+        title: 'Error',
+        text: 'Please Enter Title & Description',
+        footer: 'Check in Survery Setting'
+      })
+    }
   };
 }
 
@@ -395,13 +392,8 @@ class Board extends React.Component {
                 }}
               >
               
-              <option value={'Question 1'}>Question 1</option>
-              <option value={'Question 2'}>Question 2</option>
-              <option value={'Question 3'}>Question 3</option>
+              {this.props.questionList}
 
-        {/* {this.state.questionList.map((item, idx) => {
-          return <QuestionList parent={this} index={idx} question={this.state.redQuestion[idx]} condition={this.state.redCondition[idx]} input={this.state.redInput[idx]} badge={'red'} questionList = {this.state.questionList}/>;
-        })} */}
             </Select>
           </FormControl>
 
@@ -438,18 +430,6 @@ class Board extends React.Component {
     );
   }
 }
-
-// class QuestionList extends React.Component {
-
-//   render() {
-
-//     return (
-//       <div>
-  
-//       </div>
-//     );
-//   }
-// }
 
 
 export default SurveyCreator;
