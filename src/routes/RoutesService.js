@@ -2,7 +2,6 @@
 import Dashboard from '@material-ui/icons/Dashboard'
 import Person from '@material-ui/icons/Person'
 import List from  '@material-ui/icons/PlaylistPlay'
-import PatientsIcon from  '@material-ui/icons/LocalHospitalTwoTone'
 import ClinicianIco from  '@material-ui/icons/ListTwoTone'
 // import Out from "@material-ui/icons/ArrowBack";
 import Setting from '@material-ui/icons/Settings'

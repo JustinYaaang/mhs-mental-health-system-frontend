@@ -6,7 +6,9 @@ exports[`Information Card should render correctly 1`] = `
   sm={6}
   xs={12}
 >
-  <WithStyles(Card)>
+  <WithStyles(Card)
+    onClick={[Function]}
+  >
     <WithStyles(CardHeader)
       color="info"
       icon={true}

@@ -101,7 +101,7 @@ exports[`Clinitian Form should render correctly 1`] = `
       name="email"
       onChange={[Function]}
       placeholder="Enter password"
-      type="email"
+      type="password"
     />
     <br />
     <input
@@ -111,7 +111,7 @@ exports[`Clinitian Form should render correctly 1`] = `
       name="email"
       onChange={[Function]}
       placeholder="Enter password again"
-      type="email"
+      type="password"
     />
   </div>
   <WithStyles(RegularButton)
@@ -206,20 +206,20 @@ exports[`Person Form should render correctly 1`] = `
       aria-describedby="emailHelp"
       class="form-control"
       id="passwordchange1"
-      name="email"
+      name="password1"
       onChange={[Function]}
       placeholder="Enter password"
-      type="email"
+      type="password"
     />
     <br />
     <input
       aria-describedby="emailHelp"
       class="form-control"
       id="passwordchange2"
-      name="email"
+      name="password2"
       onChange={[Function]}
       placeholder="Enter password again"
-      type="email"
+      type="password"
     />
   </div>
   <WithStyles(RegularButton)

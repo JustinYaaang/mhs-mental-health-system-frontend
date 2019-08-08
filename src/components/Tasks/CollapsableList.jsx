@@ -54,7 +54,7 @@ class CollapsableList extends React.Component {
 
   redirectToAnswers = (tableHead, tasks, index) => {
     var selectedRow = tasks[index];
-    var questionnaireResponseId = selectedRow[selectedRow.length - 2]; 
+    var questionnaireResponseId = selectedRow[selectedRow.length - 2];
     this.props.onRowClicked(questionnaireResponseId);
   }
 
@@ -65,11 +65,11 @@ class CollapsableList extends React.Component {
   }
 
   render() {
-    console.log("Collapsable props= "+JSON.stringify(this.props.onViewItemClicked))
+    console.log("Collapsable props= " + JSON.stringify(this.props.onViewItemClicked))
     const { classes, tableHeaderColor, tableHead, rtlActive } = this.props.props;
     var tasks = this.props.tasks
-    if(this.props.tasks===undefined){
-      tasks=[]
+    if (this.props.tasks === undefined) {
+      tasks = []
     }
     const tableCellClasses = classnames(classes.tableCell, {
       [classes.tableCellRTL]: rtlActive
@@ -98,7 +98,7 @@ class CollapsableList extends React.Component {
 
             {tableHead !== undefined ? (
               <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
-                <TableRow className={classes[classes.tableHeadRow+" collapsable"]}>
+                <TableRow className={classes[classes.tableHeadRow + " collapsable"]}>
                   {tableHead.map((prop, key) => {
                     return (
                       <TableCell
