@@ -138,7 +138,7 @@ const fetchQuestionnaire = async (questionnaireId) => {
   })
     .then(function (response) {
       const data = response.data.data
-      return { 'id': data._id, 'body': data.body }
+      return { 'id': data._id, 'body': data.body, 'rules': data.rules }
     })
     .catch(function (error) {
       console.log(error)

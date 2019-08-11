@@ -35,6 +35,7 @@ import "select2/dist/css/select2.css";
 import "bootstrap-slider/dist/css/bootstrap-slider.css";
 import "jquery-bar-rating/dist/themes/css-stars.css";
 import "jquery-bar-rating/dist/themes/fontawesome-stars.css";
+import Close from "@material-ui/icons/Close";
 
 var mainColor = "#005EB8";
 var mainHoverColor = "#003087";
@@ -196,14 +197,77 @@ class SurveyCreator extends Component {
     }
   };
   
+  onDeleteItemClicked = (index, badge) => {
+    if(badge == 'red'){
+      this.state.redInput.splice(index, 1)
+      this.state.redQuestion.splice(index, 1)
+      this.state.redCondition.splice(index, 1)
+      this.setState({
+        redInput: this.state.redInput,
+        redQuestion: this.state.redQuestion,
+        redCondition: this.state.redCondition
+      })
+    }
+    if(badge == 'green'){
+      this.state.greenInput.splice(index, 1)
+      this.state.greenQuestion.splice(index, 1)
+      this.state.greenCondition.splice(index, 1)
+      this.setState({
+        greenInput: this.state.greenInput,
+        greenQuestion: this.state.greenQuestion,
+        greenCondition: this.state.greenCondition
+      })
+    }
+  }
+
   componentWillMount() {
 
     const { id } = this.props.match.params;
     if (id !== undefined) {
       fetchQuestionnaire(id).then(
         response => {
-          this.setState({ questionnaireId: response.id, questionnaireBody: response.body });
+          var input = []
+          var question = []
+          var condition = []
+          var questions = []
+
+          this.setState({ questionnaireId: response.id, questionnaireBody: response.body});
+   
+          for(var i = 0; i<response.body.pages.length; i++){
+            if(response.body.pages[i].elements != undefined){
+              for(var j = 0; j<response.body.pages[i].elements.length; j++){
+                var questionName = response.body.pages[i].elements[j].name;
+                questions.push(<option key={i*response.body.pages.length + j} value={questionName}>{questionName}</option>);
+              }
+            }
+          }
+          this.setState({questionList: questions})
+
           this.surveyCreator.text = JSON.stringify(this.state.questionnaireBody);
+         
+          for(var i = 0; i < response.rules.RED.length; i++){
+            input = input.concat(response.rules.RED[i].value)
+            question = question.concat(response.rules.RED[i].name)
+            condition = condition.concat(response.rules.RED[i].condition)
+          }
+          this.setState({ 
+            redQuestion: question, 
+            redCondition: condition, 
+            redInput: input
+          });
+          input = []
+          question = []
+          condition = []
+          for(var i = 0; i < response.rules.GREEN.length; i++){
+            input = input.concat(response.rules.GREEN[i].value)
+            question = question.concat(response.rules.GREEN[i].name)
+            condition = condition.concat(response.rules.GREEN[i].condition)
+          }
+          this.setState({ 
+            greenQuestion: question, 
+            greenCondition: condition, 
+            greenInput: input
+          });
         }
       );
     }
@@ -247,27 +311,26 @@ class SurveyCreator extends Component {
           </Paper>
 
           {this.state.redInput.map((item, idx) => {
-            return <Board parent={this} index={idx} question={this.state.redQuestion[idx]} condition={this.state.redCondition[idx]} input={this.state.redInput[idx]} badge={'red'} questionList={this.state.questionList}/>;
+            return <Board key={idx} parent={this} index={idx} question={this.state.redQuestion[idx]} condition={this.state.redCondition[idx]} input={this.state.redInput[idx]} badge={'red'} questionList={this.state.questionList}/>;
           })}
 
           <Paper>
             <Typography component="p">Green Badge
-            <IconButton style = { stylePaper} aria-label="add">
-                <AddIcon onClick={() => {
+            <IconButton style = { stylePaper} aria-label="add" onClick={() => {
                     this.setState({
                         greenInput: this.state.greenInput.concat(['0']),
                         greenQuestion: this.state.greenQuestion.concat(['Question 1']),
                         greenCondition: this.state. greenCondition.concat(['gt'])
                     })
-                  }}/>
+                  }}>
+                <AddIcon/>
             </IconButton>
             </Typography>
           </Paper>
 
           {this.state.greenInput.map((item, idx) => {
-            return <Board parent={this} index={idx} question={this.state.greenQuestion[idx]} condition={this.state.greenCondition[idx]} input={this.state.greenInput[idx]} badge={'green'} questionList={this.state.questionList}/>;
+            return <Board key={idx} parent={this} index={idx} question={this.state.greenQuestion[idx]} condition={this.state.greenCondition[idx]} input={this.state.greenInput[idx]} badge={'green'} questionList={this.state.questionList}/>;
           })}
-     
 
           <Grid component="label" container alignItems="center" spacing={1}>
             <Grid item xs={4}>Draft</Grid>
@@ -302,7 +365,7 @@ class SurveyCreator extends Component {
             Cancel
           </Button>
           <Button onClick={this.handleSubmit.bind(this)} color="info">
-            Subscribe
+            Save
           </Button>
         </DialogActions>
       </Dialog>
@@ -319,16 +382,17 @@ class SurveyCreator extends Component {
 
     if (survey_jsonRepresentation.title && survey_jsonRepresentation.description){ 
       this.setState({open: true, jsonRep: survey_jsonRepresentation});
-      this.setState({questionList: []})
+      var questions = []
    
       for(var i = 0; i<survey_jsonRepresentation.pages.length; i++){
         if(survey_jsonRepresentation.pages[i].elements != undefined){
           for(var j = 0; j<survey_jsonRepresentation.pages[i].elements.length; j++){
             var questionName = survey_jsonRepresentation.pages[i].elements[j].name;
-            this.state.questionList.push(<option value={questionName}>{questionName}</option>);
+            questions.push(<option key={i*survey_jsonRepresentation.pages.length + j} value={questionName}>{questionName}</option>);
           }
         }
       }
+      this.setState({questionList: questions})
     }
     else {
       Swal.fire({
@@ -346,7 +410,7 @@ class Board extends React.Component {
 
   render() {
 
-    var styleBoard = {'margin-left': '10px'}
+    var styleBoard = {'margin-right': '10px'}
     var styleTop = {'margin-top': '5px'}
 
     return (
@@ -398,6 +462,10 @@ class Board extends React.Component {
             style = {styleBoard}
             required = {true}
           />  
+
+          <IconButton onClick={() => this.props.parent.onDeleteItemClicked(this.props.index, this.props.badge)}>
+            <Close/>
+          </IconButton>
         </form>
       </div>
     );
