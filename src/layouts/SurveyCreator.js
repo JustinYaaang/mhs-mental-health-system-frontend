@@ -197,6 +197,7 @@ class SurveyCreator extends Component {
     }
   };
   
+  /*delete the selected condition */
   onDeleteItemClicked = (index, badge) => {
     if(badge == 'red'){
       this.state.redInput.splice(index, 1)
@@ -220,6 +221,7 @@ class SurveyCreator extends Component {
     }
   }
 
+  /*fetch questionnaire and condition before loading the page*/
   componentWillMount() {
 
     const { id } = this.props.match.params;
@@ -255,6 +257,7 @@ class SurveyCreator extends Component {
             redCondition: condition, 
             redInput: input
           });
+          //empty the list
           input = []
           question = []
           condition = []
@@ -471,6 +474,5 @@ class Board extends React.Component {
     );
   }
 }
-
 
 export default SurveyCreator;
