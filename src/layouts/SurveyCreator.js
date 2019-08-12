@@ -291,7 +291,8 @@ class SurveyCreator extends Component {
 
   render() {
 
-    var stylePaper = {'margin-left': '170px'}
+    var stylePaper = {'marginLeft': '170px'}
+    var styleTop = {'marginTop': '5px'}
     return(
       <div>
 
@@ -317,7 +318,7 @@ class SurveyCreator extends Component {
             return <Board key={idx} parent={this} index={idx} question={this.state.redQuestion[idx]} condition={this.state.redCondition[idx]} input={this.state.redInput[idx]} badge={'red'} questionList={this.state.questionList}/>;
           })}
 
-          <Paper>
+          <Paper style = {styleTop}>
             <Typography component="p">Green Badge
             <IconButton style = { stylePaper} aria-label="add" onClick={() => {
                     this.setState({
@@ -408,13 +409,12 @@ class SurveyCreator extends Component {
   };
 }
 
-
 class Board extends React.Component {
 
   render() {
 
-    var styleBoard = {'margin-right': '10px'}
-    var styleTop = {'margin-top': '5px'}
+    var styleBoard = {'marginLeft': '10px'}
+    var styleTop = {'marginTop': '5px'}
 
     return (
       <div>
