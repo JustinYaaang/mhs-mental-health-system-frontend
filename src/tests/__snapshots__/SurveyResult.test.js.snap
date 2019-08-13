@@ -2,6 +2,135 @@
 
 exports[`SurveyCreator should render correctly 1`] = `
 <div>
+  <WithStyles(ForwardRef(Dialog))
+    aria-labelledby="form-dialog-title"
+    onClose={[Function]}
+    open={false}
+  >
+    <WithStyles(ForwardRef(DialogTitle))
+      id="form-dialog-title"
+    >
+      Subscribe
+    </WithStyles(ForwardRef(DialogTitle))>
+    <WithStyles(ForwardRef(DialogContent))>
+      <WithStyles(ForwardRef(Paper))>
+        <WithStyles(ForwardRef(Typography))
+          component="p"
+        >
+          Red Badge
+          <WithStyles(ForwardRef(IconButton))
+            aria-label="add"
+            onClick={[Function]}
+            style={
+              Object {
+                "marginLeft": "170px",
+              }
+            }
+          >
+            <AddIcon />
+          </WithStyles(ForwardRef(IconButton))>
+        </WithStyles(ForwardRef(Typography))>
+      </WithStyles(ForwardRef(Paper))>
+      <WithStyles(ForwardRef(Paper))
+        style={
+          Object {
+            "marginTop": "5px",
+          }
+        }
+      >
+        <WithStyles(ForwardRef(Typography))
+          component="p"
+        >
+          Green Badge
+          <WithStyles(ForwardRef(IconButton))
+            aria-label="add"
+            onClick={[Function]}
+            style={
+              Object {
+                "marginLeft": "170px",
+              }
+            }
+          >
+            <AddIcon />
+          </WithStyles(ForwardRef(IconButton))>
+        </WithStyles(ForwardRef(Typography))>
+      </WithStyles(ForwardRef(Paper))>
+      <WithStyles(ForwardRef(Grid))
+        alignItems="center"
+        component="label"
+        container={true}
+        spacing={1}
+      >
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+          xs={4}
+        >
+          Draft
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+          xs={4}
+        >
+          <WithStyles(ForwardRef(Switch))
+            checked={true}
+            color="primary"
+            onChange={[Function]}
+            value="checkedB"
+          />
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+          xs={4}
+        >
+          Published
+        </WithStyles(ForwardRef(Grid))>
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        alignItems="center"
+        component="label"
+        container={true}
+        spacing={1}
+      >
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+          xs={4}
+        >
+          Private
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+          xs={4}
+        >
+          <WithStyles(ForwardRef(Switch))
+            checked={true}
+            color="primary"
+            onChange={[Function]}
+            value="checkedB"
+          />
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+          xs={4}
+        >
+          Public
+        </WithStyles(ForwardRef(Grid))>
+      </WithStyles(ForwardRef(Grid))>
+    </WithStyles(ForwardRef(DialogContent))>
+    <WithStyles(ForwardRef(DialogActions))>
+      <WithStyles(RegularButton)
+        color="info"
+        onClick={[Function]}
+      >
+        Cancel
+      </WithStyles(RegularButton)>
+      <WithStyles(RegularButton)
+        color="info"
+        onClick={[Function]}
+      >
+        Save
+      </WithStyles(RegularButton)>
+    </WithStyles(ForwardRef(DialogActions))>
+  </WithStyles(ForwardRef(Dialog))>
   <div
     id="surveyCreatorContainer"
   />
