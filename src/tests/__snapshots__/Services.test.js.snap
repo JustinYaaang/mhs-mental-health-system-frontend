@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Service Create Manager should render correctly 1`] = `
+<ServiceCreateManager
+  classes={
+    Object {
+      "cardCategoryWhite": "ServiceCreateManager-cardCategoryWhite-5",
+      "cardTitleWhite": "ServiceCreateManager-cardTitleWhite-6",
+    }
+  }
+/>
+`;
+
+exports[`Service Create New should render correctly 1`] = `
+<ServiceCreateNew
+  classes={
+    Object {
+      "cardCategoryWhite": "ServiceCreateNew-cardCategoryWhite-7",
+      "cardTitleWhite": "ServiceCreateNew-cardTitleWhite-8",
+    }
+  }
+/>
+`;
+
+exports[`Service Details should render correctly 1`] = `
+<ServiceDetails
+  classes={
+    Object {
+      "cardCategoryWhite": "ServiceDetails-cardCategoryWhite-1",
+      "cardTitleWhite": "ServiceDetails-cardTitleWhite-2",
+    }
+  }
+/>
+`;
+
+exports[`Service List should render correctly 1`] = `
+<ServiceList
+  classes={
+    Object {
+      "cardCategoryWhite": "ServiceList-cardCategoryWhite-3",
+      "cardTitleWhite": "ServiceList-cardTitleWhite-4",
+    }
+  }
+/>
+`;
+
+exports[`Service User Details should render correctly 1`] = `
+<ServiceUserDetails
+  classes={
+    Object {
+      "cardCategoryWhite": "ServiceUserDetails-cardCategoryWhite-9",
+      "cardTitleWhite": "ServiceUserDetails-cardTitleWhite-10",
+    }
+  }
+/>
+`;

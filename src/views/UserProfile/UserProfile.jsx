@@ -63,7 +63,7 @@ class UserProfile extends React.Component {
           text: 'Passwords don\'t match! '
         })
       } else { // else add the password to the body
-        var id=JSON.parse(sessionStorage.personDetails)._id
+        var id = JSON.parse(sessionStorage.personDetails)._id
         var body = {
           id: id,
           body: {
@@ -77,7 +77,7 @@ class UserProfile extends React.Component {
           swal.fire({
             type: 'success',
             title: 'Success',
-            text: 'The entry has been updated! '
+            text: 'Your password been updated! '
           })
         })
       }
@@ -204,6 +204,7 @@ class UserProfile extends React.Component {
                     <CustomInput
                       labelText='Password 1'
                       id='password1'
+                      type='password'
                       formControlProps={{
                         fullWidth: true
                       }}
@@ -213,6 +214,7 @@ class UserProfile extends React.Component {
                     <CustomInput
                       labelText='Password 2'
                       id='password2'
+                      type='password'
                       formControlProps={{
                         fullWidth: true
                       }}

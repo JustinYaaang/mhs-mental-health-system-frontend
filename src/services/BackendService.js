@@ -368,15 +368,15 @@ const getPersonnel = async (body) => {
  */
 const updatePersonnel = async (body) => {
   try {
-    console.log(body)
+    console.log("update personel "+JSON.stringify(body.body))
     try {
-      var restofbody = body.body
+      var restofbody = body.id
       var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
       const res = await axios({
         method: 'put',
         url: baseUrl + personnel + '/' + body.id,
         headers: headers,
-        data: body
+        data: body.body
       })
       console.log(res.data.data)
       return res.data.data

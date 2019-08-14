@@ -9,7 +9,6 @@ import question from '@material-ui/icons/FormatListNumbered'
 import DashboardPage from 'views/Dashboard/Dashboard.jsx'
 import UserProfile from 'views/UserProfile/UserProfile.jsx'
 import TrustList from 'layouts/Trusts/TrustList.jsx'
-import trustdetails from 'layouts/Trusts/TrustDetails.jsx'
 import SideQuestionAdmin from "../views/Forms/SideQuestionAdmin"
 
 

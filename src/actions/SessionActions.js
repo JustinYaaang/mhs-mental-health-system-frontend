@@ -13,28 +13,29 @@ export function logoutSuccess () {
 export function logInUser (body) {
   return function (dispatch) {
     return getAuthenticationToken(body).then(response => {
-      console.log(response)
       sessionStorage.setItem('jwt', response.data.token)
       sessionStorage.setItem('role', response.data.role)
-      sessionStorage.setItem('currentOrganizationID', response.data.organisation_id) 
+      sessionStorage.setItem('currentOrganizationID', response.data.organisation_id)
       console.log(response.data.role)
       // sessionStorage.setItem('role', 'PATIENT');
       dispatch(loginSuccess())
       document.location.href = '/'
       // history.push('/')
+      return true
     }).catch(error => {
       console.log('Session Actions error: ', error)
-      throw (error)
+      // throw (error)
+      return false
     })
   }
 }
 
 export function logOutUser () {
   return function (dispatch) {
-      sessionStorage.removeItem('jwt')
-      sessionStorage.removeItem('role')
-      dispatch(logoutSuccess())
-      document.location.href = '/'
-      // history.push('/')
+    sessionStorage.removeItem('jwt')
+    sessionStorage.removeItem('role')
+    dispatch(logoutSuccess())
+    document.location.href = '/'
+    // history.push('/')
   }
 }

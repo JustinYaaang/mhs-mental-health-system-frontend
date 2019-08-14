@@ -24,13 +24,19 @@ import GridItem from 'components/Grid/GridItem.jsx'
 import GridContainer from 'components/Grid/GridContainer.jsx'
 import CustomInput from 'components/CustomInput/CustomInput.jsx'
 import { Button } from "@material-ui/core";
-
+import { makeStyles } from '@material-ui/core/styles';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import 'assets/css/floatingbutton.css'
-
+import CollapsableList from './CollapsableList'
 
 class TriageRows extends React.Component {
   state = {
     checked: this.props.checkedIndexes,
+    answers: {}
   };
   handleToggle = value => () => {
     const { checked } = this.state;
@@ -48,27 +54,35 @@ class TriageRows extends React.Component {
     });
   };
 
-  redirectToAnswers = (tableHead,tasks, index) => {
+  redirectToAnswers = (tableHead, tasks, index) => {
     var selectedRow = tasks[index];
     var questionnaireResponseId = selectedRow[selectedRow.length - 2];
     this.props.onRowClicked(questionnaireResponseId);
   }
 
-  redirectToUser = (tableHead,tasks, index) => {
+  redirectToUser = (tableHead, tasks, index) => {
     var selectedRow = tasks[index];
     var questionnaireResponseId = selectedRow[selectedRow.length - 1];
     this.props.onViewItemClicked(questionnaireResponseId);
   }
 
+
+
   render() {
-    const { classes, tableHeaderColor, tableHead, tasks, rtlActive} = this.props;
+    
+    const { classes, tableHeaderColor, tableHead, tasks, rtlActive } = this.props;
+    var answers = { BLUE: [], GREEN: [], RED: [], UNKNOWN: [] }
+    sessionStorage.setItem('questionnaires',JSON.stringify(this.props.tasks))
+    this.props.tasks.forEach(element => {
+      answers[element[1]].push(element)
+    });
     console.log(tableHead);
     const tableCellClasses = classnames(classes.tableCell, {
       [classes.tableCellRTL]: rtlActive
     });
 
     var floatingButtonStyle = {
-      'margin-top': '25px', 
+      'margin-top': '25px',
       'height': '40px',
       'width': '40px',
       'color': '#005eb8'
@@ -77,112 +91,45 @@ class TriageRows extends React.Component {
 
     return (
       <div>
-      <Table className={classes.table}>
-        {tableHead !== undefined ? (
-          <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
-            <TableRow className={classes.tableHeadRow}>
-              {tableHead.map((prop, key) => {
-                return (
-                  <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={key}>
-                    <h4>{prop} 
-                    <IconButton
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    aria-label="Descending"
-                    //onClick={() => this.props.onDeleteClicked(index)}
-                  >
-                    <Descending
-                    />
-                  </IconButton>
-                  </h4>
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-          </TableHead>
-        ) : null}
-        <TableBody>
-          {tasks.map((value, index) => {
-            var curTasks = []
-            for(var i = 0; i < value.length; i++) {
-              curTasks.push(value[i]);
-            }
-            return (
-            <TableRow key={index} className={classes.tableRow} >
+        <Table className={classes.table}>
+          <CollapsableList props={this.props} tasks={answers['RED']}
+            onRowClicked={this.props.onRowClicked}
+            onViewItemClicked={this.props.onViewItemClicked}
+            title={"Red"} />
+          <CollapsableList
+            onRowClicked={this.props.onRowClicked}
+            onViewItemClicked={this.props.onViewItemClicked}
+            props={this.props} tasks={answers['GREEN']} title={"Green"} />
+          <CollapsableList onRowClicked={this.props.onRowClicked}
+            onViewItemClicked={this.props.onViewItemClicked}
+            props={this.props} tasks={answers['BLUE']} title={"Blue"} />
+          <CollapsableList onRowClicked={this.props.onRowClicked}
+            onViewItemClicked={this.props.onViewItemClicked}
+            props={this.props} tasks={answers['UNKNOWN']} title={"Unknown"} />
+        </Table>
 
-              {curTasks.map((value, index, arr) => {
-                if (index !== arr.length - 2 && index !== arr.length - 1) return <TableCell key={index} className={tableCellClasses}>{value}</TableCell>;
-              })}
+        <div class="add-float">
+          <Tooltip
+            id="tooltip-top-start"
+            title="Create New"
+            placement="top"
+            classes={{ tooltip: classes.tooltip }}
+          >
+            <IconButton
+              aria-label="Create New"
+              onClick={() => this.createNew()}
+              className={classes.tableActionButton}
+            >
 
+              <Add className={classes.tableActionButtonIcon + " " + classes.add}
+                style={floatingButtonStyle} />
 
-              <TableCell className={classes.tableActions}>
-                <Tooltip
-                  id="tooltip-top"
-                  title="View"
-                  placement="top"
-                  classes={{ tooltip: classes.tooltip }}
-                >
-                  <IconButton
-                    aria-label="{this.state.userAnswers}"
-                    className={classes.tableActionButton}
-                    onClick={() => this.redirectToAnswers(tableHead,tasks, index)}
-                  >
-                    <View
-                      className={
-                        classes.tableActionButtonIcon + " " + classes.edit
-                      }
-                    />
-                  </IconButton>
-                </Tooltip>
+            </IconButton>
+          </Tooltip>
 
-                 <Tooltip
-                  id="tooltip-top"
-                  title="Patient Detail"
-                  placement="top"
-                  classes={{ tooltip: classes.tooltip }}
-                >
-                  <IconButton
-                    aria-label="{this.state.useDetail}"
-                    className={classes.tableActionButton}
-                    onClick={() => this.redirectToUser(tableHead,tasks, index)}
-                  >
-                    <Face
-                      className={
-                        classes.tableActionButtonIcon + " " + classes.edit
-                      }
-                    />
-                  </IconButton>
-                </Tooltip>
-         
-              </TableCell>
-            </TableRow>
-          )})}
-        </TableBody>
-      </Table>
-
-      <div class="add-float">
-      <Tooltip
-                  id="tooltip-top-start"
-                  title="Create New"
-                  placement="top"
-                  classes={{ tooltip: classes.tooltip }}
-                >
-                  <IconButton
-                    aria-label="Create New"
-                    onClick={() => this.createNew()}
-                    className={classes.tableActionButton}
-                  >
-
-                  <Add className= {classes.tableActionButtonIcon + " " + classes.add }
-                        style={floatingButtonStyle}/>
-                  
-                  </IconButton>
-                </Tooltip>
-
-              </div>
+        </div>
       </div>
-   );
+    );
   }
 }
 
@@ -201,7 +148,7 @@ TriageRows.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
   rtlActive: PropTypes.bool,
   checkedIndexes: PropTypes.array
-  
+
 };
 
 export default withStyles(tasksStyle)(TriageRows);

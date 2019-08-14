@@ -15,9 +15,9 @@ import CardAvatar from 'components/Card/CardAvatar.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import CardFooter from 'components/Card/CardFooter.jsx'
 
-import {fetchUserDetail, getPersonnel } from '../../services/BackendService'
-import TextField from '@material-ui/core/TextField';
-import Table from "components/Table/Table.jsx";
+import { fetchUserDetail } from '../../services/BackendService'
+import TextField from '@material-ui/core/TextField'
+import Table from 'components/Table/Table.jsx'
 
 const styles = {
   cardCategoryWhite: {
@@ -39,131 +39,119 @@ const styles = {
 }
 
 class UserDetail extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
-        this.state = {
-
-          firstname: [],
-          lastname:[],
-          email:[],
-          postcode:[],
-          service:[]
-      }
+    this.state = {
+      tableData: [],
+      firstname: [],
+      lastname: [],
+      email: [],
+      postcode: [],
+      service: []
+    }
   }
 
-  componentWillMount () {
+  componentWillMount() {
     const { id } = this.props.match.params
-        console.log(id)
-    getPersonnel(id)
+    var tableData = []
+    fetchUserDetail(id)
       .then(response => {
-        console.log(response.email)
-        this.setState({ firstname: response.first_name, lastname: response.last_name, email: response.email, postcode: response.postcode })
+        JSON.parse(sessionStorage.questionnaires).forEach(element => {
+          if (element[5] === id) {
+            tableData.push([element[0], element[2]])
+          }
+        })
+        this.setState({ tableData: tableData, firstname: response.first_name, lastname: response.last_name, email: response.email, postcode: response.postcode })
       })
       .catch(error => {
         console.error(error)
       })
   }
 
-  render () {
+  render() {
     const { classes } = this.props
-      
-        return (
-          <div>
-            <GridContainer>
-              <GridItem xs={12} sm={12} md={10}>
-                <Card>
-                  <CardHeader color='info'>
-                    <h4 className={classes.cardTitleWhite}>Patient Profile</h4>
-                    <p className={classes.cardCategoryWhite}>View the detail of Patient</p>
-                  </CardHeader>
-                  <CardBody>
-                    <GridContainer>
-                      <GridItem xs={12} sm={12} md={6}>
-                        <TextField
-                          id="service"
-                          label="Service"
-                          value="Hello World"
-                          className={classes.textField}
-                          margin="normal"
-                          InputProps={{
-                            readOnly: true,
-                          }}
-                        />
-                      </GridItem>
-                      
-                      <GridItem xs={12} sm={12} md={6}>
-                        <TextField
-                          id="email"
-                          label="Email"
-                          value= {this.state.email}
-                          className={classes.textField}
-                          margin="normal"
-                          InputProps={{
-                            readOnly: true,
-                          }}
-                        />
-                      </GridItem>
-                    </GridContainer>
-                    <GridContainer>
-                      <GridItem xs={12} sm={12} md={4}>
 
-                        <TextField
-                          id="firstname"
-                          label="First Name"
-                          value= {this.state.firstname}
-                          className={classes.textField}
-                          margin="normal"
-                          InputProps={{
-                            readOnly: true,
-                          }}
-                        />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <TextField
-                          id="lastname"
-                          label="Last Name"
-                          value= {this.state.lastname}
-                          className={classes.textField}
-                          margin="normal"
-                          InputProps={{
-                            readOnly: true,
-                          }}
-                        />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <TextField
-                          id="post"
-                          label="Post Code"
-                          value={this.state.postcode}
-                          className={classes.textField}
-                          margin="normal"
-                          InputProps={{
-                            readOnly: true,
-                          }}
-                        />
-                      </GridItem>
-                    </GridContainer>
-                 
-                    <GridContainer>
-                      <GridItem xs={12} sm={12} md={12}>
-                      <Table
-                          tableHeaderColor="info"
-                          tableHead={['Questionnaire Name','Status']}
-                          tableData={[
-                              [ "Questionnaire 1" , "Pending"] ,
-                              [ "Questionnaire 2" , "Close"] ,
-                          ]}
-                      />
-                      </GridItem>
-                    </GridContainer>
-                  </CardBody>
-                </Card>
-              </GridItem>
-            </GridContainer>
-            
-          </div>
-        )
-      }
+    return (
+      <div>
+        <GridContainer>
+          <GridItem xs={12} sm={12} md={10}>
+            <Card>
+              <CardHeader color='info'>
+                <h4 className={classes.cardTitleWhite}>Patient Profile</h4>
+                <p className={classes.cardCategoryWhite}>View the detail of Patient</p>
+              </CardHeader>
+              <CardBody>
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={6}>
+                    <TextField
+                      id='email'
+                      label='Email'
+                      value={this.state.email}
+                      className={classes.textField}
+                      margin='normal'
+                      InputProps={{
+                        readOnly: true
+                      }}
+                    />
+                  </GridItem>
+                </GridContainer>
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={4}>
+
+                    <TextField
+                      id='firstname'
+                      label='First Name'
+                      value={this.state.firstname}
+                      className={classes.textField}
+                      margin='normal'
+                      InputProps={{
+                        readOnly: true
+                      }}
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={4}>
+                    <TextField
+                      id='lastname'
+                      label='Last Name'
+                      value={this.state.lastname}
+                      className={classes.textField}
+                      margin='normal'
+                      InputProps={{
+                        readOnly: true
+                      }}
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={4}>
+                    <TextField
+                      id='post'
+                      label='Post Code'
+                      value={this.state.postcode}
+                      className={classes.textField}
+                      margin='normal'
+                      InputProps={{
+                        readOnly: true
+                      }}
+                    />
+                  </GridItem>
+                </GridContainer>
+
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={12}>
+                    <Table
+                      tableHeaderColor='info'
+                      tableHead={['Questionnaire Name', 'Status']}
+                      tableData={this.state.tableData}
+                    />
+                  </GridItem>
+                </GridContainer>
+              </CardBody>
+            </Card>
+          </GridItem>
+        </GridContainer>
+
+      </div>
+    )
+  }
 }
 
 UserDetail.propTypes = {

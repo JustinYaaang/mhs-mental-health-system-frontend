@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Clincian List should render correctly 1`] = `
+<ClinicianList
+  classes={
+    Object {
+      "cardCategoryWhite": "ClinicianList-cardCategoryWhite-3",
+      "cardTitleWhite": "ClinicianList-cardTitleWhite-4",
+    }
+  }
+/>
+`;
+
+exports[`Clinitian Details should render correctly 1`] = `
+<ClinicianDetails
+  classes={
+    Object {
+      "cardCategoryWhite": "ClinicianDetails-cardCategoryWhite-1",
+      "cardTitleWhite": "ClinicianDetails-cardTitleWhite-2",
+    }
+  }
+/>
+`;
+
+exports[`Create Clinician should render correctly 1`] = `
+<CreateClinician
+  classes={
+    Object {
+      "cardCategoryWhite": "CreateClinician-cardCategoryWhite-5",
+      "cardTitleWhite": "CreateClinician-cardTitleWhite-6",
+    }
+  }
+/>
+`;

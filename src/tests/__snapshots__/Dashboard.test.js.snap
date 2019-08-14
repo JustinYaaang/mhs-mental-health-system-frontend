@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SurveyCreator should render correctly 1`] = `
+exports[`Admin Dashboard should render correctly 1`] = `
 <Dashboard
   classes={
     Object {
@@ -11,6 +11,54 @@ exports[`SurveyCreator should render correctly 1`] = `
       "stats": "Dashboard-stats-3",
       "successText": "Dashboard-successText-1",
       "upArrowCardCategory": "Dashboard-upArrowCardCategory-2",
+    }
+  }
+/>
+`;
+
+exports[`Clinician Dashboard should render correctly 1`] = `
+<Dashboard
+  classes={
+    Object {
+      "cardCategory": "Dashboard-cardCategory-25",
+      "cardCategoryWhite": "Dashboard-cardCategoryWhite-26",
+      "cardTitle": "Dashboard-cardTitle-27",
+      "cardTitleWhite": "Dashboard-cardTitleWhite-28",
+      "stats": "Dashboard-stats-24",
+      "successText": "Dashboard-successText-22",
+      "upArrowCardCategory": "Dashboard-upArrowCardCategory-23",
+    }
+  }
+/>
+`;
+
+exports[`Service Dashboard should render correctly 1`] = `
+<Dashboard
+  classes={
+    Object {
+      "cardCategory": "Dashboard-cardCategory-18",
+      "cardCategoryWhite": "Dashboard-cardCategoryWhite-19",
+      "cardTitle": "Dashboard-cardTitle-20",
+      "cardTitleWhite": "Dashboard-cardTitleWhite-21",
+      "stats": "Dashboard-stats-17",
+      "successText": "Dashboard-successText-15",
+      "upArrowCardCategory": "Dashboard-upArrowCardCategory-16",
+    }
+  }
+/>
+`;
+
+exports[`Trust Dashboard should render correctly 1`] = `
+<Dashboard
+  classes={
+    Object {
+      "cardCategory": "Dashboard-cardCategory-11",
+      "cardCategoryWhite": "Dashboard-cardCategoryWhite-12",
+      "cardTitle": "Dashboard-cardTitle-13",
+      "cardTitleWhite": "Dashboard-cardTitleWhite-14",
+      "stats": "Dashboard-stats-10",
+      "successText": "Dashboard-successText-8",
+      "upArrowCardCategory": "Dashboard-upArrowCardCategory-9",
     }
   }
 />

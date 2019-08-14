@@ -1,16 +1,12 @@
 // @material-ui/icons
 import Dashboard from '@material-ui/icons/Dashboard'
-import Person from '@material-ui/icons/Person'
-import Notifications from '@material-ui/icons/Notifications'
 import Setting from '@material-ui/icons/Settings'
 // core components/views for Admin layout
 import TransitEnterexit from '@material-ui/icons/TransitEnterexit'
 import TrustPage from 'views/Dashboard/TrustDashboard.jsx'
 import UserProfile from 'views/UserProfile/UserProfile.jsx'
 import ListAlt from '@material-ui/icons/ListAlt' 
-import TableList from 'views/TableList/TableList.jsx'
-import Typography from 'views/Typography/Typography.jsx'
-import NotificationsPage from 'views/Notifications/Notifications.jsx'
+
 import IAPTList from 'layouts/Services/ServiceList.jsx'
 import question from '@material-ui/icons/FormatListNumbered'
 import SideQuestion from "../views/Forms/SideQuestion"
