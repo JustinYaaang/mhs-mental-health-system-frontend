@@ -63,7 +63,6 @@ class ListRows extends React.Component {
     var id = selectedRow[selectedRow.length - 1];
     // document.location.href = '/patientanswers/'+ questionnaireResponseId;
     this.props.onRowClicked(id);
-    
   }
 
   onDeleteItemClicked = (tasks, index) => {

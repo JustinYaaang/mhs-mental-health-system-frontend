@@ -13,7 +13,6 @@ import "select2/dist/js/select2.js";
 import "jquery-bar-rating";
 import * as widgets from "surveyjs-widgets";
 import "icheck/skins/square/blue.css";
-import axios from "axios";
 import { fetchQuestionnaire} from "../../services/BackendService";
 
 import FixedActions from "components/FixedPlugin/FixedActions.jsx";
@@ -56,18 +55,17 @@ class QuestionnaireResult extends Component {
     const {id} = this.props.match.params;
     fetchQuestionnaire(id)
       .then(fetched_answers => {
-        //this.setState({ answers: JSON.parse(fetched_answers.body) });
+        
         var jsonData = fetched_answers.body;
-        console.log(jsonData)
-        var jsonFormatData = JSON.parse(jsonData);
-        for (var i = 1; i < jsonFormatData.pages.length; i++) {
-          if (jsonFormatData.pages[i].elements) {
-            jsonFormatData.pages[0].elements = jsonFormatData.pages[0].elements.concat(jsonFormatData.pages[i].elements)
+
+        for (var i = 1; i < jsonData.pages.length; i++) {
+          if (jsonData.pages[i].elements) {
+            jsonData.pages[0].elements = jsonData.pages[0].elements.concat(jsonData.pages[i].elements)
           }
         }
-        jsonFormatData.pages = [jsonFormatData.pages[0]]
-        jsonFormatData.pages[0].title = ""
-        jsonData = JSON.stringify(jsonFormatData);
+        jsonData.pages = [jsonData.pages[0]]
+        jsonData.pages[0].title = ""
+       
         this.setState({ json: jsonData });
       })
       .catch(error => {
@@ -89,9 +87,7 @@ class QuestionnaireResult extends Component {
             <Survey.Survey
               model={this.model}
             />
-
           </div>
-
         </div>
         {/* <FixedActions
               bgColor={this.state["color"]}

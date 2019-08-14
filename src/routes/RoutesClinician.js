@@ -19,14 +19,6 @@ const dashboardRoutes = [{
   component: ClinicianPage,
   layout: '/clinician'
 },
-// {
-//   path: '/patients',
-//   name: 'Patients',
-//   rtlName: 'لوحة القيادة',
-//   icon: PatientsIcon,
-//   component: PatientList,
-//   layout: '/clinician'
-// },
 {
   path: '/triagelist',
   name: 'Triage List',
