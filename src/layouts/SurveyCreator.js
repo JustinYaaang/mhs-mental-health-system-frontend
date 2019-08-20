@@ -152,7 +152,7 @@ class SurveyCreator extends Component {
         postNewSurvey(createSurveyUrl, surveyJson)
         .then(results => {
             console.log(results)
-            {document.location.href = '/admin/dashboard'}
+            // {document.location.href = '/admin/dashboard'}
         })
         .catch(error => {
             console.error(error);
@@ -162,7 +162,7 @@ class SurveyCreator extends Component {
         updateSurvey(createSurveyUrl,surveyJson)
         .then(results => {
           console.log(results)
-          {document.location.href = '/admin/dashboard'}
+          // {document.location.href = '/admin/dashboard'}
         })
         .catch(error => {
             console.error(error);
