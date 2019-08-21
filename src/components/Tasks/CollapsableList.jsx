@@ -81,6 +81,7 @@ class CollapsableList extends React.Component {
       'width': '40px',
       'color': '#005eb8'
     };
+    var stylePaper = {'width': '100%'}
 
 
     return (
@@ -95,7 +96,7 @@ class CollapsableList extends React.Component {
         <ExpansionPanelDetails>          
           <Table className={classes.table}>
             {tableHead !== undefined ? (
-              <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
+              <TableHead  className={classes[tableHeaderColor + "TableHeader"]}>
                 <TableRow className={classes[classes.tableHeadRow + " collapsable"]}>
                   {tableHead.map((prop, key) => {
                     return (

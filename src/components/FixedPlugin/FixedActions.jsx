@@ -5,12 +5,17 @@ import PropTypes from "prop-types";
 // nodejs library that concatenates classes
 import classnames from "classnames";
 
-import imagine1 from "assets/img/sidebar-1.jpg";
-import imagine2 from "assets/img/sidebar-2.jpg";
-import imagine3 from "assets/img/sidebar-3.jpg";
-import imagine4 from "assets/img/sidebar-4.jpg";
-
 import Button from "components/CustomButtons/Button.jsx";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Switch from '@material-ui/core/Switch';
+import Grid from '@material-ui/core/Grid';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { fetchQuestionnaires} from "../../services/BackendService";
 
 class FixedActions extends Component {
   constructor(props) {
@@ -18,14 +23,57 @@ class FixedActions extends Component {
     this.state = {
       classes: "dropdown show",
       bg_checked: true,
-      bgImage: this.props.bgImage
+      bgImage: this.props.bgImage,
+      open: false,
+      question:[],
+      questionList:[],
+      patient:this.props.patient
     };
-    this.handleClick = this.handleClick.bind(this);
+    this.handleRefer = this.handleRefer.bind(this);
   }
-  handleClick() {
-    this.props.handleFixedClick();
+
+  handleRefer() {
+    this.setState({open: true});
   }
+
+  handleClickOpen() {
+    this.setState({open: true});
+  }
+
+  handleClose() {
+    this.setState({open: false});
+  }
+
+  handleSubmit() {
+    console.log(this.state.patient)
+    console.log(this.state.question)
+  }
+
+  handleChangeQuestion = () => event => {
+    this.setState({question: event.target.value})
+  };
+
+  componentWillMount() {
+    fetchQuestionnaires().then( 
+      response => {
+
+      var questions = []
+      for(var i = 0; i<response.questionnaire.length; i++){
+        
+        if(response.questionnaire[i].is_public){
+          questions.push(<option key={i} index = {i} value={response.questionnaire[i].title}>{response.questionnaire[i].title}</option>);
+        }
+      }
+       this.setState({question: response.questionnaire[0].title})
+       this.setState({questionList:questions});
+     });
+  }
+  
+  
   render() {
+
+    var styleBoard = {'minWidth': '180px', 'marginLeft': '100px'}
+
     return (
       <div
         className={classnames("fixed-plugin", {
@@ -33,9 +81,7 @@ class FixedActions extends Component {
         })}
       >
         <div id="fixedPluginClasses" className={this.props.fixedClasses}>
-          <div onClick={this.handleClick}>
-            <i className="fa fa-cog fa-2x" />
-          </div>
+
           <ul className="dropdown-menu">
             <li className="header-title">Actions</li>
             <li className="button-container">
@@ -43,8 +89,6 @@ class FixedActions extends Component {
               <Button
                 color="info"
                 fullWidth
-                href="/"
-                target="_blank"
               >
                 More Info Required
               </Button>
@@ -54,8 +98,7 @@ class FixedActions extends Component {
               <div className="button-container">
                 <Button
                   color="success"
-                  href="/"
-                  target="_blank"
+                  onClick={this.handleRefer}
                   fullWidth
                 >
                   Refer
@@ -78,6 +121,38 @@ class FixedActions extends Component {
             {/* <li className="adjustments-line" /> */}
           </ul>
         </div>
+
+        <Dialog  fullWidth={true} maxWidth={'xs'} open={this.state.open} onClose={this.handleClose.bind(this)} aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title">Select Private Questionnaire List</DialogTitle>
+          <DialogContent>
+
+          <FormControl  style = {styleBoard}>
+            <InputLabel  shrink htmlFor="age-label-placeholder">Questionnaire Name</InputLabel>
+            <Select
+              native
+              value={this.state.question}
+              inputProps={{
+                name: 'condition',
+                id: 'age-native-simple',
+              }}
+              onChange={this.handleChangeQuestion()}
+            >
+      
+            {this.state.questionList}
+            </Select>
+          </FormControl>
+
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={this.handleClose.bind(this)} color="info">
+            Cancel
+          </Button>
+          <Button onClick={this.handleSubmit.bind(this)} color="info">
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
       </div>
     );
   }

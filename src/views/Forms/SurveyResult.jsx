@@ -50,7 +50,8 @@ class SurveyResult extends Component {
         "pages": [],
         "showProgressBar": ""
       },
-      answers: {}
+      answers: {},
+      patient:[]
     };
   }
 
@@ -63,10 +64,9 @@ class SurveyResult extends Component {
     console.log(id)
     getAnsweredQuestionnaire(id)
       .then(fetched_answers => {
-        this.setState({ answers: fetched_answers.body });
-        // this.setState({ answers: JSON.parse(fetched_answers.body) });
+        this.setState({patient:fetched_answers.patient_id})
+        this.setState({ answers: fetched_answers.body});
         var jsonData = fetched_answers.questionnaireBody;
-        // var jsonFormatData = JSON.parse(jsonData);
         var jsonFormatData = jsonData;
         for (var i = 1; i < jsonFormatData.pages.length; i++) {
           if (jsonFormatData.pages[i].elements) {
@@ -112,17 +112,14 @@ class SurveyResult extends Component {
             <div id="finalScore"></div>
             <div id="jsonSection"></div>
           </div>
-
         </div>
         <FixedActions
-          //handleImageClick={this.handleImageClick}
-          //handleColorClick={this.handleColorClick}
-          bgColor={this.state["color"]}
-          bgImage={this.state["image"]}
-          handleFixedClick={this.handleFixedClick}
-          fixedClasses={this.state.fixedClasses}
-        />
-
+              patient = {this.state.patient}
+              bgColor={this.state["color"]}
+              bgImage={this.state["image"]}
+              handleFixedClick={this.handleFixedClick}
+              fixedClasses={this.state.fixedClasses}
+          />
       </div>
 
     );
