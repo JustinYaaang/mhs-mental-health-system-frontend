@@ -52,7 +52,6 @@ const fetchQuestionnaires = async () => {
       headers: headers
     })
 
-    console.log(response)
     const data = response.data.data
     const idPublishedList = []
     const questionnairePublishedList = []
@@ -70,6 +69,7 @@ const fetchQuestionnaires = async () => {
       }
     })
     return {
+      'questionnaire':response.data.data,
       'idDraftList': idDraftList,
       'idPublishedList': idPublishedList,
       'questionnaireDraftList': questionnaireDraftList,
@@ -124,7 +124,6 @@ const getAnsweredQuestionnaire = async (theId) => {
     url: baseUrl + patientanswersUrl + '/' + theId,
     headers: headers
   }).then(function (response) {
-    console.log(response)
     return response.data.data
   })
 }
@@ -355,7 +354,6 @@ const getPersonnel = async (body) => {
   }
   try {
     const res = await axios(request)
-    console.log(res)
     return res.data.data
   } catch (error) {
     console.log('GET server error: ', error)
