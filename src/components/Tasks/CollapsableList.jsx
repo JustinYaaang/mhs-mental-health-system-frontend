@@ -90,12 +90,11 @@ class CollapsableList extends React.Component {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography className={classes.heading}>{this.props.title}</Typography>
+        <Typography className={classes.heading}>{this.props.title}</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <Typography>
-
-
+          {/* <Typography> */}
+          <Table className={classes.table}>
             {tableHead !== undefined ? (
               <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
                 <TableRow className={classes[classes.tableHeadRow + " collapsable"]}>
@@ -177,7 +176,8 @@ class CollapsableList extends React.Component {
                 )
               })}
             </TableBody>
-          </Typography>
+            </Table>
+          {/* </Typography> */}
         </ExpansionPanelDetails>
       </ExpansionPanel>
 
