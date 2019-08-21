@@ -91,7 +91,7 @@ class TriageRows extends React.Component {
 
     return (
       <div>
-        <Table className={classes.table}>
+        {/* <Table className={classes.table}> */}
           <CollapsableList props={this.props} tasks={answers['RED']}
             onRowClicked={this.props.onRowClicked}
             onViewItemClicked={this.props.onViewItemClicked}
@@ -106,9 +106,9 @@ class TriageRows extends React.Component {
           <CollapsableList onRowClicked={this.props.onRowClicked}
             onViewItemClicked={this.props.onViewItemClicked}
             props={this.props} tasks={answers['UNKNOWN']} title={"Unknown"} />
-        </Table>
+        {/* </Table> */}
 
-        <div class="add-float">
+        {/* <div class="add-float">
           <Tooltip
             id="tooltip-top-start"
             title="Create New"
@@ -127,7 +127,7 @@ class TriageRows extends React.Component {
             </IconButton>
           </Tooltip>
 
-        </div>
+        </div> */}
       </div>
     );
   }

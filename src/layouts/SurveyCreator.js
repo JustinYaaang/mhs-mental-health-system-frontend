@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 import {postNewSurvey, updateSurvey, fetchQuestionnaire} from "services/BackendService";
 import Button from "components/CustomButtons/Button.jsx";
 import { baseUrl, fetchQuestionnairesUrl } from "../variables/general";
-
+import * as SurveyKo from "survey-knockout";
 //import css style
 import Switch from '@material-ui/core/Switch';
 import Grid from '@material-ui/core/Grid';
@@ -52,7 +52,12 @@ defaultThemeColorsSurvey["$header-color"] = headerColor;
 defaultThemeColorsSurvey["$header-background-color"] = headerBackgroundColor;
 defaultThemeColorsSurvey["$body-container-background-color"] = bodyContainerBackgroundColor;
 Survey.StylesManager.applyTheme();
-
+SurveyKo
+    .Serializer
+    .addProperty("question", {
+        name: "hint:text",
+        default: ""
+    });
 var defaultThemeColorsEditor = SurveyJSCreator.StylesManager.ThemeColors["default"];
 defaultThemeColorsEditor["$primary-color"] = mainColor;
 defaultThemeColorsEditor["$secondary-color"] = mainColor;
