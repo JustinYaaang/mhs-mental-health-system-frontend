@@ -27,8 +27,16 @@ const dashboardRoutes = [
     icon: Dashboard,
     component: ClinicianDetails,
     layout: '/service'
-  },{
+  }, {
     path: '/triagelist/user/:id',
+    name: 'User Detail',
+    rtlName: 'لوحة القيادة',
+    icon: Dashboard,
+    component: userdetail,
+    layout: '/service'
+  },
+  {
+    path: '/triagelist/user/:id/:id',
     name: 'User Detail',
     rtlName: 'لوحة القيادة',
     icon: Dashboard,

@@ -58,7 +58,8 @@ class UserDetail extends Component {
       .then(response => {
         JSON.parse(sessionStorage.questionnaires).forEach(element => {
           if (element[5] === id) {
-            tableData.push([element[0], element[2]])
+            console.log(element)
+            tableData.push([element[0], element[2], element[5]])
           }
         })
         this.setState({ tableData: tableData, firstname: response.first_name, lastname: response.last_name, email: response.email, postcode: response.postcode })

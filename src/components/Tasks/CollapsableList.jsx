@@ -92,8 +92,7 @@ class CollapsableList extends React.Component {
         >
         <Typography className={classes.heading}>{this.props.title}</Typography>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          {/* <Typography> */}
+        <ExpansionPanelDetails>          
           <Table className={classes.table}>
             {tableHead !== undefined ? (
               <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
@@ -177,7 +176,6 @@ class CollapsableList extends React.Component {
               })}
             </TableBody>
             </Table>
-          {/* </Typography> */}
         </ExpansionPanelDetails>
       </ExpansionPanel>
 

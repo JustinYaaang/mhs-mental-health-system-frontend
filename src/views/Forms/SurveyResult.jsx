@@ -7,15 +7,15 @@ import "nouislider/distribute/nouislider.css";
 import "select2/dist/css/select2.css";
 import "bootstrap-slider/dist/css/bootstrap-slider.css";
 import "jquery-bar-rating/dist/themes/css-stars.css";
-import $ from "jquery";
+import * as $ from "jquery";
 import "jquery-ui/ui/widgets/datepicker.js";
 import "select2/dist/js/select2.js";
 import "jquery-bar-rating";
 import * as widgets from "surveyjs-widgets";
 import "icheck/skins/square/blue.css";
 import axios from "axios";
-import { getAnsweredQuestionnaire} from "../../services/BackendService";
-
+import { getAnsweredQuestionnaire } from "../../services/BackendService";
+import Modal from 'components/Modal/Modal.jsx'
 
 import FixedActions from "components/FixedPlugin/FixedActions.jsx";
 
@@ -59,7 +59,7 @@ class SurveyResult extends Component {
   }
 
   componentWillMount() {
-    const {id} = this.props.match.params;
+    const { id } = this.props.match.params;
     console.log(id)
     getAnsweredQuestionnaire(id)
       .then(fetched_answers => {
@@ -92,6 +92,10 @@ class SurveyResult extends Component {
 
     return (
       <div>
+        <Modal/>
+
+
+
         <div className="SurveyResult">
           <div className="surveyjs" >
             <Survey.Survey
@@ -111,15 +115,16 @@ class SurveyResult extends Component {
 
         </div>
         <FixedActions
-              //handleImageClick={this.handleImageClick}
-              //handleColorClick={this.handleColorClick}
-              bgColor={this.state["color"]}
-              bgImage={this.state["image"]}
-              handleFixedClick={this.handleFixedClick}
-              fixedClasses={this.state.fixedClasses}
-          />
+          //handleImageClick={this.handleImageClick}
+          //handleColorClick={this.handleColorClick}
+          bgColor={this.state["color"]}
+          bgImage={this.state["image"]}
+          handleFixedClick={this.handleFixedClick}
+          fixedClasses={this.state.fixedClasses}
+        />
+
       </div>
-      
+
     );
   }
 }

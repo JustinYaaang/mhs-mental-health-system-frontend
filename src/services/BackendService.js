@@ -88,11 +88,35 @@ const fetchUserAnswers = async () => {
     url: baseUrl + patientanswersUrl,
     headers: headers
   }).then(response => {
-
     return response.data.data
   }).catch(error => {
     console.log('GET server error: ', error)
   })
+}
+
+/**
+ * Function that updates a case given the ID
+ * @param {*} body
+ */
+const updateCase = async (body) => {
+  try {
+    try {
+      var restofbody = body.body
+      var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+      const res = await axios({
+        method: 'put',
+        url: baseUrl + patientanswersUrl + '/' + body.id,
+        headers: headers,
+        data: { status: 'RESOLVED' }
+      })
+      console.log(res.data.data)
+      return res.data.data
+    } catch (error) {
+      console.log('GET server error: ', error)
+    }
+  } catch (error) {
+    console.log('POST server error: ', error)
+  }
 }
 
 const fetchWeeklyResult = async (startDate, lastDate) => {
@@ -101,8 +125,8 @@ const fetchWeeklyResult = async (startDate, lastDate) => {
   var weeklyResultUrl = baseUrl + patientanswersUrl
 
   return await axios({
-    method:'get',
-    url: weeklyResultUrl, 
+    method: 'get',
+    url: weeklyResultUrl,
     params: {
       startDate: lastDate,
       endDate: startDate,
@@ -368,7 +392,7 @@ const getPersonnel = async (body) => {
  */
 const updatePersonnel = async (body) => {
   try {
-    console.log("update personel "+JSON.stringify(body.body))
+    console.log('update personel ' + JSON.stringify(body.body))
     try {
       var restofbody = body.id
       var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
