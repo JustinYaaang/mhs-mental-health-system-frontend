@@ -29,6 +29,7 @@ var authenticationUrl = '/users/authenticate'
 var questionnaireWithoutToken = '/questionnaires'
 var organizations = '/organisations'
 var personnel = '/users'
+var createform = '/patientquestionnaire'
 
 module.exports = {
   // these 3 are used to create the tasks lists in TasksCard - Dashboard view
@@ -43,5 +44,6 @@ module.exports = {
   authenticationUrl,
   questionnaireWithoutToken,
   organizations,
-  personnel
+  personnel,
+  createform
 }

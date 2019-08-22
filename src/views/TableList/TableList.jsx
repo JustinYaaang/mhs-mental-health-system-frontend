@@ -61,14 +61,13 @@ class TableList extends Component {
 
   componentWillMount () {
     getRole();
-
-    var role = "clinician2"
-    var serviceClinician = 'SERVICE1'
  
     fetchUserAnswers()
       .then(response => {
         var rowsPending = []
         var rowsResolve = []
+
+        console.log(response)
 
         for (var i = 0; i < response.length; i++) {
          
@@ -84,8 +83,7 @@ class TableList extends Component {
               rowsResolve.push(row)
             }
           }
-          console.log(rowsPending)
-          console.log(rowsResolve)
+
         this.setState({ pendingList: rowsPending,closeList: rowsResolve })
       })
       .catch(error => {

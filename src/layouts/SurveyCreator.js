@@ -146,8 +146,6 @@ class SurveyCreator extends Component {
     if(id == undefined){
         postNewSurvey(createSurveyUrl, surveyJson)
         .then(results => {
-            console.log(results)
-            // {document.location.href = '/admin/dashboard'}
         })
         .catch(error => {
             console.error(error);
@@ -156,8 +154,6 @@ class SurveyCreator extends Component {
         createSurveyUrl = createSurveyUrl + '/' + id
         updateSurvey(createSurveyUrl,surveyJson)
         .then(results => {
-          console.log(results)
-          // {document.location.href = '/admin/dashboard'}
         })
         .catch(error => {
             console.error(error);

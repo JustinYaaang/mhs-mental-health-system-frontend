@@ -51,7 +51,7 @@ class SurveyResult extends Component {
         "showProgressBar": ""
       },
       answers: {},
-      patient:[]
+      patient: ''
     };
   }
 
@@ -61,7 +61,7 @@ class SurveyResult extends Component {
 
   componentWillMount() {
     const {id} = this.props.match.params;
-    console.log(id)
+  
     getAnsweredQuestionnaire(id)
       .then(fetched_answers => {
         this.setState({patient:fetched_answers.patient_id})
@@ -89,7 +89,7 @@ class SurveyResult extends Component {
     this.model.data = this.state.answers;
     //set as read only
     this.model.mode = "display";
-
+  
     return (
       <div>
         <div className="SurveyResult">

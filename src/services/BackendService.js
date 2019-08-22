@@ -2,7 +2,7 @@ import axios from 'axios'
 import {
   baseUrl, backendURL, organizations, patients, personnel,
   fetchQuestionnairesUrl, patientanswersUrl, authenticationUrl,
-  questionnaireWithoutToken
+  questionnaireWithoutToken,createform
 } from '../variables/general'
 
 const postNewSurvey = async (createSurveyUrl, surveyData) => {
@@ -43,6 +43,7 @@ const updateSurvey = async (updateSurveyUrl, surveyData) => {
       console.log(error)
     })
 }
+
 const fetchQuestionnaires = async () => {
   try {
     var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
@@ -191,8 +192,7 @@ const getAuthenticationToken = async (body) => {
     data: body
   })
     .then(function (response) {
-      console.log('getAuthenticationToken')
-      console.log(response)
+
       return response
     })
     .catch(function (error) {
@@ -203,10 +203,8 @@ const getAuthenticationToken = async (body) => {
 
 const getQuestionnaireWithoutToken = async () => {
   try {
-    console.log(baseUrl + questionnaireWithoutToken)
+
     const response = await axios.get(baseUrl + questionnaireWithoutToken)
-    console.log('getQuestionnaireWithoutToken')
-    console.log(response)
     return response
   } catch (error) {
     console.log('GET server error: ', error)
@@ -221,8 +219,6 @@ const getQuestionnaireWithToken = async (body) => {
         headers: { 'Authorization': 'Bearer ' + sessionStorage.jwt }
       })
 
-      console.log('res.data.data')
-      console.log(res.data)
       return res.data.data
     } catch (error) {
       console.log('GET server error: ', error)
@@ -242,15 +238,12 @@ const getOrganizations = async (body) => {
   if (body !== undefined) {
     url = baseUrl + organizations + '/' + body
   }
-  console.log(url)
   try {
     try {
       const res = await axios.get(url, {
         headers: { 'Authorization': 'Bearer ' + sessionStorage.jwt }
       })
 
-      console.log('res.data.data')
-      console.log(res.data.data)
       return res.data.data
     } catch (error) {
       console.log('GET server error: ', error)
@@ -323,7 +316,6 @@ const deleteOrganization = async (body) => {
         headers: headers,
         data: body
       })
-      console.log(res.data.data)
       return res.data.data
     } catch (error) {
       console.log('GET server error: ', error)
@@ -376,7 +368,6 @@ const updatePersonnel = async (body) => {
         headers: headers,
         data: body.body
       })
-      console.log(res.data.data)
       return res.data.data
     } catch (error) {
       console.log('GET server error: ', error)
@@ -401,7 +392,6 @@ const createPersonnel = async (body) => {
         headers: headers,
         data: body
       })
-      console.log(res.data.data)
       return res.data.data
     } catch (error) {
       console.log('GET server error: ', error)
@@ -426,11 +416,31 @@ const deletePersonnel = async (body) => {
         headers: headers,
         data: body
       })
-      console.log(res.data.data)
       return res.data.data
     } catch (error) {
       console.log('GET server error: ', error)
     }
+  } catch (error) {
+    console.log('POST server error: ', error)
+  }
+}
+
+/**
+ * Function that assign new private forms to patient
+ * @param {*} body
+ */
+const createForm2 = async (body) => {
+  var headers = { 'Authorization': 'Bearer ' + sessionStorage.jwt }
+
+  try {
+    const res = await axios({
+        method: 'post',
+        url: baseUrl + createform,
+        headers: headers,
+        data: body
+      })
+      console.log(res)
+      return res
   } catch (error) {
     console.log('POST server error: ', error)
   }
@@ -442,5 +452,5 @@ export {
   getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire,
   deleteQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken,
   getQuestionnaireWithToken,
-  getPersonnel, updatePersonnel, updateOrganization, deleteOrganization, deletePersonnel, createOrganization, createPersonnel
+  getPersonnel, updatePersonnel, updateOrganization, deleteOrganization, deletePersonnel, createOrganization, createPersonnel,createForm2
 }

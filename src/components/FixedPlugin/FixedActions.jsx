@@ -4,19 +4,17 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 // nodejs library that concatenates classes
 import classnames from "classnames";
-
 import Button from "components/CustomButtons/Button.jsx";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Switch from '@material-ui/core/Switch';
-import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { fetchQuestionnaires} from "../../services/BackendService";
-
+import { fetchQuestionnaires, createForm2} from "../../services/BackendService";
+import TextField from '@material-ui/core/TextField';
+import swal from 'sweetalert2'
 class FixedActions extends Component {
   constructor(props) {
     super(props);
@@ -25,9 +23,10 @@ class FixedActions extends Component {
       bg_checked: true,
       bgImage: this.props.bgImage,
       open: false,
-      question:[],
+      question:'',
       questionList:[],
-      patient:this.props.patient
+      patient:'',
+      input:''
     };
     this.handleRefer = this.handleRefer.bind(this);
   }
@@ -45,34 +44,62 @@ class FixedActions extends Component {
   }
 
   handleSubmit() {
-    console.log(this.state.patient)
-    console.log(this.state.question)
+    this.setState({open: false});
+    
+
+    var body = {
+      'patient_id': this.state.patient,
+      'questionnaire_id': this.state.question,
+      'text': this.state.input
+    }
+
+    console.log(body)
+    createForm2(body)
+    .then(results => {
+      swal.fire({
+        type: 'success',
+        title: 'Success',
+        text: 'Sending Message'
+      })
+    })
+    .catch(error => {
+        console.error(error);
+    });
   }
 
   handleChangeQuestion = () => event => {
     this.setState({question: event.target.value})
+    console.log(this.state.question)
   };
+
+  handleChangeInput = () => event => {
+    this.setState({input: event.target.value})
+  };
+
+  componentWillReceiveProps({patient}) {
+    this.setState({...this.state, patient})
+  }
 
   componentWillMount() {
     fetchQuestionnaires().then( 
       response => {
-
       var questions = []
+
       for(var i = 0; i<response.questionnaire.length; i++){
         
         if(response.questionnaire[i].is_public){
-          questions.push(<option key={i} index = {i} value={response.questionnaire[i].title}>{response.questionnaire[i].title}</option>);
+          questions.push(<option key={i} index = {i} value={response.questionnaire[i]._id}>{response.questionnaire[i].title}</option>);
         }
       }
-       this.setState({question: response.questionnaire[0].title})
+       this.setState({question: response.questionnaire[0]._id})
        this.setState({questionList:questions});
      });
   }
   
-  
   render() {
 
-    var styleBoard = {'minWidth': '180px', 'marginLeft': '100px'}
+    var styleBoard = {'minWidth': '140px', 'marginLeft': '70px'}
+    var styleInput = {'minWidth': '280px', 'marginLeft': '70px'}
 
     return (
       <div
@@ -88,6 +115,7 @@ class FixedActions extends Component {
             <div className="button-container">
               <Button
                 color="info"
+                onClick={this.handleRefer}
                 fullWidth
               >
                 More Info Required
@@ -98,7 +126,6 @@ class FixedActions extends Component {
               <div className="button-container">
                 <Button
                   color="success"
-                  onClick={this.handleRefer}
                   fullWidth
                 >
                   Refer
@@ -142,6 +169,18 @@ class FixedActions extends Component {
             </Select>
           </FormControl>
 
+          <TextField
+            style = {styleInput}
+            value={this.state.input}
+            onChange={this.handleChangeInput()}
+            id="filled-dense-multiline"
+            label="Message"
+            margin="dense"
+            variant="filled"
+            multiline
+            rowsMax="4"
+          />
+
         </DialogContent>
 
         <DialogActions>
@@ -165,7 +204,8 @@ FixedActions.propTypes = {
   fixedClasses: PropTypes.string,
   bgColor: PropTypes.oneOf(["purple", "blue", "green", "orange", "red"]),
   handleColorClick: PropTypes.func,
-  handleImageClick: PropTypes.func
+  handleImageClick: PropTypes.func,
+  patient:PropTypes.string
 };
 
 export default FixedActions;

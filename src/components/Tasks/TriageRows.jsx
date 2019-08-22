@@ -38,6 +38,7 @@ class TriageRows extends React.Component {
     checked: this.props.checkedIndexes,
     answers: {}
   };
+  
   handleToggle = value => () => {
     const { checked } = this.state;
     const currentIndex = checked.indexOf(value);
@@ -73,10 +74,11 @@ class TriageRows extends React.Component {
     const { classes, tableHeaderColor, tableHead, tasks, rtlActive } = this.props;
     var answers = { BLUE: [], GREEN: [], RED: [], UNKNOWN: [] }
     sessionStorage.setItem('questionnaires',JSON.stringify(this.props.tasks))
+    console.log(this.props.tasks)
     this.props.tasks.forEach(element => {
       answers[element[1]].push(element)
     });
-    console.log(tableHead);
+  
     const tableCellClasses = classnames(classes.tableCell, {
       [classes.tableCellRTL]: rtlActive
     });
