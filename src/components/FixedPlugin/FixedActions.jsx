@@ -15,7 +15,7 @@ import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { fetchQuestionnaires,updateCase} from "../../services/BackendService";
+import { fetchQuestionnaires, updateCase } from "../../services/BackendService";
 import swal from 'sweetalert2'
 
 class FixedActions extends Component {
@@ -27,11 +27,11 @@ class FixedActions extends Component {
       bg_checked: true,
       bgImage: this.props.bgImage,
       open: false,
-      question:[],
-      questionList:[],
-      patient:this.props.patient,
-      id:this.props.id[0],
-      history:this.props.history
+      question: [],
+      questionList: [],
+      patient: this.props.patient,
+      id: this.props.id[0],
+      history: this.props.history
     };
     console.log(this.state.history)
     this.handleRefer = this.handleRefer.bind(this);
@@ -39,15 +39,15 @@ class FixedActions extends Component {
   }
 
   handleRefer() {
-    this.setState({open: true});
+    this.setState({ open: true });
   }
 
   handleClickOpen() {
-    this.setState({open: true});
+    this.setState({ open: true });
   }
 
   handleClose() {
-    this.setState({open: false});
+    this.setState({ open: false });
   }
 
   handleSubmit() {
@@ -56,44 +56,61 @@ class FixedActions extends Component {
   }
 
   handleChangeQuestion = () => event => {
-    this.setState({question: event.target.value})
+    this.setState({ question: event.target.value })
   };
 
 
-  handleCloseCase(){
-    console.log(this.state.id)
-    updateCase({id:this.state.id}).then(response=>{
-      console.log(response)
-
-      swal.fire({
-        type: 'success',
-        title: 'Success!',
-        text: 'The case has been closed!'
-      })
-      this.state.history.goBack()
+  handleCloseCase() {
+    swal.fire({
+      title: 'Are you sure?',
+      text: "Are you sure this patient is not eligible for treatment?",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Delete'
     })
+      .then((result) => {
+        if (result.value === true) {
+          console.log(this.state.id)
+          updateCase({ id: this.state.id }).then(response => {
+            console.log(response)
+
+            swal.fire({
+              type: 'success',
+              title: 'Success!',
+              text: 'The case has been closed!'
+            })
+            this.state.history.goBack()
+          })
+        }
+      })
+
+
+
+
   }
 
   componentWillMount() {
-    fetchQuestionnaires().then( 
+    fetchQuestionnaires().then(
       response => {
 
-      var questions = []
-      for(var i = 0; i<response.questionnaire.length; i++){
-        
-        if(response.questionnaire[i].is_public){
-          questions.push(<option key={i} index = {i} value={response.questionnaire[i].title}>{response.questionnaire[i].title}</option>);
+        var questions = []
+        for (var i = 0; i < response.questionnaire.length; i++) {
+
+          if (response.questionnaire[i].is_public) {
+            questions.push(<option key={i} index={i} value={response.questionnaire[i].title}>{response.questionnaire[i].title}</option>);
+          }
         }
-      }
-       this.setState({question: response.questionnaire[0].title})
-       this.setState({questionList:questions});
-     });
+        this.setState({ question: response.questionnaire[0].title })
+        this.setState({ questionList: questions });
+      });
   }
-  
-  
+
+
   render() {
 
-    var styleBoard = {'minWidth': '180px', 'marginLeft': '100px'}
+    var styleBoard = { 'minWidth': '180px', 'marginLeft': '100px' }
 
     return (
       <div
@@ -106,12 +123,12 @@ class FixedActions extends Component {
           <ul className="dropdown-menu">
             <li className="header-title">Actions</li>
             <li className="button-container">
-            <div className="button-container">
-              <Button
-                color="info"
-                fullWidth
-              >
-                More Info Required
+              <div className="button-container">
+                <Button
+                  color="info"
+                  fullWidth
+                >
+                  More Info Required.
               </Button>
               </div>
             </li>
@@ -122,7 +139,7 @@ class FixedActions extends Component {
                   onClick={this.handleRefer}
                   fullWidth
                 >
-                  Refer
+                  Refer the patient.
                 </Button>
               </div>
             </li>
@@ -134,46 +151,46 @@ class FixedActions extends Component {
                   target="_blank"
                   fullWidth
                 >
-                  Close Case
+                  Not Eligible for Treatment.
                 </Button>
               </div>
             </li>
-            
+
             {/* <li className="adjustments-line" /> */}
           </ul>
         </div>
 
-        <Dialog  fullWidth={true} maxWidth={'xs'} open={this.state.open} onClose={this.handleClose.bind(this)} aria-labelledby="form-dialog-title">
+        <Dialog fullWidth={true} maxWidth={'xs'} open={this.state.open} onClose={this.handleClose.bind(this)} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">Select Private Questionnaire List</DialogTitle>
           <DialogContent>
 
-          <FormControl  style = {styleBoard}>
-            <InputLabel  shrink htmlFor="age-label-placeholder">Questionnaire Name</InputLabel>
-            <Select
-              native
-              value={this.state.question}
-              inputProps={{
-                name: 'condition',
-                id: 'age-native-simple',
-              }}
-              onChange={this.handleChangeQuestion()}
-            >
-      
-            {this.state.questionList}
-            </Select>
-          </FormControl>
+            <FormControl style={styleBoard}>
+              <InputLabel shrink htmlFor="age-label-placeholder">Questionnaire Name</InputLabel>
+              <Select
+                native
+                value={this.state.question}
+                inputProps={{
+                  name: 'condition',
+                  id: 'age-native-simple',
+                }}
+                onChange={this.handleChangeQuestion()}
+              >
 
-        </DialogContent>
+                {this.state.questionList}
+              </Select>
+            </FormControl>
 
-        <DialogActions>
-          <Button onClick={this.handleClose.bind(this)} color="info">
-            Cancel
+          </DialogContent>
+
+          <DialogActions>
+            <Button onClick={this.handleClose.bind(this)} color="info">
+              Cancel
           </Button>
-          <Button onClick={this.handleSubmit.bind(this)} color="info">
-            Submit
+            <Button onClick={this.handleSubmit.bind(this)} color="info">
+              Submit
           </Button>
-        </DialogActions>
-      </Dialog>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }
