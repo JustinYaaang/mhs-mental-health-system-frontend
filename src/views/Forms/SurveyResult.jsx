@@ -15,7 +15,7 @@ import * as widgets from "surveyjs-widgets";
 import "icheck/skins/square/blue.css";
 import axios from "axios";
 import { getAnsweredQuestionnaire } from "../../services/BackendService";
-import Modal from 'components/Modal/Modal.jsx'
+
 
 import FixedActions from "components/FixedPlugin/FixedActions.jsx";
 
@@ -51,7 +51,8 @@ class SurveyResult extends Component {
         "showProgressBar": ""
       },
       answers: {},
-      patient:[]
+      patient:[],
+      id:this.props.match.params
     };
   }
 
@@ -61,7 +62,7 @@ class SurveyResult extends Component {
 
   componentWillMount() {
     const { id } = this.props.match.params;
-    console.log(id)
+    console.log(this.state.id)
     getAnsweredQuestionnaire(id)
       .then(fetched_answers => {
         this.setState({patient:fetched_answers.patient_id})
@@ -92,7 +93,6 @@ class SurveyResult extends Component {
 
     return (
       <div>
-        <Modal/>
 
 
 
@@ -114,11 +114,13 @@ class SurveyResult extends Component {
           </div>
         </div>
         <FixedActions
+              id={this.state.id}
               patient = {this.state.patient}
               bgColor={this.state["color"]}
               bgImage={this.state["image"]}
               handleFixedClick={this.handleFixedClick}
               fixedClasses={this.state.fixedClasses}
+              history={this.props.history}
           />
       </div>
 

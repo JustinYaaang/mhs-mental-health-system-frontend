@@ -15,11 +15,13 @@ import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { fetchQuestionnaires} from "../../services/BackendService";
+import { fetchQuestionnaires,updateCase} from "../../services/BackendService";
+import swal from 'sweetalert2'
 
 class FixedActions extends Component {
   constructor(props) {
     super(props);
+    console.log(props)
     this.state = {
       classes: "dropdown show",
       bg_checked: true,
@@ -27,9 +29,13 @@ class FixedActions extends Component {
       open: false,
       question:[],
       questionList:[],
-      patient:this.props.patient
+      patient:this.props.patient,
+      id:this.props.id[0],
+      history:this.props.history
     };
+    console.log(this.state.history)
     this.handleRefer = this.handleRefer.bind(this);
+    this.handleCloseCase = this.handleCloseCase.bind(this);
   }
 
   handleRefer() {
@@ -52,6 +58,21 @@ class FixedActions extends Component {
   handleChangeQuestion = () => event => {
     this.setState({question: event.target.value})
   };
+
+
+  handleCloseCase(){
+    console.log(this.state.id)
+    updateCase({id:this.state.id}).then(response=>{
+      console.log(response)
+
+      swal.fire({
+        type: 'success',
+        title: 'Success!',
+        text: 'The case has been closed!'
+      })
+      this.state.history.goBack()
+    })
+  }
 
   componentWillMount() {
     fetchQuestionnaires().then( 
@@ -109,7 +130,7 @@ class FixedActions extends Component {
               <div className="button-container">
                 <Button
                   color="danger"
-                  href="/"
+                  onClick={this.handleCloseCase}
                   target="_blank"
                   fullWidth
                 >

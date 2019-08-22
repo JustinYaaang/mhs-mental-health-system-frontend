@@ -69,7 +69,7 @@ const fetchQuestionnaires = async () => {
       }
     })
     return {
-      'questionnaire':response.data.data,
+      'questionnaire': response.data.data,
       'idDraftList': idDraftList,
       'idPublishedList': idPublishedList,
       'questionnaireDraftList': questionnaireDraftList,
@@ -465,6 +465,6 @@ export {
   fetchQuestionnaires, fetchUserDetail, fetchWeeklyResult, fetchUserAnswers,
   getQuestionnaire, getAnsweredQuestionnaire, fetchQuestionnaire,
   deleteQuestionnaire, getAuthenticationToken, getQuestionnaireWithoutToken,
-  getQuestionnaireWithToken,
+  getQuestionnaireWithToken,updateCase,
   getPersonnel, updatePersonnel, updateOrganization, deleteOrganization, deletePersonnel, createOrganization, createPersonnel
 }
