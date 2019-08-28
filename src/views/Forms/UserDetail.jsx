@@ -142,6 +142,7 @@ class UserDetail extends Component {
                       tableHeaderColor='info'
                       tableHead={['Questionnaire Name', 'Status']}
                       tableData={this.state.tableData}
+                      history={this.props.history}
                     />
                   </GridItem>
                 </GridContainer>

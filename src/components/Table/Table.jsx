@@ -14,12 +14,19 @@ import { BrowserRouter, Route } from 'react-router-dom'
 
 // function CustomTable({ ...props }) {
 class CustomTable extends Component {
+  constructor(props){
+    super(props)
+    this.state={
+      history:this.props.history
+    }
+  }
   
   redirectToAnswers = (prop) => {
     console.log(prop[prop.length - 1]);
     const questionnaireResponseId = prop[prop.length - 1];
    //document.location.href = '/patientanswers/'+ questionnaireResponseId;
-    // this.props.history.push(questionnaireResponseId)
+    this.state.history.push()
+
   }
 
   render() {

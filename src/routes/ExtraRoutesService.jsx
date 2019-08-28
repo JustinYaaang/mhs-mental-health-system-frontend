@@ -37,10 +37,10 @@ const dashboardRoutes = [
   },
   {
     path: '/triagelist/user/:id/:id',
-    name: 'User Detail',
+    name: 'Patient Answer',
     rtlName: 'لوحة القيادة',
     icon: Dashboard,
-    component: userdetail,
+    component: patientanswers,
     layout: '/service'
   },
   {
