@@ -46,7 +46,10 @@ const styles = {
 class ServiceDetails extends Component {
   constructor(props) {
     super(props)
-    const { id } = this.props.match.params //organization's ID
+    var id = ""
+    if (this.props.match !== undefined) {
+      id = this.props.match.params.id
+    }
     sessionStorage.setItem('organizationID', id)
     this.state = {
       id: id, personelList: []

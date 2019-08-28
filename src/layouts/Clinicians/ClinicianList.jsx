@@ -51,7 +51,11 @@ class ClinicianList extends Component {
   }
 
   componentWillMount() {
-    var body = { organisation_id: sessionStorage.currentOrganizationID }
+    var body = { organisation_id: "" }
+    if (sessionStorage.currentOrganizationID !== undefined) {
+      var body = { organisation_id: sessionStorage.currentOrganizationID }
+    }
+
     getPersonnel(body).then(response => {
       var i = 1;
       var thelist = new
@@ -74,7 +78,6 @@ class ClinicianList extends Component {
 
   createNewClinician = () => {
     this.props.history.push(this.props.history.location.pathname + "/new")
-    console.log("!!")
   }
 
   deleteClinician = (clinicianId) => {

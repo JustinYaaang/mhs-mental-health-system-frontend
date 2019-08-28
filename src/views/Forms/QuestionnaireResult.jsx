@@ -13,7 +13,7 @@ import "select2/dist/js/select2.js";
 import "jquery-bar-rating";
 import * as widgets from "surveyjs-widgets";
 import "icheck/skins/square/blue.css";
-import { fetchQuestionnaire} from "../../services/BackendService";
+import { fetchQuestionnaire } from "../../services/BackendService";
 
 import FixedActions from "components/FixedPlugin/FixedActions.jsx";
 
@@ -52,10 +52,14 @@ class QuestionnaireResult extends Component {
   }
 
   componentWillMount() {
-    const {id} = this.props.match.params;
+     // const {id} = this.props.match.params;
+    var id = ""
+    if (this.props.match !== undefined) {
+      id = this.props.match.params.id
+    }
     fetchQuestionnaire(id)
       .then(fetched_answers => {
-        
+
         var jsonData = fetched_answers.body;
 
         for (var i = 1; i < jsonData.pages.length; i++) {
@@ -65,7 +69,7 @@ class QuestionnaireResult extends Component {
         }
         jsonData.pages = [jsonData.pages[0]]
         jsonData.pages[0].title = ""
-       
+
         this.setState({ json: jsonData });
       })
       .catch(error => {
@@ -96,7 +100,7 @@ class QuestionnaireResult extends Component {
               fixedClasses={this.state.fixedClasses}
           /> */}
       </div>
-      
+
     );
   }
 }

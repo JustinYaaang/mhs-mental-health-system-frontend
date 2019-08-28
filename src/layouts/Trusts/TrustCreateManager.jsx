@@ -44,7 +44,10 @@ const styles = {
 class TrustCreateManager extends Component {
   constructor (props) {
     super(props)
-    const { id } = this.props.match.params
+    var id = ""
+    if (this.props.match !== undefined) {
+      id = this.props.match.params.id
+    }
     this.state = { id: id
     }
     console.log(this.props.history)

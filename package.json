@@ -24,6 +24,7 @@
     "react-router-dom": "5.0.1",
     "react-scripts": "3.0.1",
     "react-swipeable-views": "0.13.3",
+    "sinon": "^7.4.1",
     "standard": "^12.0.1",
     "survey-creator": "latest",
     "survey-react": "latest",
@@ -34,7 +35,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "cross-env CI=true react-scripts test --coverage --collectCoverageFrom=./src/layouts/Trusts/*.jsx --env=jsdom --passWithNoTests -u",
+    "test": "cross-env CI=true react-scripts test --coverage --env=jsdom --passWithNoTests -u",
     "eject": "react-scripts eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
     "lint:check": "eslint . --ext=js,jsx;  exit 0",
@@ -82,6 +83,11 @@
     "coverageReporters": [
       "text",
       "cobertura"
+    ],
+    "collectCoverageFrom": [
+      "./src/views/*/*.js*",
+      "./src/layouts/*/*.js*",
+      "./src/layouts/*.js"
     ]
   },
   "browserslist": {

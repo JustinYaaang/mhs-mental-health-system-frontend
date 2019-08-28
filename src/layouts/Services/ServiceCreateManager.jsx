@@ -44,7 +44,10 @@ class ServiceCreateManager extends Component {
   constructor (props) {
     super(props)
     console.log(this.props.history)
-    const { id } = this.props.match.params
+    var id = ""
+    if (this.props.match !== undefined) {
+      id = this.props.match.params.id
+    }
     this.state = { id: id
     }
   }

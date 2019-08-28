@@ -52,7 +52,11 @@ class TrustDetails extends Component {
 
     super(props)
     console.log(this.props.history)
-    const { id } = this.props.match.params //organization's ID
+    //const { id } = this.props.match.params //organization's ID
+    var id = ""
+    if (this.props.match !== undefined) {
+      id = this.props.match.params.id
+    }
     sessionStorage.setItem('organizationID', id)
     this.state = {
       id: id, personelList: ''

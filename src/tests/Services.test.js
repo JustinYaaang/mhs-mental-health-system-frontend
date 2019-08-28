@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow,mount } from 'enzyme'
 import ServiceDetails from '../layouts/Services/ServiceDetails'
 import ServiceList from '../layouts/Services/ServiceList'
 import ServiceCreateManager from '../layouts/Services/ServiceCreateManager'
@@ -11,14 +11,14 @@ configure({ adapter: new Adapter() })
 
 describe('Service Details', () => {
   it('should render correctly', async () => {
-    const component = shallow(<ServiceDetails />)
+    const component = mount(<ServiceDetails />)
 
     expect(component).toMatchSnapshot()
   })
 })
 describe('Service List', () => {
   it('should render correctly', async () => {
-    const component = shallow(<ServiceList />)
+    const component = mount(<ServiceList />)
 
     expect(component).toMatchSnapshot()
   })
@@ -26,21 +26,21 @@ describe('Service List', () => {
 
 describe('Service Create Manager', () => {
   it('should render correctly', async () => {
-    const component = shallow(<ServiceCreateManager />)
+    const component = mount(<ServiceCreateManager />)
 
     expect(component).toMatchSnapshot()
   })
 })
 describe('Service Create New', () => {
   it('should render correctly', async () => {
-    const component = shallow(<ServiceCreateNew />)
+    const component = mount(<ServiceCreateNew />)
 
     expect(component).toMatchSnapshot()
   })
 })
 describe('Service User Details', () => {
   it('should render correctly', async () => {
-    const component = shallow(<ServiceUserDetails />)
+    const component = mount(<ServiceUserDetails />)
 
     expect(component).toMatchSnapshot()
   })

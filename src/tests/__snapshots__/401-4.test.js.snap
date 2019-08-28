@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`401 should render correctly 1`] = `
+<div
+  class="page-body"
+>
+  <div
+    class="page-wrap"
+  >
+    <h1>
+      401
+    </h1>
+    <h2>
+      unauthorized
+    </h2>
+    <p>
+      Well, what to say. Hmm? Sorry ...
+    </p>
+    <p
+      class="redirect-p"
+    >
+      <a
+        class="redirect-a"
+        href="/"
+      >
+        home
+      </a>
+    </p>
+  </div>
+</div>
+`;
+
+exports[`404 should render correctly 1`] = `
+<div
+  class="page-body"
+>
+  <div
+    class="page-wrap"
+  >
+    <h1>
+      404
+    </h1>
+    <h2>
+      not found
+    </h2>
+    <p>
+      Sorry this page does not exist ...
+    </p>
+    <p
+      class="redirect-p"
+    >
+      <a
+        class="redirect-a"
+        href="/"
+      >
+        home
+      </a>
+    </p>
+  </div>
+</div>
+`;

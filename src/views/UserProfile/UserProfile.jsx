@@ -37,17 +37,34 @@ const styles = {
 }
 
 class UserProfile extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     const { classes } = props
-    var details = JSON.parse(sessionStorage.personDetails)
+    var details = {
+      role:"",
+      email:"",
+      first_name:"",
+      last_name:"",
+      organisation_id:{
+        name:"",
+        role:"",
+        address1:"",
+        address2:"",
+        postcode:""
+
+      }
+
+    }
+    if (sessionStorage.personDetails !== undefined) {
+      details = JSON.parse(sessionStorage.personDetails)
+    }
     this.state = {
       classes: classes,
       details: details
     }
   }
 
-  onSave () {
+  onSave() {
     var pass1 = document.getElementById('password1').value
     var pass2 = document.getElementById('password2').value
     // check if the password fields contain something
@@ -84,7 +101,7 @@ class UserProfile extends React.Component {
     }
   }
 
-  render () {
+  render() {
     return (
       <div>
         <GridContainer>

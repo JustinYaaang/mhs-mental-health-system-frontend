@@ -5,23 +5,9 @@ import PropTypes from "prop-types";
 import ChartistGraph from "react-chartist";
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
-import Icon from "@material-ui/core/Icon";
-// @material-ui/icons
-import DateRange from "@material-ui/icons/DateRange";
-import LocalOffer from "@material-ui/icons/LocalOffer";
-import Update from "@material-ui/icons/Update";
-import ArrowUpward from "@material-ui/icons/ArrowUpward";
-import AccessTime from "@material-ui/icons/AccessTime";
-import Accessibility from "@material-ui/icons/Accessibility";
-import Grade from "@material-ui/icons/Grade";
-import Code from "@material-ui/icons/Code";
-import All from "@material-ui/icons/AllInboxOutlined";
 // core components
-import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import InformationCard from 'components/DashboardComponent/InformationCard.jsx';
-import LineGraph from 'components/DashboardComponent/LineGraph.jsx';
-
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { fetchQuestionnaires, deleteQuestionnaire, fetchWeeklyResult,fetchUserAnswers } from "../../services/BackendService";
 import Questionnaire from "../Questionnaire/Questionnaire.jsx"
@@ -46,12 +32,11 @@ class Dashboard extends React.Component {
         window.location.href = '/clinician/triagelist'
     }
     else{
-        console.log("clickkkkkkk")
     }
   };
 
   componentWillMount() {
-    fetchQuestionnaires().then( //!!! AWAIT HERE
+    fetchQuestionnaires().then(
        response => {
         this.setState({'totalQuestionnaire': response.idPublishedList.length + response.questionnaireDraftList.length,});
       }

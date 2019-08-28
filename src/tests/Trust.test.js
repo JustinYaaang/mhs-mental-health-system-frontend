@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow,mount } from 'enzyme'
 import TrustDetails from '../layouts/Trusts/TrustDetails'
 import TrustList from '../layouts/Trusts/TrustList'
 import TrustCreateManager from '../layouts/Trusts/TrustCreateManager'
@@ -11,14 +11,14 @@ configure({ adapter: new Adapter() })
 
 describe('TrustDetails', () => {
   it('should render correctly', async () => {
-     const component = shallow(<TrustDetails />)
+     const component = mount(<TrustDetails />)
 
      expect(component).toMatchSnapshot()
   })
 })
 describe('TrustList', () => {
     it('should render correctly', async () => {
-       const component = shallow(<TrustList />)
+       const component = mount(<TrustList />)
   
        expect(component).toMatchSnapshot()
     })
@@ -26,21 +26,21 @@ describe('TrustList', () => {
 
   describe('Trust Create Manager', () => {
    it('should render correctly', async () => {
-      const component = shallow(<TrustCreateManager />)
+      const component = mount(<TrustCreateManager />)
  
       expect(component).toMatchSnapshot()
    })
  })
  describe('Trust Create New', () => {
    it('should render correctly', async () => {
-      const component = shallow(<TrustCreateNew />)
+      const component = mount(<TrustCreateNew />)
  
       expect(component).toMatchSnapshot()
    })
  })
  describe('Trust User Details', () => {
    it('should render correctly', async () => {
-      const component = shallow(<TrustUserDetails />)
+      const component = mount(<TrustUserDetails />)
  
       expect(component).toMatchSnapshot()
    })

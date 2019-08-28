@@ -5,6 +5,8 @@ import * as SurveyJSCreator from 'survey-creator'
 import * as Survey from 'survey-react'
 import { baseUrl, backendURL, fetchQuestionnairesUrl, patientanswersUrl, authenticationUrl, questionnaireWithoutToken } from '../variables/general'
 import { configure } from 'enzyme'
+import sinon from 'sinon'
+import { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16'
 configure({ adapter: new Adapter() })
 
@@ -30,8 +32,16 @@ describe('SurveyCreator', () => {
     })
 
   it('should render correctly', async () => {
-    const component = shallow(<SurveyCreator match={{ params: { id: '5d2f3dfd820884002fbabb40' }, isExact: true, path: '', url: '' }} />)
+    const component = mount(<SurveyCreator match={{ params: { id: '5d2f3dfd820884002fbabb40' }, isExact: true, path: '', url: '' }} />)
 
     expect(component).toMatchSnapshot()
   })
+
+  // it('simulates click events', () => {
+  //   const onButtonClick = sinon.spy()
+  //   const wrapper = mount(<SurveyCreator match={{ params: { id: '5d2f3dfd820884002fbabb40' }, isExact: true, path: '', url: '' }} xss/>)
+  //   wrapper.find('.btn').simulate('click')
+  //   //  expect(onButtonClick).to.have.property('callCount', 1)
+  // })
+
 })

@@ -52,7 +52,10 @@ class UserDetail extends Component {
   }
 
   componentWillMount() {
-    const { id } = this.props.match.params
+    var id = ""
+    if (this.props.match !== undefined) {
+      id = this.props.match.params.id
+    }
     var tableData = []
     fetchUserDetail(id)
       .then(response => {

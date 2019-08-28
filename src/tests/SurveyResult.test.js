@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow,mount } from 'enzyme'
 import SurveyCreator from '../layouts/SurveyCreator'
 import * as SurveyJSCreator from 'survey-creator'
 import * as Survey from 'survey-react'
@@ -37,7 +37,7 @@ describe('SurveyCreator', () => {
     })
 
   it('should render correctly', async () => {
-    const component = shallow(<SurveyCreator match={{ params: { id: '5d2f3f2a820884002fbabb41' }, isExact: true, path: '', url: '' }} />)
+    const component = mount(<SurveyCreator match={{ params: { id: '5d2f3f2a820884002fbabb41' }, isExact: true, path: '', url: '' }} />)
 
     expect(component).toMatchSnapshot()
   })

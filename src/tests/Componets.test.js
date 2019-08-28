@@ -1,7 +1,8 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow,mount } from 'enzyme'
 import InformationCard from '../components/DashboardComponent/InformationCard'
 import LineGraph from '../components/DashboardComponent/LineGraph'
+import TableList from '../views/TableList/TableList'
 import { baseUrl, backendURL, fetchQuestionnairesUrl, patientanswersUrl, authenticationUrl, questionnaireWithoutToken } from '../variables/general'
 import { configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
@@ -29,7 +30,7 @@ describe('Information Card', () => {
     })
 
   it('should render correctly', async () => {
-    const component = shallow(
+    const component = mount(
       <InformationCard
         color={'info'} title={'Total Questionnaires'} value={15}
         daterange={'Updated today'} classes={{
@@ -70,7 +71,7 @@ describe('Line Graph', () => {
     })
 
   it('should render correctly', async () => {
-    const component = shallow(
+    const component = mount(
       <LineGraph color={"success"} dailySubmission={
             {labels:[
               0: "S",
@@ -108,3 +109,22 @@ describe('Line Graph', () => {
             ></LineGraph>
 
         )})})
+
+
+        describe('Table List', () => {
+
+          const component = mount(
+            <TableList/>)
+          expect(component).toMatchSnapshot()
+
+        })
+
+
+
+        describe('Table List', () => {
+
+          const component = mount(
+            <TableList/>)
+          expect(component).toMatchSnapshot()
+
+        })

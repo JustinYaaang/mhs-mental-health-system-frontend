@@ -85,23 +85,7 @@ class Dashboard extends React.Component {
 
     return (
       <div>
-        {/* <GridContainer>
-          <InformationCard 
-            color={"info"} title={"Total Published Questionnaires"} value={this.state.totalPublishedQuestionnaire}
-            daterange={"Updated today"} classes={classes} onViewClicked={() => this.handleViewResultClick('questionnaire')}
-          />
-          <InformationCard 
-            color={"danger"} title={"Total Draft Questionnaires"} value={this.state.totalDraftQuestionnaire}
-            daterange={"Updated just now"} classes={classes} onViewClicked={() => this.handleViewResultClick('questionnaire')}
-          />
-          <InformationCard 
-            color={"success"} title={"Total Trusts"} value={this.state.totalTrusts}
-            daterange={"Just updated"} classes={classes} onViewClicked={() => this.handleViewResultClick('trust')}
-          />
-
-        </GridContainer> */}
         <GridContainer>
-          {/* <LineChart/> */}
           <QuestionnaireAdmin question = {this.props.history}/>
         </GridContainer>
       </div>
