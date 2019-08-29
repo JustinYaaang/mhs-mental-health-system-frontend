@@ -85,9 +85,9 @@
       "cobertura"
     ],
     "collectCoverageFrom": [
-      "./src/views/*/*.js*",
-      "./src/layouts/*/*.js*",
-      "./src/layouts/*.js"
+      "./src/layouts/Services/*.js*",
+      "./src/layouts/Trusts/*.js*",
+      "./src/layouts/Clinicians/*.js*"
     ]
   },
   "browserslist": {
